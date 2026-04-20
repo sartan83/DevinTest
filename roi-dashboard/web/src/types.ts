@@ -82,7 +82,7 @@ export interface RoiConfig {
 export const DEFAULT_CONFIG: RoiConfig = {
   acu_rate_usd: 2.25,
   hourly_rate_usd: 75,
-  hours_per_acu_vanilla: 0.75,
+  hours_per_acu_vanilla: 3,
   cursor_multiplier: 0.5,
   copilot_multiplier: 0.7,
   estimated_acus_per_hour: 1,

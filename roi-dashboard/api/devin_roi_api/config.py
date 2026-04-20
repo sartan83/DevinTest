@@ -22,7 +22,11 @@ def key_mode(api_key: str) -> str:
 class RoiConfig:
     acu_rate_usd: float = 2.25
     hourly_rate_usd: float = 75.0
-    hours_per_acu_vanilla: float = 0.75
+    # Hours of human dev time that one ACU of Devin compute would otherwise have
+    # consumed. 1 ACU ≈ 15 min of Devin runtime; picking 3.0 here implies a ~12×
+    # productivity multiplier vs a solo developer, roughly in line with Devin's
+    # published case-study benchmarks. Users can tune it in /settings.
+    hours_per_acu_vanilla: float = 3.0
     cursor_multiplier: float = 0.5
     copilot_multiplier: float = 0.7
     # Only used in v1 mode (personal keys): we don't have real ACU numbers, so we

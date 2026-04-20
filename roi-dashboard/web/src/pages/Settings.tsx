@@ -44,7 +44,7 @@ export default function Settings() {
         />
         <Field
           label="Vanilla hours per ACU of work"
-          hint="Estimate of human-developer hours a vanilla dev would spend to produce the same output as 1 ACU of Devin work."
+          hint="How many hours a solo human dev would need to produce the same output as 1 ACU (~15 min) of Devin compute. Default 3h/ACU implies ~12× productivity multiplier; raise to 5 for complex work, lower to 1.5 if you're conservative."
           value={draft.hours_per_acu_vanilla}
           onChange={(v) => update("hours_per_acu_vanilla", v)}
         />
