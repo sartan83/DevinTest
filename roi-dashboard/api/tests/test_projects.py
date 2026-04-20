@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from devin_roi_api.config import RoiConfig
+from devin_roi_api.config import RoiConfig, key_mode
 from devin_roi_api.projects import _is_running, _project_tags, _session_summary
 
 
@@ -11,6 +11,7 @@ def test_is_running_excludes_archived():
     assert _is_running("running", "waiting_for_user", False) is False
     assert _is_running("exit", None, False) is False
     assert _is_running("blocked", None, False) is True
+    assert _is_running("working", None, False) is True
     assert _is_running(None, None, False) is False
 
 
@@ -23,7 +24,7 @@ def test_project_tags_with_prefix():
     assert _project_tags([], "project:") == []
 
 
-def test_session_summary_defaults():
+def test_session_summary_v3():
     raw = {
         "session_id": "devin-xyz",
         "title": "Do a thing",
@@ -44,9 +45,23 @@ def test_session_summary_defaults():
     assert s["tags"] == ["project:alpha"]
 
 
-def test_session_summary_handles_missing_acu():
+def test_session_summary_v1_no_acu_fills_url():
+    # v1 payloads have no acus_consumed and no url; acu should be None and url synthesised.
+    raw = {
+        "session_id": "devin-abc123",
+        "status": "running",
+        "status_enum": "working",
+        "tags": ["project:alpha"],
+    }
+    s = _session_summary(raw)
+    assert s["acu"] is None
+    assert s["is_running"] is True
+    assert s["url"] == "https://app.devin.ai/sessions/abc123"
+
+
+def test_session_summary_exit_not_running():
     s = _session_summary({"session_id": "s", "status": "exit"})
-    assert s["acu"] == 0.0
+    assert s["acu"] is None
     assert s["is_running"] is False
 
 
@@ -54,3 +69,11 @@ def test_roi_config_defaults():
     cfg = RoiConfig()
     assert cfg.acu_rate_usd == 2.25
     assert cfg.cursor_multiplier == 0.5
+
+
+def test_key_mode_detects_service_user_prefix():
+    assert key_mode("cog_abc") == "v3"
+    assert key_mode("cog_") == "v3"
+    assert key_mode("apk_user_xyz") == "v1"
+    assert key_mode("") == "v1"
+    assert key_mode("random-thing") == "v1"

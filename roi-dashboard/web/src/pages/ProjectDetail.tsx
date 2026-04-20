@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppState } from "../state";
 import { ApiError, fetchProjects, pauseProject } from "../lib/api";
-import type { ProjectSummary } from "../types";
+import type { ProjectSummary, ProjectsResponse } from "../types";
 import { fmtNum, fmtPct, fmtRelative, fmtUsd } from "../lib/format";
 import clsx from "clsx";
 
@@ -11,6 +11,7 @@ export default function ProjectDetail() {
   const decoded = decodeURIComponent(tag);
   const { apiKey, config } = useAppState();
   const nav = useNavigate();
+  const [response, setResponse] = useState<ProjectsResponse | null>(null);
   const [project, setProject] = useState<ProjectSummary | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,7 @@ export default function ProjectDetail() {
     setLoading(true);
     try {
       const r = await fetchProjects(config);
+      setResponse(r);
       const p = r.projects.find((x) => x.tag === decoded) ?? null;
       setProject(p);
       setErr(p ? null : `No project "${decoded}" found.`);
@@ -58,6 +60,8 @@ export default function ProjectDetail() {
   }
 
   if (!apiKey) return null;
+  const pauseAvail = response?.pause_available ?? true;
+  const costAvail = response?.cost_available ?? true;
 
   return (
     <div className="space-y-6">
@@ -91,7 +95,8 @@ export default function ProjectDetail() {
           </button>
           <button
             className="btn-danger"
-            disabled={!project || project.running_count === 0 || pausing}
+            disabled={!project || project.running_count === 0 || pausing || !pauseAvail}
+            title={!pauseAvail ? "Pause requires a service-user key (cog_)" : undefined}
             onClick={onPause}
           >
             {pausing ? "Pausing…" : "Pause project"}
@@ -109,37 +114,58 @@ export default function ProjectDetail() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Stat label="Sessions" value={fmtNum(project.session_count, 0)} />
-            <Stat label="ACU used" value={fmtNum(project.total_acu, 1)} />
-            <Stat label="Devin cost" value={fmtUsd(project.devin_cost_usd)} />
+            <Stat
+              label="ACU used"
+              value={project.total_acu != null ? fmtNum(project.total_acu, 1) : "—"}
+            />
+            <Stat
+              label="Devin cost"
+              value={project.devin_cost_usd != null ? fmtUsd(project.devin_cost_usd) : "—"}
+            />
             <Stat
               label="Saved vs vanilla"
-              value={fmtUsd(
-                Math.max(0, project.baselines.vanilla_usd - project.devin_cost_usd)
-              )}
+              value={
+                project.baselines && project.devin_cost_usd != null
+                  ? fmtUsd(
+                      Math.max(
+                        0,
+                        project.baselines.vanilla_usd - project.devin_cost_usd
+                      )
+                    )
+                  : "—"
+              }
               highlight
             />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-3">
-            <BaselineCard
-              name="Vanilla dev"
-              baseline={project.baselines.vanilla_usd}
-              devin={project.devin_cost_usd}
-              roiPct={project.roi.vs_vanilla_pct}
-            />
-            <BaselineCard
-              name="Cursor-assisted"
-              baseline={project.baselines.cursor_usd}
-              devin={project.devin_cost_usd}
-              roiPct={project.roi.vs_cursor_pct}
-            />
-            <BaselineCard
-              name="Copilot-assisted"
-              baseline={project.baselines.copilot_usd}
-              devin={project.devin_cost_usd}
-              roiPct={project.roi.vs_copilot_pct}
-            />
-          </div>
+          {costAvail && project.baselines && project.roi && project.devin_cost_usd != null ? (
+            <div className="grid md:grid-cols-3 gap-3">
+              <BaselineCard
+                name="Vanilla dev"
+                baseline={project.baselines.vanilla_usd}
+                devin={project.devin_cost_usd}
+                roiPct={project.roi.vs_vanilla_pct}
+              />
+              <BaselineCard
+                name="Cursor-assisted"
+                baseline={project.baselines.cursor_usd}
+                devin={project.devin_cost_usd}
+                roiPct={project.roi.vs_cursor_pct}
+              />
+              <BaselineCard
+                name="Copilot-assisted"
+                baseline={project.baselines.copilot_usd}
+                devin={project.devin_cost_usd}
+                roiPct={project.roi.vs_copilot_pct}
+              />
+            </div>
+          ) : (
+            <div className="card p-4 border-amber-500/30 bg-amber-500/5 text-sm text-amber-200">
+              ROI comparison is unavailable in v1 mode — the legacy /v1 API doesn't
+              return ACU usage. Use a service-user key (<code className="font-mono">cog_…</code>)
+              to unlock cost and ROI.
+            </div>
+          )}
 
           <div className="card overflow-hidden">
             <div className="px-5 py-3 border-b border-ink-800/80 text-xs uppercase tracking-wider text-slate-500">
@@ -168,7 +194,9 @@ export default function ProjectDetail() {
                       >
                         {s.is_running && <span className="live-dot" />}
                         {s.status}
-                        {s.status_detail ? ` · ${s.status_detail}` : ""}
+                        {s.status_detail && s.status_detail !== s.status
+                          ? ` · ${s.status_detail}`
+                          : ""}
                       </span>
                       <div className="truncate text-slate-100">
                         {s.title ?? s.session_id}

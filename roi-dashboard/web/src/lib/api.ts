@@ -1,4 +1,4 @@
-import type { ProjectsResponse, RoiConfig } from "../types";
+import type { ApiMode, ProjectsResponse, RoiConfig } from "../types";
 import { getApiKey } from "./storage";
 
 const RAW_BASE =
@@ -64,6 +64,9 @@ export function pauseProject(tag: string): Promise<PauseResult> {
 export interface HealthResponse {
   ok: true;
   devin_api: "reachable" | "unreachable";
+  mode: ApiMode;
+  cost_available: boolean;
+  pause_available: boolean;
   user?: Record<string, unknown>;
 }
 

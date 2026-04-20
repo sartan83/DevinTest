@@ -63,6 +63,8 @@ export default function Dashboard() {
   if (!apiKey) return null;
 
   const t = data?.totals;
+  const costAvail = data?.cost_available ?? true;
+  const pauseAvail = data?.pause_available ?? true;
 
   return (
     <div className="space-y-6">
@@ -83,6 +85,28 @@ export default function Dashboard() {
         </button>
       </div>
 
+      {data && !costAvail && (
+        <div className="card p-4 border-amber-500/30 bg-amber-500/5 text-sm text-amber-200 flex items-start gap-3">
+          <span className="pill bg-amber-500/20 text-amber-200 border border-amber-500/30 shrink-0">
+            v1 mode
+          </span>
+          <div className="space-y-1">
+            <div className="font-medium text-amber-100">
+              Cost, ROI, and pause are disabled for personal keys.
+            </div>
+            <div className="text-amber-200/80">
+              You're signed in with a legacy personal key (<code className="font-mono">apk_user_…</code>).
+              The v1 API doesn't expose ACU usage or an archive endpoint — switch to a service-user key
+              (<code className="font-mono">cog_…</code>) on <a
+                className="underline hover:text-white"
+                href="https://docs.devin.ai/api-reference/overview"
+                target="_blank" rel="noreferrer"
+              >docs.devin.ai</a> to unlock ROI + pause.
+            </div>
+          </div>
+        </div>
+      )}
+
       {err && (
         <div className="card p-4 border-rose-500/30 bg-rose-500/5 text-sm text-rose-200">
           {err}
@@ -98,11 +122,18 @@ export default function Dashboard() {
             accent={t.running > 0 ? "emerald" : "slate"}
             live={t.running > 0}
           />
-          <Kpi label="Total ACU" value={fmtNum(t.acu, 1)} />
-          <Kpi label="Devin cost" value={fmtUsd(t.devin_cost_usd)} />
+          <Kpi label="Total ACU" value={t.acu != null ? fmtNum(t.acu, 1) : "—"} />
+          <Kpi
+            label="Devin cost"
+            value={t.devin_cost_usd != null ? fmtUsd(t.devin_cost_usd) : "—"}
+          />
           <Kpi
             label="Saved vs vanilla"
-            value={fmtUsd(Math.max(0, t.vanilla_usd - t.devin_cost_usd))}
+            value={
+              t.vanilla_usd != null && t.devin_cost_usd != null
+                ? fmtUsd(Math.max(0, t.vanilla_usd - t.devin_cost_usd))
+                : "—"
+            }
             accent="accent"
           />
         </div>
@@ -152,14 +183,14 @@ export default function Dashboard() {
             </div>
             <div className="col-span-1 text-right tabular-nums">{p.session_count}</div>
             <div className="col-span-1 text-right tabular-nums">
-              {fmtNum(p.total_acu, 1)}
+              {p.total_acu != null ? fmtNum(p.total_acu, 1) : "—"}
             </div>
             <div className="col-span-2 text-right tabular-nums">
-              {fmtUsd(p.devin_cost_usd)}
+              {p.devin_cost_usd != null ? fmtUsd(p.devin_cost_usd) : "—"}
             </div>
-            <RoiCell pct={p.roi.vs_vanilla_pct} />
-            <RoiCell pct={p.roi.vs_cursor_pct} />
-            <RoiCell pct={p.roi.vs_copilot_pct} />
+            <RoiCell pct={p.roi?.vs_vanilla_pct ?? null} />
+            <RoiCell pct={p.roi?.vs_cursor_pct ?? null} />
+            <RoiCell pct={p.roi?.vs_copilot_pct ?? null} />
             <div className="col-span-2 flex justify-end gap-2">
               <Link
                 to={`/p/${encodeURIComponent(p.tag)}`}
@@ -169,7 +200,8 @@ export default function Dashboard() {
               </Link>
               <button
                 className="btn-danger"
-                disabled={p.running_count === 0 || pausing === p.tag}
+                disabled={!pauseAvail || p.running_count === 0 || pausing === p.tag}
+                title={!pauseAvail ? "Pause requires a service-user key (cog_)" : undefined}
                 onClick={() => onPause(p.tag)}
               >
                 {pausing === p.tag ? "Pausing…" : "Pause"}
@@ -212,7 +244,13 @@ function Kpi({
   );
 }
 
-function RoiCell({ pct }: { pct: number }) {
+function RoiCell({ pct }: { pct: number | null }) {
+  if (pct == null)
+    return (
+      <div className="col-span-1 text-right tabular-nums text-sm text-slate-500">
+        —
+      </div>
+    );
   const good = pct > 0;
   return (
     <div

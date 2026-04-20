@@ -41,10 +41,21 @@ export default function Connect() {
     <div className="mx-auto max-w-xl">
       <h1 className="text-2xl font-semibold tracking-tight mb-1">Connect Devin</h1>
       <p className="text-slate-400 text-sm mb-6">
-        Paste your personal Devin API key. It's stored only in this browser's
-        local storage and sent to our backend per request — never persisted
-        server-side.
+        Paste your Devin API key. It's stored only in this browser's local
+        storage and sent to our backend per request — never persisted
+        server-side. Two key types work:
       </p>
+      <ul className="text-xs text-slate-400 mb-6 space-y-1 list-disc pl-5">
+        <li>
+          <code className="font-mono">cog_…</code> service-user key (v3 API) —
+          full dashboard: ACU cost, ROI, and pause.
+        </li>
+        <li>
+          <code className="font-mono">apk_user_…</code> personal key (legacy v1
+          API) — session list + running status only. Cost, ROI, and pause are
+          disabled because the v1 API doesn't expose them.
+        </li>
+      </ul>
       <form onSubmit={onSubmit} className="card p-5 space-y-4">
         <label className="block">
           <span className="text-xs uppercase tracking-wider text-slate-400">
@@ -54,7 +65,7 @@ export default function Connect() {
             className="input mt-1 font-mono"
             type="password"
             autoFocus
-            placeholder="dsk_..."
+            placeholder="cog_… or apk_user_…"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />

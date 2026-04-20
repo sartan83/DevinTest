@@ -42,7 +42,20 @@ npm run dev   # http://localhost:5173 — Vite proxies /api → http://127.0.0.1
 ```
 
 Then open http://localhost:5173, click **Connect Devin**, paste your Devin API key, and go.
-Get a key at https://app.devin.ai/settings/api-keys — needs the `ReadAccountMeta` permission.
+
+## API key types
+
+The dashboard accepts both Devin API key formats, but they unlock different features:
+
+| Prefix            | Source                                             | What works                                        | What's disabled                         |
+| ----------------- | -------------------------------------------------- | ------------------------------------------------- | --------------------------------------- |
+| `cog_…`           | [Service user](https://app.devin.ai/settings/service-users) (v3 API) | Everything: project list, running status, ACU cost, ROI vs Vanilla/Cursor/Copilot, pause project | —                                       |
+| `apk_user_…`      | [Personal API key](https://app.devin.ai/settings/api-keys) (legacy v1) | Project list, running status, basic session info  | Cost, ROI, and pause (v1 API exposes none of these) |
+
+When a personal key is detected the dashboard switches to "v1 mode": cost / ROI fields render as "—",
+the pause button is disabled with a tooltip, and a banner on the dashboard explains why. Swap in a
+service-user key to unlock the full experience — no restart needed, just paste a new key on
+**Connect**.
 
 ## Pause semantics
 
@@ -50,7 +63,8 @@ Get a key at https://app.devin.ai/settings/api-keys — needs the `ReadAccountMe
 endpoint on every session tagged with that project that is currently running. Per Devin's
 docs, archiving puts the session to sleep and preserves it for viewing. Archived sessions
 cannot be resumed; this is the only non-destructive "stop" primitive the public v3 API
-exposes today.
+exposes today. Pause is only available when connected with a service-user (`cog_…`) key —
+the legacy v1 API has no archive endpoint, so the button is disabled for personal keys.
 
 ## ROI math
 

@@ -8,8 +8,9 @@ import httpx
 from fastapi import FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import RoiConfig
+from .config import RoiConfig, key_mode
 from .devin_client import fetch_self
+from .devin_client_v1 import verify_key_v1
 from .projects import build_projects_response, pause_project
 
 
@@ -46,13 +47,25 @@ async def health(
     x_devin_api_key: str | None = Header(default=None),
 ) -> dict[str, Any]:
     key = _require_key(x_devin_api_key)
+    mode = key_mode(key)
     try:
-        me = await fetch_self(app.state.http, key)
+        me = (
+            await fetch_self(app.state.http, key)
+            if mode == "v3"
+            else await verify_key_v1(app.state.http, key)
+        )
     except HTTPException:
         raise
     except httpx.HTTPError as e:
         raise HTTPException(status_code=502, detail=f"Cannot reach Devin API: {e}") from e
-    return {"ok": True, "devin_api": "reachable", "user": me}
+    return {
+        "ok": True,
+        "devin_api": "reachable",
+        "mode": mode,
+        "cost_available": mode == "v3",
+        "pause_available": mode == "v3",
+        "user": me,
+    }
 
 
 @app.get("/api/projects")

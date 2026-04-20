@@ -8,6 +8,16 @@ from dataclasses import dataclass, field
 DEVIN_API_BASE = os.environ.get("DEVIN_API_BASE", "https://api.devin.ai").rstrip("/")
 
 
+def key_mode(api_key: str) -> str:
+    """Return "v3" for service-user keys (cog_* prefix) and "v1" for legacy personal keys.
+
+    v3 keys unlock the Organization API (ACU/cost, archive/pause). v1 keys only expose
+    session metadata (status, tags, timestamps) with no cost data and no pause endpoint.
+    """
+    k = (api_key or "").strip()
+    return "v3" if k.startswith("cog_") else "v1"
+
+
 @dataclass(frozen=True)
 class RoiConfig:
     acu_rate_usd: float = 2.25
