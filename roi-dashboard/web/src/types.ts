@@ -85,7 +85,7 @@ export const DEFAULT_CONFIG: RoiConfig = {
   hours_per_acu_vanilla: 0.75,
   cursor_multiplier: 0.5,
   copilot_multiplier: 0.7,
-  estimated_acus_per_hour: 4,
+  estimated_acus_per_hour: 1,
   hours_per_day: 8,
   tag_prefix: null,
 };

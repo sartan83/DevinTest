@@ -23,6 +23,8 @@ export default {
           saved: "#4ade80",
           sessions: "#f0abfc",
           days: "#fbbf24",
+          cursor: "#5eead4",
+          copilot: "#bef264",
         },
       },
       boxShadow: {

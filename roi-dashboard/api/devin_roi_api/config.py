@@ -27,8 +27,11 @@ class RoiConfig:
     copilot_multiplier: float = 0.7
     # Only used in v1 mode (personal keys): we don't have real ACU numbers, so we
     # estimate one ACU per session roughly as duration_hours * estimated_acus_per_hour.
-    # Default 4.0 ACU/hr ≈ what a "working" Devin session burns on average.
-    estimated_acus_per_hour: float = 4.0
+    # Default 1.0 ACU/hr is a conservative baseline — wall-clock duration includes
+    # idle/blocked time that Devin doesn't actually bill for, so a low rate keeps
+    # the estimate close to typical real usage. Tune up if your sessions are mostly
+    # active work.
+    estimated_acus_per_hour: float = 1.0
     tag_prefix: str | None = None
 
     @classmethod

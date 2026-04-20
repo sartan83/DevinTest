@@ -14,7 +14,7 @@ from .devin_client import archive_session, list_sessions, resolve_org_id
 from .devin_client_v1 import list_sessions_v1
 
 # Cap per-session duration used in v1 estimation so long-idle sessions don't dominate.
-MAX_ESTIMATED_HOURS_PER_SESSION = 12.0
+MAX_ESTIMATED_HOURS_PER_SESSION = 6.0
 
 RUNNING_STATUSES = {"running", "blocked", "new", "working"}
 RUNNING_DETAILS_NOT_ACTIVE = {

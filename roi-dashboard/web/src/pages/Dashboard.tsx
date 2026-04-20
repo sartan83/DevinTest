@@ -8,7 +8,14 @@ import clsx from "clsx";
 
 const POLL_MS = 8000;
 
-type KpiColor = "acu" | "cost" | "saved" | "sessions" | "days";
+type KpiColor =
+  | "acu"
+  | "cost"
+  | "saved"
+  | "sessions"
+  | "days"
+  | "cursor"
+  | "copilot";
 type Range = 1 | 3 | 7 | 14 | 30 | 90 | "all";
 const RANGES: readonly Range[] = [1, 3, 7, 14, 30, 90, "all"];
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -191,6 +198,8 @@ export default function Dashboard() {
   const vanillaUsd = hasAnyAcu
     ? sumAcu * config.hours_per_acu_vanilla * config.hourly_rate_usd
     : null;
+  const cursorUsd = vanillaUsd != null ? vanillaUsd * config.cursor_multiplier : null;
+  const copilotUsd = vanillaUsd != null ? vanillaUsd * config.copilot_multiplier : null;
   const t = {
     sessions: filteredSessions.length,
     running: filteredSessions.filter((s) => s.is_running).length,
@@ -198,12 +207,21 @@ export default function Dashboard() {
     acu: totalAcu,
     devin_cost_usd: devinCostUsd,
     vanilla_usd: vanillaUsd,
+    cursor_usd: cursorUsd,
+    copilot_usd: copilotUsd,
   };
   const pauseAvail = data?.pause_available ?? true;
-  const saved =
-    t.vanilla_usd != null && t.devin_cost_usd != null
-      ? Math.max(0, t.vanilla_usd - t.devin_cost_usd)
+  const savedVs = (baseline: number | null): number | null =>
+    baseline != null && t.devin_cost_usd != null
+      ? Math.max(0, baseline - t.devin_cost_usd)
       : null;
+  const roiVs = (baseline: number | null): number | null =>
+    baseline != null && t.devin_cost_usd != null && t.devin_cost_usd > 0
+      ? ((baseline - t.devin_cost_usd) / t.devin_cost_usd) * 100
+      : null;
+  const saved = savedVs(t.vanilla_usd);
+  const savedCursor = savedVs(t.cursor_usd);
+  const savedCopilot = savedVs(t.copilot_usd);
   const savedManDays =
     t.acu != null && config.hours_per_day > 0
       ? (t.acu * config.hours_per_acu_vanilla) / config.hours_per_day
@@ -262,8 +280,8 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* KPI tiles */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {/* Primary KPI tiles */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <KpiTile
           color="acu"
           label="Total ACU used"
@@ -277,18 +295,6 @@ export default function Dashboard() {
           label="Devin cost"
           value={t.devin_cost_usd != null ? fmtUsd(t.devin_cost_usd) : "—"}
           note={`@ $${config.acu_rate_usd}/ACU`}
-        />
-        <KpiTile
-          color="saved"
-          label="Saved vs vanilla"
-          value={saved != null ? fmtUsd(saved) : "—"}
-          note={
-            t.vanilla_usd != null && t.devin_cost_usd != null && t.devin_cost_usd > 0
-              ? `${fmtPct(
-                  ((t.vanilla_usd - t.devin_cost_usd) / t.devin_cost_usd) * 100
-                )} ROI`
-              : "vs $" + config.hourly_rate_usd + "/hr baseline"
-          }
         />
         <KpiTile
           color="days"
@@ -307,6 +313,49 @@ export default function Dashboard() {
           note={`${t.running} running · ${t.projects} projects`}
           live={t.running > 0}
         />
+      </div>
+
+      {/* Savings vs alternatives */}
+      <div>
+        <div className="flex items-end justify-between mb-3">
+          <h3 className="font-semibold tracking-tight">Savings vs alternatives</h3>
+          <div className="text-xs text-slate-500">
+            Devin cost {t.devin_cost_usd != null ? fmtUsd(t.devin_cost_usd) : "—"} compared to
+            each baseline
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <KpiTile
+            color="saved"
+            label="Saved vs Vanilla"
+            value={saved != null ? fmtUsd(saved) : "—"}
+            note={savingsNote(
+              t.vanilla_usd,
+              roiVs(t.vanilla_usd),
+              `$${config.hourly_rate_usd}/hr dev`
+            )}
+          />
+          <KpiTile
+            color="cursor"
+            label="Saved vs Cursor"
+            value={savedCursor != null ? fmtUsd(savedCursor) : "—"}
+            note={savingsNote(
+              t.cursor_usd,
+              roiVs(t.cursor_usd),
+              `Cursor ×${config.cursor_multiplier} of vanilla`
+            )}
+          />
+          <KpiTile
+            color="copilot"
+            label="Saved vs Copilot"
+            value={savedCopilot != null ? fmtUsd(savedCopilot) : "—"}
+            note={savingsNote(
+              t.copilot_usd,
+              roiVs(t.copilot_usd),
+              `Copilot ×${config.copilot_multiplier} of vanilla`
+            )}
+          />
+        </div>
       </div>
 
       {/* Daily usage chart */}
@@ -585,6 +634,8 @@ function KpiTile({
     saved: "from-green-400/25 to-green-400/0",
     sessions: "from-fuchsia-400/25 to-fuchsia-400/0",
     days: "from-amber-400/25 to-amber-400/0",
+    cursor: "from-teal-300/25 to-teal-300/0",
+    copilot: "from-lime-300/25 to-lime-300/0",
   };
   const valueColors: Record<KpiColor, string> = {
     acu: "text-kpi-acu",
@@ -592,6 +643,8 @@ function KpiTile({
     saved: "text-kpi-saved",
     sessions: "text-kpi-sessions",
     days: "text-kpi-days",
+    cursor: "text-kpi-cursor",
+    copilot: "text-kpi-copilot",
   };
   return (
     <div className="kpi-tile">
@@ -812,6 +865,25 @@ function parseTs(v: number | string | null | undefined): number | null {
   const d = new Date(v);
   const n = d.getTime();
   return Number.isFinite(n) ? n : null;
+}
+
+function savingsNote(
+  baseline: number | null,
+  roiPct: number | null,
+  fallback: string
+): string {
+  if (baseline == null) return fallback;
+  const baselineStr = `baseline ${new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(baseline)}`;
+  if (roiPct == null) return baselineStr;
+  const pct =
+    Math.abs(roiPct) >= 1000
+      ? `${(roiPct / 1000).toFixed(1)}k%`
+      : `${roiPct.toFixed(0)}%`;
+  return `${pct} ROI · ${baselineStr}`;
 }
 
 function todayISO(): string {

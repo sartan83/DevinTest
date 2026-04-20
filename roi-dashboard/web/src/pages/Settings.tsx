@@ -84,7 +84,7 @@ export default function Settings() {
         </p>
         <Field
           label="Estimated ACUs per hour of Devin work"
-          hint="Realistic default is ~4 ACU/hr for an actively working session. Lower if your sessions spend lots of time idle."
+          hint="Default 1.0 ACU/hr is conservative — wall-clock duration includes idle/blocked time that Devin doesn't bill. Bump toward 3-4 if your sessions are mostly active work."
           value={draft.estimated_acus_per_hour}
           onChange={(v) => update("estimated_acus_per_hour", v)}
           step="0.1"
