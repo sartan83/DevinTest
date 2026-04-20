@@ -31,6 +31,20 @@ def test_project_tags_with_prefix():
     assert _project_tags([], "project:") == []
 
 
+def test_project_tags_skips_system_tags_without_prefix():
+    # Devin's auto-added tags shouldn't become projects when no prefix is set.
+    assert _project_tags(
+        ["agent:devin-rs", "agent-preview:devin-opus-4-7", "feature-x"],
+        None,
+    ) == ["feature-x"]
+    # Empty result when every tag is a system tag.
+    assert _project_tags(["agent:devin-rs"], None) == []
+    # With an explicit prefix, system tags are still filtered by prefix match.
+    assert _project_tags(
+        ["agent:devin-rs", "project:alpha"], "project:"
+    ) == ["alpha"]
+
+
 def test_session_summary_v3():
     raw = {
         "session_id": "devin-xyz",

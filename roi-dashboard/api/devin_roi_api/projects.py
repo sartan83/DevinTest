@@ -79,12 +79,21 @@ def _session_summary(raw: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+# Tags Devin auto-adds to every session. When the user hasn't set a tag_prefix
+# we skip these so they don't show up as bogus "projects" that double-count
+# every session.
+SYSTEM_TAG_PREFIXES: tuple[str, ...] = ("agent:", "agent-preview:")
+
+
 def _project_tags(session_tags: list[str], prefix: str | None) -> list[str]:
     if not session_tags:
         return []
     if prefix:
         return [t[len(prefix):] for t in session_tags if t.startswith(prefix)]
-    return list(session_tags)
+    return [
+        t for t in session_tags
+        if not any(t.startswith(sp) for sp in SYSTEM_TAG_PREFIXES)
+    ]
 
 
 def _baselines(total_acu: float, cfg: RoiConfig) -> dict[str, float]:
