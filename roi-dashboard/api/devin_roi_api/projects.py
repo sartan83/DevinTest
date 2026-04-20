@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import time
 from collections import defaultdict
+from datetime import UTC, datetime
 from typing import Any
 
 import httpx
@@ -11,6 +12,9 @@ from fastapi import HTTPException
 from .config import RoiConfig, key_mode
 from .devin_client import archive_session, list_sessions, resolve_org_id
 from .devin_client_v1 import list_sessions_v1
+
+# Cap per-session duration used in v1 estimation so long-idle sessions don't dominate.
+MAX_ESTIMATED_HOURS_PER_SESSION = 12.0
 
 RUNNING_STATUSES = {"running", "blocked", "new", "working"}
 RUNNING_DETAILS_NOT_ACTIVE = {
@@ -111,13 +115,62 @@ async def _raw_sessions(client: httpx.AsyncClient, api_key: str) -> list[dict[st
     return await list_sessions_v1(client, api_key)
 
 
+def _parse_ts(value: Any) -> float | None:
+    """Parse an ISO-8601 string or numeric epoch (s or ms) into epoch seconds."""
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        v = float(value)
+        return v / 1000.0 if v > 1e12 else v
+    if isinstance(value, str):
+        s = value.strip()
+        if not s:
+            return None
+        if s.endswith("Z"):
+            s = s[:-1] + "+00:00"
+        try:
+            dt = datetime.fromisoformat(s)
+        except ValueError:
+            return None
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=UTC)
+        return dt.timestamp()
+    return None
+
+
+def _estimate_acu_for_session(summary: dict[str, Any], cfg: RoiConfig) -> float:
+    """Estimate ACU for a v1 session using duration × estimated_acus_per_hour.
+
+    For running sessions we use now as the end time; otherwise we use updated_at.
+    Duration is capped by MAX_ESTIMATED_HOURS_PER_SESSION so a long-idle session
+    doesn't distort the ROI numbers.
+    """
+    start = _parse_ts(summary.get("created_at"))
+    if start is None:
+        return 0.0
+    if summary.get("is_running"):
+        end = time.time()
+    else:
+        end = _parse_ts(summary.get("updated_at")) or start
+    hours = max(0.0, (end - start) / 3600.0)
+    hours = min(hours, MAX_ESTIMATED_HOURS_PER_SESSION)
+    rate = max(0.0, float(cfg.estimated_acus_per_hour))
+    return hours * rate
+
+
 async def build_projects_response(
     client: httpx.AsyncClient, api_key: str, cfg: RoiConfig
 ) -> dict[str, Any]:
     mode = key_mode(api_key)
     raw_sessions = await _raw_sessions(client, api_key)
     summaries = [_session_summary(s) for s in raw_sessions]
-    cost_available = mode == "v3"
+    estimated = mode == "v1"
+
+    # v1 keys don't expose real ACU usage — estimate per-session from wall-clock duration.
+    if estimated:
+        for s in summaries:
+            s["acu"] = _estimate_acu_for_session(s, cfg)
+    cost_available = True
 
     buckets: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for s in summaries:
@@ -127,20 +180,10 @@ async def build_projects_response(
     projects: list[dict[str, Any]] = []
     for tag, sessions in buckets.items():
         acu_values = [s["acu"] for s in sessions if s["acu"] is not None]
-        total_acu: float | None = sum(acu_values) if (cost_available and acu_values) else (
-            0.0 if cost_available else None
-        )
-        devin_cost: float | None
-        baselines: dict[str, float] | None
-        roi: dict[str, float] | None
-        if cost_available and total_acu is not None:
-            devin_cost = total_acu * cfg.acu_rate_usd
-            baselines = _baselines(total_acu, cfg)
-            roi = _roi(devin_cost, baselines)
-        else:
-            devin_cost = None
-            baselines = None
-            roi = None
+        total_acu: float = sum(acu_values) if acu_values else 0.0
+        devin_cost = total_acu * cfg.acu_rate_usd
+        baselines = _baselines(total_acu, cfg)
+        roi = _roi(devin_cost, baselines)
         running = sum(1 for s in sessions if s["is_running"])
         last_activity = max(
             (s["updated_at"] or s["created_at"] or 0 for s in sessions), default=None
@@ -171,24 +214,11 @@ async def build_projects_response(
         )
     )
 
-    totals_acu: float | None = (
-        sum(p["total_acu"] or 0.0 for p in projects) if cost_available else None
-    )
-    if cost_available:
-        devin_cost_total: float | None = (
-            totals_acu * cfg.acu_rate_usd if totals_acu is not None else None
-        )
-        vanilla_total: float | None = sum(
-            p["baselines"]["vanilla_usd"] for p in projects if p["baselines"]
-        )
-        cursor_total: float | None = sum(
-            p["baselines"]["cursor_usd"] for p in projects if p["baselines"]
-        )
-        copilot_total: float | None = sum(
-            p["baselines"]["copilot_usd"] for p in projects if p["baselines"]
-        )
-    else:
-        devin_cost_total = vanilla_total = cursor_total = copilot_total = None
+    totals_acu = sum(p["total_acu"] or 0.0 for p in projects)
+    devin_cost_total = totals_acu * cfg.acu_rate_usd
+    vanilla_total = sum(p["baselines"]["vanilla_usd"] for p in projects)
+    cursor_total = sum(p["baselines"]["cursor_usd"] for p in projects)
+    copilot_total = sum(p["baselines"]["copilot_usd"] for p in projects)
     totals = {
         "projects": len(projects),
         "sessions": sum(p["session_count"] for p in projects),
@@ -203,7 +233,9 @@ async def build_projects_response(
     return {
         "mode": mode,
         "cost_available": cost_available,
-        "pause_available": cost_available,
+        "pause_available": mode == "v3",
+        "estimated": estimated,
+        "estimated_acus_per_hour": cfg.estimated_acus_per_hour if estimated else None,
         "projects": projects,
         "totals": totals,
         "fetched_at": int(time.time()),

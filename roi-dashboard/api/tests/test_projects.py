@@ -1,7 +1,14 @@
 from __future__ import annotations
 
 from devin_roi_api.config import RoiConfig, key_mode
-from devin_roi_api.projects import _is_running, _project_tags, _session_summary
+from devin_roi_api.projects import (
+    MAX_ESTIMATED_HOURS_PER_SESSION,
+    _estimate_acu_for_session,
+    _is_running,
+    _parse_ts,
+    _project_tags,
+    _session_summary,
+)
 
 
 def test_is_running_excludes_archived():
@@ -77,3 +84,40 @@ def test_key_mode_detects_service_user_prefix():
     assert key_mode("apk_user_xyz") == "v1"
     assert key_mode("") == "v1"
     assert key_mode("random-thing") == "v1"
+
+
+def test_parse_ts_iso_and_epoch():
+    t = _parse_ts("2026-04-20T07:39:28Z")
+    assert t is not None and abs(t - 1776670768.0) < 1.0
+    assert _parse_ts(1776670768.0) == 1776670768.0
+    assert _parse_ts(1776670768000) == 1776670768.0
+    assert _parse_ts(None) is None
+    assert _parse_ts("not-a-date") is None
+
+
+def test_estimate_acu_uses_duration_and_rate():
+    cfg = RoiConfig(estimated_acus_per_hour=4.0)
+    # 2h finished session → 8 ACU
+    summary = {
+        "created_at": "2026-04-20T07:00:00Z",
+        "updated_at": "2026-04-20T09:00:00Z",
+        "is_running": False,
+    }
+    assert abs(_estimate_acu_for_session(summary, cfg) - 8.0) < 0.01
+
+
+def test_estimate_acu_caps_long_sessions():
+    cfg = RoiConfig(estimated_acus_per_hour=4.0)
+    # 48h span → should cap at MAX_ESTIMATED_HOURS_PER_SESSION
+    summary = {
+        "created_at": "2026-04-18T07:00:00Z",
+        "updated_at": "2026-04-20T07:00:00Z",
+        "is_running": False,
+    }
+    expected = MAX_ESTIMATED_HOURS_PER_SESSION * 4.0
+    assert _estimate_acu_for_session(summary, cfg) == expected
+
+
+def test_estimate_acu_zero_when_no_created_at():
+    cfg = RoiConfig(estimated_acus_per_hour=4.0)
+    assert _estimate_acu_for_session({"is_running": False}, cfg) == 0.0

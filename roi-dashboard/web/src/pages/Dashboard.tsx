@@ -63,7 +63,6 @@ export default function Dashboard() {
   if (!apiKey) return null;
 
   const t = data?.totals;
-  const costAvail = data?.cost_available ?? true;
   const pauseAvail = data?.pause_available ?? true;
 
   return (
@@ -85,23 +84,19 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {data && !costAvail && (
+      {data?.estimated && (
         <div className="card p-4 border-amber-500/30 bg-amber-500/5 text-sm text-amber-200 flex items-start gap-3">
           <span className="pill bg-amber-500/20 text-amber-200 border border-amber-500/30 shrink-0">
-            v1 mode
+            estimated
           </span>
           <div className="space-y-1">
             <div className="font-medium text-amber-100">
-              Cost, ROI, and pause are disabled for personal keys.
+              Cost and ROI are estimated from session duration, not real ACU usage.
             </div>
             <div className="text-amber-200/80">
-              You're signed in with a legacy personal key (<code className="font-mono">apk_user_…</code>).
-              The v1 API doesn't expose ACU usage or an archive endpoint — switch to a service-user key
-              (<code className="font-mono">cog_…</code>) on <a
-                className="underline hover:text-white"
-                href="https://docs.devin.ai/api-reference/overview"
-                target="_blank" rel="noreferrer"
-              >docs.devin.ai</a> to unlock ROI + pause.
+              You're signed in with a legacy personal key (<code className="font-mono">apk_user_…</code>), which doesn't expose ACU usage.
+              Cost is computed as <code className="font-mono">duration × {data.estimated_acus_per_hour ?? config.estimated_acus_per_hour} ACU/hr × ${config.acu_rate_usd}/ACU</code>.
+              Tune the ACU/hr assumption in <Link className="underline hover:text-white" to="/settings">Settings</Link>, or use a service-user key (<code className="font-mono">cog_…</code>) for real numbers and pause.
             </div>
           </div>
         </div>

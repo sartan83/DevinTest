@@ -61,7 +61,6 @@ export default function ProjectDetail() {
 
   if (!apiKey) return null;
   const pauseAvail = response?.pause_available ?? true;
-  const costAvail = response?.cost_available ?? true;
 
   return (
     <div className="space-y-6">
@@ -138,7 +137,16 @@ export default function ProjectDetail() {
             />
           </div>
 
-          {costAvail && project.baselines && project.roi && project.devin_cost_usd != null ? (
+          {response?.estimated && (
+            <div className="card p-4 border-amber-500/30 bg-amber-500/5 text-sm text-amber-200">
+              <span className="font-medium text-amber-100">Estimated.</span>{" "}
+              ACU and cost are approximated from session wall-clock duration at{" "}
+              <code className="font-mono">{response.estimated_acus_per_hour} ACU/hr</code>
+              {" "}(tunable in <Link className="underline hover:text-white" to="/settings">Settings</Link>).
+              For billed numbers, use a service-user key (<code className="font-mono">cog_…</code>).
+            </div>
+          )}
+          {project.baselines && project.roi && project.devin_cost_usd != null && (
             <div className="grid md:grid-cols-3 gap-3">
               <BaselineCard
                 name="Vanilla dev"
@@ -158,12 +166,6 @@ export default function ProjectDetail() {
                 devin={project.devin_cost_usd}
                 roiPct={project.roi.vs_copilot_pct}
               />
-            </div>
-          ) : (
-            <div className="card p-4 border-amber-500/30 bg-amber-500/5 text-sm text-amber-200">
-              ROI comparison is unavailable in v1 mode — the legacy /v1 API doesn't
-              return ACU usage. Use a service-user key (<code className="font-mono">cog_…</code>)
-              to unlock cost and ROI.
             </div>
           )}
 

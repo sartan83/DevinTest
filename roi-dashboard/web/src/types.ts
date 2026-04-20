@@ -51,6 +51,8 @@ export interface ProjectsResponse {
   mode: ApiMode;
   cost_available: boolean;
   pause_available: boolean;
+  estimated: boolean;
+  estimated_acus_per_hour: number | null;
   projects: ProjectSummary[];
   totals: {
     projects: number;
@@ -71,6 +73,7 @@ export interface RoiConfig {
   hours_per_acu_vanilla: number;
   cursor_multiplier: number;
   copilot_multiplier: number;
+  estimated_acus_per_hour: number;
   tag_prefix: string | null;
 }
 
@@ -80,5 +83,6 @@ export const DEFAULT_CONFIG: RoiConfig = {
   hours_per_acu_vanilla: 0.75,
   cursor_multiplier: 0.5,
   copilot_multiplier: 0.7,
+  estimated_acus_per_hour: 4,
   tag_prefix: null,
 };

@@ -52,8 +52,10 @@ export default function Connect() {
         </li>
         <li>
           <code className="font-mono">apk_user_…</code> personal key (legacy v1
-          API) — session list + running status only. Cost, ROI, and pause are
-          disabled because the v1 API doesn't expose them.
+          API) — session list, running status, and <em>estimated</em> ROI.
+          The v1 API doesn't expose real ACU usage, so cost is computed from
+          session wall-clock duration at a configurable rate
+          (default 4 ACU/hr — tunable in Settings). Pause is unavailable.
         </li>
       </ul>
       <form onSubmit={onSubmit} className="card p-5 space-y-4">

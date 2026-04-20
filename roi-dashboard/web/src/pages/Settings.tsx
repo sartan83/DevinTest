@@ -67,6 +67,24 @@ export default function Settings() {
       </section>
 
       <section className="card p-5 space-y-4">
+        <h2 className="font-medium">Personal-key estimation</h2>
+        <p className="text-xs text-slate-500">
+          Only used when you're signed in with a personal <code className="font-mono">apk_user_…</code> key.
+          The v1 API doesn't expose ACU usage, so cost / ROI are estimated from session wall-clock duration
+          using this rate. Service-user <code className="font-mono">cog_…</code> keys use real ACU numbers
+          and ignore this setting.
+        </p>
+        <Field
+          label="Estimated ACUs per hour of Devin work"
+          hint="Realistic default is ~4 ACU/hr for an actively working session. Lower if your sessions spend lots of time idle."
+          value={draft.estimated_acus_per_hour}
+          onChange={(v) => update("estimated_acus_per_hour", v)}
+          step="0.1"
+          min={0.1}
+        />
+      </section>
+
+      <section className="card p-5 space-y-4">
         <h2 className="font-medium">Project grouping</h2>
         <label className="block text-sm">
           <span className="text-xs uppercase tracking-wider text-slate-400">
@@ -115,11 +133,15 @@ function Field({
   hint,
   value,
   onChange,
+  step = "0.01",
+  min = 0,
 }: {
   label: string;
   hint?: string;
   value: number;
   onChange: (v: number) => void;
+  step?: string;
+  min?: number;
 }) {
   return (
     <label className="block text-sm">
@@ -129,8 +151,8 @@ function Field({
       <input
         className="input mt-1 font-mono"
         type="number"
-        step="0.01"
-        min={0}
+        step={step}
+        min={min}
         value={Number.isFinite(value) ? value : 0}
         onChange={(e) => onChange(Number(e.target.value))}
       />

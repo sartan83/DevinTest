@@ -25,6 +25,10 @@ class RoiConfig:
     hours_per_acu_vanilla: float = 0.75
     cursor_multiplier: float = 0.5
     copilot_multiplier: float = 0.7
+    # Only used in v1 mode (personal keys): we don't have real ACU numbers, so we
+    # estimate one ACU per session roughly as duration_hours * estimated_acus_per_hour.
+    # Default 4.0 ACU/hr ≈ what a "working" Devin session burns on average.
+    estimated_acus_per_hour: float = 4.0
     tag_prefix: str | None = None
 
     @classmethod
@@ -38,7 +42,8 @@ class RoiConfig:
                 return cls()
             kwargs = {}
             for f in ("acu_rate_usd", "hourly_rate_usd", "hours_per_acu_vanilla",
-                      "cursor_multiplier", "copilot_multiplier"):
+                      "cursor_multiplier", "copilot_multiplier",
+                      "estimated_acus_per_hour"):
                 if f in data and data[f] is not None:
                     try:
                         kwargs[f] = float(data[f])

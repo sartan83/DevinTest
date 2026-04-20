@@ -62,8 +62,9 @@ async def health(
         "ok": True,
         "devin_api": "reachable",
         "mode": mode,
-        "cost_available": mode == "v3",
+        "cost_available": True,
         "pause_available": mode == "v3",
+        "estimated": mode == "v1",
         "user": me,
     }
 

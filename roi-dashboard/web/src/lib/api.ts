@@ -67,6 +67,7 @@ export interface HealthResponse {
   mode: ApiMode;
   cost_available: boolean;
   pause_available: boolean;
+  estimated: boolean;
   user?: Record<string, unknown>;
 }
 
