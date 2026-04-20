@@ -23,19 +23,18 @@ class RoiConfig:
     acu_rate_usd: float = 2.25
     hourly_rate_usd: float = 75.0
     # Hours of human dev time that one ACU of Devin compute would otherwise have
-    # consumed. 1 ACU ≈ 15 min of Devin runtime; picking 3.0 here implies a ~12×
-    # productivity multiplier vs a solo developer, roughly in line with Devin's
-    # published case-study benchmarks. Users can tune it in /settings.
-    hours_per_acu_vanilla: float = 3.0
+    # consumed. 1 ACU ≈ 15 min of Devin runtime; picking 5.0 here implies a ~20×
+    # productivity multiplier vs a solo developer, in line with Devin's published
+    # case-study benchmarks for full-stack builds. Users can tune it in /settings.
+    hours_per_acu_vanilla: float = 5.0
     cursor_multiplier: float = 0.5
     copilot_multiplier: float = 0.7
     # Only used in v1 mode (personal keys): we don't have real ACU numbers, so we
     # estimate one ACU per session roughly as duration_hours * estimated_acus_per_hour.
-    # Default 1.0 ACU/hr is a conservative baseline — wall-clock duration includes
-    # idle/blocked time that Devin doesn't actually bill for, so a low rate keeps
-    # the estimate close to typical real usage. Tune up if your sessions are mostly
-    # active work.
-    estimated_acus_per_hour: float = 1.0
+    # Default 2.0 ACU/hr assumes sessions spend ~50% of wall-clock time actively
+    # working (vs blocked on user input), which matches observed v3 data. Lower to
+    # 1.0 for mostly-idle sessions, raise to 3-4 for heavy autonomous work.
+    estimated_acus_per_hour: float = 2.0
     tag_prefix: str | None = None
 
     @classmethod

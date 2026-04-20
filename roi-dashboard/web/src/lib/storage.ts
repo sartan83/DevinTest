@@ -4,7 +4,8 @@ import type { RoiConfig } from "../types";
 const KEY_API = "devin_roi.api_key";
 const KEY_CFG_V1 = "devin_roi.config.v1";
 const KEY_CFG_V2 = "devin_roi.config.v2";
-const KEY_CFG = "devin_roi.config.v3";
+const KEY_CFG_V3 = "devin_roi.config.v3";
+const KEY_CFG = "devin_roi.config.v4";
 const KEY_NAMES = "devin_roi.project_names.v1";
 
 export function getApiKey(): string | null {
@@ -32,11 +33,13 @@ export function getConfig(): RoiConfig {
       return { ...DEFAULT_CONFIG, ...parsed };
     }
     // Migrate from earlier versions. We preserve tuned fields but force-reset
-    // a handful of fields whose old defaults produced unrealistic numbers:
-    //   - estimated_acus_per_hour (v1 overestimated: 4 -> 1)
-    //   - hours_per_acu_vanilla  (v2 underestimated savings: 0.75 -> 3.0)
+    // the two estimate-calibration fields whose defaults have been re-tuned:
+    //   - estimated_acus_per_hour (1 -> 2, v1 -> v4)
+    //   - hours_per_acu_vanilla   (3 -> 5, v3 -> v4)
     const legacy =
-      localStorage.getItem(KEY_CFG_V2) ?? localStorage.getItem(KEY_CFG_V1);
+      localStorage.getItem(KEY_CFG_V3) ??
+      localStorage.getItem(KEY_CFG_V2) ??
+      localStorage.getItem(KEY_CFG_V1);
     if (legacy) {
       const parsed = JSON.parse(legacy) as Partial<RoiConfig>;
       const migrated: RoiConfig = {
@@ -48,6 +51,7 @@ export function getConfig(): RoiConfig {
       localStorage.setItem(KEY_CFG, JSON.stringify(migrated));
       localStorage.removeItem(KEY_CFG_V1);
       localStorage.removeItem(KEY_CFG_V2);
+      localStorage.removeItem(KEY_CFG_V3);
       return migrated;
     }
     return { ...DEFAULT_CONFIG };

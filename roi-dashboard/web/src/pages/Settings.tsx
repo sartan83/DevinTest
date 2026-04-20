@@ -44,7 +44,7 @@ export default function Settings() {
         />
         <Field
           label="Vanilla hours per ACU of work"
-          hint="How many hours a solo human dev would need to produce the same output as 1 ACU (~15 min) of Devin compute. Default 3h/ACU implies ~12× productivity multiplier; raise to 5 for complex work, lower to 1.5 if you're conservative."
+          hint="How many hours a solo human dev would need to produce the same output as 1 ACU (~15 min) of Devin compute. Default 5h/ACU implies ~20× productivity multiplier (in line with Devin case studies for full-stack builds). Lower to 3 for simpler work, raise to 8 for deep refactors."
           value={draft.hours_per_acu_vanilla}
           onChange={(v) => update("hours_per_acu_vanilla", v)}
         />
@@ -84,7 +84,7 @@ export default function Settings() {
         </p>
         <Field
           label="Estimated ACUs per hour of Devin work"
-          hint="Default 1.0 ACU/hr is conservative — wall-clock duration includes idle/blocked time that Devin doesn't bill. Bump toward 3-4 if your sessions are mostly active work."
+          hint="Default 2.0 ACU/hr assumes sessions are actively working ~50% of wall-clock time (observed v3 data). Lower to 1.0 for mostly-idle sessions, raise to 3-4 for autonomous long-running work."
           value={draft.estimated_acus_per_hour}
           onChange={(v) => update("estimated_acus_per_hour", v)}
           step="0.1"
