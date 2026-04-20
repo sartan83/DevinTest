@@ -9,8 +9,10 @@ import clsx from "clsx";
 const POLL_MS = 8000;
 
 type KpiColor = "acu" | "cost" | "saved" | "sessions" | "days";
-type Range = 1 | 3 | 7 | 14 | 30 | 90;
-const RANGES: readonly Range[] = [1, 3, 7, 14, 30, 90];
+type Range = 1 | 3 | 7 | 14 | 30 | 90 | "all";
+const RANGES: readonly Range[] = [1, 3, 7, 14, 30, 90, "all"];
+const DAY_MS = 24 * 60 * 60 * 1000;
+const rangeLabel = (r: Range) => (r === "all" ? "All" : `${r}d`);
 
 export default function Dashboard() {
   const { apiKey, config, projectNames, renameProject } = useAppState();
@@ -89,16 +91,121 @@ export default function Dashboard() {
     return Object.values(by);
   }, [data]);
 
+  // Filter window (inclusive start, exclusive end). null = no bound.
+  const [rangeStartMs, rangeEndMs] = useMemo<[number | null, number | null]>(() => {
+    if (specificDay) {
+      const [y, m, d] = specificDay.split("-").map((n) => parseInt(n, 10));
+      const s = new Date(y, (m ?? 1) - 1, d ?? 1, 0, 0, 0, 0).getTime();
+      return [s, s + DAY_MS];
+    }
+    if (range === "all") return [null, null];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return [today.getTime() - (range - 1) * DAY_MS, today.getTime() + DAY_MS];
+  }, [range, specificDay]);
+
+  const inWindow = useCallback(
+    (ts: number | null) => {
+      if (rangeStartMs === null) return true;
+      if (ts === null) return false;
+      if (ts < rangeStartMs) return false;
+      if (rangeEndMs !== null && ts >= rangeEndMs) return false;
+      return true;
+    },
+    [rangeStartMs, rangeEndMs]
+  );
+
+  const filteredSessions = useMemo(
+    () =>
+      allSessions.filter((s) =>
+        inWindow(parseTs(s.updated_at ?? s.created_at))
+      ),
+    [allSessions, inWindow]
+  );
+
+  const filteredProjects = useMemo(() => {
+    if (!data) return [];
+    return data.projects
+      .map((p) => {
+        const fs = p.sessions.filter((s) =>
+          inWindow(parseTs(s.updated_at ?? s.created_at))
+        );
+        if (fs.length === 0) return null;
+        const anyAcu = fs.some((s) => s.acu != null);
+        const acu = fs.reduce((a, s) => a + (s.acu ?? 0), 0);
+        const devinCost = anyAcu ? acu * config.acu_rate_usd : null;
+        const vanilla = anyAcu
+          ? acu * config.hours_per_acu_vanilla * config.hourly_rate_usd
+          : null;
+        const baselines =
+          vanilla != null
+            ? {
+                vanilla_usd: vanilla,
+                cursor_usd: vanilla * config.cursor_multiplier,
+                copilot_usd: vanilla * config.copilot_multiplier,
+              }
+            : null;
+        const roi =
+          devinCost != null && devinCost > 0 && baselines != null
+            ? {
+                vs_vanilla_pct:
+                  ((baselines.vanilla_usd - devinCost) / devinCost) * 100,
+                vs_cursor_pct:
+                  ((baselines.cursor_usd - devinCost) / devinCost) * 100,
+                vs_copilot_pct:
+                  ((baselines.copilot_usd - devinCost) / devinCost) * 100,
+              }
+            : null;
+        let lastTs = 0;
+        let lastActivity: number | string | null = null;
+        for (const s of fs) {
+          const ts = parseTs(s.updated_at ?? s.created_at);
+          if (ts != null && ts > lastTs) {
+            lastTs = ts;
+            lastActivity = s.updated_at ?? s.created_at;
+          }
+        }
+        return {
+          ...p,
+          session_count: fs.length,
+          running_count: fs.filter((s) => s.is_running).length,
+          total_acu: anyAcu ? acu : null,
+          devin_cost_usd: devinCost,
+          baselines,
+          roi,
+          last_activity: lastActivity,
+          sessions: fs,
+        };
+      })
+      .filter((p): p is NonNullable<typeof p> => p != null);
+  }, [data, inWindow, config]);
+
   if (!apiKey) return null;
 
-  const t = data?.totals;
+  // Totals computed from filtered sessions (not the backend response) so the
+  // range/date filter drives every tile and project row on the page.
+  const hasAnyAcu = filteredSessions.some((s) => s.acu != null);
+  const sumAcu = filteredSessions.reduce((a, s) => a + (s.acu ?? 0), 0);
+  const totalAcu = hasAnyAcu ? sumAcu : null;
+  const devinCostUsd = hasAnyAcu ? sumAcu * config.acu_rate_usd : null;
+  const vanillaUsd = hasAnyAcu
+    ? sumAcu * config.hours_per_acu_vanilla * config.hourly_rate_usd
+    : null;
+  const t = {
+    sessions: filteredSessions.length,
+    running: filteredSessions.filter((s) => s.is_running).length,
+    projects: filteredProjects.length,
+    acu: totalAcu,
+    devin_cost_usd: devinCostUsd,
+    vanilla_usd: vanillaUsd,
+  };
   const pauseAvail = data?.pause_available ?? true;
   const saved =
-    t?.vanilla_usd != null && t?.devin_cost_usd != null
+    t.vanilla_usd != null && t.devin_cost_usd != null
       ? Math.max(0, t.vanilla_usd - t.devin_cost_usd)
       : null;
   const savedManDays =
-    t?.acu != null && config.hours_per_day > 0
+    t.acu != null && config.hours_per_day > 0
       ? (t.acu * config.hours_per_acu_vanilla) / config.hours_per_day
       : null;
   const updatedAt = data?.fetched_at
@@ -113,7 +220,11 @@ export default function Dashboard() {
           <h2 className="text-2xl font-semibold tracking-tight">Usage</h2>
           <div className="text-xs text-slate-500 mt-1 flex items-center gap-3">
             <span>
-              {t?.running ?? 0} running · {t?.sessions ?? 0} sessions · {t?.projects ?? 0} projects
+              {t.running} running · {t.sessions} sessions · {t.projects} projects
+            </span>
+            <span className="text-slate-600">·</span>
+            <span className="pill bg-ink-800/70 text-slate-300 border border-ink-700/60">
+              {windowLabel({ specificDay, range, rangeStartMs, rangeEndMs })}
             </span>
             <span className="text-slate-600">·</span>
             <span>updated {updatedAt}</span>
@@ -156,7 +267,7 @@ export default function Dashboard() {
         <KpiTile
           color="acu"
           label="Total ACU used"
-          value={t?.acu != null ? fmtNum(t.acu, 1) : "—"}
+          value={t.acu != null ? fmtNum(t.acu, 1) : "—"}
           note={
             data?.estimated ? "Estimated from duration" : "Real usage from Devin"
           }
@@ -164,7 +275,7 @@ export default function Dashboard() {
         <KpiTile
           color="cost"
           label="Devin cost"
-          value={t?.devin_cost_usd != null ? fmtUsd(t.devin_cost_usd) : "—"}
+          value={t.devin_cost_usd != null ? fmtUsd(t.devin_cost_usd) : "—"}
           note={`@ $${config.acu_rate_usd}/ACU`}
         />
         <KpiTile
@@ -172,7 +283,7 @@ export default function Dashboard() {
           label="Saved vs vanilla"
           value={saved != null ? fmtUsd(saved) : "—"}
           note={
-            t?.vanilla_usd && t?.devin_cost_usd
+            t.vanilla_usd != null && t.devin_cost_usd != null && t.devin_cost_usd > 0
               ? `${fmtPct(
                   ((t.vanilla_usd - t.devin_cost_usd) / t.devin_cost_usd) * 100
                 )} ROI`
@@ -192,9 +303,9 @@ export default function Dashboard() {
         <KpiTile
           color="sessions"
           label="Sessions"
-          value={fmtNum(t?.sessions ?? 0, 0)}
-          note={`${t?.running ?? 0} running · ${t?.projects ?? 0} projects`}
-          live={(t?.running ?? 0) > 0}
+          value={fmtNum(t.sessions, 0)}
+          note={`${t.running} running · ${t.projects} projects`}
+          live={t.running > 0}
         />
       </div>
 
@@ -207,7 +318,9 @@ export default function Dashboard() {
                 ? `Hourly usage · ${new Date(specificDay).toLocaleDateString()}`
                 : range === 1
                   ? "Hourly usage · today"
-                  : `Daily usage (${range}d)`}
+                  : range === "all"
+                    ? "Daily usage · all time"
+                    : `Daily usage (${range}d)`}
             </h3>
             <div className="text-xs text-slate-500 mt-0.5">
               {specificDay || range === 1 ? "ACU per hour" : "ACU per day"} ·{" "}
@@ -230,7 +343,7 @@ export default function Dashboard() {
                     setRange(r);
                   }}
                 >
-                  {r}d
+                  {rangeLabel(r)}
                 </button>
               ))}
             </div>
@@ -256,11 +369,14 @@ export default function Dashboard() {
         </div>
         {specificDay || range === 1 ? (
           <HourlyUsageChart
-            sessions={allSessions}
+            sessions={filteredSessions}
             day={specificDay || todayISO()}
           />
         ) : (
-          <DailyUsageChart sessions={allSessions} days={range} />
+          <DailyUsageChart
+            sessions={filteredSessions}
+            days={range === "all" ? allTimeDays(allSessions) : range}
+          />
         )}
         <div className="mt-3 flex items-center gap-4 text-xs text-slate-500">
           <Legend color="#a78bfa" label="ACU" />
@@ -291,13 +407,15 @@ export default function Dashboard() {
           <div className="col-span-2 text-right">Actions</div>
         </div>
 
-        {data?.projects.length === 0 && (
+        {filteredProjects.length === 0 && (
           <div className="p-10 text-center text-slate-400 text-sm">
-            No sessions yet. Start one in the Devin app and it'll appear here.
+            {data && data.projects.length > 0
+              ? "No sessions in the selected time range."
+              : "No sessions yet. Start one in the Devin app and it'll appear here."}
           </div>
         )}
 
-        {data?.projects.map((p) => {
+        {filteredProjects.map((p) => {
           const label = projectNames[p.tag] ?? p.display_name;
           const isRenamed = projectNames[p.tag] != null;
           return (
@@ -386,16 +504,24 @@ export default function Dashboard() {
           <div>
             <h3 className="font-semibold tracking-tight">Recent sessions</h3>
             <div className="text-xs text-slate-500 mt-0.5">
-              Last {Math.min(10, allSessions.length)} · sorted by activity
+              Last {Math.min(10, filteredSessions.length)} · sorted by activity
             </div>
           </div>
         </div>
-        {allSessions.length === 0 && (
+        {filteredSessions.length === 0 && (
           <div className="p-10 text-center text-slate-400 text-sm">
-            No sessions.
+            No sessions in the selected time range.
           </div>
         )}
-        {allSessions.slice(0, 10).map((s) => (
+        {filteredSessions
+          .slice()
+          .sort((a, b) => {
+            const ta = parseTs(a.updated_at ?? a.created_at) ?? 0;
+            const tb = parseTs(b.updated_at ?? b.created_at) ?? 0;
+            return tb - ta;
+          })
+          .slice(0, 10)
+          .map((s) => (
           <div
             key={s.session_id}
             className="grid grid-cols-12 gap-3 items-center px-5 py-3 text-sm border-b border-ink-800/40 last:border-b-0 hover:bg-ink-800/30"
@@ -693,4 +819,44 @@ function todayISO(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
     d.getDate()
   ).padStart(2, "0")}`;
+}
+
+function allTimeDays(sessions: SessionSummary[]): number {
+  let earliest = Infinity;
+  for (const s of sessions) {
+    const ts = parseTs(s.created_at ?? s.updated_at);
+    if (ts != null && ts < earliest) earliest = ts;
+  }
+  if (!Number.isFinite(earliest)) return 7;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const days = Math.ceil((today.getTime() - earliest) / DAY_MS) + 1;
+  // clamp so the bar chart stays readable
+  return Math.min(Math.max(days, 7), 365);
+}
+
+function windowLabel({
+  specificDay,
+  range,
+  rangeStartMs,
+  rangeEndMs,
+}: {
+  specificDay: string;
+  range: Range;
+  rangeStartMs: number | null;
+  rangeEndMs: number | null;
+}): string {
+  if (specificDay) return new Date(specificDay).toLocaleDateString();
+  if (range === "all") return "all time";
+  if (range === 1) return "today";
+  if (rangeStartMs == null || rangeEndMs == null) return `last ${range}d`;
+  const startFmt = new Date(rangeStartMs).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+  const endFmt = new Date(rangeEndMs - 1).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+  return `${startFmt} – ${endFmt}`;
 }
