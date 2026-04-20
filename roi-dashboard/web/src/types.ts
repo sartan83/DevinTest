@@ -37,6 +37,7 @@ export interface Roi {
 
 export interface ProjectSummary {
   tag: string;
+  display_name: string;
   session_count: number;
   running_count: number;
   total_acu: number | null;

@@ -9,7 +9,7 @@ import clsx from "clsx";
 const POLL_MS = 8000;
 
 export default function Dashboard() {
-  const { apiKey, config } = useAppState();
+  const { apiKey, config, projectNames, renameProject } = useAppState();
   const nav = useNavigate();
   const [data, setData] = useState<ProjectsResponse | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -43,8 +43,22 @@ export default function Dashboard() {
     };
   }, [apiKey, load, nav]);
 
+  function onRename(tag: string, current: string, hasCustom: boolean) {
+    const next = window.prompt(
+      hasCustom
+        ? "Update project name (leave empty to reset):"
+        : "Rename this project (stored only in this browser):",
+      current
+    );
+    if (next === null) return;
+    renameProject(tag, next.trim() ? next : null);
+  }
+
   async function onPause(tag: string) {
-    if (!confirm(`Pause all running sessions tagged "${tag}"?`)) return;
+    const label = projectNames[tag] ??
+      data?.projects.find((p) => p.tag === tag)?.display_name ??
+      tag;
+    if (!confirm(`Pause all running sessions in "${label}"?`)) return;
     setPausing(tag);
     try {
       const r = await pauseProject(tag);
@@ -150,18 +164,33 @@ export default function Dashboard() {
             No sessions found yet. Tag your Devin sessions to group them as projects here.
           </div>
         )}
-        {data?.projects.map((p) => (
+        {data?.projects.map((p) => {
+          const label = projectNames[p.tag] ?? p.display_name;
+          const isRenamed = projectNames[p.tag] != null;
+          return (
           <div
             key={p.tag}
             className="grid grid-cols-12 gap-2 px-5 py-4 items-center border-b border-ink-800/60 last:border-b-0 hover:bg-ink-800/30"
           >
             <div className="col-span-3 min-w-0">
-              <Link
-                to={`/p/${encodeURIComponent(p.tag)}`}
-                className="font-medium text-slate-100 hover:text-accent truncate block"
-              >
-                {p.tag}
-              </Link>
+              <div className="flex items-center gap-1 min-w-0">
+                <Link
+                  to={`/p/${encodeURIComponent(p.tag)}`}
+                  className="font-medium text-slate-100 hover:text-accent truncate"
+                  title={label}
+                >
+                  {label}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => onRename(p.tag, label, isRenamed)}
+                  className="shrink-0 text-slate-500 hover:text-slate-200 text-xs"
+                  title={isRenamed ? "Edit custom name" : "Rename project"}
+                  aria-label="Rename project"
+                >
+                  ✎
+                </button>
+              </div>
               <div className="text-xs text-slate-500 mt-0.5 flex items-center gap-2">
                 {p.running_count > 0 ? (
                   <span className="pill bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
@@ -174,6 +203,9 @@ export default function Dashboard() {
                   </span>
                 )}
                 <span>last {fmtRelative(p.last_activity)}</span>
+                {isRenamed && (
+                  <span className="text-slate-500/70">· {p.display_name}</span>
+                )}
               </div>
             </div>
             <div className="col-span-1 text-right tabular-nums">{p.session_count}</div>
@@ -203,7 +235,8 @@ export default function Dashboard() {
               </button>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

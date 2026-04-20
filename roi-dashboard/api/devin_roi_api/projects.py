@@ -84,9 +84,11 @@ def _session_summary(raw: dict[str, Any]) -> dict[str, Any]:
 # every session.
 SYSTEM_TAG_PREFIXES: tuple[str, ...] = ("agent:", "agent-preview:")
 
-# Synthetic bucket name for sessions that, after filtering out system tags
-# (and applying any tag_prefix), don't match any user-defined project.
-UNTAGGED_BUCKET = "(untagged)"
+# Prefix used to synthesize a per-session bucket key for sessions that, after
+# filtering out system tags (and applying any tag_prefix), don't match any
+# user-defined project. Each such session becomes its own "project" row named
+# after the session title.
+SESSION_BUCKET_PREFIX = "session:"
 
 
 def _project_tags(session_tags: list[str], prefix: str | None) -> list[str]:
@@ -186,13 +188,19 @@ async def build_projects_response(
     cost_available = True
 
     buckets: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    bucket_display: dict[str, str] = {}
     for s in summaries:
         tags = _project_tags(s["tags"], cfg.tag_prefix)
         if not tags:
-            buckets[UNTAGGED_BUCKET].append(s)
+            # Untagged session — one bucket per session, named after the
+            # session's title so it shows up like it does in app.devin.ai.
+            key = f"{SESSION_BUCKET_PREFIX}{s['session_id']}"
+            buckets[key].append(s)
+            bucket_display[key] = s.get("title") or "Untitled session"
         else:
             for tag in tags:
                 buckets[tag].append(s)
+                bucket_display.setdefault(tag, tag)
 
     projects: list[dict[str, Any]] = []
     for tag, sessions in buckets.items():
@@ -208,6 +216,7 @@ async def build_projects_response(
         projects.append(
             {
                 "tag": tag,
+                "display_name": bucket_display.get(tag, tag),
                 "session_count": len(sessions),
                 "running_count": running,
                 "total_acu": total_acu,
@@ -227,7 +236,7 @@ async def build_projects_response(
         key=lambda p: (
             -p["running_count"],
             -(p["total_acu"] or 0.0),
-            p["tag"].lower(),
+            p["display_name"].lower(),
         )
     )
 

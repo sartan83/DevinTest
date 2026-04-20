@@ -9,7 +9,7 @@ import clsx from "clsx";
 export default function ProjectDetail() {
   const { tag = "" } = useParams();
   const decoded = decodeURIComponent(tag);
-  const { apiKey, config } = useAppState();
+  const { apiKey, config, projectNames, renameProject } = useAppState();
   const nav = useNavigate();
   const [response, setResponse] = useState<ProjectsResponse | null>(null);
   const [project, setProject] = useState<ProjectSummary | null>(null);
@@ -43,8 +43,24 @@ export default function ProjectDetail() {
     return () => window.clearInterval(id);
   }, [apiKey, load, nav]);
 
+  function onRename() {
+    if (!project) return;
+    const current = projectNames[decoded] ?? project.display_name;
+    const next = window.prompt(
+      projectNames[decoded] != null
+        ? "Update project name (leave empty to reset):"
+        : "Rename this project (stored only in this browser):",
+      current
+    );
+    if (next === null) return;
+    renameProject(decoded, next.trim() ? next : null);
+  }
+
   async function onPause() {
-    if (!confirm(`Pause all running sessions tagged "${decoded}"?`)) return;
+    const label = project
+      ? projectNames[decoded] ?? project.display_name
+      : decoded;
+    if (!confirm(`Pause all running sessions in "${label}"?`)) return;
     setPausing(true);
     try {
       const r = await pauseProject(decoded);
@@ -69,9 +85,27 @@ export default function ProjectDetail() {
           <Link to="/" className="text-xs text-slate-400 hover:text-white">
             ← All projects
           </Link>
-          <h1 className="text-2xl font-semibold tracking-tight truncate">
-            {decoded}
-          </h1>
+          <div className="flex items-center gap-2 min-w-0">
+            <h1 className="text-2xl font-semibold tracking-tight truncate">
+              {project ? (projectNames[decoded] ?? project.display_name) : decoded}
+            </h1>
+            {project && (
+              <button
+                type="button"
+                onClick={onRename}
+                className="text-slate-500 hover:text-slate-200 text-sm shrink-0"
+                title={projectNames[decoded] != null ? "Edit custom name" : "Rename project"}
+                aria-label="Rename project"
+              >
+                ✎
+              </button>
+            )}
+          </div>
+          {project && projectNames[decoded] != null && (
+            <div className="text-xs text-slate-500/80 mt-0.5">
+              original: {project.display_name}
+            </div>
+          )}
           {project && (
             <div className="text-xs text-slate-500 mt-1 flex items-center gap-2">
               {project.running_count > 0 ? (
