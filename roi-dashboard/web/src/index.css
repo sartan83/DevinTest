@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-ink-950 text-slate-100 antialiased font-sans;
+  background-image:
+    radial-gradient(1200px 600px at 85% -10%, rgba(167, 139, 250, 0.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(34, 211, 238, 0.06), transparent 60%);
+}
+
+.card {
+  @apply bg-ink-900/80 border border-ink-700/60 rounded-2xl backdrop-blur-sm;
+}
+
+.kpi-tile {
+  @apply card p-5 flex flex-col gap-1 relative overflow-hidden;
+}
+.kpi-label {
+  @apply text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400;
+}
+.kpi-value {
+  @apply text-4xl md:text-5xl font-semibold tracking-tight tabular-nums leading-none mt-1;
+}
+.kpi-note {
+  @apply text-xs text-slate-500 mt-2;
+}
+
+.side-section {
+  @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500 px-4 pt-6 pb-2;
+}
+.side-item {
+  @apply flex items-center gap-3 mx-2 px-3 py-2 rounded-lg text-sm text-slate-300
+         hover:bg-ink-800/80 hover:text-white transition;
+}
+.side-item.active {
+  @apply bg-ink-800 text-white shadow-[inset_2px_0_0_0_theme(colors.accent.DEFAULT)];
+}
+.side-icon {
+  @apply inline-flex h-5 w-5 items-center justify-center text-slate-400;
+}
+
+.btn {
+  @apply inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition;
+}
+
+.btn-primary {
+  @apply btn bg-accent text-ink-950 hover:bg-accent/90 font-semibold;
+}
+
+.btn-ghost {
+  @apply btn border border-ink-600 text-slate-200 hover:bg-ink-800;
+}
+
+.btn-danger {
+  @apply btn bg-rose-600/90 text-white hover:bg-rose-600;
+}
+
+.input {
+  @apply w-full rounded-lg bg-ink-800 border border-ink-600 px-3 py-2 text-sm text-slate-100
+         placeholder:text-slate-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent;
+}
+
+.pill {
+  @apply inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium;
+}
+
+.live-dot {
+  @apply inline-block h-2 w-2 rounded-full bg-emerald-400;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
+  animation: livepulse 1.6s ease-in-out infinite;
+}
+
+@keyframes livepulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.18); }
+  50% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+}

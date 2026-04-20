@@ -1,0 +1,934 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppState } from "../state";
+import { fetchProjects, ApiError, pauseProject } from "../lib/api";
+import type { ProjectsResponse, SessionSummary } from "../types";
+import { fmtNum, fmtPct, fmtRelative, fmtUsd } from "../lib/format";
+import clsx from "clsx";
+
+const POLL_MS = 8000;
+
+type KpiColor =
+  | "acu"
+  | "cost"
+  | "saved"
+  | "sessions"
+  | "days"
+  | "cursor"
+  | "copilot";
+type Range = 1 | 3 | 7 | 14 | 30 | 90 | "all";
+const RANGES: readonly Range[] = [1, 3, 7, 14, 30, 90, "all"];
+const DAY_MS = 24 * 60 * 60 * 1000;
+const rangeLabel = (r: Range) => (r === "all" ? "All" : `${r}d`);
+
+export default function Dashboard() {
+  const { apiKey, config, projectNames, renameProject } = useAppState();
+  const nav = useNavigate();
+  const [data, setData] = useState<ProjectsResponse | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [pausing, setPausing] = useState<string | null>(null);
+  const [range, setRange] = useState<Range>(7);
+  const [specificDay, setSpecificDay] = useState<string>("");
+  const timerRef = useRef<number | null>(null);
+
+  const load = useCallback(async () => {
+    if (!apiKey) return;
+    setLoading(true);
+    try {
+      const r = await fetchProjects(config);
+      setData(r);
+      setErr(null);
+    } catch (e) {
+      setErr(e instanceof ApiError ? e.message : "Failed to load projects.");
+    } finally {
+      setLoading(false);
+    }
+  }, [apiKey, config]);
+
+  useEffect(() => {
+    if (!apiKey) {
+      nav("/connect");
+      return;
+    }
+    load();
+    timerRef.current = window.setInterval(load, POLL_MS);
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
+  }, [apiKey, load, nav]);
+
+  function onRename(tag: string, current: string, hasCustom: boolean) {
+    const next = window.prompt(
+      hasCustom
+        ? "Update project name (leave empty to reset):"
+        : "Rename this project (stored only in this browser):",
+      current
+    );
+    if (next === null) return;
+    renameProject(tag, next.trim() ? next : null);
+  }
+
+  async function onPause(tag: string) {
+    const label =
+      projectNames[tag] ??
+      data?.projects.find((p) => p.tag === tag)?.display_name ??
+      tag;
+    if (!confirm(`Pause all running sessions in "${label}"?`)) return;
+    setPausing(tag);
+    try {
+      const r = await pauseProject(tag);
+      await load();
+      alert(
+        `Paused ${r.paused_session_ids.length} session(s).` +
+          (r.errors.length ? ` ${r.errors.length} error(s).` : "")
+      );
+    } catch (e) {
+      alert(e instanceof ApiError ? e.message : "Pause failed.");
+    } finally {
+      setPausing(null);
+    }
+  }
+
+  const allSessions = useMemo<SessionSummary[]>(() => {
+    if (!data) return [];
+    const by: Record<string, SessionSummary> = {};
+    for (const p of data.projects)
+      for (const s of p.sessions) by[s.session_id] = s;
+    return Object.values(by);
+  }, [data]);
+
+  // Filter window (inclusive start, exclusive end). null = no bound.
+  const [rangeStartMs, rangeEndMs] = useMemo<[number | null, number | null]>(() => {
+    if (specificDay) {
+      const [y, m, d] = specificDay.split("-").map((n) => parseInt(n, 10));
+      const s = new Date(y, (m ?? 1) - 1, d ?? 1, 0, 0, 0, 0).getTime();
+      return [s, s + DAY_MS];
+    }
+    if (range === "all") return [null, null];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return [today.getTime() - (range - 1) * DAY_MS, today.getTime() + DAY_MS];
+  }, [range, specificDay]);
+
+  const inWindow = useCallback(
+    (ts: number | null) => {
+      if (rangeStartMs === null) return true;
+      if (ts === null) return false;
+      if (ts < rangeStartMs) return false;
+      if (rangeEndMs !== null && ts >= rangeEndMs) return false;
+      return true;
+    },
+    [rangeStartMs, rangeEndMs]
+  );
+
+  const filteredSessions = useMemo(
+    () =>
+      allSessions.filter((s) =>
+        inWindow(parseTs(s.updated_at ?? s.created_at))
+      ),
+    [allSessions, inWindow]
+  );
+
+  const filteredProjects = useMemo(() => {
+    if (!data) return [];
+    return data.projects
+      .map((p) => {
+        const fs = p.sessions.filter((s) =>
+          inWindow(parseTs(s.updated_at ?? s.created_at))
+        );
+        if (fs.length === 0) return null;
+        const anyAcu = fs.some((s) => s.acu != null);
+        const acu = fs.reduce((a, s) => a + (s.acu ?? 0), 0);
+        const devinCost = anyAcu ? acu * config.acu_rate_usd : null;
+        const vanilla = anyAcu
+          ? acu * config.hours_per_acu_vanilla * config.hourly_rate_usd
+          : null;
+        const baselines =
+          vanilla != null
+            ? {
+                vanilla_usd: vanilla,
+                cursor_usd: vanilla * config.cursor_multiplier,
+                copilot_usd: vanilla * config.copilot_multiplier,
+              }
+            : null;
+        const roi =
+          devinCost != null && devinCost > 0 && baselines != null
+            ? {
+                vs_vanilla_pct:
+                  ((baselines.vanilla_usd - devinCost) / devinCost) * 100,
+                vs_cursor_pct:
+                  ((baselines.cursor_usd - devinCost) / devinCost) * 100,
+                vs_copilot_pct:
+                  ((baselines.copilot_usd - devinCost) / devinCost) * 100,
+              }
+            : null;
+        let lastTs = 0;
+        let lastActivity: number | string | null = null;
+        for (const s of fs) {
+          const ts = parseTs(s.updated_at ?? s.created_at);
+          if (ts != null && ts > lastTs) {
+            lastTs = ts;
+            lastActivity = s.updated_at ?? s.created_at;
+          }
+        }
+        return {
+          ...p,
+          session_count: fs.length,
+          running_count: fs.filter((s) => s.is_running).length,
+          total_acu: anyAcu ? acu : null,
+          devin_cost_usd: devinCost,
+          baselines,
+          roi,
+          last_activity: lastActivity,
+          sessions: fs,
+        };
+      })
+      .filter((p): p is NonNullable<typeof p> => p != null);
+  }, [data, inWindow, config]);
+
+  if (!apiKey) return null;
+
+  // Totals computed from filtered sessions (not the backend response) so the
+  // range/date filter drives every tile and project row on the page.
+  const hasAnyAcu = filteredSessions.some((s) => s.acu != null);
+  const sumAcu = filteredSessions.reduce((a, s) => a + (s.acu ?? 0), 0);
+  const totalAcu = hasAnyAcu ? sumAcu : null;
+  const devinCostUsd = hasAnyAcu ? sumAcu * config.acu_rate_usd : null;
+  const vanillaUsd = hasAnyAcu
+    ? sumAcu * config.hours_per_acu_vanilla * config.hourly_rate_usd
+    : null;
+  const cursorUsd = vanillaUsd != null ? vanillaUsd * config.cursor_multiplier : null;
+  const copilotUsd = vanillaUsd != null ? vanillaUsd * config.copilot_multiplier : null;
+  const t = {
+    sessions: filteredSessions.length,
+    running: filteredSessions.filter((s) => s.is_running).length,
+    projects: filteredProjects.length,
+    acu: totalAcu,
+    devin_cost_usd: devinCostUsd,
+    vanilla_usd: vanillaUsd,
+    cursor_usd: cursorUsd,
+    copilot_usd: copilotUsd,
+  };
+  const pauseAvail = data?.pause_available ?? true;
+  const savedVs = (baseline: number | null): number | null =>
+    baseline != null && t.devin_cost_usd != null
+      ? Math.max(0, baseline - t.devin_cost_usd)
+      : null;
+  const roiVs = (baseline: number | null): number | null =>
+    baseline != null && t.devin_cost_usd != null && t.devin_cost_usd > 0
+      ? ((baseline - t.devin_cost_usd) / t.devin_cost_usd) * 100
+      : null;
+  const saved = savedVs(t.vanilla_usd);
+  const savedCursor = savedVs(t.cursor_usd);
+  const savedCopilot = savedVs(t.copilot_usd);
+  const savedManDays =
+    t.acu != null && config.hours_per_day > 0
+      ? (t.acu * config.hours_per_acu_vanilla) / config.hours_per_day
+      : null;
+  const updatedAt = data?.fetched_at
+    ? new Date(data.fetched_at * 1000).toLocaleTimeString()
+    : "—";
+
+  return (
+    <div className="space-y-6">
+      {/* Header row */}
+      <div className="flex items-end justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-tight">Usage</h2>
+          <div className="text-xs text-slate-500 mt-1 flex items-center gap-3">
+            <span>
+              {t.running} running · {t.sessions} sessions · {t.projects} projects
+            </span>
+            <span className="text-slate-600">·</span>
+            <span className="pill bg-ink-800/70 text-slate-300 border border-ink-700/60">
+              {windowLabel({ specificDay, range, rangeStartMs, rangeEndMs })}
+            </span>
+            <span className="text-slate-600">·</span>
+            <span>updated {updatedAt}</span>
+          </div>
+        </div>
+        <button onClick={load} className="btn-ghost" disabled={loading}>
+          {loading ? "Refreshing…" : "Refresh"}
+        </button>
+      </div>
+
+      {data?.estimated && (
+        <div className="card p-4 border-amber-500/30 bg-amber-500/5 text-sm text-amber-200 flex items-start gap-3">
+          <span className="pill bg-amber-500/20 text-amber-200 border border-amber-500/30 shrink-0">
+            estimated
+          </span>
+          <div className="space-y-1">
+            <div className="font-medium text-amber-100">
+              Cost and ROI are estimated from session duration, not real ACU usage.
+            </div>
+            <div className="text-amber-200/80">
+              You're signed in with a personal key (<code className="font-mono">apk_user_…</code>).
+              Cost = <code className="font-mono">
+                duration × {data.estimated_acus_per_hour ?? config.estimated_acus_per_hour} ACU/hr × ${config.acu_rate_usd}/ACU
+              </code>.
+              Tune the ACU/hr in <Link className="underline hover:text-white" to="/settings">Settings</Link>,
+              or use a service-user key (<code className="font-mono">cog_…</code>) for real numbers + pause.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {err && (
+        <div className="card p-4 border-rose-500/30 bg-rose-500/5 text-sm text-rose-200">
+          {err}
+        </div>
+      )}
+
+      {/* Primary KPI tiles */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <KpiTile
+          color="acu"
+          label="Total ACU used"
+          value={t.acu != null ? fmtNum(t.acu, 1) : "—"}
+          note={
+            data?.estimated ? "Estimated from duration" : "Real usage from Devin"
+          }
+        />
+        <KpiTile
+          color="cost"
+          label="Devin cost"
+          value={t.devin_cost_usd != null ? fmtUsd(t.devin_cost_usd) : "—"}
+          note={`@ $${config.acu_rate_usd}/ACU`}
+        />
+        <KpiTile
+          color="days"
+          label="Man-days saved"
+          value={savedManDays != null ? fmtNum(savedManDays, 1) : "—"}
+          note={
+            savedManDays != null
+              ? `~${fmtNum(savedManDays * config.hours_per_day, 0)}h of dev work · ${config.hours_per_day}h/day`
+              : `vs ${config.hours_per_acu_vanilla}h/ACU vanilla`
+          }
+        />
+        <KpiTile
+          color="sessions"
+          label="Sessions"
+          value={fmtNum(t.sessions, 0)}
+          note={`${t.running} running · ${t.projects} projects`}
+          live={t.running > 0}
+        />
+      </div>
+
+      {/* Savings vs alternatives */}
+      <div>
+        <div className="flex items-end justify-between mb-3">
+          <h3 className="font-semibold tracking-tight">Savings vs alternatives</h3>
+          <div className="text-xs text-slate-500">
+            Devin cost {t.devin_cost_usd != null ? fmtUsd(t.devin_cost_usd) : "—"} compared to
+            each baseline
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <KpiTile
+            color="saved"
+            label="Saved vs Vanilla"
+            value={saved != null ? fmtUsd(saved) : "—"}
+            note={savingsNote(
+              t.vanilla_usd,
+              roiVs(t.vanilla_usd),
+              `$${config.hourly_rate_usd}/hr dev`
+            )}
+          />
+          <KpiTile
+            color="cursor"
+            label="Saved vs Cursor"
+            value={savedCursor != null ? fmtUsd(savedCursor) : "—"}
+            note={savingsNote(
+              t.cursor_usd,
+              roiVs(t.cursor_usd),
+              `Cursor ×${config.cursor_multiplier} of vanilla`
+            )}
+          />
+          <KpiTile
+            color="copilot"
+            label="Saved vs Copilot"
+            value={savedCopilot != null ? fmtUsd(savedCopilot) : "—"}
+            note={savingsNote(
+              t.copilot_usd,
+              roiVs(t.copilot_usd),
+              `Copilot ×${config.copilot_multiplier} of vanilla`
+            )}
+          />
+        </div>
+      </div>
+
+      {/* Daily usage chart */}
+      <div className="card p-5">
+        <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
+          <div>
+            <h3 className="font-semibold tracking-tight">
+              {specificDay
+                ? `Hourly usage · ${new Date(specificDay).toLocaleDateString()}`
+                : range === 1
+                  ? "Hourly usage · today"
+                  : range === "all"
+                    ? "Daily usage · all time"
+                    : `Daily usage (${range}d)`}
+            </h3>
+            <div className="text-xs text-slate-500 mt-0.5">
+              {specificDay || range === 1 ? "ACU per hour" : "ACU per day"} ·{" "}
+              {data?.estimated ? "estimated" : "real"}
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex gap-1">
+              {RANGES.map((r) => (
+                <button
+                  key={r}
+                  className={clsx(
+                    "rounded-md px-2.5 py-1 text-xs border tabular-nums",
+                    !specificDay && range === r
+                      ? "bg-ink-800 border-ink-600 text-white"
+                      : "border-ink-700/60 text-slate-400 hover:text-white hover:bg-ink-800/60"
+                  )}
+                  onClick={() => {
+                    setSpecificDay("");
+                    setRange(r);
+                  }}
+                >
+                  {rangeLabel(r)}
+                </button>
+              ))}
+            </div>
+            <span className="text-slate-600 text-xs">or</span>
+            <input
+              type="date"
+              className="input !py-1 !text-xs !w-auto tabular-nums"
+              value={specificDay}
+              max={todayISO()}
+              onChange={(e) => setSpecificDay(e.target.value)}
+              title="Pick a specific day (hourly breakdown)"
+            />
+            {specificDay && (
+              <button
+                className="rounded-md px-2 py-1 text-xs border border-ink-700/60 text-slate-400 hover:text-white hover:bg-ink-800/60"
+                onClick={() => setSpecificDay("")}
+                title="Clear date filter"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        </div>
+        {specificDay || range === 1 ? (
+          <HourlyUsageChart
+            sessions={filteredSessions}
+            day={specificDay || todayISO()}
+          />
+        ) : (
+          <DailyUsageChart
+            sessions={filteredSessions}
+            days={range === "all" ? allTimeDays(allSessions) : range}
+          />
+        )}
+        <div className="mt-3 flex items-center gap-4 text-xs text-slate-500">
+          <Legend color="#a78bfa" label="ACU" />
+          <Legend color="#4ade80" label="running" dashed />
+        </div>
+      </div>
+
+      {/* Projects table */}
+      <div className="card overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-ink-800/60">
+          <div>
+            <h3 className="font-semibold tracking-tight">Projects</h3>
+            <div className="text-xs text-slate-500 mt-0.5">
+              Grouped by session tag
+              {config.tag_prefix ? ` (prefix: "${config.tag_prefix}")` : ""}
+              {" · "}click ✎ to rename
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-12 gap-2 px-5 py-3 text-[10px] uppercase tracking-[0.14em] text-slate-500 border-b border-ink-800/60">
+          <div className="col-span-3">Project</div>
+          <div className="col-span-1 text-right">Sessions</div>
+          <div className="col-span-1 text-right">ACU</div>
+          <div className="col-span-2 text-right">Devin cost</div>
+          <div className="col-span-1 text-right">vs Vanilla</div>
+          <div className="col-span-1 text-right">vs Cursor</div>
+          <div className="col-span-1 text-right">vs Copilot</div>
+          <div className="col-span-2 text-right">Actions</div>
+        </div>
+
+        {filteredProjects.length === 0 && (
+          <div className="p-10 text-center text-slate-400 text-sm">
+            {data && data.projects.length > 0
+              ? "No sessions in the selected time range."
+              : "No sessions yet. Start one in the Devin app and it'll appear here."}
+          </div>
+        )}
+
+        {filteredProjects.map((p) => {
+          const label = projectNames[p.tag] ?? p.display_name;
+          const isRenamed = projectNames[p.tag] != null;
+          return (
+            <div
+              key={p.tag}
+              className="grid grid-cols-12 gap-2 px-5 py-4 items-center border-b border-ink-800/40 last:border-b-0 hover:bg-ink-800/30"
+            >
+              <div className="col-span-3 min-w-0">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <Link
+                    to={`/p/${encodeURIComponent(p.tag)}`}
+                    className="font-medium text-slate-100 hover:text-accent truncate"
+                    title={label}
+                  >
+                    {label}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => onRename(p.tag, label, isRenamed)}
+                    className="shrink-0 text-slate-500 hover:text-slate-200 text-xs"
+                    title={isRenamed ? "Edit custom name" : "Rename project"}
+                    aria-label="Rename project"
+                  >
+                    ✎
+                  </button>
+                </div>
+                <div className="text-xs text-slate-500 mt-1 flex items-center gap-2 flex-wrap">
+                  {p.running_count > 0 ? (
+                    <span className="pill bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                      <span className="live-dot" />
+                      {p.running_count} running
+                    </span>
+                  ) : (
+                    <span className="pill bg-ink-800 text-slate-400 border border-ink-700/60">
+                      idle
+                    </span>
+                  )}
+                  <span>last {fmtRelative(p.last_activity)}</span>
+                  {isRenamed && (
+                    <span className="text-slate-600">· {p.display_name}</span>
+                  )}
+                </div>
+              </div>
+              <div className="col-span-1 text-right tabular-nums text-slate-300">
+                {p.session_count}
+              </div>
+              <div className="col-span-1 text-right tabular-nums text-kpi-acu">
+                {p.total_acu != null ? fmtNum(p.total_acu, 1) : "—"}
+              </div>
+              <div className="col-span-2 text-right tabular-nums text-kpi-cost">
+                {p.devin_cost_usd != null ? fmtUsd(p.devin_cost_usd) : "—"}
+              </div>
+              <RoiCell pct={p.roi?.vs_vanilla_pct ?? null} />
+              <RoiCell pct={p.roi?.vs_cursor_pct ?? null} />
+              <RoiCell pct={p.roi?.vs_copilot_pct ?? null} />
+              <div className="col-span-2 flex justify-end gap-2">
+                <Link
+                  to={`/p/${encodeURIComponent(p.tag)}`}
+                  className="btn-ghost"
+                >
+                  Details
+                </Link>
+                <button
+                  className="btn-danger"
+                  disabled={
+                    !pauseAvail || p.running_count === 0 || pausing === p.tag
+                  }
+                  title={
+                    !pauseAvail
+                      ? "Pause requires a service-user key (cog_)"
+                      : undefined
+                  }
+                  onClick={() => onPause(p.tag)}
+                >
+                  {pausing === p.tag ? "Pausing…" : "Pause"}
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Recent sessions */}
+      <div className="card overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-ink-800/60">
+          <div>
+            <h3 className="font-semibold tracking-tight">Recent sessions</h3>
+            <div className="text-xs text-slate-500 mt-0.5">
+              Last {Math.min(10, filteredSessions.length)} · sorted by activity
+            </div>
+          </div>
+        </div>
+        {filteredSessions.length === 0 && (
+          <div className="p-10 text-center text-slate-400 text-sm">
+            No sessions in the selected time range.
+          </div>
+        )}
+        {filteredSessions
+          .slice()
+          .sort((a, b) => {
+            const ta = parseTs(a.updated_at ?? a.created_at) ?? 0;
+            const tb = parseTs(b.updated_at ?? b.created_at) ?? 0;
+            return tb - ta;
+          })
+          .slice(0, 10)
+          .map((s) => (
+          <div
+            key={s.session_id}
+            className="grid grid-cols-12 gap-3 items-center px-5 py-3 text-sm border-b border-ink-800/40 last:border-b-0 hover:bg-ink-800/30"
+          >
+            <div className="col-span-5 min-w-0">
+              <a
+                href={s.url ?? "#"}
+                target="_blank"
+                rel="noreferrer"
+                className="truncate block text-slate-100 hover:text-accent"
+                title={s.title ?? s.session_id}
+              >
+                {s.title ?? "Untitled session"}
+              </a>
+              <div className="text-xs text-slate-500 font-mono truncate">
+                {s.session_id}
+              </div>
+            </div>
+            <div className="col-span-2">
+              {s.is_running ? (
+                <span className="pill bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                  <span className="live-dot" /> running
+                </span>
+              ) : (
+                <span className="pill bg-ink-800 text-slate-400 border border-ink-700/60">
+                  {String(s.status_detail ?? s.status ?? "done")}
+                </span>
+              )}
+            </div>
+            <div className="col-span-2 text-right tabular-nums text-kpi-acu">
+              {s.acu != null ? fmtNum(s.acu, 1) : "—"} ACU
+            </div>
+            <div className="col-span-3 text-right text-xs text-slate-500">
+              {fmtRelative(s.updated_at ?? s.created_at)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── KPI tile ───────────────────────────────────────────────────────────── */
+
+function KpiTile({
+  color,
+  label,
+  value,
+  note,
+  live,
+}: {
+  color: KpiColor;
+  label: string;
+  value: string;
+  note?: string;
+  live?: boolean;
+}) {
+  const gradients: Record<KpiColor, string> = {
+    acu: "from-violet-500/25 to-violet-500/0",
+    cost: "from-cyan-400/20 to-cyan-400/0",
+    saved: "from-green-400/25 to-green-400/0",
+    sessions: "from-fuchsia-400/25 to-fuchsia-400/0",
+    days: "from-amber-400/25 to-amber-400/0",
+    cursor: "from-teal-300/25 to-teal-300/0",
+    copilot: "from-lime-300/25 to-lime-300/0",
+  };
+  const valueColors: Record<KpiColor, string> = {
+    acu: "text-kpi-acu",
+    cost: "text-kpi-cost",
+    saved: "text-kpi-saved",
+    sessions: "text-kpi-sessions",
+    days: "text-kpi-days",
+    cursor: "text-kpi-cursor",
+    copilot: "text-kpi-copilot",
+  };
+  return (
+    <div className="kpi-tile">
+      <div
+        className={clsx(
+          "absolute inset-0 bg-gradient-to-br opacity-80 pointer-events-none",
+          gradients[color]
+        )}
+      />
+      <div className="relative">
+        <div className="kpi-label flex items-center gap-2">
+          {live && <span className="live-dot" />}
+          {label}
+        </div>
+        <div className={clsx("kpi-value", valueColors[color])}>{value}</div>
+        {note && <div className="kpi-note">{note}</div>}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Daily usage bar chart (pure CSS/SVG) ───────────────────────────────── */
+
+function DailyUsageChart({
+  sessions,
+  days,
+}: {
+  sessions: SessionSummary[];
+  days: number;
+}) {
+  const buckets = useMemo(() => {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const result: { date: Date; acu: number; running: boolean }[] = [];
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(d.getDate() - i);
+      result.push({ date: d, acu: 0, running: false });
+    }
+    const startMs = result[0].date.getTime();
+    for (const s of sessions) {
+      if (s.acu == null) continue;
+      const ts = parseTs(s.updated_at ?? s.created_at);
+      if (ts == null) continue;
+      const dayMs = new Date(ts).setHours(0, 0, 0, 0);
+      if (dayMs < startMs) continue;
+      const idx = Math.floor((dayMs - startMs) / (1000 * 60 * 60 * 24));
+      if (idx < 0 || idx >= result.length) continue;
+      result[idx].acu += s.acu;
+      if (s.is_running) result[idx].running = true;
+    }
+    return result;
+  }, [sessions, days]);
+
+  const max = Math.max(1, ...buckets.map((b) => b.acu));
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    month: "numeric",
+    day: "numeric",
+  });
+
+  return (
+    <div>
+      <div className="flex items-end gap-1.5 h-40">
+        {buckets.map((b, i) => {
+          const h = (b.acu / max) * 100;
+          const empty = b.acu === 0;
+          return (
+            <div
+              key={i}
+              className="flex-1 flex flex-col items-center justify-end group relative"
+            >
+              <div className="text-[10px] text-slate-500 tabular-nums mb-1 opacity-0 group-hover:opacity-100 transition">
+                {fmtNum(b.acu, 1)}
+              </div>
+              <div
+                className={clsx(
+                  "w-full rounded-t-md transition-all",
+                  empty ? "bg-ink-800/70" : "bg-gradient-to-t from-violet-600 to-violet-400",
+                  b.running && "ring-1 ring-emerald-400/70"
+                )}
+                style={{
+                  height: empty ? "4px" : `max(4px, ${h}%)`,
+                  minHeight: "4px",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex items-center gap-1.5 mt-2">
+        {buckets.map((b, i) => (
+          <div
+            key={i}
+            className="flex-1 text-[10px] text-slate-500 text-center tabular-nums"
+          >
+            {formatter.format(b.date)}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Legend({ color, label, dashed }: { color: string; label: string; dashed?: boolean }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span
+        className={clsx("inline-block h-2 w-4 rounded-sm", dashed && "border border-dashed")}
+        style={{
+          backgroundColor: dashed ? "transparent" : color,
+          borderColor: dashed ? color : undefined,
+        }}
+      />
+      {label}
+    </span>
+  );
+}
+
+/* ─── ROI cell ───────────────────────────────────────────────────────────── */
+
+function RoiCell({ pct }: { pct: number | null }) {
+  if (pct == null)
+    return <div className="col-span-1 text-right text-slate-500">—</div>;
+  const pos = pct > 0;
+  return (
+    <div
+      className={clsx(
+        "col-span-1 text-right tabular-nums",
+        pos ? "text-kpi-saved" : pct < 0 ? "text-rose-300" : "text-slate-300"
+      )}
+    >
+      {pos ? "+" : ""}
+      {fmtPct(pct)}
+    </div>
+  );
+}
+
+/* ─── Hourly usage chart (1d or specific day) ─────────────────────────────── */
+
+function HourlyUsageChart({
+  sessions,
+  day,
+}: {
+  sessions: SessionSummary[];
+  day: string; // YYYY-MM-DD
+}) {
+  const buckets = useMemo(() => {
+    const [y, m, d] = day.split("-").map((n) => parseInt(n, 10));
+    const start = new Date(y, (m ?? 1) - 1, d ?? 1, 0, 0, 0, 0);
+    const startMs = start.getTime();
+    const endMs = startMs + 24 * 60 * 60 * 1000;
+    const result: { hour: number; acu: number; running: boolean }[] = Array.from(
+      { length: 24 },
+      (_, i) => ({ hour: i, acu: 0, running: false })
+    );
+    for (const s of sessions) {
+      if (s.acu == null) continue;
+      const ts = parseTs(s.updated_at ?? s.created_at);
+      if (ts == null || ts < startMs || ts >= endMs) continue;
+      const idx = Math.floor((ts - startMs) / (60 * 60 * 1000));
+      if (idx < 0 || idx >= 24) continue;
+      result[idx].acu += s.acu;
+      if (s.is_running) result[idx].running = true;
+    }
+    return result;
+  }, [sessions, day]);
+
+  const max = Math.max(1, ...buckets.map((b) => b.acu));
+
+  return (
+    <div>
+      <div className="flex items-end gap-0.5 h-40">
+        {buckets.map((b, i) => {
+          const h = (b.acu / max) * 100;
+          const empty = b.acu === 0;
+          return (
+            <div
+              key={i}
+              className="flex-1 flex flex-col items-center justify-end group relative"
+            >
+              <div className="text-[10px] text-slate-500 tabular-nums mb-1 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                {fmtNum(b.acu, 1)} · {String(b.hour).padStart(2, "0")}:00
+              </div>
+              <div
+                className={clsx(
+                  "w-full rounded-t-sm transition-all",
+                  empty ? "bg-ink-800/70" : "bg-gradient-to-t from-violet-600 to-violet-400",
+                  b.running && "ring-1 ring-emerald-400/70"
+                )}
+                style={{
+                  height: empty ? "4px" : `max(4px, ${h}%)`,
+                  minHeight: "4px",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex items-center gap-0.5 mt-2">
+        {buckets.map((b, i) => (
+          <div
+            key={i}
+            className="flex-1 text-[10px] text-slate-500 text-center tabular-nums"
+          >
+            {i % 3 === 0 ? String(b.hour).padStart(2, "0") : ""}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── helpers ─────────────────────────────────────────────────────────────── */
+
+function parseTs(v: number | string | null | undefined): number | null {
+  if (v == null) return null;
+  if (typeof v === "number") return v > 1e12 ? v : v * 1000;
+  const d = new Date(v);
+  const n = d.getTime();
+  return Number.isFinite(n) ? n : null;
+}
+
+function savingsNote(
+  baseline: number | null,
+  roiPct: number | null,
+  fallback: string
+): string {
+  if (baseline == null) return fallback;
+  const baselineStr = `baseline ${new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(baseline)}`;
+  if (roiPct == null) return baselineStr;
+  const pct =
+    Math.abs(roiPct) >= 1000
+      ? `${(roiPct / 1000).toFixed(1)}k%`
+      : `${roiPct.toFixed(0)}%`;
+  return `${pct} ROI · ${baselineStr}`;
+}
+
+function todayISO(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+    d.getDate()
+  ).padStart(2, "0")}`;
+}
+
+function allTimeDays(sessions: SessionSummary[]): number {
+  let earliest = Infinity;
+  for (const s of sessions) {
+    const ts = parseTs(s.created_at ?? s.updated_at);
+    if (ts != null && ts < earliest) earliest = ts;
+  }
+  if (!Number.isFinite(earliest)) return 7;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const days = Math.ceil((today.getTime() - earliest) / DAY_MS) + 1;
+  // clamp so the bar chart stays readable
+  return Math.min(Math.max(days, 7), 365);
+}
+
+function windowLabel({
+  specificDay,
+  range,
+  rangeStartMs,
+  rangeEndMs,
+}: {
+  specificDay: string;
+  range: Range;
+  rangeStartMs: number | null;
+  rangeEndMs: number | null;
+}): string {
+  if (specificDay) return new Date(specificDay).toLocaleDateString();
+  if (range === "all") return "all time";
+  if (range === 1) return "today";
+  if (rangeStartMs == null || rangeEndMs == null) return `last ${range}d`;
+  const startFmt = new Date(rangeStartMs).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+  const endFmt = new Date(rangeEndMs - 1).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+  return `${startFmt} – ${endFmt}`;
+}
