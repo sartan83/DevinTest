@@ -84,6 +84,10 @@ def _session_summary(raw: dict[str, Any]) -> dict[str, Any]:
 # every session.
 SYSTEM_TAG_PREFIXES: tuple[str, ...] = ("agent:", "agent-preview:")
 
+# Synthetic bucket name for sessions that, after filtering out system tags
+# (and applying any tag_prefix), don't match any user-defined project.
+UNTAGGED_BUCKET = "(untagged)"
+
 
 def _project_tags(session_tags: list[str], prefix: str | None) -> list[str]:
     if not session_tags:
@@ -183,8 +187,12 @@ async def build_projects_response(
 
     buckets: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for s in summaries:
-        for tag in _project_tags(s["tags"], cfg.tag_prefix):
-            buckets[tag].append(s)
+        tags = _project_tags(s["tags"], cfg.tag_prefix)
+        if not tags:
+            buckets[UNTAGGED_BUCKET].append(s)
+        else:
+            for tag in tags:
+                buckets[tag].append(s)
 
     projects: list[dict[str, Any]] = []
     for tag, sessions in buckets.items():
@@ -223,20 +231,25 @@ async def build_projects_response(
         )
     )
 
-    totals_acu = sum(p["total_acu"] or 0.0 for p in projects)
+    # Totals must come from unique sessions (a session with multiple tags
+    # appears in multiple buckets — summing per-bucket totals would double-count).
+    unique_sessions: dict[str, dict[str, Any]] = {
+        s["session_id"]: s for s in summaries
+    }
+    totals_acu = sum(
+        (s["acu"] or 0.0) for s in unique_sessions.values()
+    )
     devin_cost_total = totals_acu * cfg.acu_rate_usd
-    vanilla_total = sum(p["baselines"]["vanilla_usd"] for p in projects)
-    cursor_total = sum(p["baselines"]["cursor_usd"] for p in projects)
-    copilot_total = sum(p["baselines"]["copilot_usd"] for p in projects)
+    totals_baselines = _baselines(totals_acu, cfg)
     totals = {
         "projects": len(projects),
-        "sessions": sum(p["session_count"] for p in projects),
-        "running": sum(p["running_count"] for p in projects),
+        "sessions": len(unique_sessions),
+        "running": sum(1 for s in unique_sessions.values() if s["is_running"]),
         "acu": totals_acu,
         "devin_cost_usd": devin_cost_total,
-        "vanilla_usd": vanilla_total,
-        "cursor_usd": cursor_total,
-        "copilot_usd": copilot_total,
+        "vanilla_usd": totals_baselines["vanilla_usd"],
+        "cursor_usd": totals_baselines["cursor_usd"],
+        "copilot_usd": totals_baselines["copilot_usd"],
     }
 
     return {
