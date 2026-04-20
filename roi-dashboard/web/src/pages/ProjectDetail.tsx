@@ -145,17 +145,28 @@ export default function ProjectDetail() {
 
       {project && (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Stat label="Sessions" value={fmtNum(project.session_count, 0)} />
-            <Stat
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <Tile
+              color="sessions"
+              label="Sessions"
+              value={fmtNum(project.session_count, 0)}
+              note={`${project.running_count} running`}
+              live={project.running_count > 0}
+            />
+            <Tile
+              color="acu"
               label="ACU used"
               value={project.total_acu != null ? fmtNum(project.total_acu, 1) : "—"}
+              note={response?.estimated ? "Estimated from duration" : "Real usage"}
             />
-            <Stat
+            <Tile
+              color="cost"
               label="Devin cost"
               value={project.devin_cost_usd != null ? fmtUsd(project.devin_cost_usd) : "—"}
+              note={`@ $${config.acu_rate_usd}/ACU`}
             />
-            <Stat
+            <Tile
+              color="saved"
               label="Saved vs vanilla"
               value={
                 project.baselines && project.devin_cost_usd != null
@@ -167,7 +178,11 @@ export default function ProjectDetail() {
                     )
                   : "—"
               }
-              highlight
+              note={
+                project.roi
+                  ? `${fmtPct(project.roi.vs_vanilla_pct, 0)} ROI`
+                  : undefined
+              }
             />
           </div>
 
@@ -272,27 +287,48 @@ export default function ProjectDetail() {
   );
 }
 
-function Stat({
+type TileColor = "acu" | "cost" | "saved" | "sessions";
+
+function Tile({
+  color,
   label,
   value,
-  highlight = false,
+  note,
+  live,
 }: {
+  color: TileColor;
   label: string;
   value: string;
-  highlight?: boolean;
+  note?: string;
+  live?: boolean;
 }) {
+  const gradients: Record<TileColor, string> = {
+    acu: "from-violet-500/25 to-violet-500/0",
+    cost: "from-cyan-400/20 to-cyan-400/0",
+    saved: "from-green-400/25 to-green-400/0",
+    sessions: "from-fuchsia-400/25 to-fuchsia-400/0",
+  };
+  const valueColors: Record<TileColor, string> = {
+    acu: "text-kpi-acu",
+    cost: "text-kpi-cost",
+    saved: "text-kpi-saved",
+    sessions: "text-kpi-sessions",
+  };
   return (
-    <div className="card px-4 py-3">
-      <div className="text-xs uppercase tracking-wider text-slate-500">
-        {label}
-      </div>
+    <div className="kpi-tile">
       <div
         className={clsx(
-          "text-2xl font-semibold tabular-nums mt-1",
-          highlight && "text-accent-soft"
+          "absolute inset-0 bg-gradient-to-br opacity-80 pointer-events-none",
+          gradients[color]
         )}
-      >
-        {value}
+      />
+      <div className="relative">
+        <div className="kpi-label flex items-center gap-2">
+          {live && <span className="live-dot" />}
+          {label}
+        </div>
+        <div className={clsx("kpi-value", valueColors[color])}>{value}</div>
+        {note && <div className="kpi-note">{note}</div>}
       </div>
     </div>
   );
@@ -311,22 +347,36 @@ function BaselineCard({
 }) {
   const savings = Math.max(0, baseline - devin);
   const good = roiPct > 0;
+  const ratio = baseline > 0 ? Math.min(1, devin / baseline) : 0;
   return (
-    <div className="card p-4 space-y-2">
-      <div className="text-xs uppercase tracking-wider text-slate-500">{name}</div>
-      <div className="flex items-baseline gap-2">
-        <div className="text-2xl font-semibold tabular-nums">{fmtUsd(baseline)}</div>
+    <div className="card p-5 space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="text-[11px] uppercase tracking-[0.14em] text-slate-400">
+          {name}
+        </div>
         <div
           className={clsx(
-            "text-sm font-medium tabular-nums",
-            good ? "text-emerald-300" : roiPct < 0 ? "text-rose-300" : "text-slate-400"
+            "text-sm font-semibold tabular-nums",
+            good ? "text-kpi-saved" : roiPct < 0 ? "text-rose-300" : "text-slate-400"
           )}
         >
+          {good ? "+" : ""}
           {fmtPct(roiPct, 0)}
         </div>
       </div>
-      <div className="text-xs text-slate-400">
-        Devin: {fmtUsd(devin)} · saved {fmtUsd(savings)}
+      <div>
+        <div className="text-3xl font-semibold tabular-nums tracking-tight">
+          {fmtUsd(baseline)}
+        </div>
+        <div className="text-xs text-slate-500 mt-1">
+          Devin: {fmtUsd(devin)} · saved {fmtUsd(savings)}
+        </div>
+      </div>
+      <div className="h-1.5 w-full rounded-full bg-ink-800 overflow-hidden">
+        <div
+          className="h-full bg-gradient-to-r from-kpi-acu to-fuchsia-400"
+          style={{ width: `${ratio * 100}%` }}
+        />
       </div>
     </div>
   );

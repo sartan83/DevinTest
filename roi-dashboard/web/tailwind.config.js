@@ -5,17 +5,27 @@ export default {
     extend: {
       colors: {
         ink: {
-          950: "#0b0d12",
-          900: "#10131a",
-          800: "#161a24",
-          700: "#1f2433",
-          600: "#2a3145",
+          950: "#0a0c11",
+          900: "#0f1219",
+          850: "#131722",
+          800: "#1a1f2b",
+          700: "#242a3a",
+          600: "#2f3750",
           500: "#3a4360",
         },
         accent: {
-          DEFAULT: "#7c5cff",
-          soft: "#b4a3ff",
+          DEFAULT: "#a78bfa",
+          soft: "#c4b5fd",
         },
+        kpi: {
+          acu: "#a78bfa",
+          cost: "#22d3ee",
+          saved: "#4ade80",
+          sessions: "#f0abfc",
+        },
+      },
+      boxShadow: {
+        glow: "0 0 0 1px rgba(167, 139, 250, 0.15), 0 8px 30px rgba(167, 139, 250, 0.08)",
       },
       fontFamily: {
         sans: [
