@@ -48,6 +48,14 @@ export default function Settings() {
           value={draft.hours_per_acu_vanilla}
           onChange={(v) => update("hours_per_acu_vanilla", v)}
         />
+        <Field
+          label="Working hours per day"
+          hint="Used to convert saved developer hours into man-days (e.g. 8h/day)."
+          value={draft.hours_per_day}
+          onChange={(v) => update("hours_per_day", v)}
+          step="0.5"
+          min={1}
+        />
       </section>
 
       <section className="card p-5 space-y-4">

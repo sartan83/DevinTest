@@ -22,6 +22,7 @@ export default {
           cost: "#22d3ee",
           saved: "#4ade80",
           sessions: "#f0abfc",
+          days: "#fbbf24",
         },
       },
       boxShadow: {

@@ -8,7 +8,9 @@ import clsx from "clsx";
 
 const POLL_MS = 8000;
 
-type KpiColor = "acu" | "cost" | "saved" | "sessions";
+type KpiColor = "acu" | "cost" | "saved" | "sessions" | "days";
+type Range = 1 | 3 | 7 | 14 | 30 | 90;
+const RANGES: readonly Range[] = [1, 3, 7, 14, 30, 90];
 
 export default function Dashboard() {
   const { apiKey, config, projectNames, renameProject } = useAppState();
@@ -17,7 +19,8 @@ export default function Dashboard() {
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [pausing, setPausing] = useState<string | null>(null);
-  const [range, setRange] = useState<7 | 14 | 30>(7);
+  const [range, setRange] = useState<Range>(7);
+  const [specificDay, setSpecificDay] = useState<string>("");
   const timerRef = useRef<number | null>(null);
 
   const load = useCallback(async () => {
@@ -94,6 +97,10 @@ export default function Dashboard() {
     t?.vanilla_usd != null && t?.devin_cost_usd != null
       ? Math.max(0, t.vanilla_usd - t.devin_cost_usd)
       : null;
+  const savedManDays =
+    t?.acu != null && config.hours_per_day > 0
+      ? (t.acu * config.hours_per_acu_vanilla) / config.hours_per_day
+      : null;
   const updatedAt = data?.fetched_at
     ? new Date(data.fetched_at * 1000).toLocaleTimeString()
     : "—";
@@ -145,7 +152,7 @@ export default function Dashboard() {
       )}
 
       {/* KPI tiles */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         <KpiTile
           color="acu"
           label="Total ACU used"
@@ -173,6 +180,16 @@ export default function Dashboard() {
           }
         />
         <KpiTile
+          color="days"
+          label="Man-days saved"
+          value={savedManDays != null ? fmtNum(savedManDays, 1) : "—"}
+          note={
+            savedManDays != null
+              ? `~${fmtNum(savedManDays * config.hours_per_day, 0)}h of dev work · ${config.hours_per_day}h/day`
+              : `vs ${config.hours_per_acu_vanilla}h/ACU vanilla`
+          }
+        />
+        <KpiTile
           color="sessions"
           label="Sessions"
           value={fmtNum(t?.sessions ?? 0, 0)}
@@ -183,34 +200,71 @@ export default function Dashboard() {
 
       {/* Daily usage chart */}
       <div className="card p-5">
-        <div className="flex items-end justify-between mb-4">
+        <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
           <div>
-            <h3 className="font-semibold tracking-tight">Daily usage ({range}d)</h3>
+            <h3 className="font-semibold tracking-tight">
+              {specificDay
+                ? `Hourly usage · ${new Date(specificDay).toLocaleDateString()}`
+                : range === 1
+                  ? "Hourly usage · today"
+                  : `Daily usage (${range}d)`}
+            </h3>
             <div className="text-xs text-slate-500 mt-0.5">
-              ACU per day · {data?.estimated ? "estimated" : "real"}
+              {specificDay || range === 1 ? "ACU per hour" : "ACU per day"} ·{" "}
+              {data?.estimated ? "estimated" : "real"}
             </div>
           </div>
-          <div className="flex gap-1">
-            {([7, 14, 30] as const).map((r) => (
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex gap-1">
+              {RANGES.map((r) => (
+                <button
+                  key={r}
+                  className={clsx(
+                    "rounded-md px-2.5 py-1 text-xs border tabular-nums",
+                    !specificDay && range === r
+                      ? "bg-ink-800 border-ink-600 text-white"
+                      : "border-ink-700/60 text-slate-400 hover:text-white hover:bg-ink-800/60"
+                  )}
+                  onClick={() => {
+                    setSpecificDay("");
+                    setRange(r);
+                  }}
+                >
+                  {r}d
+                </button>
+              ))}
+            </div>
+            <span className="text-slate-600 text-xs">or</span>
+            <input
+              type="date"
+              className="input !py-1 !text-xs !w-auto tabular-nums"
+              value={specificDay}
+              max={todayISO()}
+              onChange={(e) => setSpecificDay(e.target.value)}
+              title="Pick a specific day (hourly breakdown)"
+            />
+            {specificDay && (
               <button
-                key={r}
-                className={clsx(
-                  "rounded-md px-2.5 py-1 text-xs border",
-                  range === r
-                    ? "bg-ink-800 border-ink-600 text-white"
-                    : "border-ink-700/60 text-slate-400 hover:text-white hover:bg-ink-800/60"
-                )}
-                onClick={() => setRange(r)}
+                className="rounded-md px-2 py-1 text-xs border border-ink-700/60 text-slate-400 hover:text-white hover:bg-ink-800/60"
+                onClick={() => setSpecificDay("")}
+                title="Clear date filter"
               >
-                {r}d
+                ×
               </button>
-            ))}
+            )}
           </div>
         </div>
-        <DailyUsageChart sessions={allSessions} days={range} />
+        {specificDay || range === 1 ? (
+          <HourlyUsageChart
+            sessions={allSessions}
+            day={specificDay || todayISO()}
+          />
+        ) : (
+          <DailyUsageChart sessions={allSessions} days={range} />
+        )}
         <div className="mt-3 flex items-center gap-4 text-xs text-slate-500">
           <Legend color="#a78bfa" label="ACU" />
-          <Legend color="#4ade80" label="running day" dashed />
+          <Legend color="#4ade80" label="running" dashed />
         </div>
       </div>
 
@@ -404,12 +458,14 @@ function KpiTile({
     cost: "from-cyan-400/20 to-cyan-400/0",
     saved: "from-green-400/25 to-green-400/0",
     sessions: "from-fuchsia-400/25 to-fuchsia-400/0",
+    days: "from-amber-400/25 to-amber-400/0",
   };
   const valueColors: Record<KpiColor, string> = {
     acu: "text-kpi-acu",
     cost: "text-kpi-cost",
     saved: "text-kpi-saved",
     sessions: "text-kpi-sessions",
+    days: "text-kpi-days",
   };
   return (
     <div className="kpi-tile">
@@ -547,6 +603,81 @@ function RoiCell({ pct }: { pct: number | null }) {
   );
 }
 
+/* ─── Hourly usage chart (1d or specific day) ─────────────────────────────── */
+
+function HourlyUsageChart({
+  sessions,
+  day,
+}: {
+  sessions: SessionSummary[];
+  day: string; // YYYY-MM-DD
+}) {
+  const buckets = useMemo(() => {
+    const [y, m, d] = day.split("-").map((n) => parseInt(n, 10));
+    const start = new Date(y, (m ?? 1) - 1, d ?? 1, 0, 0, 0, 0);
+    const startMs = start.getTime();
+    const endMs = startMs + 24 * 60 * 60 * 1000;
+    const result: { hour: number; acu: number; running: boolean }[] = Array.from(
+      { length: 24 },
+      (_, i) => ({ hour: i, acu: 0, running: false })
+    );
+    for (const s of sessions) {
+      if (s.acu == null) continue;
+      const ts = parseTs(s.updated_at ?? s.created_at);
+      if (ts == null || ts < startMs || ts >= endMs) continue;
+      const idx = Math.floor((ts - startMs) / (60 * 60 * 1000));
+      if (idx < 0 || idx >= 24) continue;
+      result[idx].acu += s.acu;
+      if (s.is_running) result[idx].running = true;
+    }
+    return result;
+  }, [sessions, day]);
+
+  const max = Math.max(1, ...buckets.map((b) => b.acu));
+
+  return (
+    <div>
+      <div className="flex items-end gap-0.5 h-40">
+        {buckets.map((b, i) => {
+          const h = (b.acu / max) * 100;
+          const empty = b.acu === 0;
+          return (
+            <div
+              key={i}
+              className="flex-1 flex flex-col items-center justify-end group relative"
+            >
+              <div className="text-[10px] text-slate-500 tabular-nums mb-1 opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                {fmtNum(b.acu, 1)} · {String(b.hour).padStart(2, "0")}:00
+              </div>
+              <div
+                className={clsx(
+                  "w-full rounded-t-sm transition-all",
+                  empty ? "bg-ink-800/70" : "bg-gradient-to-t from-violet-600 to-violet-400",
+                  b.running && "ring-1 ring-emerald-400/70"
+                )}
+                style={{
+                  height: empty ? "4px" : `max(4px, ${h}%)`,
+                  minHeight: "4px",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex items-center gap-0.5 mt-2">
+        {buckets.map((b, i) => (
+          <div
+            key={i}
+            className="flex-1 text-[10px] text-slate-500 text-center tabular-nums"
+          >
+            {i % 3 === 0 ? String(b.hour).padStart(2, "0") : ""}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ─── helpers ─────────────────────────────────────────────────────────────── */
 
 function parseTs(v: number | string | null | undefined): number | null {
@@ -555,4 +686,11 @@ function parseTs(v: number | string | null | undefined): number | null {
   const d = new Date(v);
   const n = d.getTime();
   return Number.isFinite(n) ? n : null;
+}
+
+function todayISO(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+    d.getDate()
+  ).padStart(2, "0")}`;
 }

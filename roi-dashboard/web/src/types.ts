@@ -75,6 +75,7 @@ export interface RoiConfig {
   cursor_multiplier: number;
   copilot_multiplier: number;
   estimated_acus_per_hour: number;
+  hours_per_day: number;
   tag_prefix: string | null;
 }
 
@@ -85,5 +86,6 @@ export const DEFAULT_CONFIG: RoiConfig = {
   cursor_multiplier: 0.5,
   copilot_multiplier: 0.7,
   estimated_acus_per_hour: 4,
+  hours_per_day: 8,
   tag_prefix: null,
 };
