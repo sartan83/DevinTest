@@ -62,6 +62,7 @@ export const intesa = {
 
   counter: {
     label: "Modeled engineering capacity during this session",
+    shortLabel: "Capacity this session",
     disclaimer: "Illustrative scenario based on modeled assumptions",
     unit: "developer days",
     finalRange: { min: 8, max: 18 },

@@ -26,12 +26,12 @@ export function Panel7CounterClimax({ min, max }: Props) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-3xl border border-brand-orange/30 bg-gradient-to-br from-brand-green-mid/70 to-brand-green-deep/70 px-10 py-12 shadow-elev"
+          className="relative rounded-3xl border border-brand-orange/30 bg-gradient-to-br from-brand-green-mid/70 to-brand-green-deep/70 px-6 py-8 shadow-elev sm:px-10 sm:py-12"
         >
-          <div className="text-[11px] uppercase tracking-[0.32em] text-brand-orange-soft">
+          <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px] sm:tracking-[0.32em]">
             {intesa.counter.label}
           </div>
-          <div className="mt-4 font-display text-5xl font-light leading-tight text-brand-ivory sm:text-6xl lg:text-7xl">
+          <div className="mt-3 font-display text-4xl font-light leading-tight text-brand-ivory sm:mt-4 sm:text-6xl lg:text-7xl">
             ≈ {format(finalMin)}–{format(finalMax)}
           </div>
           <div className="mt-3 text-sm uppercase tracking-[0.28em] text-brand-ivory/70">
@@ -45,7 +45,7 @@ export function Panel7CounterClimax({ min, max }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 font-display text-2xl font-light leading-snug text-brand-ivory sm:text-3xl"
+          className="mt-8 font-display text-xl font-light leading-snug text-brand-ivory sm:mt-10 sm:text-3xl"
         >
           {p.headlinePrefix}{" "}
           <span className="text-brand-orange-soft">
@@ -60,7 +60,7 @@ export function Panel7CounterClimax({ min, max }: Props) {
 
         <div className="mt-10 h-px w-24 bg-brand-orange/40" />
 
-        <p className="mt-6 font-display text-lg font-light leading-snug text-brand-ivory/80 sm:text-xl">
+        <p className="mt-6 font-display text-base font-light leading-snug text-brand-ivory/80 sm:text-xl">
           {p.closing.split("\n").map((line, i) => (
             <span key={i} className="block">
               {line}

@@ -12,12 +12,12 @@ export function Panel1Opening({ onCta }: Props) {
   const p = intesa.panel1;
   return (
     <PanelShell eyebrow={p.eyebrow}>
-      <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+      <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <PanelHeadline text={p.headline} />
           <PanelSubhead>{p.subhead}</PanelSubhead>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3 sm:mt-10">
             {p.ctas.map((cta) => (
               <button
                 key={cta.label}
@@ -41,7 +41,7 @@ export function Panel1Opening({ onCta }: Props) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
           {p.kpis.map((k, i) => (
             <motion.div
               key={k.label}
@@ -49,12 +49,12 @@ export function Panel1Opening({ onCta }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="relative overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/40 p-5 backdrop-blur-sm"
+              className="relative overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/40 p-4 backdrop-blur-sm sm:p-5"
             >
-              <div className="font-display text-3xl font-light leading-none text-brand-ivory">
+              <div className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-3xl">
                 {k.value}
               </div>
-              <div className="mt-2 text-xs uppercase tracking-[0.2em] text-brand-ivory/60">
+              <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-brand-ivory/60 sm:text-xs">
                 {k.label}
               </div>
               {k.caption && (
@@ -66,7 +66,7 @@ export function Panel1Opening({ onCta }: Props) {
         </div>
       </div>
 
-      <p className="mt-12 max-w-2xl text-[11px] uppercase tracking-[0.28em] text-brand-ivory/40">
+      <p className="mt-8 max-w-2xl text-[10px] uppercase tracking-[0.28em] text-brand-ivory/40 sm:mt-12 sm:text-[11px]">
         Public references · illustrative framing · {intesa.brand.client}
       </p>
     </PanelShell>

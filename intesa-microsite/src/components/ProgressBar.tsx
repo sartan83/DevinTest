@@ -6,15 +6,19 @@ import { intesa } from "../data/intesa";
 type Props = {
   active: number;
   onSelect: (idx: number) => void;
+  isMobile?: boolean;
 };
 
-export function ProgressBar({ active, onSelect }: Props) {
+export function ProgressBar({ active, onSelect, isMobile = false }: Props) {
   return (
-    <div className="pointer-events-auto flex items-center gap-4">
-      <span className="text-[11px] uppercase tracking-[0.28em] text-brand-ivory/50">
+    <div className="pointer-events-auto flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
+      <span className="hidden min-w-0 truncate text-[10px] uppercase tracking-[0.28em] text-brand-ivory/50 sm:inline sm:text-[11px] md:inline">
         {intesa.nav[active]?.label ?? "—"} · {intesa.nav[active]?.full ?? ""}
       </span>
-      <div className="flex items-center gap-2">
+      <span className="inline text-[10px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:hidden">
+        {intesa.nav[active]?.label ?? "—"}
+      </span>
+      <div className="flex items-center gap-1.5 sm:gap-2">
         {intesa.nav.map((step) => {
           const isActive = step.index === active;
           const isPassed = step.index < active;
@@ -34,19 +38,21 @@ export function ProgressBar({ active, onSelect }: Props) {
                   isActive
                     ? isHalf
                       ? "w-2 bg-brand-orange"
-                      : "w-10 bg-brand-orange"
+                      : "w-8 bg-brand-orange sm:w-10"
                     : isPassed
                       ? isHalf
                         ? "w-1 bg-brand-ivory/60"
-                        : "w-6 bg-brand-ivory/60"
+                        : "w-5 bg-brand-ivory/60 sm:w-6"
                       : isHalf
                         ? "w-1 bg-brand-ivory/25"
-                        : "w-6 bg-brand-ivory/20",
+                        : "w-5 bg-brand-ivory/20 sm:w-6",
                 ].join(" ")}
               />
-              <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-brand-green-deep/90 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-brand-ivory/80 opacity-0 shadow-elev hairline transition-opacity group-hover:opacity-100">
-                {step.label} · {step.full}
-              </span>
+              {!isMobile && (
+                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-brand-green-deep/90 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-brand-ivory/80 opacity-0 shadow-elev hairline transition-opacity group-hover:opacity-100">
+                  {step.label} · {step.full}
+                </span>
+              )}
             </button>
           );
         })}

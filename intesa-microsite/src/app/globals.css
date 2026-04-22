@@ -30,6 +30,9 @@ html {
   .scroll-snap-x {
     scroll-snap-type: x mandatory;
   }
+  .scroll-snap-y {
+    scroll-snap-type: y mandatory;
+  }
   .scroll-snap-start {
     scroll-snap-align: start;
     scroll-snap-stop: always;

@@ -24,8 +24,9 @@ export function PanelShell({ eyebrow, tone = "dark", children, className }: Prop
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ margin: "-10% 0px -10% 0px", amount: 0.3 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        data-allow-native-scroll="true"
         className={[
-          "mx-auto flex w-full max-w-[1400px] flex-col justify-center px-10 py-24 sm:px-16 lg:px-24",
+          "mx-auto flex w-full max-w-[1400px] flex-col overflow-y-auto px-5 pb-16 pt-24 sm:px-10 sm:py-24 sm:justify-center md:px-16 md:overflow-visible lg:px-24",
           className ?? "",
         ].join(" ")}
       >
@@ -66,7 +67,7 @@ export function PanelHeadline({
     <h2
       className={[
         "font-display font-light leading-[1.05] tracking-displaytight text-balance",
-        "text-4xl sm:text-5xl lg:text-6xl",
+        "text-3xl sm:text-5xl lg:text-6xl",
         tone === "dark" ? "text-brand-ivory" : "text-brand-charcoal",
         className ?? "",
       ].join(" ")}
@@ -92,7 +93,7 @@ export function PanelSubhead({
   return (
     <p
       className={[
-        "mt-6 max-w-3xl text-pretty text-lg leading-relaxed sm:text-xl",
+        "mt-4 max-w-3xl text-pretty text-base leading-relaxed sm:mt-6 sm:text-lg lg:text-xl",
         tone === "dark" ? "text-brand-ivory/70" : "text-brand-charcoal/70",
         className ?? "",
       ].join(" ")}

@@ -52,32 +52,33 @@ export function ExecutiveCounter({ min, max, expanded }: Props) {
       className={[
         "pointer-events-auto relative rounded-xl border border-brand-ivory/10 bg-brand-green-deep/70 backdrop-blur-md",
         "shadow-elev",
-        expanded ? "px-6 py-5" : "px-4 py-3",
+        expanded ? "px-4 py-3 sm:px-6 sm:py-5" : "px-3 py-2 sm:px-4 sm:py-3",
       ].join(" ")}
       aria-live="polite"
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         <span
           className={[
-            "inline-block h-1.5 w-1.5 rounded-full bg-brand-orange",
+            "inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange",
             expanded ? "animate-pulse" : "",
           ].join(" ")}
         />
         <div className="flex flex-col">
           <span
             className={[
-              "uppercase tracking-[0.28em] text-brand-ivory/55",
-              expanded ? "text-[11px]" : "text-[10px]",
+              "uppercase tracking-[0.22em] text-brand-ivory/55 sm:tracking-[0.28em]",
+              expanded ? "text-[10px] sm:text-[11px]" : "text-[9px] sm:text-[10px]",
             ].join(" ")}
           >
-            {intesa.counter.label}
+            <span className="hidden sm:inline">{intesa.counter.label}</span>
+            <span className="sm:hidden">{intesa.counter.shortLabel}</span>
           </span>
-          <div className="mt-1 flex items-baseline gap-2">
+          <div className="mt-1 flex items-baseline gap-1.5 sm:gap-2">
             <motion.span
               layout
               className={[
                 "font-display font-semibold text-brand-ivory",
-                expanded ? "text-3xl" : "text-lg",
+                expanded ? "text-2xl sm:text-3xl" : "text-sm sm:text-lg",
               ].join(" ")}
             >
               ≈ {format(aMin)}–{format(aMax)}
@@ -85,7 +86,7 @@ export function ExecutiveCounter({ min, max, expanded }: Props) {
             <span
               className={[
                 "text-brand-ivory/65",
-                expanded ? "text-sm" : "text-[11px]",
+                expanded ? "text-[11px] sm:text-sm" : "text-[10px] sm:text-[11px]",
               ].join(" ")}
             >
               {intesa.counter.unit}
@@ -93,7 +94,7 @@ export function ExecutiveCounter({ min, max, expanded }: Props) {
           </div>
           <span
             className={[
-              "mt-1 text-brand-ivory/40",
+              "mt-1 hidden text-brand-ivory/40 sm:inline",
               expanded ? "text-[11px]" : "text-[10px]",
             ].join(" ")}
           >
