@@ -88,11 +88,6 @@ export function MicrositeShell() {
           e.preventDefault();
           goTo(TOTAL_PANELS - 1);
           break;
-        default:
-          if (/^[1-9]$/.test(e.key)) {
-            const targetIdx = Number(e.key) - 1;
-            goTo(targetIdx);
-          }
       }
     };
     window.addEventListener("keydown", handler);
