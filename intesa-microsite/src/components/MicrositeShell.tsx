@@ -130,8 +130,8 @@ export function MicrositeShell() {
         max += step.addMax;
       }
     }
-    // Clamp to final range once user has reached the climax.
-    if (visited.has(6) /* panel 7 */) {
+    // Clamp to final range once user has reached the climax panel.
+    if (visited.has(7) /* Panel7CounterClimax */) {
       min = Math.max(min, intesa.counter.finalRange.min);
       max = Math.min(
         Math.max(max, intesa.counter.finalRange.max),
@@ -141,7 +141,7 @@ export function MicrositeShell() {
     return { min, max };
   }, [visited]);
 
-  const counterExpanded = active === 6; // Panel 7 is the climax.
+  const counterExpanded = active === 7; // Panel7CounterClimax is the climax.
 
   return (
     <div className="relative h-[100svh] w-screen overflow-hidden bg-brand-green text-brand-ivory">
