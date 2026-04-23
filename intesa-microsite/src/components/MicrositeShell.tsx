@@ -158,27 +158,67 @@ export function MicrositeShell() {
     };
   }, [active, goTo]);
 
-  // On desktop, translate vertical wheel intent into horizontal scroll.
-  // On mobile (vertical snap layout), the native wheel/touch behavior is what we want.
+  // Keep latest active / goTo accessible from the wheel handler without
+  // re-registering the listener on every state change.
+  const activeRef = useRef(active);
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+  const goToRef = useRef(goTo);
+  useEffect(() => {
+    goToRef.current = goTo;
+  }, [goTo]);
+
+  // On desktop, translate vertical wheel intent into horizontal panel advance.
+  // We can't just do `scrollLeft += deltaY` because `scroll-snap-type: x mandatory`
+  // will snap the container back to the starting panel whenever the scroll position
+  // sits before the midpoint — a normal mouse-wheel tick (~100px) or a trackpad
+  // nudge (~30px) therefore appeared to do nothing. Instead, accumulate wheel
+  // intent and advance a whole panel at a time via goTo().
   useEffect(() => {
     if (isMobile) return;
     const el = scrollerRef.current;
     if (!el) return;
+
+    const WHEEL_THRESHOLD = 30;
+    const COOLDOWN_MS = 550;
+    let accum = 0;
+    let cooldownUntil = 0;
+    let resetTimer: number | null = null;
+
     const onWheel = (e: WheelEvent) => {
-      // If the user is clearly scrolling within a nested scrollable area, leave it.
+      // Allow native scroll inside explicitly-marked nested scrollables.
       const path = e.composedPath() as HTMLElement[];
       for (const node of path) {
         if (node === el) break;
         if (!(node instanceof HTMLElement)) continue;
         if (node.dataset?.allowNativeScroll === "true") return;
       }
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        el.scrollLeft += e.deltaY;
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+
+      e.preventDefault();
+      const now = performance.now();
+      if (now < cooldownUntil) return;
+
+      accum += e.deltaY;
+      if (resetTimer !== null) window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        accum = 0;
+        resetTimer = null;
+      }, 200);
+
+      if (Math.abs(accum) >= WHEEL_THRESHOLD) {
+        const dir = accum > 0 ? 1 : -1;
+        accum = 0;
+        cooldownUntil = now + COOLDOWN_MS;
+        goToRef.current(activeRef.current + dir);
       }
     };
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      if (resetTimer !== null) window.clearTimeout(resetTimer);
+    };
   }, [isMobile]);
 
   const counterValue = useMemo(() => {
