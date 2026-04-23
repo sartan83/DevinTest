@@ -50,7 +50,8 @@ export const intesa = {
       "Intesa has already chosen the direction. The opportunity now is controlled execution at scale.",
   },
 
-  // Logical index (0..8) → displayed label. 3.5 is an interstitial between 3 and 4.
+  // Logical index (0..9) → displayed label. 3.5 (Discovery) and 6.5 (ROI signal)
+  // are interstitials that reshape the narrative arc without breaking the 1–8 spine.
   nav: [
     { index: 0, label: "1", full: "Opening" },
     { index: 1, label: "2", full: "Context" },
@@ -59,8 +60,9 @@ export const intesa = {
     { index: 4, label: "4", full: "Where Devin fits" },
     { index: 5, label: "5", full: "Use case" },
     { index: 6, label: "6", full: "Executive value" },
-    { index: 7, label: "7", full: "Reclaimed capacity" },
-    { index: 8, label: "8", full: "Lighthouse" },
+    { index: 7, label: "6.5", full: "ROI signal" },
+    { index: 8, label: "7", full: "Reclaimed capacity" },
+    { index: 9, label: "8", full: "Lighthouse" },
   ],
 
   counter: {
@@ -69,7 +71,8 @@ export const intesa = {
     disclaimer: "Illustrative scenario based on modeled assumptions",
     unit: "developer days",
     finalRange: { min: 8, max: 18 },
-    // Steps accumulate per visited panel. Sum across all steps ≈ 8–18 dev days.
+    // Steps accumulate per visited panel (1-indexed → maps to render index panel-1).
+    // Sum across all steps ≈ 8–18 dev days.
     steps: [
       { panel: 1, addMin: 0.4, addMax: 0.9, note: "Framing engagement" },
       { panel: 2, addMin: 0.8, addMax: 1.6, note: "Context of execution friction" },
@@ -77,9 +80,10 @@ export const intesa = {
       { panel: 4, addMin: 1.2, addMax: 2.4, note: "Discovery signals" },
       { panel: 5, addMin: 1.4, addMax: 3.0, note: "Execution surface mapped" },
       { panel: 6, addMin: 1.6, addMax: 3.4, note: "Modernization use case" },
-      { panel: 7, addMin: 0.9, addMax: 2.0, note: "Value framing" },
-      { panel: 8, addMin: 0.6, addMax: 2.5, note: "Climax consolidation" },
-      { panel: 9, addMin: 0.0, addMax: 0.0, note: "Lighthouse plan" },
+      { panel: 7, addMin: 0.7, addMax: 1.5, note: "Value framing" },
+      { panel: 8, addMin: 0.5, addMax: 1.5, note: "ROI signal at Intesa scale" },
+      { panel: 9, addMin: 0.3, addMax: 1.5, note: "Climax consolidation" },
+      { panel: 10, addMin: 0.0, addMax: 0.0, note: "Lighthouse plan" },
     ] as CounterStep[],
   },
 
@@ -111,9 +115,10 @@ export const intesa = {
         caption: "Google · TIM · Thought Machine",
       },
       {
-        value: "€10B+",
-        label: "Tech investment 2022–2029",
-        caption: "Piano di Impresa 2026–2029",
+        value: "~3,300",
+        label: "Developers & IT engineers",
+        caption: "Triangulated: ISP press, Revelio Labs workforce data",
+        estimated: true,
       },
       {
         value: "~100%",
@@ -122,11 +127,64 @@ export const intesa = {
       },
     ] as KpiCard[],
     sourcesLine:
-      "Sources: Intesa Sanpaolo investor materials & press (2022–2026) · Proverbio interview, Il Sole 24 Ore, Feb 2026 · Piano di Impresa 2026–2029",
+      "Sources: Intesa Sanpaolo investor materials & press (2022–2026) · Proverbio interview, Il Sole 24 Ore, Feb 2026 · Piano di Impresa 2026–2029 · Revelio Labs workforce intelligence (Sep 2025)",
     ctas: [
       { label: "Start the discussion", target: 2, primary: true },
       { label: "Open lighthouse", target: 9, primary: false },
     ],
+  },
+
+  panel65: {
+    eyebrow: "ROI signal — annualized, at Intesa scale",
+    headline: "Even with a safety margin,\nthe math is disruptive.",
+    subhead:
+      "If ~1 in 3 engineering hours is modernization-shaped, the compounding effect on a ~3,300-developer estate is measured in tens of €M per year — not seats or licenses.",
+    formula:
+      "Developers × Applicable work share × Productivity uplift × Adoption factor = Reclaimed capacity / year",
+    baseline: {
+      devs: 3300,
+      devsLabel: "~3,300 developers (est.)",
+      workingDaysPerYear: 220,
+      fullyLoadedCostEur: 95000,
+      fullyLoadedCostLabel: "~€95k / developer-year (blended fully-loaded)",
+    },
+    scenarios: [
+      {
+        key: "conservative",
+        title: "Conservative",
+        subtitle: "Year-1 ramp, heavy safety margin",
+        applicableWorkPct: 25,
+        upliftPct: 15,
+        adoptionPct: 50,
+        reclaimedDevDays: "~13,600",
+        reclaimedEur: "~€5.9M",
+        footnote: "Uplift cut from McKinsey 20–45% floor to 15%. Rollout limited to 50%.",
+      },
+      {
+        key: "realistic",
+        title: "Realistic",
+        subtitle: "Steady-state, mature adoption",
+        applicableWorkPct: 30,
+        upliftPct: 25,
+        adoptionPct: 80,
+        reclaimedDevDays: "~43,500",
+        reclaimedEur: "~€18.8M",
+        footnote: "Uplift kept at the middle of McKinsey 20–45% band. Rollout at Gartner 2028 trajectory, discounted.",
+      },
+    ],
+    headlineRange: {
+      eur: "~€6–19M / year",
+      devDays: "~14k–44k developer-days / year",
+    },
+    safetyMarginNote:
+      "Safety margin applied: productivity uplift capped below the McKinsey 20–45% band; rollout factor below the Gartner 2028 trajectory; applicable-work share tied to the four surfaces defined on Panel 6.",
+    sources: [
+      "Gartner, Apr 2024 — 75% of enterprise software engineers will use AI code assistants by 2028, up from <10% in early 2023.",
+      "McKinsey, Jun 2023 — The economic potential of generative AI: software engineering task-level productivity gain ≈ 20–45%.",
+      "Intesa Sanpaolo press & Il Sole 24 Ore (Feb 2026) — 2,400+ IT hires 2022–25; ISYTECH / Isybank modernization roadmap.",
+    ],
+    disclaimer:
+      "Illustrative model, not a commitment. Figures are scenario-level estimates intended to frame a strategic conversation.",
   },
 
   panel2: {

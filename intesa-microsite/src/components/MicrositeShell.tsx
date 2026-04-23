@@ -12,10 +12,14 @@ import { Panel35Discovery } from "./panels/Panel35Discovery";
 import { Panel4WhereDevinFits } from "./panels/Panel4WhereDevinFits";
 import { Panel5UseCase } from "./panels/Panel5UseCase";
 import { Panel6ExecutiveValue } from "./panels/Panel6ExecutiveValue";
+import { Panel65RoiSignal } from "./panels/Panel65RoiSignal";
 import { Panel7CounterClimax } from "./panels/Panel7CounterClimax";
 import { Panel8Lighthouse } from "./panels/Panel8Lighthouse";
 
-const TOTAL_PANELS = 9;
+const TOTAL_PANELS = 10;
+// Render index of the counter climax panel (Panel 7 in the narrative, but the
+// 8th tile once 3.5 Discovery and 6.5 ROI signal are inserted).
+const CLIMAX_INDEX = 8;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -102,19 +106,27 @@ export function MicrositeShell() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
-      if (
-        target &&
+      const isTextInput =
+        !!target &&
         (target.tagName === "INPUT" ||
           target.tagName === "TEXTAREA" ||
-          target.isContentEditable)
-      ) {
+          target.isContentEditable);
+      if (isTextInput) {
         return;
       }
+      // Space and Enter natively activate BUTTON / A (role=button) elements; if
+      // focus is on one we must not swallow them for panel navigation.
+      const isActivatable =
+        !!target && (target.tagName === "BUTTON" || target.tagName === "A");
       switch (e.key) {
         case "ArrowRight":
         case "ArrowDown":
         case "PageDown":
+          e.preventDefault();
+          goTo(active + 1);
+          break;
         case " ":
+          if (isActivatable) return;
           e.preventDefault();
           goTo(active + 1);
           break;
@@ -182,14 +194,14 @@ export function MicrositeShell() {
     // Once the user reaches the climax panel, lock the displayed range to the
     // narrative's "8–18 developer days" envelope so the counter never drifts
     // past the headline number, regardless of per-step arithmetic.
-    if (visited.has(7) /* Panel7CounterClimax */) {
+    if (visited.has(CLIMAX_INDEX)) {
       min = Math.max(min, intesa.counter.finalRange.min);
       max = intesa.counter.finalRange.max;
     }
     return { min, max };
   }, [visited]);
 
-  const counterExpanded = active === 7; // Panel7CounterClimax is the climax.
+  const counterExpanded = active === CLIMAX_INDEX;
 
   return (
     <div className="relative h-[100svh] w-screen overflow-hidden bg-brand-green text-brand-ivory">
@@ -211,7 +223,7 @@ export function MicrositeShell() {
           min={counterValue.min}
           max={counterValue.max}
           expanded={counterExpanded}
-          revealed={active >= 7 || visited.has(7)}
+          revealed={active >= CLIMAX_INDEX || visited.has(CLIMAX_INDEX)}
         />
       </header>
 
@@ -242,6 +254,7 @@ export function MicrositeShell() {
           <Panel4WhereDevinFits />
           <Panel5UseCase />
           <Panel6ExecutiveValue />
+          <Panel65RoiSignal />
           <Panel7CounterClimax min={counterValue.min} max={counterValue.max} />
           <Panel8Lighthouse />
         </div>
