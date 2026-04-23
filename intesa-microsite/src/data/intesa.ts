@@ -251,12 +251,8 @@ export const intesa = {
   },
 
   panel35: {
-    eyebrow: "Executive discovery · first 20 minutes",
-    headline: "Before acceleration, clarity.",
-    subhead:
-      "Four angles, two questions each. The aim is to pressure-test alignment, not to pitch. Start broad, then zoom into where reality bends.",
-    framingNote:
-      "How I would open a Tier-1 engagement — stakeholder-by-stakeholder, with questions that force specificity.",
+    eyebrow: "Where reality bends",
+    headline: "The same constraint looks different from every seat.",
     bottomLine: "Acceleration only matters if aligned to your reality.",
     personas: [
       {

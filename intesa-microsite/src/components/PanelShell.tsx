@@ -24,7 +24,6 @@ export function PanelShell({ eyebrow, tone = "dark", children, className }: Prop
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ margin: "-10% 0px -10% 0px", amount: 0.3 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        data-allow-native-scroll="true"
         className={[
           "mx-auto flex w-full max-w-[1400px] flex-col overflow-y-auto px-5 pb-16 pt-24 sm:px-10 sm:py-24 sm:justify-center md:px-16 md:overflow-visible lg:px-24",
           className ?? "",
