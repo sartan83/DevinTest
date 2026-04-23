@@ -179,13 +179,12 @@ export function MicrositeShell() {
         max += step.addMax;
       }
     }
-    // Clamp to final range once user has reached the climax panel.
+    // Once the user reaches the climax panel, lock the displayed range to the
+    // narrative's "8–18 developer days" envelope so the counter never drifts
+    // past the headline number, regardless of per-step arithmetic.
     if (visited.has(7) /* Panel7CounterClimax */) {
       min = Math.max(min, intesa.counter.finalRange.min);
-      max = Math.min(
-        Math.max(max, intesa.counter.finalRange.max),
-        intesa.counter.finalRange.max
-      );
+      max = intesa.counter.finalRange.max;
     }
     return { min, max };
   }, [visited]);
