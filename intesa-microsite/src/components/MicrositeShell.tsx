@@ -136,16 +136,13 @@ export function MicrositeShell() {
     };
     const el = scrollerRef.current;
     window.addEventListener("keydown", handler);
-    document.addEventListener("keydown", handler);
-    el?.addEventListener("keydown", handler);
-    // Give the scroller focus so key events land somewhere sensible on first load.
+    // Give the scroller focus so key events land somewhere sensible on first load
+    // (covers embedded / iframe preview contexts where body may not initially have focus).
     if (el && typeof document !== "undefined" && document.activeElement === document.body) {
       el.focus({ preventScroll: true });
     }
     return () => {
       window.removeEventListener("keydown", handler);
-      document.removeEventListener("keydown", handler);
-      el?.removeEventListener("keydown", handler as EventListener);
     };
   }, [active, goTo]);
 
