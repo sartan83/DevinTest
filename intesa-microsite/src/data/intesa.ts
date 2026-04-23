@@ -9,7 +9,10 @@
 export type KpiCard = {
   value: string;
   label: string;
+  /** Short source/year marker (e.g. "ISP Piano 2026–29"). */
   caption?: string;
+  /** Marks figures that are estimates rather than officially published. */
+  estimated?: boolean;
 };
 
 export type LabeledCard = {
@@ -85,15 +88,41 @@ export const intesa = {
     headline:
       "Intesa has already chosen the direction.\nThe opportunity now is execution.",
     subhead:
-      "Cloud, AI, and efficiency are already strategic priorities. The constraint is how fast complex engineering work can move without increasing risk.",
+      "The tech transformation is already funded, staffed, and underway. The constraint is how fast engineering can keep moving at this scale — without bending governance.",
     kpis: [
-      { value: "€9.3B", label: "Net income", caption: "FY reference" },
-      { value: "64%", label: "Cloud-based applications" },
-      { value: "€5.1B", label: "Investment plan" },
-      { value: "€4.6B", label: "In technology & growth" },
-      { value: "153", label: "AI applications in production" },
-      { value: "90k+", label: "Employees" },
+      {
+        value: "€5.6B",
+        label: "Invested in tech 2022–2025",
+        caption: "ISP · Il Sole 24 Ore, Feb 2026",
+      },
+      {
+        value: "2,400+",
+        label: "IT specialists hired 2022–2025",
+        caption: "ISP · Il Sole 24 Ore, Feb 2026",
+      },
+      {
+        value: "64%",
+        label: "Applications cloud-based (end 2025)",
+        caption: "From 10% in 2021 · ISP, Feb 2026",
+      },
+      {
+        value: "ISYTECH",
+        label: "Proprietary cloud-native core banking",
+        caption: "Google · TIM · Thought Machine",
+      },
+      {
+        value: "€10B+",
+        label: "Tech investment 2022–2029",
+        caption: "Piano di Impresa 2026–2029",
+      },
+      {
+        value: "~100%",
+        label: "Cloud-native apps target by 2029",
+        caption: "Piano di Impresa 2026–2029",
+      },
     ] as KpiCard[],
+    sourcesLine:
+      "Sources: Intesa Sanpaolo investor materials & press (2022–2026) · Proverbio interview, Il Sole 24 Ore, Feb 2026 · Piano di Impresa 2026–2029",
     ctas: [
       { label: "Start the discussion", target: 2, primary: true },
       { label: "Open lighthouse", target: 9, primary: false },
@@ -161,36 +190,28 @@ export const intesa = {
   },
 
   panel35: {
-    eyebrow: "Executive discovery",
+    eyebrow: "Executive discovery · first 20 minutes",
     headline: "Before acceleration, clarity.",
     subhead:
-      "To understand where execution is constrained, we align on a few key areas — first on your priorities, then on how Devin integrates.",
+      "Four angles, two questions each. The aim is to pressure-test alignment, not to pitch. Start broad, then zoom into where reality bends.",
+    framingNote:
+      "How I would open a Tier-1 engagement — stakeholder-by-stakeholder, with questions that force specificity.",
     bottomLine: "Acceleration only matters if aligned to your reality.",
     personas: [
       {
         persona: "CIO",
-        headline: "Where modernization meets commitment",
+        headline: "Where announced direction meets actual pace",
         questions: [
           {
-            q: "Where is your modernization effort slowing down the most?",
+            q: "Where is the gap widest between your announced cloud/AI direction and the pace teams can actually execute?",
             followUps: [
-              "Is it capacity, process, or risk?",
-              "How large is the backlog today?",
-              "What gets delayed first when pressure hits?",
+              "Is the rate-limiting step hiring, platform readiness, or governance?",
             ],
           },
           {
-            q: "How do you measure engineering output against business expectations?",
+            q: "Of the engineering capacity you have today, how much compounds vs. keeps the lights on?",
             followUps: [
-              "Where do they diverge most visibly?",
-              "Is the gap widening quarter over quarter?",
-            ],
-          },
-          {
-            q: "If you unlocked 30% more engineering capacity, where would it go?",
-            followUps: [
-              "Transformation, or clearing the backlog?",
-              "What improves in the next 90 days?",
+              "What would move that ratio by 10 points in 90 days?",
             ],
           },
         ],
@@ -200,23 +221,15 @@ export const intesa = {
         headline: "Where the backlog actually lives",
         questions: [
           {
-            q: "What is the composition of your current engineering backlog?",
+            q: "If we sampled 100 open engineering tickets across the estate, what share is modernization, upgrades, test debt, docs?",
             followUps: [
-              "Refactors, upgrades, test debt, or net-new features?",
-              "Which share of it is considered unavoidable maintenance?",
+              "Which of those categories has the clearest ROI per engineer-hour?",
             ],
           },
           {
-            q: "What is your modernization cycle time today?",
+            q: "How long is an intent → PR-ready cycle for a typical modernization task today?",
             followUps: [
-              "From intent to PR-ready, how long?",
-              "Where does time get lost — discovery, implementation, or validation?",
-            ],
-          },
-          {
-            q: "How consistent is engineering quality across squads?",
-            followUps: [
-              "Which teams set the bar? Which teams would benefit most from standardization?",
+              "Where in that cycle does time leak — discovery, implementation, or review?",
             ],
           },
         ],
@@ -226,24 +239,15 @@ export const intesa = {
         headline: "Where predictability breaks",
         questions: [
           {
-            q: "How much visibility do you have into engineering delivery?",
+            q: "What share of quarterly engineering commitments lands on the committed date?",
             followUps: [
-              "Is it real-time, weekly, quarterly?",
-              "What decisions require data you do not have today?",
+              "When they slip, is it scope, capacity, or integration risk?",
             ],
           },
           {
-            q: "How predictable is delivery against committed dates?",
+            q: "Where do you lack the data to challenge engineering estimates in real time?",
             followUps: [
-              "What drives variance the most?",
-              "What would a 20% predictability gain mean for the business?",
-            ],
-          },
-          {
-            q: "Where are the most visible inefficiencies in execution?",
-            followUps: [
-              "Rework, handoffs, environment friction?",
-              "What recurs across programs?",
+              "What decision would a live delivery signal unlock?",
             ],
           },
         ],
@@ -253,24 +257,15 @@ export const intesa = {
         headline: "Where control must not bend",
         questions: [
           {
-            q: "How is traceability enforced on engineering changes today?",
+            q: "Which evidence do auditors ask for most often, and how long does engineering take to produce it?",
             followUps: [
-              "From intent to deploy, where are the weakest links?",
-              "Which evidence do auditors ask for most frequently?",
+              "If change volume doubled, which of those controls would bend first?",
             ],
           },
           {
-            q: "Where do audit gaps appear when velocity increases?",
+            q: "What would need to be true for a 2× increase in change volume to be approved?",
             followUps: [
-              "Documentation, test evidence, dependency tracking?",
-              "How do they get remediated today?",
-            ],
-          },
-          {
-            q: "What concerns you most about accelerating engineering?",
-            followUps: [
-              "Change volume, third-party risk, or evidence volume?",
-              "What would need to be true for acceleration to be approved?",
+              "Is the blocker policy, tooling, or evidence?",
             ],
           },
         ],

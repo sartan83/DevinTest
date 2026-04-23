@@ -96,11 +96,18 @@ export function MicrositeShell() {
     });
   }, [active]);
 
-  // Keyboard navigation (desktop; ignored on touch-only devices).
+  // Keyboard navigation. We listen on both the scroller element and the window
+  // so keys work whether focus is on a CTA button, on the scroller itself, or
+  // on the document body (including embedded / iframe contexts).
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
-      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
         return;
       }
       switch (e.key) {
@@ -127,8 +134,19 @@ export function MicrositeShell() {
           break;
       }
     };
+    const el = scrollerRef.current;
     window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
+    document.addEventListener("keydown", handler);
+    el?.addEventListener("keydown", handler);
+    // Give the scroller focus so key events land somewhere sensible on first load.
+    if (el && typeof document !== "undefined" && document.activeElement === document.body) {
+      el.focus({ preventScroll: true });
+    }
+    return () => {
+      window.removeEventListener("keydown", handler);
+      document.removeEventListener("keydown", handler);
+      el?.removeEventListener("keydown", handler as EventListener);
+    };
   }, [active, goTo]);
 
   // On desktop, translate vertical wheel intent into horizontal scroll.
@@ -197,14 +215,17 @@ export function MicrositeShell() {
           min={counterValue.min}
           max={counterValue.max}
           expanded={counterExpanded}
+          revealed={active >= 7 || visited.has(7)}
         />
       </header>
 
       {/* Snap scroller: horizontal on desktop, vertical on mobile */}
       <div
         ref={scrollerRef}
+        tabIndex={0}
+        onClick={() => scrollerRef.current?.focus({ preventScroll: true })}
         className={[
-          "no-scrollbar h-full w-full",
+          "no-scrollbar h-full w-full outline-none",
           isMobile
             ? "scroll-snap-y overflow-y-auto overflow-x-hidden"
             : "scroll-snap-x overflow-x-auto overflow-y-hidden",

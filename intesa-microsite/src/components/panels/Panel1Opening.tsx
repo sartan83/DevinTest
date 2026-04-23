@@ -51,14 +51,21 @@ export function Panel1Opening({ onCta }: Props) {
               transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
               className="relative overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/40 p-4 backdrop-blur-sm sm:p-5"
             >
-              <div className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-3xl">
-                {k.value}
+              <div className="flex items-baseline gap-2">
+                <div className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-3xl">
+                  {k.value}
+                </div>
+                {k.estimated && (
+                  <span className="rounded-full border border-brand-ivory/20 px-1.5 py-0.5 text-[9px] uppercase tracking-[0.18em] text-brand-ivory/55">
+                    est.
+                  </span>
+                )}
               </div>
               <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-brand-ivory/60 sm:text-xs">
                 {k.label}
               </div>
               {k.caption && (
-                <div className="mt-1 text-[10px] text-brand-ivory/35">{k.caption}</div>
+                <div className="mt-1 text-[10px] text-brand-ivory/40">{k.caption}</div>
               )}
               <div className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full bg-brand-orange/10 blur-2xl" />
             </motion.div>
@@ -66,8 +73,8 @@ export function Panel1Opening({ onCta }: Props) {
         </div>
       </div>
 
-      <p className="mt-8 max-w-2xl text-[10px] uppercase tracking-[0.28em] text-brand-ivory/40 sm:mt-12 sm:text-[11px]">
-        Public references · illustrative framing · {intesa.brand.client}
+      <p className="mt-8 max-w-3xl text-[10px] leading-relaxed text-brand-ivory/40 sm:mt-12 sm:text-[11px]">
+        {p.sourcesLine}
       </p>
     </PanelShell>
   );

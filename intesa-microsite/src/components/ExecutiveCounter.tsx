@@ -1,13 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { intesa } from "../data/intesa";
 
 type Props = {
   min: number;
   max: number;
+  /** True on the climax panel → show centered, largest form with full label. */
   expanded?: boolean;
+  /**
+   * True once the user has reached the reveal panel (Panel 7+) → show label and
+   * unit. While false, the pill stays as a mysterious "?" teaser in the corner.
+   */
+  revealed?: boolean;
 };
 
 function format(n: number) {
@@ -41,10 +47,35 @@ function useAnimatedNumber(target: number, duration = 700) {
   return value;
 }
 
-export function ExecutiveCounter({ min, max, expanded }: Props) {
+export function ExecutiveCounter({ min, max, expanded, revealed }: Props) {
   const aMin = useAnimatedNumber(min);
   const aMax = useAnimatedNumber(max);
 
+  // Teaser mode: small pill with "?" + numeric hint, no label / unit / disclaimer.
+  if (!revealed && !expanded) {
+    return (
+      <motion.div
+        layout
+        transition={{ type: "spring", stiffness: 220, damping: 28 }}
+        className="pointer-events-auto relative flex items-center gap-2 rounded-full border border-brand-ivory/15 bg-brand-green-deep/70 px-3 py-1.5 shadow-elev backdrop-blur-md"
+        aria-label="Session counter — revealed later"
+      >
+        <motion.span
+          aria-hidden
+          animate={{ opacity: [0.55, 1, 0.55] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-brand-orange/50 text-[11px] font-semibold text-brand-orange-soft"
+        >
+          ?
+        </motion.span>
+        <span className="font-display text-xs font-medium tabular-nums text-brand-ivory/85 sm:text-sm">
+          ≈ {format(aMin)}–{format(aMax)}
+        </span>
+      </motion.div>
+    );
+  }
+
+  // Revealed (compact on most panels from 7 onward, expanded on climax itself).
   return (
     <motion.div
       layout
@@ -92,14 +123,20 @@ export function ExecutiveCounter({ min, max, expanded }: Props) {
               {intesa.counter.unit}
             </span>
           </div>
-          <span
-            className={[
-              "mt-1 hidden text-brand-ivory/40 sm:inline",
-              expanded ? "text-[11px]" : "text-[10px]",
-            ].join(" ")}
-          >
-            {intesa.counter.disclaimer}
-          </span>
+          <AnimatePresence>
+            {expanded && (
+              <motion.span
+                key="disclaimer"
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="mt-1 hidden text-[11px] text-brand-ivory/40 sm:inline"
+              >
+                {intesa.counter.disclaimer}
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </motion.div>

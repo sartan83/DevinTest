@@ -25,6 +25,9 @@ export function Panel35Discovery() {
         <div>
           <PanelHeadline text={p.headline} />
           <PanelSubhead>{p.subhead}</PanelSubhead>
+          <div className="mt-5 max-w-md rounded-lg border-l-2 border-brand-orange/50 bg-brand-green-mid/20 px-4 py-3 text-[12px] italic text-brand-ivory/70 sm:text-[13px]">
+            {p.framingNote}
+          </div>
           <PanelClosing>{p.bottomLine}</PanelClosing>
         </div>
 
