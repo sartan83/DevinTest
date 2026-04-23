@@ -129,8 +129,11 @@ export const intesa = {
     sourcesLine:
       "Sources: Intesa Sanpaolo investor materials & press (2022–2026) · Proverbio interview, Il Sole 24 Ore, Feb 2026 · Piano di Impresa 2026–2029 · Revelio Labs workforce intelligence (Sep 2025)",
     ctas: [
+      // `target` is 1-indexed into the rendered panel array. Panel8Lighthouse
+      // sits at render index 9 (10th panel) once Discovery (3.5) and ROI
+      // signal (6.5) are inserted.
       { label: "Start the discussion", target: 2, primary: true },
-      { label: "Open lighthouse", target: 9, primary: false },
+      { label: "Open lighthouse", target: 10, primary: false },
     ],
   },
 
