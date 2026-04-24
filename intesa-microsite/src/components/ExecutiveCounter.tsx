@@ -57,18 +57,18 @@ export function ExecutiveCounter({ min, max, expanded, revealed }: Props) {
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 220, damping: 28 }}
-        className="pointer-events-auto relative flex items-center gap-2 rounded-full border border-brand-ivory/15 bg-brand-green-deep/70 px-3 py-1.5 shadow-elev backdrop-blur-md"
+        className="pointer-events-auto relative flex items-center gap-2.5 rounded-full border border-brand-ivory/15 bg-brand-green-deep/70 px-4 py-2 shadow-elev backdrop-blur-md sm:gap-3 sm:px-5 sm:py-2.5"
         aria-label="Session counter — revealed later"
       >
         <motion.span
           aria-hidden
           animate={{ opacity: [0.55, 1, 0.55] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-brand-orange/50 text-[11px] font-semibold text-brand-orange-soft"
+          className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-brand-orange/50 text-sm font-semibold text-brand-orange-soft sm:h-7 sm:w-7 sm:text-base"
         >
           ?
         </motion.span>
-        <span className="font-display text-xs font-medium tabular-nums text-brand-ivory/85 sm:text-sm">
+        <span className="font-display text-base font-semibold tabular-nums text-brand-ivory sm:text-lg">
           ≈ {format(aMin)}–{format(aMax)}
         </span>
       </motion.div>
