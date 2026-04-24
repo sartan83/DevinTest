@@ -81,6 +81,16 @@ def test_duplicates_moved_to_review(conn: sqlite3.Connection, tmp_roots: dict[st
     assert any(r["op_type"] == "quarantine" and "Duplicates_Review" in r["after_path"] for r in rows)
 
 
+def test_empty_folder_ids_plans_nothing(conn: sqlite3.Connection, tmp_roots: dict[str, Path]) -> None:
+    # Regression (mirror of the executor bug): an explicit empty ``folder_ids=[]``
+    # must NOT silently fall through to "plan all folders".
+    downloads = tmp_roots["downloads"]
+    _make_file(downloads / "setup.exe", b"MZ")
+    scan_all(conn)
+    _, ids = build_plan(conn, folder_ids=[])
+    assert ids == []
+
+
 def test_rollback_empty_executed_ids_rolls_back_nothing(
     conn: sqlite3.Connection, tmp_roots: dict[str, Path]
 ) -> None:

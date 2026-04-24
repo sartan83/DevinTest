@@ -143,6 +143,5 @@ jobs:
           path: |
             file-agent/release/*Setup*.exe
             file-agent/release/*.exe.blockmap
-            file-agent/release/latest.yml
           if-no-files-found: error
           retention-days: 14

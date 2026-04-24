@@ -140,14 +140,19 @@ def build_plan(
 
     allowed = _allowed_roots(conn)
 
-    # Select candidate files.
-    if folder_ids:
+    # Select candidate files. Explicit empty ``folder_ids=[]`` means "plan nothing" —
+    # must not silently fall through to "plan everything" (same footgun guard as
+    # executor.apply / rollback._select_executed).
+    if folder_ids is not None:
         ids = list(folder_ids)
-        placeholders = ",".join(["?"] * len(ids))
-        file_rows = conn.execute(
-            f"SELECT id, path FROM files_index WHERE folder_id IN ({placeholders})",
-            ids,
-        ).fetchall()
+        if not ids:
+            file_rows = []
+        else:
+            placeholders = ",".join(["?"] * len(ids))
+            file_rows = conn.execute(
+                f"SELECT id, path FROM files_index WHERE folder_id IN ({placeholders})",
+                ids,
+            ).fetchall()
     else:
         file_rows = conn.execute("SELECT id, path FROM files_index").fetchall()
 
