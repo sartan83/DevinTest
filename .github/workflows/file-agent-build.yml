@@ -1,0 +1,146 @@
+name: FileAgent — build Windows installer
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "file-agent/**"
+      - ".github/workflows/file-agent-build.yml"
+  pull_request:
+    paths:
+      - "file-agent/**"
+      - ".github/workflows/file-agent-build.yml"
+  workflow_dispatch: {}
+
+defaults:
+  run:
+    working-directory: file-agent
+
+jobs:
+  backend-tests:
+    name: Backend tests + lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend (editable + dev extras)
+        working-directory: file-agent/backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Ruff
+        working-directory: file-agent/backend
+        run: ruff check fileagent
+
+      - name: Pytest
+        working-directory: file-agent/backend
+        run: pytest -q
+
+  frontend-typecheck:
+    name: Frontend typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: file-agent/package-lock.json
+
+      - name: Install npm deps
+        run: npm ci
+
+      - name: Typecheck (renderer)
+        run: npx tsc --noEmit
+
+      - name: Typecheck (electron main/preload)
+        run: npx tsc -p tsconfig.electron.json --noEmit
+
+  windows-installer:
+    name: Build Windows installer (.exe)
+    needs: [backend-tests, frontend-typecheck]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: file-agent/package-lock.json
+
+      - name: Install backend + pyinstaller
+        working-directory: file-agent/backend
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install "pyinstaller>=6.6"
+
+      - name: Bundle Python sidecar with PyInstaller
+        working-directory: file-agent/backend
+        shell: pwsh
+        run: |
+          pyinstaller --clean --noconfirm --onedir --name fileagent `
+            --collect-all fileagent `
+            --add-data "fileagent/schema.sql;fileagent" `
+            fileagent/main.py
+          # Move PyInstaller output into the path electron-builder expects.
+          if (Test-Path dist_sidecar) { Remove-Item -Recurse -Force dist_sidecar }
+          Move-Item dist/fileagent dist_sidecar
+
+      - name: Smoke-test the bundled sidecar
+        working-directory: file-agent/backend
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath "dist_sidecar/fileagent.exe" -ArgumentList "--host","127.0.0.1","--port","53117" -PassThru -NoNewWindow
+          try {
+            Start-Sleep -Seconds 6
+            $res = Invoke-WebRequest -UseBasicParsing -Uri "http://127.0.0.1:53117/health"
+            if ($res.StatusCode -ne 200) { throw "sidecar /health returned $($res.StatusCode)" }
+            Write-Host "sidecar healthy: $($res.Content)"
+          } finally {
+            if (!$p.HasExited) { Stop-Process -Id $p.Id -Force }
+          }
+
+      - name: Install npm deps
+        run: npm ci
+
+      - name: Build renderer + electron main
+        shell: pwsh
+        run: |
+          npx tsc --noEmit
+          npx vite build
+          npx tsc -p tsconfig.electron.json
+
+      - name: Package Windows NSIS installer
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx electron-builder --win --x64 --publish=never
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FileAgent-Windows-Setup
+          path: |
+            file-agent/release/*Setup*.exe
+            file-agent/release/*.exe.blockmap
+            file-agent/release/latest.yml
+          if-no-files-found: error
+          retention-days: 14

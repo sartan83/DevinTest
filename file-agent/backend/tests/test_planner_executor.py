@@ -81,6 +81,34 @@ def test_duplicates_moved_to_review(conn: sqlite3.Connection, tmp_roots: dict[st
     assert any(r["op_type"] == "quarantine" and "Duplicates_Review" in r["after_path"] for r in rows)
 
 
+def test_empty_action_ids_applies_nothing(conn: sqlite3.Connection, tmp_roots: dict[str, Path]) -> None:
+    # Regression: an explicit empty ``action_ids=[]`` from the UI must NOT fall
+    # through to "apply all". Previously `if action_ids:` treated [] as "no filter".
+    downloads = tmp_roots["downloads"]
+    _make_file(downloads / "setup.exe", b"MZ")
+    scan_all(conn)
+    plan_id, ids = build_plan(conn)
+    approve(conn, ids)
+    _, executed = executor_apply(conn, ApplyRequest(plan_id=plan_id, mode="manual", action_ids=[]))
+    assert executed == []
+    # Source file must still be in place.
+    assert (downloads / "setup.exe").exists()
+
+
+def test_semi_auto_only_applies_approved(conn: sqlite3.Connection, tmp_roots: dict[str, Path]) -> None:
+    # Regression: semi_auto must NOT execute pending proposals — only approved ones.
+    downloads = tmp_roots["downloads"]
+    _make_file(downloads / "setup.exe", b"MZ")
+    _make_file(downloads / "bundle.zip", b"PK")
+    scan_all(conn)
+    plan_id, ids = build_plan(conn)
+    # Approve only the first proposal; leave the rest pending.
+    approve(conn, [ids[0]])
+    _, executed = executor_apply(conn, ApplyRequest(plan_id=plan_id, mode="semi_auto"))
+    assert len(executed) == 1
+    assert executed[0].proposed_id == ids[0]
+
+
 def test_safety_blocks_out_of_root(conn: sqlite3.Connection, tmp_roots: dict[str, Path], tmp_path: Path) -> None:
     # A file outside all watched roots should be ignored — not moved.
     outside = tmp_path / "outside" / "foo.exe"

@@ -31,13 +31,21 @@ def _load_proposals(
 ) -> list[sqlite3.Row]:
     params: list[object] = [plan_id]
     where = ["plan_id = ?", "status IN ('pending', 'approved')"]
-    if action_ids:
+    if action_ids is not None:
+        # Explicit empty list means "apply nothing" — do not silently fall through
+        # to "apply all", which would be a dangerous footgun from the UI.
+        if len(action_ids) == 0:
+            return []
         placeholders = ",".join(["?"] * len(action_ids))
         where.append(f"id IN ({placeholders})")
         params.extend(action_ids)
     if mode == "auto":
         # Only non-approval-required items are eligible in auto mode.
         where.append("requires_approval = 0")
+    elif mode == "semi_auto":
+        # Only explicitly approved items run in semi-auto; anything still pending stays pending.
+        where = [w for w in where if w != "status IN ('pending', 'approved')"]
+        where.append("status = 'approved'")
     return conn.execute(
         f"""
         SELECT id, plan_id, file_id, rule_id, op_type, before_path, after_path,
