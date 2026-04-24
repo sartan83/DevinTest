@@ -6,7 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "fileagent"
 version = "0.1.0"
 description = "Local-first AI file organization agent (Python sidecar)"
-readme = "../README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Simone Agazzi" }]
