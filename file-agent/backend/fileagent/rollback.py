@@ -18,7 +18,11 @@ def _allowed_roots(conn: sqlite3.Connection) -> list[str]:
 
 
 def _select_executed(conn: sqlite3.Connection, req: RollbackRequest) -> list[sqlite3.Row]:
-    if req.executed_ids:
+    if req.executed_ids is not None:
+        # Explicit empty list means "roll back nothing" — must not silently fall
+        # through to a batch-wide rollback (same footgun guard as executor.apply).
+        if len(req.executed_ids) == 0:
+            return []
         placeholders = ",".join(["?"] * len(req.executed_ids))
         return conn.execute(
             f"""

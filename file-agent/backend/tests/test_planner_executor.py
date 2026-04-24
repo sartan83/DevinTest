@@ -81,6 +81,24 @@ def test_duplicates_moved_to_review(conn: sqlite3.Connection, tmp_roots: dict[st
     assert any(r["op_type"] == "quarantine" and "Duplicates_Review" in r["after_path"] for r in rows)
 
 
+def test_rollback_empty_executed_ids_rolls_back_nothing(
+    conn: sqlite3.Connection, tmp_roots: dict[str, Path]
+) -> None:
+    # Regression (mirror of the executor bug): an explicit empty ``executed_ids=[]``
+    # must NOT silently fall through to a batch-wide rollback.
+    downloads = tmp_roots["downloads"]
+    f = _make_file(downloads / "installer.exe", b"MZ")
+    scan_all(conn)
+    plan_id, _ = build_plan(conn)
+    batch_id, executed = executor_apply(conn, ApplyRequest(plan_id=plan_id, mode="manual"))
+    assert any(e.success for e in executed)
+    assert not f.exists()
+    # With an empty list AND a batch_id, nothing should be reverted.
+    results = rollback(conn, RollbackRequest(batch_id=batch_id, executed_ids=[]))
+    assert results == []
+    assert not f.exists()
+
+
 def test_empty_action_ids_applies_nothing(conn: sqlite3.Connection, tmp_roots: dict[str, Path]) -> None:
     # Regression: an explicit empty ``action_ids=[]`` from the UI must NOT fall
     # through to "apply all". Previously `if action_ids:` treated [] as "no filter".

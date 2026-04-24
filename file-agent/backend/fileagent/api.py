@@ -98,14 +98,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         conn = get_conn()
         try:
             cur = conn.execute(
-                "INSERT OR IGNORE INTO watched_folders(path, role, enabled) VALUES (?, ?, 1) RETURNING id",
+                "INSERT OR IGNORE INTO watched_folders(path, role, enabled) VALUES (?, ?, 1) RETURNING id, role",
                 (path, role),
             )
             row = cur.fetchone()
             conn.commit()
             if row is None:
-                row = conn.execute("SELECT id FROM watched_folders WHERE path = ?", (path,)).fetchone()
-            return {"id": int(row["id"]), "path": path, "role": role}
+                # Path already registered — return the role actually stored in the DB,
+                # not the (possibly different) role from the request payload.
+                row = conn.execute(
+                    "SELECT id, role FROM watched_folders WHERE path = ?", (path,)
+                ).fetchone()
+            return {"id": int(row["id"]), "path": path, "role": row["role"]}
         finally:
             conn.close()
 

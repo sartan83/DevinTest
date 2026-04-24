@@ -95,10 +95,12 @@ jobs:
         working-directory: file-agent/backend
         shell: pwsh
         run: |
+          # fileagent_entry.py is a shim that imports the package normally —
+          # PyInstaller can't run fileagent/main.py directly because it uses
+          # relative imports that fail when the script is executed as __main__.
           pyinstaller --clean --noconfirm --onedir --name fileagent `
             --collect-all fileagent `
-            --add-data "fileagent/schema.sql;fileagent" `
-            fileagent/main.py
+            fileagent_entry.py
           # Move PyInstaller output into the path electron-builder expects.
           if (Test-Path dist_sidecar) { Remove-Item -Recurse -Force dist_sidecar }
           Move-Item dist/fileagent dist_sidecar
