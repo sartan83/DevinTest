@@ -25,6 +25,12 @@ export async function POST(request: Request) {
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
+        const keepalive = setInterval(() => {
+          try {
+            controller.enqueue(encoder.encode(": keepalive\n\n"));
+          } catch { /* stream closed */ }
+        }, 10_000);
+
         function sendProgress(
           status: string,
           message: string,
@@ -145,6 +151,7 @@ export async function POST(request: Request) {
             err instanceof Error ? err.message : "Unknown error occurred";
           sendError(message);
         } finally {
+          clearInterval(keepalive);
           controller.close();
         }
       },
