@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { callLLM } from "./llm-client";
 import type {
   ProspectInput,
   CompanyInsight,
@@ -8,8 +8,6 @@ import type {
   DiscoveryQuestion,
   SourceReference,
 } from "./types";
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 async function fetchPageText(url: string): Promise<string> {
   try {
@@ -29,36 +27,6 @@ async function fetchPageText(url: string): Promise<string> {
   } catch {
     return "";
   }
-}
-
-const MODELS = ["gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo"] as const;
-
-async function callGPT(
-  systemPrompt: string,
-  userPrompt: string,
-): Promise<string> {
-  let lastError: unknown;
-  for (const model of MODELS) {
-    try {
-      const response = await openai.chat.completions.create({
-        model,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.3,
-        max_tokens: 4096,
-        response_format: { type: "json_object" },
-      });
-      return response.choices[0]?.message?.content ?? "{}";
-    } catch (err) {
-      lastError = err;
-      const status = (err as { status?: number }).status;
-      if (status === 429 || status === 503) continue;
-      throw err;
-    }
-  }
-  throw lastError;
 }
 
 export async function researchCompany(
@@ -81,10 +49,10 @@ ${input.employees ? `Employees: ${input.employees}` : ""}
 ${input.knownInitiatives ? `Known initiatives: ${input.knownInitiatives}` : ""}
 
 Website content:
-${websiteText.slice(0, 8000)}
+${websiteText.slice(0, 3000)}
 
 About page content:
-${aboutText.slice(0, 4000)}
+${aboutText.slice(0, 1500)}
 
 Return JSON with this exact structure:
 {
@@ -116,7 +84,7 @@ Return JSON with this exact structure:
 
 Include 3-5 strategic initiatives. If you cannot find specific information from the provided text, use reasonable inferences based on the industry and company type, but mark those with "Low" confidence. Never fabricate specific quotes or metrics.`;
 
-  const result = await callGPT(systemPrompt, userPrompt);
+  const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
 
   return {
@@ -163,7 +131,7 @@ export async function searchCognitionUseCases(
 Search queries used: ${searchQueries.join(", ")}
 
 Content from Cognition/Devin public pages:
-${collectedText.slice(0, 8000)}
+${collectedText.slice(0, 3000)}
 
 Return JSON with this structure:
 {
@@ -183,7 +151,7 @@ Return JSON with this structure:
 
 IMPORTANT: Only include use cases you found evidence for in the provided content. If no relevant use cases are found, return {"useCases": []}.`;
 
-  const result = await callGPT(systemPrompt, userPrompt);
+  const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
   return parsed.useCases ?? [];
 }
@@ -209,32 +177,32 @@ Devin AI value areas:
 
   const userPrompt = `Map ${companyName}'s strategic initiatives to Devin AI value opportunities.
 
-Company insight:
-${JSON.stringify(companyInsight, null, 2)}
+Industry: ${companyInsight.industry}
+Initiatives: ${companyInsight.strategicInitiatives.map((i) => i.title).join(", ")}
+Goals: ${companyInsight.businessGoals.join(", ")}
 
-Available Cognition/Devin use cases:
-${JSON.stringify(cognitionUseCases, null, 2)}
+Cognition use cases: ${cognitionUseCases.length > 0 ? cognitionUseCases.map((u) => u.title).join(", ") : "None found"}
 
 Return JSON:
 {
   "opportunities": [
     {
       "businessInitiative": "the company initiative",
-      "whyItMatters": "why this matters to the company",
-      "engineeringWork": "engineering/software work likely required",
-      "howDevinHelps": "how Devin could help",
-      "relatedCognitionUseCase": null or matching use case object,
-      "expectedImpact": "expected impact description",
+      "whyItMatters": "why this matters",
+      "engineeringWork": "engineering work required",
+      "howDevinHelps": "how Devin helps",
+      "relatedCognitionUseCase": null,
+      "expectedImpact": "impact description",
       "confidence": "High|Medium|Low",
-      "companySourceUrl": "source URL for the company initiative",
-      "cognitionSourceUrl": "source URL for Cognition use case if applicable, or null"
+      "companySourceUrl": "source URL",
+      "cognitionSourceUrl": null
     }
   ]
 }
 
-Include 4-6 opportunities, ordered by confidence level.`;
+Include 3-5 opportunities.`;
 
-  const result = await callGPT(systemPrompt, userPrompt);
+  const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
   return parsed.opportunities ?? [];
 }
@@ -248,11 +216,9 @@ export async function generatePersonalizedUseCases(
 
   const userPrompt = `Generate 3-5 personalized Devin AI use cases for ${companyName}.
 
-Company insight:
-${JSON.stringify(companyInsight, null, 2)}
-
-Value opportunities:
-${JSON.stringify(valueOpportunities, null, 2)}
+Industry: ${companyInsight.industry}
+Initiatives: ${companyInsight.strategicInitiatives.map((i) => i.title).join(", ")}
+Value areas: ${valueOpportunities.map((v) => v.businessInitiative).join(", ")}
 
 Return JSON:
 {
@@ -268,7 +234,7 @@ Return JSON:
   ]
 }`;
 
-  const result = await callGPT(systemPrompt, userPrompt);
+  const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
   return parsed.useCases ?? [];
 }
@@ -282,8 +248,9 @@ export async function generateExecutiveNarrative(
 
   const userPrompt = `Write a 3-4 sentence executive summary for ${companyName} about how Devin AI could support their technology agenda.
 
-Company insight:
-${JSON.stringify(companyInsight, null, 2)}
+Industry: ${companyInsight.industry}
+Overview: ${companyInsight.overview}
+Initiatives: ${companyInsight.strategicInitiatives.map((i) => i.title).join(", ")}
 
 Cognition use cases found: ${cognitionUseCases.length > 0 ? "Yes" : "No"}
 
@@ -294,7 +261,7 @@ Return JSON:
 
 The tone should be executive, credible, and concise. Reference public priorities. ${cognitionUseCases.length > 0 ? "Mention that the value hypothesis is informed by relevant public Cognition/Devin proof points." : ""}`;
 
-  const result = await callGPT(systemPrompt, userPrompt);
+  const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
   return (
     parsed.narrative ??
@@ -311,8 +278,9 @@ export async function generateDiscoveryQuestions(
 
   const userPrompt = `Generate 8 discovery questions for ${companyName}.
 
-Company insight:
-${JSON.stringify(companyInsight, null, 2)}
+Industry: ${companyInsight.industry}
+Initiatives: ${companyInsight.strategicInitiatives.map((i) => i.title).join(", ")}
+Goals: ${companyInsight.businessGoals.join(", ")}
 
 Has relevant Cognition use cases: ${cognitionUseCases.length > 0 ? "Yes" : "No"}
 
@@ -332,7 +300,7 @@ Include exactly:
 - 2 ROI/business case questions
 ${cognitionUseCases.length > 0 ? "- At least one question should validate whether the relevant Cognition/Devin proof point applies to their environment." : ""}`;
 
-  const result = await callGPT(systemPrompt, userPrompt);
+  const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
   return parsed.questions ?? [];
 }
