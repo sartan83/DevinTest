@@ -21,7 +21,7 @@ export function calculateROI(assumptions: ROIAssumptions): ROIResults {
     assumptions.productivityUplift;
 
   const projectAccelerationValue =
-    assumptions.monthlyBusinessValue * assumptions.monthsAccelerated;
+    assumptions.monthlyBusinessValue * assumptions.monthsAccelerated * assumptions.numberOfInitiatives;
 
   const totalEstimatedValue = annualProductivityValue + projectAccelerationValue;
 

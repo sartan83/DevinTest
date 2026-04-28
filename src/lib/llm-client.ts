@@ -101,16 +101,14 @@ async function callWithModel(
   }
 }
 
-let lastCallTime = 0;
 const MIN_DELAY_MS = Number(process.env.LLM_RATE_LIMIT_MS ?? "2000");
+let rateLimitChain = Promise.resolve();
 
 async function rateLimit(): Promise<void> {
-  const now = Date.now();
-  const elapsed = now - lastCallTime;
-  if (elapsed < MIN_DELAY_MS) {
-    await new Promise((r) => setTimeout(r, MIN_DELAY_MS - elapsed));
-  }
-  lastCallTime = Date.now();
+  rateLimitChain = rateLimitChain.then(
+    () => new Promise((r) => setTimeout(r, MIN_DELAY_MS)),
+  );
+  await rateLimitChain;
 }
 
 export async function callLLM(
