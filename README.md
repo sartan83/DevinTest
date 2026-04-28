@@ -34,14 +34,15 @@ Input → Research Agent → Cognition Proof Point Matching → Value Mapping �
 - **UI Components**: Custom shadcn-style components
 - **Charts**: Recharts
 - **Icons**: Lucide React
-- **AI**: OpenAI GPT-4o
-- **Research**: Web scraping with Cheerio
+- **AI**: Groq (Llama 3.3 70B) — free tier, no credit card needed
+- **Multi-provider**: Also supports OpenAI GPT-4o and DeepSeek
+- **Research**: Web scraping
 
 ## Prerequisites
 
 - Node.js 20+
 - npm 10+
-- OpenAI API key with GPT-4o access
+- Groq API key (free at https://console.groq.com/keys)
 
 ## Getting Started
 
@@ -63,7 +64,17 @@ npm install
 Create a `.env.local` file in the project root:
 
 ```env
-OPENAI_API_KEY=your-openai-api-key-here
+# Default: Groq (free, no credit card needed)
+LLM_PROVIDER=groq
+GROQ_API_KEY=your-groq-api-key-here
+
+# Alternative: OpenAI
+# LLM_PROVIDER=openai
+# OPENAI_API_KEY=your-openai-api-key-here
+
+# Alternative: DeepSeek
+# LLM_PROVIDER=deepseek
+# DEEPSEEK_API_KEY=your-deepseek-api-key-here
 ```
 
 4. **Run the development server**
