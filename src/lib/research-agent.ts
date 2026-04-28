@@ -31,21 +31,34 @@ async function fetchPageText(url: string): Promise<string> {
   }
 }
 
+const MODELS = ["gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo"] as const;
+
 async function callGPT(
   systemPrompt: string,
   userPrompt: string,
 ): Promise<string> {
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: userPrompt },
-    ],
-    temperature: 0.3,
-    max_tokens: 4096,
-    response_format: { type: "json_object" },
-  });
-  return response.choices[0]?.message?.content ?? "{}";
+  let lastError: unknown;
+  for (const model of MODELS) {
+    try {
+      const response = await openai.chat.completions.create({
+        model,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+        temperature: 0.3,
+        max_tokens: 4096,
+        response_format: { type: "json_object" },
+      });
+      return response.choices[0]?.message?.content ?? "{}";
+    } catch (err) {
+      lastError = err;
+      const status = (err as { status?: number }).status;
+      if (status === 429 || status === 503) continue;
+      throw err;
+    }
+  }
+  throw lastError;
 }
 
 export async function researchCompany(
