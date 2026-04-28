@@ -75,7 +75,7 @@ function AssumptionField({
     <div className="space-y-2">
       <div className="flex items-center justify-between">
         <label className="text-sm font-medium text-gray-700">{label}</label>
-        <span className="text-sm font-semibold text-indigo-700">
+        <span className="text-sm font-semibold text-[#317CFF]">
           {displayValue(value)}
         </span>
       </div>
@@ -94,7 +94,7 @@ function AssumptionField({
   );
 }
 
-const CHART_COLORS = ["#4f46e5", "#7c3aed", "#06b6d4", "#10b981"];
+const CHART_COLORS = ["#317CFF", "#6366f1", "#06b6d4", "#10b981"];
 
 export function ROICalculator({ data }: ROICalculatorProps) {
   const [assumptions, setAssumptions] = useState<ROIAssumptions>(
@@ -145,7 +145,7 @@ export function ROICalculator({ data }: ROICalculatorProps) {
     <section id="roi-calculator" className="py-16 sm:py-20 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <Calculator className="h-6 w-6 text-indigo-600" />
+          <Calculator className="h-6 w-6 text-[#317CFF]" />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             ROI estimate
           </h2>
@@ -161,7 +161,7 @@ export function ROICalculator({ data }: ROICalculatorProps) {
             <Card>
               <CardContent className="p-6 space-y-5">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <BarChart3 className="h-4 w-4 text-indigo-600" />
+                  <BarChart3 className="h-4 w-4 text-[#317CFF]" />
                   Editable Assumptions
                 </h3>
 
@@ -252,15 +252,15 @@ export function ROICalculator({ data }: ROICalculatorProps) {
           <div className="lg:col-span-3 space-y-5">
             {/* KPI counters */}
             <div className="grid grid-cols-2 gap-4">
-              <Card className="bg-gradient-to-br from-indigo-50 to-white border-indigo-100">
+              <Card className="bg-gradient-to-br from-[#317CFF]/5 to-white border-[#317CFF]/10 animate-pulse-glow">
                 <CardContent className="p-5">
                   <div className="flex items-center gap-2 mb-1">
-                    <DollarSign className="h-4 w-4 text-indigo-600" />
+                    <DollarSign className="h-4 w-4 text-[#317CFF]" />
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Total Estimated Value
                     </p>
                   </div>
-                  <p className="text-2xl sm:text-3xl font-bold text-indigo-700">
+                  <p className="text-2xl sm:text-3xl font-bold text-[#317CFF]">
                     {formatCurrency(results.totalEstimatedValue)}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">per year</p>
@@ -270,7 +270,7 @@ export function ROICalculator({ data }: ROICalculatorProps) {
               <Card className="bg-gradient-to-br from-emerald-50 to-white border-emerald-100">
                 <CardContent className="p-5">
                   <div className="flex items-center gap-2 mb-1">
-                    <TrendingUp className="h-4 w-4 text-emerald-600" />
+                    <TrendingUp className="h-4 w-4 text-emerald-500" />
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                       ROI Multiple
                     </p>
@@ -287,7 +287,7 @@ export function ROICalculator({ data }: ROICalculatorProps) {
               <Card className="bg-gradient-to-br from-purple-50 to-white border-purple-100">
                 <CardContent className="p-5">
                   <div className="flex items-center gap-2 mb-1">
-                    <DollarSign className="h-4 w-4 text-purple-600" />
+                    <DollarSign className="h-4 w-4 text-purple-500" />
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Productivity Value
                     </p>
@@ -407,7 +407,7 @@ export function ROICalculator({ data }: ROICalculatorProps) {
                   </p>
                   <p>
                     Project Acceleration Value = Monthly Value x Months
-                    Accelerated = {formatCurrency(results.projectAccelerationValue)}
+                    Accelerated x Initiatives = {formatCurrency(results.projectAccelerationValue)}
                   </p>
                   <p>
                     Total Estimated Value = Productivity + Acceleration ={" "}

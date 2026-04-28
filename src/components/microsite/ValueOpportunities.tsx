@@ -22,7 +22,7 @@ export function ValueOpportunities({ data }: ValueOpportunitiesProps) {
     <section id="value-opportunities" className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <Layers className="h-6 w-6 text-indigo-600" />
+          <Layers className="h-6 w-6 text-[#317CFF]" />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Devin value opportunities
           </h2>
@@ -38,7 +38,7 @@ export function ValueOpportunities({ data }: ValueOpportunitiesProps) {
               <CardContent className="p-6">
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
-                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 text-sm font-bold">
+                    <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-[#317CFF]/10 text-[#317CFF] text-sm font-bold">
                       {i + 1}
                     </span>
                     <h3 className="text-base font-semibold text-gray-900">
@@ -86,7 +86,7 @@ export function ValueOpportunities({ data }: ValueOpportunitiesProps) {
                       href={opp.companySourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-700"
+                      className="inline-flex items-center gap-1 text-xs text-[#317CFF] hover:text-[#2563eb]"
                     >
                       <ExternalLink className="h-3 w-3" />
                       Company source

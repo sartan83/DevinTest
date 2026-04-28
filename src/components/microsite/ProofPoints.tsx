@@ -16,7 +16,7 @@ export function ProofPoints({ data }: ProofPointsProps) {
     <section id="proof-points" className="py-16 sm:py-20 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <Award className="h-6 w-6 text-indigo-600" />
+          <Award className="h-6 w-6 text-[#317CFF]" />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Relevant Devin proof points
           </h2>
@@ -94,7 +94,7 @@ export function ProofPoints({ data }: ProofPointsProps) {
                     href={uc.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-700 mt-2"
+                    className="inline-flex items-center gap-1 text-xs text-[#317CFF] hover:text-[#2563eb] mt-2"
                   >
                     <ExternalLink className="h-3 w-3" />
                     View source

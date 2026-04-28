@@ -84,7 +84,7 @@ export function ProspectForm({ onSubmit, isLoading }: ProspectFormProps) {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
         <div className="relative">
-          <Building2 className="absolute left-3 top-9 h-5 w-5 text-gray-400" />
+          <Building2 className="absolute left-3 top-9 h-5 w-5 text-gray-500" />
           <Input
             id="companyName"
             label="Company Name *"
@@ -97,7 +97,7 @@ export function ProspectForm({ onSubmit, isLoading }: ProspectFormProps) {
         </div>
 
         <div className="relative">
-          <Globe className="absolute left-3 top-9 h-5 w-5 text-gray-400" />
+          <Globe className="absolute left-3 top-9 h-5 w-5 text-gray-500" />
           <Input
             id="websiteUrl"
             label="Company Website URL *"
@@ -113,7 +113,7 @@ export function ProspectForm({ onSubmit, isLoading }: ProspectFormProps) {
       <button
         type="button"
         onClick={() => setShowOptional(!showOptional)}
-        className="flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors cursor-pointer"
+        className="flex items-center gap-2 text-sm font-medium text-[#317CFF] hover:text-[#5a9aff] transition-colors cursor-pointer"
       >
         {showOptional ? (
           <ChevronUp className="h-4 w-4" />
@@ -124,7 +124,7 @@ export function ProspectForm({ onSubmit, isLoading }: ProspectFormProps) {
       </button>
 
       {showOptional && (
-        <div className="space-y-4 border-t border-gray-100 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="space-y-4 border-t border-white/5 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="relative">
               <Factory className="absolute left-3 top-9 h-5 w-5 text-gray-400" />
@@ -204,7 +204,7 @@ export function ProspectForm({ onSubmit, isLoading }: ProspectFormProps) {
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full h-12 text-base"
+        className="w-full h-12 text-base bg-[#317CFF] hover:bg-[#2563eb] text-white shadow-lg shadow-[#317CFF]/25 hover:shadow-[#317CFF]/40"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">

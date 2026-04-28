@@ -21,6 +21,7 @@ import {
   Share2,
   RotateCcw,
   Zap,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -123,7 +124,7 @@ export default function Home() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `microsite-${micrositeData.prospect.companyName.toLowerCase().replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `devin-value-analysis-${micrositeData.prospect.companyName.toLowerCase().replace(/\s+/g, "-")}-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -133,7 +134,7 @@ export default function Home() {
     if (navigator.share) {
       await navigator.share({
         title: `Devin AI Value Analysis — ${micrositeData.prospect.companyName}`,
-        text: `Personalized Devin AI microsite for ${micrositeData.prospect.companyName}`,
+        text: `See how Devin AI could unlock ${micrositeData.prospect.companyName}'s engineering potential`,
         url: window.location.href,
       });
     } else {
@@ -146,21 +147,21 @@ export default function Home() {
     window.print();
   }
 
-  // Input form view
-  if (!micrositeData && !isLoading && !error) {
+  // Input form view — only show when truly idle (no progress, no data, no error)
+  if (!micrositeData && progress.status === "idle" && !error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50/30 flex flex-col">
-        <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
+        <header className="border-b border-white/5">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-3">
-            <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-indigo-600 text-white">
-              <Zap className="h-5 w-5" />
+            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#317CFF]">
+              <Zap className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-gray-900">
-                Devin AI Prospect Microsite Generator
+              <h1 className="text-lg font-semibold text-white">
+                Devin AI
               </h1>
               <p className="text-xs text-gray-500">
-                AI-powered account research and value mapping
+                AI-powered value analysis
               </p>
             </div>
           </div>
@@ -168,19 +169,19 @@ export default function Home() {
 
         <main className="flex-1 flex items-center justify-center py-12">
           <div className="w-full max-w-xl mx-auto px-4">
-            <Card className="shadow-lg border-gray-200">
+            <Card className="shadow-2xl border-white/10 bg-white/[0.02] backdrop-blur-sm">
               <CardContent className="p-8">
                 <div className="text-center mb-8">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-100 mb-4">
-                    <Sparkles className="h-7 w-7 text-indigo-600" />
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#317CFF]/10 mb-4">
+                    <Sparkles className="h-7 w-7 text-[#317CFF]" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  <h2 className="text-2xl font-bold text-white mb-2">
                     Generate a prospect microsite
                   </h2>
-                  <p className="text-gray-500 text-sm max-w-md mx-auto">
-                    Enter a company name and website URL to launch the research
-                    agent. It will gather public information, map Devin AI
-                    value opportunities, and generate a personalized microsite.
+                  <p className="text-gray-400 text-sm max-w-md mx-auto">
+                    Enter a company name and website URL. Our AI agent will
+                    research the company, map Devin value opportunities,
+                    and build a personalized ROI analysis.
                   </p>
                 </div>
                 <ProspectForm onSubmit={handleGenerate} isLoading={isLoading} />
@@ -189,9 +190,9 @@ export default function Home() {
           </div>
         </main>
 
-        <footer className="border-t border-gray-200 bg-white py-6">
+        <footer className="border-t border-white/5 py-6">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-600">
               Powered by Devin AI &middot; Built by Cognition
             </p>
           </div>
@@ -203,7 +204,7 @@ export default function Home() {
   // Loading view
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center">
         <LoadingState progress={progress} />
       </div>
     );
@@ -212,12 +213,12 @@ export default function Home() {
   // Error view
   if (error) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
-        <Card className="max-w-md w-full shadow-lg border-red-200">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center px-4">
+        <Card className="max-w-md w-full shadow-lg border-red-900/30 bg-white/[0.02]">
           <CardContent className="p-8 text-center">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-red-100 mb-4">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-red-500/10 mb-4">
               <svg
-                className="h-7 w-7 text-red-600"
+                className="h-7 w-7 text-red-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -230,11 +231,11 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+            <h2 className="text-lg font-semibold text-white mb-2">
               Generation failed
             </h2>
-            <p className="text-sm text-gray-500 mb-6">{error}</p>
-            <Button onClick={handleReset}>
+            <p className="text-sm text-gray-400 mb-6">{error}</p>
+            <Button onClick={handleReset} className="bg-[#317CFF] hover:bg-[#2563eb] text-white">
               <RotateCcw className="h-4 w-4" />
               Try again
             </Button>
@@ -251,22 +252,22 @@ export default function Home() {
         <MicrositeNav />
 
         {/* Toolbar */}
-        <div className="bg-gray-50 border-b border-gray-200 print:hidden">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-            <Button variant="ghost" size="sm" onClick={handleReset}>
+        <div className="bg-[#0a0a0a] border-b border-white/5 print:hidden">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+            <Button variant="ghost" size="sm" onClick={handleReset} className="text-gray-400 hover:text-white hover:bg-white/5">
               <ArrowLeft className="h-4 w-4" />
               New analysis
             </Button>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={handleExport}>
+              <Button variant="outline" size="sm" onClick={handleExport} className="border-white/10 text-gray-300 hover:text-white hover:bg-white/5">
                 <Download className="h-4 w-4" />
                 <span className="hidden sm:inline">Export</span>
               </Button>
-              <Button variant="outline" size="sm" onClick={handleShare}>
+              <Button variant="outline" size="sm" onClick={handleShare} className="border-white/10 text-gray-300 hover:text-white hover:bg-white/5">
                 <Share2 className="h-4 w-4" />
                 <span className="hidden sm:inline">Share</span>
               </Button>
-              <Button variant="outline" size="sm" onClick={handlePrint}>
+              <Button variant="outline" size="sm" onClick={handlePrint} className="border-white/10 text-gray-300 hover:text-white hover:bg-white/5">
                 <Download className="h-4 w-4" />
                 <span className="hidden sm:inline">Print</span>
               </Button>
@@ -284,17 +285,48 @@ export default function Home() {
         <DiscoveryQuestions data={micrositeData} />
         <SourcesAssumptions data={micrositeData} />
 
+        {/* Trial CTA Section */}
+        <section className="bg-[#0a0a0a] py-20 print:hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Ready to see Devin in action?
+            </h2>
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+              Start a free trial and experience how Devin can accelerate your engineering team&apos;s delivery velocity.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a
+                href="https://app.devin.ai/signup"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#317CFF] hover:bg-[#2563eb] text-white px-8 py-3.5 rounded-lg font-semibold transition-all duration-200 shadow-lg shadow-[#317CFF]/25 hover:shadow-[#317CFF]/40"
+              >
+                Start free trial
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.cognition.ai/get-started#company"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white px-8 py-3.5 rounded-lg font-semibold transition-all duration-200 border border-white/10"
+              >
+                Contact sales
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* Footer */}
-        <footer className="bg-gray-900 text-white py-12 print:hidden">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-            <p className="text-sm text-gray-400 mb-3">
+        <footer className="bg-[#0a0a0a] border-t border-white/5 py-12 print:hidden">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+            <p className="text-sm text-gray-500 mb-3">
               This microsite is not manually written. It is dynamically
-              generated by an agent that researches the account, identifies
-              strategic initiatives, checks for relevant public Cognition/Devin
+              generated by an AI agent that researches the account, identifies
+              strategic initiatives, checks for relevant Cognition/Devin
               proof points, maps them to Devin use cases, and builds a tailored
               ROI hypothesis.
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-600">
               Generated on{" "}
               {new Date(micrositeData.generatedAt).toLocaleDateString("en-US", {
                 year: "numeric",

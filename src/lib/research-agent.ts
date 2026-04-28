@@ -9,7 +9,30 @@ import type {
   SourceReference,
 } from "./types";
 
+function isPublicUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    if (!["http:", "https:"].includes(parsed.protocol)) return false;
+    const hostname = parsed.hostname;
+    if (hostname === "localhost" || hostname === "[::1]") return false;
+    const parts = hostname.split(".");
+    if (parts.length === 4 && parts.every((p) => /^\d+$/.test(p))) {
+      const octets = parts.map(Number);
+      if (octets[0] === 10) return false;
+      if (octets[0] === 172 && octets[1] >= 16 && octets[1] <= 31) return false;
+      if (octets[0] === 192 && octets[1] === 168) return false;
+      if (octets[0] === 127) return false;
+      if (octets[0] === 169 && octets[1] === 254) return false;
+      if (octets[0] === 0) return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function fetchPageText(url: string): Promise<string> {
+  if (!isPublicUrl(url)) return "";
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0 (compatible; ProspectBot/1.0)" },
@@ -161,25 +184,28 @@ export async function mapValueOpportunities(
   cognitionUseCases: CognitionUseCase[],
   companyName: string,
 ): Promise<ValueOpportunity[]> {
-  const systemPrompt = `You are a Devin AI value consultant. Map company strategic initiatives to specific Devin AI value areas. Be conservative and honest about confidence levels. Only reference Cognition/Devin use cases that were actually provided.
+  const systemPrompt = `You are a Devin AI value consultant focused on identifying HIGH-ROI opportunities. Your goal is to find where Devin delivers the most financial impact. Prioritize opportunities by ROI potential — developer productivity gains, cost savings from automation, and time-to-market acceleration are Devin's core strengths.
 
-Devin AI value areas:
-- Legacy modernization
-- Application maintenance
-- Migration projects
-- Codebase analysis
-- Test generation
-- Security remediation
-- Developer productivity
-- Documentation
-- Backlog acceleration
-- Cloud / platform engineering support`;
+Devin AI value areas (ranked by typical ROI impact):
+1. Developer productivity — Devin handles repetitive coding tasks, freeing senior engineers for strategic work. Typical uplift: 20-40% on targeted workflows
+2. Migration projects — Devin accelerates code migration (COBOL, .NET, legacy ETL) by 3-5x vs manual effort
+3. Legacy modernization — Automated codebase analysis, refactoring, and modernization at scale
+4. Test generation — Automated unit and E2E test creation, reducing QA bottlenecks
+5. Backlog acceleration — Devin tackles backlog items autonomously, shipping features faster
+6. Application maintenance — Automated bug triage, CI fixes, and dependency updates
+7. Security remediation — Automated vulnerability scanning and patching
+8. Documentation — Auto-generated system documentation and architecture diagrams
+9. Codebase analysis — Deep understanding of complex, multi-repo codebases
+10. Cloud / platform engineering — Infrastructure automation and DevOps support
 
-  const userPrompt = `Map ${companyName}'s strategic initiatives to Devin AI value opportunities.
+Be conservative and honest about confidence levels. Only reference Cognition/Devin use cases that were actually provided.`;
+
+  const userPrompt = `Map ${companyName}'s strategic initiatives to Devin AI value opportunities. RANK THEM BY ROI POTENTIAL — put the highest financial impact opportunity first.
 
 Industry: ${companyInsight.industry}
 Initiatives: ${companyInsight.strategicInitiatives.map((i) => i.title).join(", ")}
 Goals: ${companyInsight.businessGoals.join(", ")}
+Pain Points: ${companyInsight.painPoints.join(", ")}
 
 Cognition use cases: ${cognitionUseCases.length > 0 ? cognitionUseCases.map((u) => u.title).join(", ") : "None found"}
 
@@ -188,11 +214,11 @@ Return JSON:
   "opportunities": [
     {
       "businessInitiative": "the company initiative",
-      "whyItMatters": "why this matters",
+      "whyItMatters": "why this matters — focus on financial/business impact",
       "engineeringWork": "engineering work required",
-      "howDevinHelps": "how Devin helps",
+      "howDevinHelps": "specific Devin capability and how it drives ROI — be concrete about time/cost savings",
       "relatedCognitionUseCase": null,
-      "expectedImpact": "impact description",
+      "expectedImpact": "quantify the impact where possible (e.g. '30-50% faster delivery', '3x migration speed', '$500K+ annual savings')",
       "confidence": "High|Medium|Low",
       "companySourceUrl": "source URL",
       "cognitionSourceUrl": null
@@ -200,7 +226,7 @@ Return JSON:
   ]
 }
 
-Include 3-5 opportunities.`;
+Include 3-5 opportunities. Put the HIGHEST ROI opportunity first. Focus on opportunities where Devin's impact is most measurable and compelling.`;
 
   const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
@@ -212,22 +238,23 @@ export async function generatePersonalizedUseCases(
   valueOpportunities: ValueOpportunity[],
   companyName: string,
 ): Promise<PersonalizedUseCase[]> {
-  const systemPrompt = `You are a Devin AI use case specialist. Generate specific, practical use cases tailored to a prospect's business context. Be concrete and conservative in impact estimates.`;
+  const systemPrompt = `You are a Devin AI use case specialist focused on HIGH-ROI opportunities. Generate specific, practical use cases that demonstrate clear financial impact. For each use case, make the ROI case compelling but conservative. Focus on developer productivity gains, cost reduction, and delivery acceleration — these are Devin's core strengths that drive the fastest payback.`;
 
-  const userPrompt = `Generate 3-5 personalized Devin AI use cases for ${companyName}.
+  const userPrompt = `Generate 3-5 personalized Devin AI use cases for ${companyName}. Focus on the use cases with the HIGHEST ROI potential. Each use case should make a compelling business case.
 
 Industry: ${companyInsight.industry}
 Initiatives: ${companyInsight.strategicInitiatives.map((i) => i.title).join(", ")}
 Value areas: ${valueOpportunities.map((v) => v.businessInitiative).join(", ")}
+Pain points: ${companyInsight.painPoints.join(", ")}
 
 Return JSON:
 {
   "useCases": [
     {
-      "businessProblem": "specific business problem",
-      "whyItMatters": "why this matters to ${companyName}",
-      "howDevinHelps": "how Devin addresses this",
-      "expectedImpact": "conservative impact estimate",
+      "businessProblem": "specific business problem — frame it in terms of cost/time/risk",
+      "whyItMatters": "quantify the business impact of this problem for ${companyName}",
+      "howDevinHelps": "specific Devin capability and measurable improvement expected",
+      "expectedImpact": "conservative but compelling ROI estimate (e.g. '40% faster migration', '$200K annual savings in developer time')",
       "companySourceUrl": "source URL",
       "cognitionSourceUrl": "if applicable, or null"
     }
@@ -244,9 +271,9 @@ export async function generateExecutiveNarrative(
   companyName: string,
   cognitionUseCases: CognitionUseCase[],
 ): Promise<string> {
-  const systemPrompt = `You are an executive communications specialist writing for CIOs, CTOs, and CDOs. Write concise, boardroom-ready narratives. Do not overpromise.`;
+  const systemPrompt = `You are an executive communications specialist writing for CIOs, CTOs, and CDOs. Write concise, ROI-focused narratives that create urgency and excitement. Lead with the financial impact. Your goal is to make the reader want to start a Devin trial immediately.`;
 
-  const userPrompt = `Write a 3-4 sentence executive summary for ${companyName} about how Devin AI could support their technology agenda.
+  const userPrompt = `Write a 4-5 sentence executive summary for ${companyName} about how Devin AI could accelerate their technology agenda and deliver significant ROI.
 
 Industry: ${companyInsight.industry}
 Overview: ${companyInsight.overview}
@@ -259,7 +286,7 @@ Return JSON:
   "narrative": "the executive narrative text"
 }
 
-The tone should be executive, credible, and concise. Reference public priorities. ${cognitionUseCases.length > 0 ? "Mention that the value hypothesis is informed by relevant public Cognition/Devin proof points." : ""}`;
+The tone should be executive, confident, and action-oriented. Lead with the ROI opportunity. Emphasize speed to value — Devin can start delivering impact in weeks, not months. ${cognitionUseCases.length > 0 ? "Mention that the value hypothesis is informed by relevant public Cognition/Devin proof points." : ""} End with a forward-looking statement about competitive advantage.`;
 
   const result = await callLLM(systemPrompt, userPrompt);
   const parsed = JSON.parse(result);
@@ -274,9 +301,9 @@ export async function generateDiscoveryQuestions(
   companyName: string,
   cognitionUseCases: CognitionUseCase[],
 ): Promise<DiscoveryQuestion[]> {
-  const systemPrompt = `You are a senior enterprise sales strategist. Generate tailored discovery questions for a sales meeting with a prospect's technology leadership.`;
+  const systemPrompt = `You are a senior enterprise sales strategist. Generate tailored discovery questions that uncover ROI potential and create urgency. Questions should help the prospect realize the scale of the opportunity and the cost of inaction.`;
 
-  const userPrompt = `Generate 8 discovery questions for ${companyName}.
+  const userPrompt = `Generate 8 discovery questions for ${companyName}. Focus on questions that uncover ROI potential and make the prospect eager to trial Devin.
 
 Industry: ${companyInsight.industry}
 Initiatives: ${companyInsight.strategicInitiatives.map((i) => i.title).join(", ")}
@@ -295,9 +322,9 @@ Return JSON:
 }
 
 Include exactly:
-- 3 strategic questions
-- 3 technical/engineering productivity questions
-- 2 ROI/business case questions
+- 3 strategic questions (about their technology vision and competitive pressure)
+- 3 technical/engineering productivity questions (about engineering bottlenecks and capacity)
+- 2 ROI/business case questions (about the cost of delay and investment criteria)
 ${cognitionUseCases.length > 0 ? "- At least one question should validate whether the relevant Cognition/Devin proof point applies to their environment." : ""}`;
 
   const result = await callLLM(systemPrompt, userPrompt);

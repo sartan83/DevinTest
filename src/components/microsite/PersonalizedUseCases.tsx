@@ -15,7 +15,7 @@ export function PersonalizedUseCases({ data }: PersonalizedUseCasesProps) {
     <section id="use-cases" className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <Lightbulb className="h-6 w-6 text-indigo-600" />
+          <Lightbulb className="h-6 w-6 text-[#317CFF]" />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Personalized use cases
           </h2>
@@ -33,7 +33,7 @@ export function PersonalizedUseCases({ data }: PersonalizedUseCasesProps) {
             >
               <CardHeader>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">
+                  <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#317CFF]/10 text-[#317CFF] text-xs font-bold">
                     {i + 1}
                   </span>
                   <CardTitle className="text-base">
@@ -70,7 +70,7 @@ export function PersonalizedUseCases({ data }: PersonalizedUseCasesProps) {
                       href={uc.companySourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-700"
+                      className="inline-flex items-center gap-1 text-xs text-[#317CFF] hover:text-[#2563eb]"
                     >
                       <ExternalLink className="h-3 w-3" />
                       Company source
@@ -81,7 +81,7 @@ export function PersonalizedUseCases({ data }: PersonalizedUseCasesProps) {
                       href={uc.cognitionSourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs text-purple-600 hover:text-purple-700"
+                      className="inline-flex items-center gap-1 text-xs text-[#6366f1] hover:text-[#4f46e5]"
                     >
                       <ExternalLink className="h-3 w-3" />
                       Devin source

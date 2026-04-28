@@ -21,24 +21,24 @@ export function LoadingState({ progress }: LoadingStateProps) {
   return (
     <div className="max-w-lg mx-auto px-4 py-20">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-100 mb-4">
-          <div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#317CFF]/10 mb-4">
+          <div className="w-8 h-8 border-3 border-[#317CFF] border-t-transparent rounded-full animate-spin" />
         </div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-xl font-semibold text-white mb-2">
           Generating your microsite
         </h2>
-        <p className="text-sm text-gray-500">{progress.message}</p>
+        <p className="text-sm text-gray-400">{progress.message}</p>
       </div>
 
       {/* Progress bar */}
       <div className="mb-8">
-        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div className="h-2 bg-white/5 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-1000 ease-out"
+            className="h-full bg-gradient-to-r from-[#317CFF] to-[#6366f1] rounded-full transition-all duration-1000 ease-out"
             style={{ width: `${progress.percentage}%` }}
           />
         </div>
-        <p className="text-xs text-gray-400 text-right mt-1">
+        <p className="text-xs text-gray-500 text-right mt-1">
           {progress.percentage}%
         </p>
       </div>
@@ -54,7 +54,7 @@ export function LoadingState({ progress }: LoadingStateProps) {
               key={step.status}
               className={cn(
                 "flex items-center gap-3 p-3 rounded-lg transition-all duration-300",
-                isActive && "bg-indigo-50 border border-indigo-100",
+                isActive && "bg-[#317CFF]/5 border border-[#317CFF]/20",
                 isComplete && "opacity-60",
               )}
             >
@@ -62,11 +62,11 @@ export function LoadingState({ progress }: LoadingStateProps) {
                 className={cn(
                   "flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium transition-all duration-300",
                   isActive &&
-                    "bg-indigo-600 text-white scale-110",
+                    "bg-[#317CFF] text-white scale-110",
                   isComplete && "bg-emerald-500 text-white",
                   !isActive &&
                     !isComplete &&
-                    "bg-gray-200 text-gray-400",
+                    "bg-white/10 text-gray-500",
                 )}
               >
                 {isComplete ? (
@@ -90,16 +90,16 @@ export function LoadingState({ progress }: LoadingStateProps) {
               <span
                 className={cn(
                   "text-sm",
-                  isActive && "text-indigo-700 font-medium",
+                  isActive && "text-[#317CFF] font-medium",
                   isComplete && "text-gray-500",
-                  !isActive && !isComplete && "text-gray-400",
+                  !isActive && !isComplete && "text-gray-500",
                 )}
               >
                 {step.label}
               </span>
               {isActive && (
                 <div className="ml-auto">
-                  <div className="w-4 h-4 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-[#317CFF] border-t-transparent rounded-full animate-spin" />
                 </div>
               )}
             </div>

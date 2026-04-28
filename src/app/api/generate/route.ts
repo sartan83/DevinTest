@@ -118,8 +118,6 @@ export async function POST(request: Request) {
               ),
             ]);
 
-          sendProgress("complete", "Microsite generated successfully!", 100);
-
           const { companySources, cognitionSources } = collectSources(
             companyInsight,
             cognitionUseCases,

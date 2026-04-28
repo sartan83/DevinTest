@@ -17,7 +17,7 @@ export function SourcesAssumptions({ data }: SourcesAssumptionsProps) {
     <section id="sources" className="py-16 sm:py-20 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <BookOpen className="h-6 w-6 text-indigo-600" />
+          <BookOpen className="h-6 w-6 text-[#317CFF]" />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Sources and assumptions
           </h2>
@@ -58,7 +58,7 @@ export function SourcesAssumptions({ data }: SourcesAssumptionsProps) {
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-shrink-0 inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-700"
+                    className="flex-shrink-0 inline-flex items-center gap-1 text-xs text-[#317CFF] hover:text-[#2563eb]"
                   >
                     <ExternalLink className="h-3 w-3" />
                     Open

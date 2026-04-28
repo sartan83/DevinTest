@@ -42,18 +42,18 @@ export function MicrositeNav() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <nav className="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/5">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-hide">
           {sections.map((section) => (
             <button
               key={section.id}
               onClick={() => scrollTo(section.id)}
               className={cn(
-                "flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 cursor-pointer",
+                "flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-200 cursor-pointer",
                 active === section.id
-                  ? "bg-indigo-100 text-indigo-700"
-                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-100",
+                  ? "bg-[#317CFF]/10 text-[#317CFF]"
+                  : "text-gray-400 hover:text-white hover:bg-white/5",
               )}
             >
               {section.label}
