@@ -37,6 +37,7 @@ async function fetchPageText(url: string): Promise<string> {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0 (compatible; ProspectBot/1.0)" },
       signal: AbortSignal.timeout(10_000),
+      redirect: "error",
     });
     if (!res.ok) return "";
     const html = await res.text();
@@ -112,7 +113,7 @@ Include 3-5 strategic initiatives. If you cannot find specific information from 
 
   return {
     overview: parsed.overview ?? "Company information being analyzed.",
-    industry: parsed.industry ?? input.industry ?? "Technology",
+    industry: parsed.industry || input.industry || "Technology",
     operatingModel: parsed.operatingModel ?? "Not publicly available",
     strategicInitiatives: parsed.strategicInitiatives ?? [],
     digitalTransformationPriorities:

@@ -54,7 +54,7 @@ export async function POST(request: Request) {
           const [companyInsight, cognitionUseCases] = await Promise.all([
             researchCompany(input),
             searchCognitionUseCases(
-              input.industry ?? "Technology",
+              input.industry || "Technology",
               input.companyName,
             ),
           ]);
