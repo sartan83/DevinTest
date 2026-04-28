@@ -1,4 +1,5 @@
 import { callLLM } from "./llm-client";
+import { resolve4 } from "node:dns/promises";
 import type {
   ProspectInput,
   CompanyInsight,
@@ -9,21 +10,29 @@ import type {
   SourceReference,
 } from "./types";
 
+function isPrivateIp(ip: string): boolean {
+  const parts = ip.split(".");
+  if (parts.length !== 4 || !parts.every((p) => /^\d+$/.test(p))) return true;
+  const octets = parts.map(Number);
+  if (octets[0] === 10) return true;
+  if (octets[0] === 172 && octets[1] >= 16 && octets[1] <= 31) return true;
+  if (octets[0] === 192 && octets[1] === 168) return true;
+  if (octets[0] === 127) return true;
+  if (octets[0] === 169 && octets[1] === 254) return true;
+  if (octets[0] === 0) return true;
+  return false;
+}
+
 function isPublicUrl(url: string): boolean {
   try {
     const parsed = new URL(url);
     if (!["http:", "https:"].includes(parsed.protocol)) return false;
     const hostname = parsed.hostname;
     if (hostname === "localhost" || hostname === "[::1]") return false;
+    if (hostname.startsWith("[")) return false;
     const parts = hostname.split(".");
     if (parts.length === 4 && parts.every((p) => /^\d+$/.test(p))) {
-      const octets = parts.map(Number);
-      if (octets[0] === 10) return false;
-      if (octets[0] === 172 && octets[1] >= 16 && octets[1] <= 31) return false;
-      if (octets[0] === 192 && octets[1] === 168) return false;
-      if (octets[0] === 127) return false;
-      if (octets[0] === 169 && octets[1] === 254) return false;
-      if (octets[0] === 0) return false;
+      return !isPrivateIp(hostname);
     }
     return true;
   } catch {
@@ -31,23 +40,51 @@ function isPublicUrl(url: string): boolean {
   }
 }
 
-async function fetchPageText(url: string): Promise<string> {
-  if (!isPublicUrl(url)) return "";
+async function resolveAndValidate(url: string): Promise<boolean> {
+  if (!isPublicUrl(url)) return false;
   try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; ProspectBot/1.0)" },
-      signal: AbortSignal.timeout(10_000),
-      redirect: "error",
-    });
-    if (!res.ok) return "";
-    const html = await res.text();
-    const text = html
-      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-    return text.slice(0, 15_000);
+    const hostname = new URL(url).hostname;
+    const parts = hostname.split(".");
+    if (parts.length === 4 && parts.every((p) => /^\d+$/.test(p))) {
+      return !isPrivateIp(hostname);
+    }
+    const ips = await resolve4(hostname);
+    return ips.length > 0 && ips.every((ip) => !isPrivateIp(ip));
+  } catch {
+    return false;
+  }
+}
+
+async function fetchPageText(url: string): Promise<string> {
+  if (!(await resolveAndValidate(url))) return "";
+  try {
+    const MAX_REDIRECTS = 5;
+    let currentUrl = url;
+    for (let i = 0; i <= MAX_REDIRECTS; i++) {
+      const res = await fetch(currentUrl, {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; ProspectBot/1.0)" },
+        signal: AbortSignal.timeout(10_000),
+        redirect: "manual",
+      });
+      if (res.status >= 300 && res.status < 400) {
+        const location = res.headers.get("location");
+        if (!location) return "";
+        const nextUrl = new URL(location, currentUrl).toString();
+        if (!(await resolveAndValidate(nextUrl))) return "";
+        currentUrl = nextUrl;
+        continue;
+      }
+      if (!res.ok) return "";
+      const html = await res.text();
+      const text = html
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      return text.slice(0, 15_000);
+    }
+    return "";
   } catch {
     return "";
   }

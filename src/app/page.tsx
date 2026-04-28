@@ -66,6 +66,7 @@ export default function Home() {
 
       const decoder = new TextDecoder();
       let buffer = "";
+      let gotResult = false;
 
       while (true) {
         const { done, value } = await reader.read();
@@ -87,6 +88,7 @@ export default function Home() {
                 percentage: event.percentage,
               });
             } else if (event.type === "result") {
+              gotResult = true;
               setMicrositeData(event.data);
               setProgress({
                 status: "complete",
@@ -101,6 +103,10 @@ export default function Home() {
             throw e;
           }
         }
+      }
+
+      if (!gotResult) {
+        throw new Error("Connection lost during generation. Please try again.");
       }
     } catch (err) {
       const message =
