@@ -75,7 +75,7 @@ function AssumptionField({
     <div className="space-y-2">
       <div className="flex items-center justify-between">
         <label className="text-sm font-medium text-gray-700">{label}</label>
-        <span className="text-sm font-semibold text-[#317CFF]">
+        <span className="text-sm font-semibold text-indigo-600">
           {displayValue(value)}
         </span>
       </div>
@@ -94,9 +94,13 @@ function AssumptionField({
   );
 }
 
-const CHART_COLORS = ["#317CFF", "#6366f1", "#06b6d4", "#10b981"];
+function getChartColors(brand: string) {
+  return [brand, "#6366f1", "#06b6d4", "#10b981"];
+}
 
 export function ROICalculator({ data }: ROICalculatorProps) {
+  const brand = data.companyInsight.brandColor || "#317CFF";
+  const CHART_COLORS = getChartColors(brand);
   const [assumptions, setAssumptions] = useState<ROIAssumptions>(
     data.roiAssumptions,
   );
@@ -145,7 +149,7 @@ export function ROICalculator({ data }: ROICalculatorProps) {
     <section id="roi-calculator" className="py-16 sm:py-20 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <Calculator className="h-6 w-6 text-[#317CFF]" />
+          <Calculator className="h-6 w-6" style={{ color: brand }} />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             ROI estimate
           </h2>
@@ -161,7 +165,7 @@ export function ROICalculator({ data }: ROICalculatorProps) {
             <Card>
               <CardContent className="p-6 space-y-5">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                  <BarChart3 className="h-4 w-4 text-[#317CFF]" />
+                  <BarChart3 className="h-4 w-4" style={{ color: brand }} />
                   Editable Assumptions
                 </h3>
 
@@ -252,15 +256,18 @@ export function ROICalculator({ data }: ROICalculatorProps) {
           <div className="lg:col-span-3 space-y-5">
             {/* KPI counters */}
             <div className="grid grid-cols-2 gap-4">
-              <Card className="bg-gradient-to-br from-[#317CFF]/5 to-white border-[#317CFF]/10 animate-pulse-glow">
+              <Card
+                className="animate-pulse-glow border"
+                style={{ background: `linear-gradient(to bottom right, ${brand}0d, white)`, borderColor: `${brand}1a` }}
+              >
                 <CardContent className="p-5">
                   <div className="flex items-center gap-2 mb-1">
-                    <DollarSign className="h-4 w-4 text-[#317CFF]" />
+                    <DollarSign className="h-4 w-4" style={{ color: brand }} />
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Total Estimated Value
                     </p>
                   </div>
-                  <p className="text-2xl sm:text-3xl font-bold text-[#317CFF]">
+                  <p className="text-2xl sm:text-3xl font-bold" style={{ color: brand }}>
                     {formatCurrency(results.totalEstimatedValue)}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">per year</p>

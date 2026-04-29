@@ -10,7 +10,8 @@ interface DiscoveryQuestionsProps {
 }
 
 export function DiscoveryQuestions({ data }: DiscoveryQuestionsProps) {
-  const { discoveryQuestions, prospect } = data;
+  const { discoveryQuestions, prospect, companyInsight } = data;
+  const brand = companyInsight.brandColor || "#317CFF";
 
   const categoryLabel = (c: string) => {
     if (c === "strategic") return "Strategic";
@@ -34,7 +35,7 @@ export function DiscoveryQuestions({ data }: DiscoveryQuestionsProps) {
     <section id="discovery-questions" className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <MessageSquare className="h-6 w-6 text-[#317CFF]" />
+          <MessageSquare className="h-6 w-6" style={{ color: brand }} />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Suggested discovery questions
           </h2>

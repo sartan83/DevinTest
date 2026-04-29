@@ -21,6 +21,7 @@ export interface CompanyInsight {
   executiveQuotes: ExecutiveQuote[];
   logoUrl?: string;
   estimatedDeveloperCount?: number;
+  brandColor?: string;
 }
 
 export interface StrategicInitiative {

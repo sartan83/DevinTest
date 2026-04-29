@@ -17,8 +17,13 @@ interface MicrositeViewProps {
 }
 
 export function MicrositeView({ data }: MicrositeViewProps) {
+  const brandColor = data.companyInsight.brandColor || "#317CFF";
+
   return (
-    <div className="min-h-screen bg-white">
+    <div
+      className="min-h-screen bg-white"
+      style={{ "--brand": brandColor } as React.CSSProperties}
+    >
       <MicrositeNav />
       <HeroSection data={data} />
       <ResearchFindings data={data} />

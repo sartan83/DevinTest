@@ -90,10 +90,49 @@ async function fetchPageText(url: string): Promise<string> {
   }
 }
 
+async function extractBrandColor(url: string): Promise<string | undefined> {
+  if (!(await resolveAndValidate(url))) return undefined;
+  try {
+    let currentUrl = url;
+    for (let i = 0; i <= 3; i++) {
+      const res = await fetch(currentUrl, {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; ProspectBot/1.0)" },
+        signal: AbortSignal.timeout(8_000),
+        redirect: "manual",
+      });
+      if (res.status >= 300 && res.status < 400) {
+        const location = res.headers.get("location");
+        if (!location) return undefined;
+        const nextUrl = new URL(location, currentUrl).toString();
+        if (!(await resolveAndValidate(nextUrl))) return undefined;
+        currentUrl = nextUrl;
+        continue;
+      }
+      if (!res.ok) return undefined;
+      const html = await res.text();
+      const themeColorMatch = html.match(
+        /<meta[^>]*name=["']theme-color["'][^>]*content=["']([^"']+)["']/i,
+      );
+      if (themeColorMatch) return themeColorMatch[1];
+      const msColorMatch = html.match(
+        /<meta[^>]*name=["']msapplication-TileColor["'][^>]*content=["']([^"']+)["']/i,
+      );
+      if (msColorMatch) return msColorMatch[1];
+      return undefined;
+    }
+    return undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export async function researchCompany(
   input: ProspectInput,
 ): Promise<CompanyInsight> {
-  const websiteText = await fetchPageText(input.websiteUrl);
+  const [websiteText, extractedColor] = await Promise.all([
+    fetchPageText(input.websiteUrl),
+    extractBrandColor(input.websiteUrl),
+  ]);
   const aboutUrl = input.websiteUrl.replace(/\/$/, "") + "/about";
   const aboutText = await fetchPageText(aboutUrl);
 
@@ -121,6 +160,7 @@ Return JSON with this exact structure:
   "industry": "primary industry",
   "operatingModel": "brief operating model description",
   "estimatedDeveloperCount": 500,
+  "brandColor": "#hexcolor",
   "strategicInitiatives": [
     {
       "title": "initiative name",
@@ -152,6 +192,8 @@ IMPORTANT: For "estimatedDeveloperCount", estimate the number of software develo
 - Be conservative but realistic. A company like Stripe (~8K employees) might have ~3,000 developers. A bank like Intesa Sanpaolo (~70K employees) might have ~5,000-7,000 developers.
 - Return a single integer, e.g. 500, 2000, 5000.
 
+For "brandColor", provide the company's primary brand color as a hex code (e.g. "#635BFF" for Stripe, "#1B3D2F" for Intesa Sanpaolo, "#FF9900" for Amazon). This should be the dominant color from their logo or website. Pick a saturated, recognizable brand color — not white, black, or gray.
+
 Include 3-5 strategic initiatives. If you cannot find specific information from the provided text, use reasonable inferences based on the industry and company type, but mark those with "Low" confidence. Never fabricate specific quotes or metrics.`;
 
   const result = await callLLM(systemPrompt, userPrompt);
@@ -169,6 +211,7 @@ Include 3-5 strategic initiatives. If you cannot find specific information from 
     businessGoals: parsed.businessGoals ?? [],
     executiveQuotes: parsed.executiveQuotes ?? [],
     estimatedDeveloperCount: parsed.estimatedDeveloperCount ?? undefined,
+    brandColor: extractedColor || parsed.brandColor || undefined,
   };
 }
 

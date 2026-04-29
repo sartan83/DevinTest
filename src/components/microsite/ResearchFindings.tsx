@@ -18,6 +18,7 @@ interface ResearchFindingsProps {
 
 export function ResearchFindings({ data }: ResearchFindingsProps) {
   const { companyInsight, prospect } = data;
+  const brand = companyInsight.brandColor || "#317CFF";
 
   const confidenceVariant = (c: string) => {
     if (c === "High") return "success" as const;
@@ -29,7 +30,7 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
     <section id="research-findings" className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <Search className="h-6 w-6 text-[#317CFF]" />
+          <Search className="h-6 w-6" style={{ color: brand }} />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             What the agent found
           </h2>
@@ -55,7 +56,7 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
         </Card>
 
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-          <Target className="h-5 w-5 text-[#317CFF]" />
+          <Target className="h-5 w-5" style={{ color: brand }} />
           Strategic Initiatives
         </h3>
         <div className="grid gap-4 sm:grid-cols-2 mb-10">
@@ -79,7 +80,8 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
                   href={initiative.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-[#317CFF] hover:text-[#2563eb]"
+                  className="inline-flex items-center gap-1 text-xs hover:underline"
+                  style={{ color: brand }}
                 >
                   <ExternalLink className="h-3 w-3" />
                   {initiative.sourceName}
@@ -92,7 +94,7 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
         {companyInsight.digitalTransformationPriorities.length > 0 && (
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Zap className="h-5 w-5 text-[#317CFF]" />
+              <Zap className="h-5 w-5" style={{ color: brand }} />
               Digital Transformation Priorities
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -110,7 +112,7 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
         {companyInsight.businessGoals.length > 0 && (
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-[#317CFF]" />
+              <TrendingUp className="h-5 w-5" style={{ color: brand }} />
               Business Goals
             </h3>
             <ul className="space-y-2">
@@ -119,7 +121,7 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
                   key={i}
                   className="flex items-start gap-2 text-sm text-gray-700"
                 >
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#317CFF] flex-shrink-0" />
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: brand }} />
                   {goal}
                 </li>
               ))}
@@ -130,12 +132,18 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
         {companyInsight.executiveQuotes.length > 0 && (
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Quote className="h-5 w-5 text-[#317CFF]" />
+              <Quote className="h-5 w-5" style={{ color: brand }} />
               Executive Quotes
             </h3>
             <div className="space-y-4">
               {companyInsight.executiveQuotes.map((eq, i) => (
-                <Card key={i} className="bg-[#317CFF]/5 border-[#317CFF]/10">
+                <Card
+                  key={i}
+                  style={{
+                    backgroundColor: `${brand}0d`,
+                    borderColor: `${brand}1a`,
+                  }}
+                >
                   <CardContent className="p-5">
                     <blockquote className="text-sm text-gray-700 italic mb-2">
                       &ldquo;{eq.quote}&rdquo;
@@ -150,7 +158,8 @@ export function ResearchFindings({ data }: ResearchFindingsProps) {
                             href={eq.sourceUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#317CFF] hover:underline"
+                            className="hover:underline"
+                            style={{ color: brand }}
                           >
                             Source
                           </a>

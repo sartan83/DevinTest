@@ -9,13 +9,14 @@ interface PersonalizedUseCasesProps {
 }
 
 export function PersonalizedUseCases({ data }: PersonalizedUseCasesProps) {
-  const { personalizedUseCases, prospect } = data;
+  const { personalizedUseCases, prospect, companyInsight } = data;
+  const brand = companyInsight.brandColor || "#317CFF";
 
   return (
     <section id="use-cases" className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-3 mb-2">
-          <Lightbulb className="h-6 w-6 text-[#317CFF]" />
+          <Lightbulb className="h-6 w-6" style={{ color: brand }} />
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             Personalized use cases
           </h2>
@@ -33,7 +34,7 @@ export function PersonalizedUseCases({ data }: PersonalizedUseCasesProps) {
             >
               <CardHeader>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#317CFF]/10 text-[#317CFF] text-xs font-bold">
+                  <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold" style={{ backgroundColor: `${brand}1a`, color: brand }}>
                     {i + 1}
                   </span>
                   <CardTitle className="text-base">
@@ -70,7 +71,8 @@ export function PersonalizedUseCases({ data }: PersonalizedUseCasesProps) {
                       href={uc.companySourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs text-[#317CFF] hover:text-[#2563eb]"
+                      className="inline-flex items-center gap-1 text-xs hover:underline"
+                      style={{ color: brand }}
                     >
                       <ExternalLink className="h-3 w-3" />
                       Company source
