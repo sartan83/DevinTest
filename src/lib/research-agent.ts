@@ -120,6 +120,7 @@ Return JSON with this exact structure:
   "overview": "2-3 sentence company overview",
   "industry": "primary industry",
   "operatingModel": "brief operating model description",
+  "estimatedDeveloperCount": 500,
   "strategicInitiatives": [
     {
       "title": "initiative name",
@@ -143,6 +144,14 @@ Return JSON with this exact structure:
   ]
 }
 
+IMPORTANT: For "estimatedDeveloperCount", estimate the number of software developers/engineers at this company. Use these heuristics:
+- If employee count is provided, estimate developers as a percentage: tech companies ~25-40%, banks/financial services ~10-15%, manufacturing ~5-8%, consulting ~15-20%, healthcare ~8-12%, retail ~5-10%.
+- Consider the company's industry, size, and technology signals from their website.
+- For large enterprises (50K+ employees), the absolute developer count can be thousands.
+- For startups or pure tech companies, the ratio is higher (30-50%).
+- Be conservative but realistic. A company like Stripe (~8K employees) might have ~3,000 developers. A bank like Intesa Sanpaolo (~70K employees) might have ~5,000-7,000 developers.
+- Return a single integer, e.g. 500, 2000, 5000.
+
 Include 3-5 strategic initiatives. If you cannot find specific information from the provided text, use reasonable inferences based on the industry and company type, but mark those with "Low" confidence. Never fabricate specific quotes or metrics.`;
 
   const result = await callLLM(systemPrompt, userPrompt);
@@ -159,6 +168,7 @@ Include 3-5 strategic initiatives. If you cannot find specific information from 
     painPoints: parsed.painPoints ?? [],
     businessGoals: parsed.businessGoals ?? [],
     executiveQuotes: parsed.executiveQuotes ?? [],
+    estimatedDeveloperCount: parsed.estimatedDeveloperCount ?? undefined,
   };
 }
 

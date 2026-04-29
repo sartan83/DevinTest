@@ -2,7 +2,7 @@
 
 import type { MicrositeData } from "@/lib/types";
 import { Card, CardContent } from "@/components/ui/card";
-import { FileText, ArrowRight } from "lucide-react";
+import { FileText } from "lucide-react";
 
 interface ExecutiveNarrativeProps {
   data: MicrositeData;
@@ -30,17 +30,6 @@ export function ExecutiveNarrative({ data }: ExecutiveNarrativeProps) {
               <p className="text-gray-800 leading-relaxed text-lg">
                 {executiveNarrative}
               </p>
-            </div>
-            <div className="mt-8 pt-6 border-t border-gray-100">
-              <a
-                href="https://app.devin.ai/signup"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#317CFF] hover:bg-[#2563eb] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg shadow-[#317CFF]/25 hover:shadow-[#317CFF]/40 text-sm"
-              >
-                Start your Devin trial
-                <ArrowRight className="h-4 w-4" />
-              </a>
             </div>
           </CardContent>
         </Card>

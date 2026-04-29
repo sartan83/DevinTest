@@ -10,6 +10,7 @@ import {
   collectSources,
 } from "@/lib/research-agent";
 import { getDefaultAssumptions, calculateROI } from "@/lib/roi-engine";
+import { generateMicrositeId, saveMicrosite } from "@/lib/microsite-store";
 
 export async function POST(request: Request) {
   try {
@@ -83,16 +84,19 @@ export async function POST(request: Request) {
             60,
           );
 
-          const roiAssumptions = getDefaultAssumptions();
-          if (input.employees) {
-            const parsed = parseInt(input.employees.replace(/[^0-9]/g, ""), 10);
+          let estimatedDevs: number | undefined =
+            companyInsight.estimatedDeveloperCount;
+          if (!estimatedDevs && input.employees) {
+            const parsed = parseInt(
+              input.employees.replace(/[^0-9]/g, ""),
+              10,
+            );
             if (!isNaN(parsed)) {
-              roiAssumptions.numberOfDevelopers = Math.max(
-                10,
-                Math.round(parsed * 0.15),
-              );
+              estimatedDevs = Math.max(10, Math.round(parsed * 0.15));
             }
           }
+
+          const roiAssumptions = getDefaultAssumptions(estimatedDevs);
           roiAssumptions.numberOfInitiatives = Math.max(
             valueOpportunities.length,
             3,
@@ -130,7 +134,9 @@ export async function POST(request: Request) {
             input.websiteUrl,
           );
 
+          const micrositeId = generateMicrositeId();
           const micrositeData: MicrositeData = {
+            id: micrositeId,
             prospect: input,
             companyInsight,
             cognitionUseCases,
@@ -145,6 +151,7 @@ export async function POST(request: Request) {
             generatedAt: new Date().toISOString(),
           };
 
+          await saveMicrosite(micrositeId, micrositeData);
           sendResult(micrositeData);
         } catch (err) {
           const message =

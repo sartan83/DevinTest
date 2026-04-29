@@ -20,6 +20,7 @@ export interface CompanyInsight {
   businessGoals: string[];
   executiveQuotes: ExecutiveQuote[];
   logoUrl?: string;
+  estimatedDeveloperCount?: number;
 }
 
 export interface StrategicInitiative {
@@ -94,6 +95,7 @@ export interface DiscoveryQuestion {
 }
 
 export interface MicrositeData {
+  id?: string;
   prospect: ProspectInput;
   companyInsight: CompanyInsight;
   cognitionUseCases: CognitionUseCase[];

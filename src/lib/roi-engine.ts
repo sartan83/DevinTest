@@ -1,15 +1,23 @@
 import type { ROIAssumptions, ROIResults } from "./types";
 
-export function getDefaultAssumptions(): ROIAssumptions {
+const DEVIN_COST_PER_DEVELOPER_PER_YEAR = 500;
+
+export function getDefaultAssumptions(numberOfDevelopers?: number): ROIAssumptions {
+  const devs = numberOfDevelopers ?? 100;
+  const annualDevinInvestment = Math.max(
+    50_000,
+    devs * DEVIN_COST_PER_DEVELOPER_PER_YEAR,
+  );
+
   return {
-    numberOfDevelopers: 100,
+    numberOfDevelopers: devs,
     fullyLoadedDeveloperCost: 180_000,
     repetitiveWorkPercentage: 0.3,
     productivityUplift: 0.15,
     numberOfInitiatives: 5,
     monthsAccelerated: 3,
     monthlyBusinessValue: 500_000,
-    annualDevinInvestment: 500_000,
+    annualDevinInvestment,
   };
 }
 
