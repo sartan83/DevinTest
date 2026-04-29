@@ -1,5 +1,5 @@
 import { callLLM } from "./llm-client";
-import { resolve4 } from "node:dns/promises";
+import { resolve4, resolve6 } from "node:dns/promises";
 import type {
   ProspectInput,
   CompanyInsight,
@@ -10,7 +10,7 @@ import type {
   SourceReference,
 } from "./types";
 
-function isPrivateIp(ip: string): boolean {
+function isPrivateIpV4(ip: string): boolean {
   const parts = ip.split(".");
   if (parts.length !== 4 || !parts.every((p) => /^\d+$/.test(p))) return true;
   const octets = parts.map(Number);
@@ -23,6 +23,25 @@ function isPrivateIp(ip: string): boolean {
   return false;
 }
 
+function isPrivateIpV6(ip: string): boolean {
+  const normalized = ip.toLowerCase();
+  if (normalized === "::1") return true;
+  if (normalized.startsWith("fe80:")) return true;
+  if (normalized.startsWith("fc") || normalized.startsWith("fd")) return true;
+  if (normalized.startsWith("::ffff:")) return true;
+  if (normalized === "::") return true;
+  return false;
+}
+
+function normalizeBrandColor(color: string | undefined): string | undefined {
+  if (!color) return undefined;
+  const trimmed = color.trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(trimmed)) return trimmed;
+  const m3 = trimmed.match(/^#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/);
+  if (m3) return `#${m3[1]}${m3[1]}${m3[2]}${m3[2]}${m3[3]}${m3[3]}`;
+  return undefined;
+}
+
 function isPublicUrl(url: string): boolean {
   try {
     const parsed = new URL(url);
@@ -32,7 +51,7 @@ function isPublicUrl(url: string): boolean {
     if (hostname.startsWith("[")) return false;
     const parts = hostname.split(".");
     if (parts.length === 4 && parts.every((p) => /^\d+$/.test(p))) {
-      return !isPrivateIp(hostname);
+      return !isPrivateIpV4(hostname);
     }
     return true;
   } catch {
@@ -46,10 +65,16 @@ async function resolveAndValidate(url: string): Promise<boolean> {
     const hostname = new URL(url).hostname;
     const parts = hostname.split(".");
     if (parts.length === 4 && parts.every((p) => /^\d+$/.test(p))) {
-      return !isPrivateIp(hostname);
+      return !isPrivateIpV4(hostname);
     }
-    const ips = await resolve4(hostname);
-    return ips.length > 0 && ips.every((ip) => !isPrivateIp(ip));
+    const [v4ips, v6ips] = await Promise.all([
+      resolve4(hostname).catch(() => [] as string[]),
+      resolve6(hostname).catch(() => [] as string[]),
+    ]);
+    if (v4ips.length === 0 && v6ips.length === 0) return false;
+    if (v4ips.some((ip) => isPrivateIpV4(ip))) return false;
+    if (v6ips.some((ip) => isPrivateIpV6(ip))) return false;
+    return true;
   } catch {
     return false;
   }
@@ -113,11 +138,11 @@ async function extractBrandColor(url: string): Promise<string | undefined> {
       const themeColorMatch = html.match(
         /<meta[^>]*name=["']theme-color["'][^>]*content=["']([^"']+)["']/i,
       );
-      if (themeColorMatch) return themeColorMatch[1];
+      if (themeColorMatch) return normalizeBrandColor(themeColorMatch[1]);
       const msColorMatch = html.match(
         /<meta[^>]*name=["']msapplication-TileColor["'][^>]*content=["']([^"']+)["']/i,
       );
-      if (msColorMatch) return msColorMatch[1];
+      if (msColorMatch) return normalizeBrandColor(msColorMatch[1]);
       return undefined;
     }
     return undefined;
@@ -211,7 +236,7 @@ Include 3-5 strategic initiatives. If you cannot find specific information from 
     businessGoals: parsed.businessGoals ?? [],
     executiveQuotes: parsed.executiveQuotes ?? [],
     estimatedDeveloperCount: parsed.estimatedDeveloperCount ?? undefined,
-    brandColor: extractedColor || parsed.brandColor || undefined,
+    brandColor: extractedColor || normalizeBrandColor(parsed.brandColor) || undefined,
   };
 }
 

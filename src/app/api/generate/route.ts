@@ -156,10 +156,10 @@ export async function POST(request: Request) {
         } catch (err) {
           const message =
             err instanceof Error ? err.message : "Unknown error occurred";
-          sendError(message);
+          try { sendError(message); } catch { /* stream closed */ }
         } finally {
           clearInterval(keepalive);
-          controller.close();
+          try { controller.close(); } catch { /* already closed */ }
         }
       },
     });
