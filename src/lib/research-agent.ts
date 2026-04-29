@@ -135,14 +135,41 @@ async function extractBrandColor(url: string): Promise<string | undefined> {
       }
       if (!res.ok) return undefined;
       const html = await res.text();
+
       const themeColorMatch = html.match(
         /<meta[^>]*name=["']theme-color["'][^>]*content=["']([^"']+)["']/i,
       );
-      if (themeColorMatch) return normalizeBrandColor(themeColorMatch[1]);
+      if (themeColorMatch) {
+        const c = normalizeBrandColor(themeColorMatch[1]);
+        if (c) return c;
+      }
+
       const msColorMatch = html.match(
         /<meta[^>]*name=["']msapplication-TileColor["'][^>]*content=["']([^"']+)["']/i,
       );
-      if (msColorMatch) return normalizeBrandColor(msColorMatch[1]);
+      if (msColorMatch) {
+        const c = normalizeBrandColor(msColorMatch[1]);
+        if (c) return c;
+      }
+
+      // Try extracting from CSS custom properties (--brand-color, --primary-color, etc.)
+      const cssVarMatch = html.match(
+        /--(?:brand|primary|main|accent)[-_]?color\s*:\s*(#[0-9a-fA-F]{3,6})\b/i,
+      );
+      if (cssVarMatch) {
+        const c = normalizeBrandColor(cssVarMatch[1]);
+        if (c) return c;
+      }
+
+      // Try extracting from inline styles on header/nav elements
+      const headerColorMatch = html.match(
+        /<(?:header|nav)[^>]*style=["'][^"']*background(?:-color)?\s*:\s*(#[0-9a-fA-F]{3,6})\b/i,
+      );
+      if (headerColorMatch) {
+        const c = normalizeBrandColor(headerColorMatch[1]);
+        if (c && c !== "#FFFFFF" && c !== "#ffffff" && c !== "#000000") return c;
+      }
+
       return undefined;
     }
     return undefined;
@@ -217,7 +244,7 @@ IMPORTANT: For "estimatedDeveloperCount", estimate the number of software develo
 - Be conservative but realistic. A company like Stripe (~8K employees) might have ~3,000 developers. A bank like Intesa Sanpaolo (~70K employees) might have ~5,000-7,000 developers.
 - Return a single integer, e.g. 500, 2000, 5000.
 
-For "brandColor", provide the company's primary brand color as a hex code (e.g. "#635BFF" for Stripe, "#1B3D2F" for Intesa Sanpaolo, "#FF9900" for Amazon). This should be the dominant color from their logo or website. Pick a saturated, recognizable brand color — not white, black, or gray.
+For "brandColor", provide the company's primary brand color as a 6-digit hex code ONLY if you are highly confident you know the correct color from the company's official branding. Examples of well-known brand colors: "#635BFF" for Stripe, "#E50019" for UniCredit, "#1B3D2F" for Intesa Sanpaolo, "#FF9900" for Amazon, "#4285F4" for Google, "#1877F2" for Facebook/Meta, "#0A66C2" for LinkedIn. If you are NOT confident about the exact brand color, return null instead of guessing. Do NOT return white, black, or gray. The color must be a saturated, recognizable 6-digit hex like "#E50019", not a 3-digit shorthand.
 
 Include 3-5 strategic initiatives. If you cannot find specific information from the provided text, use reasonable inferences based on the industry and company type, but mark those with "Low" confidence. Never fabricate specific quotes or metrics.`;
 
