@@ -1,12 +1,26 @@
 [
   {
     "viewport": "1440x900",
-    "test": "A-overflow-panel2-execution-gap",
+    "test": "A-overflow-panel1b-agenda",
     "panel_idx": 1,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.05258860066533089,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel1b-agenda_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel2-execution-gap",
+    "panel_idx": 2,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -16,7 +30,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel3-current-state",
-    "panel_idx": 2,
+    "panel_idx": 3,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -30,7 +44,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel4-discovery",
-    "panel_idx": 3,
+    "panel_idx": 4,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -44,7 +58,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel5-demo",
-    "panel_idx": 4,
+    "panel_idx": 5,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -58,7 +72,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel5b-workflow-preview",
-    "panel_idx": 5,
+    "panel_idx": 6,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -72,7 +86,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel6-trust",
-    "panel_idx": 6,
+    "panel_idx": 7,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -86,7 +100,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel7-capacity",
-    "panel_idx": 7,
+    "panel_idx": 8,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -100,7 +114,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel8-roi",
-    "panel_idx": 8,
+    "panel_idx": 9,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -114,7 +128,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel9-itau",
-    "panel_idx": 9,
+    "panel_idx": 10,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -128,7 +142,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel11-pilot",
-    "panel_idx": 11,
+    "panel_idx": 12,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -142,7 +156,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel12-mutual",
-    "panel_idx": 12,
+    "panel_idx": 13,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -157,13 +171,13 @@
     "viewport": "1440x900",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.0–14.9"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.2–16.2"
   },
   {
     "viewport": "1440x900",
     "test": "B2-reveal-at-idx-10",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–18.0\ndeveloper days\nIllustrative scenario based on modeled assumptions"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 7.6–17.1\ndeveloper days\nIllustrative scenario based on modeled assumptions"
   },
   {
     "viewport": "1440x900",
@@ -229,6 +243,7 @@
     "checks": {
       "jointly governed validation initiative": true,
       "Success depends not only on technical execution": true,
+      "go-live transition 'structured validation path'": true,
       "Commercial alignment header": true,
       "expanded deployment scope": true,
       "governance validation": true,
@@ -252,7 +267,7 @@
     "viewport": "1440x900",
     "test": "I1-appendix-idx",
     "passed": true,
-    "actual_idx": 14
+    "actual_idx": 15
   },
   {
     "viewport": "1440x900",
@@ -264,7 +279,7 @@
     "viewport": "1440x900",
     "test": "I3-esc-from-appendix",
     "passed": true,
-    "actual_idx": 13
+    "actual_idx": 14
   },
   {
     "viewport": "1440x900",
@@ -281,7 +296,8 @@
       "sub-bullet Human approval workflow": true,
       "no mock review card": true,
       "no PR-mock title leakage": true,
-      "executive insight": true,
+      "exec insight 'not whether AI can generate code'": true,
+      "exec insight 'governance constraints'": true,
       "illustrative disclaimer": true
     }
   },
@@ -301,18 +317,66 @@
   },
   {
     "viewport": "1440x900",
+    "test": "M-enterprise-alignment-refinement",
+    "passed": true,
+    "checks": {
+      "P2 'Beyond engineering efficiency'": true,
+      "P3 'transformation constraints are often operational'": true,
+      "P5b 'not whether AI can generate code'": true,
+      "P11 executive framing 'measurable operational outcomes jointly agreed'": true,
+      "P11 validation maturity 'operational fit, governance readiness'": true
+    }
+  },
+  {
+    "viewport": "1440x900",
+    "test": "N-counter-pacing",
+    "passed": true,
+    "min": 8.0,
+    "max": 18.0
+  },
+  {
+    "viewport": "1440x900",
+    "test": "O-executive-agenda",
+    "passed": true,
+    "checks": {
+      "eyebrow 'Executive working session'": true,
+      "subhead '30-minute strategic discussion'": true,
+      "block 1 Transformation Context": true,
+      "block 2 Executive Alignment": true,
+      "block 3 Live Workflow Preview": true,
+      "block 4 Enterprise Impact": true,
+      "block 5 Pilot & Go-Live Path": true,
+      "exactly 5 numbered focus blocks": true
+    }
+  },
+  {
+    "viewport": "1440x900",
     "test": "J-wheel-handler",
     "passed": true,
     "actual_idx": 1
   },
   {
     "viewport": "1280x800",
-    "test": "A-overflow-panel2-execution-gap",
+    "test": "A-overflow-panel1b-agenda",
     "panel_idx": 1,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.0007097999914549291,
+      "overflowsViewport": 0.019430499523878098,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel1b-agenda_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel2-execution-gap",
+    "panel_idx": 2,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
       "innerScrollHeight": 800,
       "innerClientHeight": 800,
       "viewportH": 800
@@ -322,7 +386,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel3-current-state",
-    "panel_idx": 2,
+    "panel_idx": 3,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -336,7 +400,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel4-discovery",
-    "panel_idx": 3,
+    "panel_idx": 4,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -350,7 +414,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel5-demo",
-    "panel_idx": 4,
+    "panel_idx": 5,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -364,7 +428,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel5b-workflow-preview",
-    "panel_idx": 5,
+    "panel_idx": 6,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -378,7 +442,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel6-trust",
-    "panel_idx": 6,
+    "panel_idx": 7,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -392,7 +456,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel7-capacity",
-    "panel_idx": 7,
+    "panel_idx": 8,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -406,7 +470,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel8-roi",
-    "panel_idx": 8,
+    "panel_idx": 9,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -420,7 +484,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel9-itau",
-    "panel_idx": 9,
+    "panel_idx": 10,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -434,7 +498,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel11-pilot",
-    "panel_idx": 11,
+    "panel_idx": 12,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -448,7 +512,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel12-mutual",
-    "panel_idx": 12,
+    "panel_idx": 13,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -463,13 +527,13 @@
     "viewport": "1280x800",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.0–14.9"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.2–16.2"
   },
   {
     "viewport": "1280x800",
     "test": "B2-reveal-at-idx-10",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–18.0\ndeveloper days\nIllustrative scenario based on modeled assumptions"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 7.6–17.1\ndeveloper days\nIllustrative scenario based on modeled assumptions"
   },
   {
     "viewport": "1280x800",
@@ -535,6 +599,7 @@
     "checks": {
       "jointly governed validation initiative": true,
       "Success depends not only on technical execution": true,
+      "go-live transition 'structured validation path'": true,
       "Commercial alignment header": true,
       "expanded deployment scope": true,
       "governance validation": true,
@@ -558,7 +623,7 @@
     "viewport": "1280x800",
     "test": "I1-appendix-idx",
     "passed": true,
-    "actual_idx": 14
+    "actual_idx": 15
   },
   {
     "viewport": "1280x800",
@@ -570,7 +635,7 @@
     "viewport": "1280x800",
     "test": "I3-esc-from-appendix",
     "passed": true,
-    "actual_idx": 13
+    "actual_idx": 14
   },
   {
     "viewport": "1280x800",
@@ -587,7 +652,8 @@
       "sub-bullet Human approval workflow": true,
       "no mock review card": true,
       "no PR-mock title leakage": true,
-      "executive insight": true,
+      "exec insight 'not whether AI can generate code'": true,
+      "exec insight 'governance constraints'": true,
       "illustrative disclaimer": true
     }
   },
@@ -607,18 +673,66 @@
   },
   {
     "viewport": "1280x800",
+    "test": "M-enterprise-alignment-refinement",
+    "passed": true,
+    "checks": {
+      "P2 'Beyond engineering efficiency'": true,
+      "P3 'transformation constraints are often operational'": true,
+      "P5b 'not whether AI can generate code'": true,
+      "P11 executive framing 'measurable operational outcomes jointly agreed'": true,
+      "P11 validation maturity 'operational fit, governance readiness'": true
+    }
+  },
+  {
+    "viewport": "1280x800",
+    "test": "N-counter-pacing",
+    "passed": true,
+    "min": 8.0,
+    "max": 18.0
+  },
+  {
+    "viewport": "1280x800",
+    "test": "O-executive-agenda",
+    "passed": true,
+    "checks": {
+      "eyebrow 'Executive working session'": true,
+      "subhead '30-minute strategic discussion'": true,
+      "block 1 Transformation Context": true,
+      "block 2 Executive Alignment": true,
+      "block 3 Live Workflow Preview": true,
+      "block 4 Enterprise Impact": true,
+      "block 5 Pilot & Go-Live Path": true,
+      "exactly 5 numbered focus blocks": true
+    }
+  },
+  {
+    "viewport": "1280x800",
     "test": "J-wheel-handler",
     "passed": true,
     "actual_idx": 1
   },
   {
     "viewport": "1366x768",
-    "test": "A-overflow-panel2-execution-gap",
+    "test": "A-overflow-panel1b-agenda",
     "panel_idx": 1,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.0022499000187963247,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 768,
+      "innerClientHeight": 768,
+      "viewportH": 768
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel1b-agenda_1366x768.png"
+  },
+  {
+    "viewport": "1366x768",
+    "test": "A-overflow-panel2-execution-gap",
+    "panel_idx": 2,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -628,7 +742,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel3-current-state",
-    "panel_idx": 2,
+    "panel_idx": 3,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -642,7 +756,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel4-discovery",
-    "panel_idx": 3,
+    "panel_idx": 4,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -656,7 +770,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel5-demo",
-    "panel_idx": 4,
+    "panel_idx": 5,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -670,7 +784,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel5b-workflow-preview",
-    "panel_idx": 5,
+    "panel_idx": 6,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -684,11 +798,11 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel6-trust",
-    "panel_idx": 6,
+    "panel_idx": 7,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 7.986091077327728e-08,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -698,7 +812,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel7-capacity",
-    "panel_idx": 7,
+    "panel_idx": 8,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -712,7 +826,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel8-roi",
-    "panel_idx": 8,
+    "panel_idx": 9,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -726,7 +840,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel9-itau",
-    "panel_idx": 9,
+    "panel_idx": 10,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -740,7 +854,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel11-pilot",
-    "panel_idx": 11,
+    "panel_idx": 12,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -754,7 +868,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel12-mutual",
-    "panel_idx": 12,
+    "panel_idx": 13,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -769,13 +883,13 @@
     "viewport": "1366x768",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.0–14.9"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.2–16.2"
   },
   {
     "viewport": "1366x768",
     "test": "B2-reveal-at-idx-10",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–18.0\ndeveloper days\nIllustrative scenario based on modeled assumptions"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 7.6–17.1\ndeveloper days\nIllustrative scenario based on modeled assumptions"
   },
   {
     "viewport": "1366x768",
@@ -841,6 +955,7 @@
     "checks": {
       "jointly governed validation initiative": true,
       "Success depends not only on technical execution": true,
+      "go-live transition 'structured validation path'": true,
       "Commercial alignment header": true,
       "expanded deployment scope": true,
       "governance validation": true,
@@ -864,7 +979,7 @@
     "viewport": "1366x768",
     "test": "I1-appendix-idx",
     "passed": true,
-    "actual_idx": 14
+    "actual_idx": 15
   },
   {
     "viewport": "1366x768",
@@ -876,7 +991,7 @@
     "viewport": "1366x768",
     "test": "I3-esc-from-appendix",
     "passed": true,
-    "actual_idx": 13
+    "actual_idx": 14
   },
   {
     "viewport": "1366x768",
@@ -893,7 +1008,8 @@
       "sub-bullet Human approval workflow": true,
       "no mock review card": true,
       "no PR-mock title leakage": true,
-      "executive insight": true,
+      "exec insight 'not whether AI can generate code'": true,
+      "exec insight 'governance constraints'": true,
       "illustrative disclaimer": true
     }
   },
@@ -909,6 +1025,40 @@
       "interpretation 'transformation throughput'": true,
       "dev-equivalent footnote": true,
       "NOT headcount-reduction language": true
+    }
+  },
+  {
+    "viewport": "1366x768",
+    "test": "M-enterprise-alignment-refinement",
+    "passed": true,
+    "checks": {
+      "P2 'Beyond engineering efficiency'": true,
+      "P3 'transformation constraints are often operational'": true,
+      "P5b 'not whether AI can generate code'": true,
+      "P11 executive framing 'measurable operational outcomes jointly agreed'": true,
+      "P11 validation maturity 'operational fit, governance readiness'": true
+    }
+  },
+  {
+    "viewport": "1366x768",
+    "test": "N-counter-pacing",
+    "passed": true,
+    "min": 8.0,
+    "max": 18.0
+  },
+  {
+    "viewport": "1366x768",
+    "test": "O-executive-agenda",
+    "passed": true,
+    "checks": {
+      "eyebrow 'Executive working session'": true,
+      "subhead '30-minute strategic discussion'": true,
+      "block 1 Transformation Context": true,
+      "block 2 Executive Alignment": true,
+      "block 3 Live Workflow Preview": true,
+      "block 4 Enterprise Impact": true,
+      "block 5 Pilot & Go-Live Path": true,
+      "exactly 5 numbered focus blocks": true
     }
   },
   {

@@ -98,6 +98,10 @@ export function Panel3CurrentState() {
             );
           })}
         </div>
+
+        <p className="text-[12px] italic leading-relaxed text-brand-ivory/65 sm:text-[13px]">
+          {p.closing}
+        </p>
       </div>
     </PanelShell>
   );

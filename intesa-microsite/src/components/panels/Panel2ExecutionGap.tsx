@@ -50,6 +50,10 @@ export function Panel2ExecutionGap() {
         </div>
 
         <PanelClosing>{p.closing}</PanelClosing>
+
+        <p className="rounded-xl border border-brand-orange/25 bg-brand-orange/5 px-3 py-2 text-[12px] leading-relaxed text-brand-ivory/85 sm:text-[13px]">
+          {p.executiveInsight}
+        </p>
       </div>
     </PanelShell>
   );

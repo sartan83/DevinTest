@@ -14,6 +14,10 @@ export function Panel10Pilot() {
           <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead>
         </div>
 
+        <p className="rounded-xl border border-brand-orange/25 bg-brand-orange/5 px-3 py-2 text-[12px] leading-relaxed text-brand-ivory/85 sm:text-[13px]">
+          {p.executiveFraming}
+        </p>
+
         {/* Executive timeline — week + title only, items in <details>. */}
         <div className="grid gap-2.5 sm:gap-3 lg:grid-cols-4">
           {p.weeks.map((w, i) => (
@@ -105,6 +109,10 @@ export function Panel10Pilot() {
             {p.kpiNote}
           </p>
         </div>
+
+        <p className="text-[11px] leading-relaxed text-brand-ivory/65 sm:text-[12px]">
+          {p.validationMaturity}
+        </p>
       </div>
     </PanelShell>
   );

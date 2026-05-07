@@ -81,6 +81,10 @@ export function Panel11MutualCommitment() {
         <p className="rounded-xl border border-brand-ivory/12 bg-brand-green-deep/40 px-3.5 py-2.5 text-[12px] leading-relaxed text-brand-ivory/80 sm:px-4 sm:py-3 sm:text-[13px]">
           {p.successDependsOn}
         </p>
+
+        <p className="text-[11px] leading-relaxed text-brand-ivory/65 sm:text-[12px]">
+          {p.goLiveTransition}
+        </p>
       </div>
     </PanelShell>
   );

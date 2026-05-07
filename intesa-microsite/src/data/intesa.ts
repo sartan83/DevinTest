@@ -101,20 +101,21 @@ export const intesa = {
   // toggle, hidden from the progress dots.
   nav: [
     { index: 0, label: "1", full: "Opening", appendix: false },
-    { index: 1, label: "2", full: "Execution gap", appendix: false },
-    { index: 2, label: "3", full: "Current state assessment", appendix: false },
-    { index: 3, label: "4", full: "Discovery alignment", appendix: false },
-    { index: 4, label: "5", full: "Modernization demo", appendix: false },
-    { index: 5, label: "6", full: "Live workflow preview", appendix: false },
-    { index: 6, label: "7", full: "Enterprise trust", appendix: false },
-    { index: 7, label: "8", full: "Capacity redeployment", appendix: false },
-    { index: 8, label: "9", full: "ROI signal", appendix: false },
-    { index: 9, label: "10", full: "Enterprise reference", appendix: false },
-    { index: 10, label: "11", full: "Reclaimed capacity", appendix: false },
-    { index: 11, label: "12", full: "4-week pilot", appendix: false },
-    { index: 12, label: "13", full: "Mutual commitment", appendix: false },
-    { index: 13, label: "14", full: "Aligned to move", appendix: false },
-    { index: 14, label: "A", full: "Discovery framework (appendix)", appendix: true },
+    { index: 1, label: "2", full: "Executive working session", appendix: false },
+    { index: 2, label: "3", full: "Execution gap", appendix: false },
+    { index: 3, label: "4", full: "Current state assessment", appendix: false },
+    { index: 4, label: "5", full: "Discovery alignment", appendix: false },
+    { index: 5, label: "6", full: "Modernization demo", appendix: false },
+    { index: 6, label: "7", full: "Live workflow preview", appendix: false },
+    { index: 7, label: "8", full: "Enterprise trust", appendix: false },
+    { index: 8, label: "9", full: "Capacity redeployment", appendix: false },
+    { index: 9, label: "10", full: "ROI signal", appendix: false },
+    { index: 10, label: "11", full: "Enterprise reference", appendix: false },
+    { index: 11, label: "12", full: "Reclaimed capacity", appendix: false },
+    { index: 12, label: "13", full: "4-week pilot", appendix: false },
+    { index: 13, label: "14", full: "Mutual commitment", appendix: false },
+    { index: 14, label: "15", full: "Aligned to move", appendix: false },
+    { index: 15, label: "A", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
@@ -143,23 +144,33 @@ export const intesa = {
     devEquivalentFootnote:
       "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
     // Steps accumulate per visited panel (1-indexed → maps to render index panel-1).
-    // Sum across all 14 panels ≈ 8–18 dev days. Panel 6 is the new
-    // "Live workflow preview" inserted between the demo and trust panels.
+    // Calibrated to a 60-minute live presentation cadence: per-panel additions
+    // are time-weighted such that cumulative across all 15 main panels reaches
+    // exactly the headline 8–18 dev-days envelope at idx 14 (Final ask).
+    //
+    // Time budget per panel (sums to 60 min):
+    //   P0 Hero 3'   P1 Agenda 2'   P2 Gap 4'   P3 Current 5'
+    //   P4 Discovery 6'   P5 Demo 5'   P6 Workflow 4'   P7 Trust 3'
+    //   P8 Capacity 4'   P9 ROI 4'   P10 Itaú 5'   P11 Climax 3'
+    //   P12 Pilot 5'   P13 Mutual 4'   P14 Final 3'
+    //
+    // Per-minute increment: 8/60 ≈ 0.133 (min) and 18/60 = 0.3 (max).
     steps: [
-      { panel: 1, addMin: 0.4, addMax: 0.8, note: "Framing engagement" },
-      { panel: 2, addMin: 0.5, addMax: 1.1, note: "Naming the execution gap" },
-      { panel: 3, addMin: 0.6, addMax: 1.3, note: "Current state pressure mapped" },
-      { panel: 4, addMin: 0.9, addMax: 1.7, note: "Discovery alignment validated" },
-      { panel: 5, addMin: 0.7, addMax: 1.5, note: "Modernization walkthrough" },
-      { panel: 6, addMin: 0.6, addMax: 1.3, note: "Live workflow preview" },
-      { panel: 7, addMin: 0.5, addMax: 1.1, note: "Enterprise trust envelope" },
-      { panel: 8, addMin: 0.7, addMax: 1.5, note: "Capacity redeployment framed" },
-      { panel: 9, addMin: 0.8, addMax: 1.8, note: "ROI signal at Intesa scale" },
-      { panel: 10, addMin: 0.6, addMax: 1.3, note: "Enterprise reference anchored" },
-      { panel: 11, addMin: 0.5, addMax: 1.2, note: "Climax consolidation" },
-      { panel: 12, addMin: 0.4, addMax: 0.9, note: "Pilot structure agreed" },
-      { panel: 13, addMin: 0.3, addMax: 0.6, note: "Mutual commitment captured" },
-      { panel: 14, addMin: 0.2, addMax: 0.5, note: "Closing alignment" },
+      { panel: 1,  addMin: 0.40, addMax: 0.90, note: "Hero framing (3')" },
+      { panel: 2,  addMin: 0.27, addMax: 0.60, note: "Executive working session agenda (2')" },
+      { panel: 3,  addMin: 0.53, addMax: 1.20, note: "Execution gap named (4')" },
+      { panel: 4,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
+      { panel: 5,  addMin: 0.80, addMax: 1.80, note: "Executive alignment areas (6')" },
+      { panel: 6,  addMin: 0.67, addMax: 1.50, note: "Modernization walkthrough (5')" },
+      { panel: 7,  addMin: 0.53, addMax: 1.20, note: "Live workflow preview (4')" },
+      { panel: 8,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
+      { panel: 9,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
+      { panel: 10, addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
+      { panel: 11, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
+      { panel: 12, addMin: 0.40, addMax: 0.90, note: "Counter climax reveal (3')" },
+      { panel: 13, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
+      { panel: 14, addMin: 0.53, addMax: 1.20, note: "Mutual commitment captured (4')" },
+      { panel: 15, addMin: 0.40, addMax: 0.90, note: "Final ask closing (3')" },
     ] as CounterStep[],
   },
 
@@ -195,9 +206,52 @@ export const intesa = {
     sourcesLine:
       "Sources: ISP investor materials & press (2022–2026) · Piano di Impresa 2026–2029 · Revelio Labs workforce data",
     ctas: [
-      { label: "Start the discussion", target: 2, primary: true },
-      { label: "Open 4-week pilot", target: 11, primary: false },
+      { label: "Open the agenda", target: 2, primary: true },
+      { label: "Open 4-week pilot", target: 13, primary: false },
     ],
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 1b — Executive Working Session (Agenda)
+  //
+  // Sits immediately after the hero. Establishes meeting structure and
+  // executive control before the narrative starts. Designed to be readable
+  // in under 10 seconds.
+  // -------------------------------------------------------------------------
+  panel1b: {
+    eyebrow: "Executive working session",
+    headline: "Five focus areas for the next 30 minutes.",
+    subhead:
+      "30-minute strategic discussion on modernization execution scalability.",
+    blocks: [
+      {
+        index: 1,
+        title: "Transformation Context",
+        helper: "Current execution constraints and modernization pressure.",
+      },
+      {
+        index: 2,
+        title: "Executive Alignment",
+        helper: "What is known and what still requires validation.",
+      },
+      {
+        index: 3,
+        title: "Live Workflow Preview",
+        helper: "Governance-aware modernization with Devin.",
+      },
+      {
+        index: 4,
+        title: "Enterprise Impact",
+        helper: "Operational leverage, benchmark signals, and business outcomes.",
+      },
+      {
+        index: 5,
+        title: "Pilot & Go-Live Path",
+        helper: "Success metrics, governance, and deployment alignment.",
+      },
+    ],
+    closing:
+      "Working session — not a deck walkthrough.",
   },
 
   // -------------------------------------------------------------------------
@@ -229,6 +283,8 @@ export const intesa = {
     ] as ExecutionGapRow[],
     closing:
       "Delayed execution of board-visible transformation priorities.",
+    executiveInsight:
+      "Beyond engineering efficiency, the broader challenge is scaling strategic transformation execution without proportionally increasing operational complexity and delivery capacity.",
   },
 
   // -------------------------------------------------------------------------
@@ -290,7 +346,7 @@ export const intesa = {
       },
     ] as CurrentStateObservation[],
     closing:
-      "Strategic assessment — not a technical audit.",
+      "In large banking environments, transformation constraints are often operational before they are technological.",
   },
 
   // -------------------------------------------------------------------------
@@ -522,7 +578,7 @@ export const intesa = {
       ],
     },
     insight:
-      "Modernization workflow operating inside enterprise engineering controls — not bypassing them.",
+      "The question is not whether AI can generate code. The question is whether it can operate inside enterprise governance constraints.",
     disclaimer:
       "Illustrative workflow visualization. Actual execution adapts to client repositories, security envelope, and governance configuration.",
   },
@@ -760,6 +816,10 @@ export const intesa = {
       "From controlled validation\nto a go-live decision.",
     subhead:
       "A bounded entry point engineered to end with a decision — not another evaluation cycle.",
+    executiveFraming:
+      "Before the pilot begins, success should be aligned around measurable operational outcomes jointly agreed by engineering, governance, and executive stakeholders.",
+    validationMaturity:
+      "A successful pilot should validate not only technical capability, but also operational fit, governance readiness, and scalability across enterprise delivery workflows.",
     weeks: [
       {
         week: 1,
@@ -839,6 +899,8 @@ export const intesa = {
     },
     successDependsOn:
       "Success depends not only on technical execution, but also on executive alignment, governance participation, and measurable operational outcomes.",
+    goLiveTransition:
+      "The objective of the pilot is not isolated experimentation, but a structured validation path toward broader enterprise deployment.",
   },
 
   // -------------------------------------------------------------------------

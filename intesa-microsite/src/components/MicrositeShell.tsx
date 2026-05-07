@@ -6,6 +6,7 @@ import { intesa } from "../data/intesa";
 import { ExecutiveCounter } from "./ExecutiveCounter";
 import { ProgressBar } from "./ProgressBar";
 import { Panel1Opening } from "./panels/Panel1Opening";
+import { Panel1bAgenda } from "./panels/Panel1bAgenda";
 import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
 import { Panel3CurrentState } from "./panels/Panel3CurrentState";
 import { Panel4ExecutiveDiscovery } from "./panels/Panel4ExecutiveDiscovery";
@@ -21,17 +22,17 @@ import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 14 main panels (index 0–13) + 1 appendix panel (index 14) reachable only
-// via the discrete "Appendix" toggle in the header. Live workflow preview
-// (Panel5b) is inserted at idx 5, between modernization demo and trust.
-const MAIN_PANELS = 14;
-const APPENDIX_INDEX = 14;
+// 15 main panels (index 0–14) + 1 appendix panel (index 15) reachable only
+// via the discrete "Appendix" toggle in the header. Executive working session
+// agenda (Panel1b) sits at idx 1; Live workflow preview (Panel5b) at idx 6.
+const MAIN_PANELS = 15;
+const APPENDIX_INDEX = 15;
 const TOTAL_PANELS = MAIN_PANELS + 1;
-// Render index of the counter climax panel ("Reclaimed capacity"), now the
-// 11th tile in the main sequence (zero-indexed → 10) after inserting the
-// Live workflow preview at idx 5. Itaú reference shifts to idx 9; counter
-// teaser shows on idx 9 and reveals on idx 10.
-const CLIMAX_INDEX = 10;
+// Render index of the counter climax panel ("Reclaimed capacity"). After
+// inserting the Executive working session agenda at idx 1, every panel from
+// idx 1 onward shifts +1 → climax now at idx 11. Counter teaser shows on
+// idx 10 (Itaú reference) and reveals on idx 11 (climax).
+const CLIMAX_INDEX = 11;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -272,13 +273,13 @@ export function MicrositeShell() {
         max += step.addMax;
       }
     }
-    // Once the user reaches the climax panel, lock the displayed range to the
-    // narrative's "8–18 developer days" envelope so the counter never drifts
-    // past the headline number, regardless of per-step arithmetic.
-    if (visited.has(CLIMAX_INDEX)) {
-      min = Math.max(min, intesa.counter.finalRange.min);
-      max = intesa.counter.finalRange.max;
-    }
+    // Per-panel additions are time-weighted to a 60-minute presentation cadence
+    // (see counter.steps comments in intesa.ts). The counter must continue to
+    // advance past the climax (idx 10) and only reach the headline 8–18 dev-day
+    // envelope at the last main panel (idx 13, Final ask). We therefore only
+    // clamp the upper bound — never pin the value at the climax.
+    const finalMax = intesa.counter.finalRange.max;
+    if (max > finalMax) max = finalMax;
     return { min, max };
   }, [visited]);
 
@@ -358,6 +359,7 @@ export function MicrositeShell() {
           }
         >
           <Panel1Opening onCta={(target) => goTo(target - 1)} />
+          <Panel1bAgenda />
           <Panel2ExecutionGap />
           <Panel3CurrentState />
           <Panel4ExecutiveDiscovery />
