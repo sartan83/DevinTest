@@ -252,32 +252,22 @@ export const intesa = {
     observations: [
       {
         title: "COBOL and Java coexistence",
-        body: "Critical core flows still anchored in COBOL while the surface estate runs on Java, JSP, and modern frontends — the modernization effort is about safely bridging the two, not rewriting either.",
+        body: "Critical core flows in COBOL, surface estate in Java and modern frontends. The work is safely bridging the two, not rewriting either.",
         status: "hypothesis" as ObservationStatus,
       },
       {
         title: "High regression risk on critical systems",
-        body: "Changes touching customer balances, transactions, or regulatory flows carry asymmetric blast radius. Confidence to modify these systems is structurally lower than the modernization roadmap demands.",
+        body: "Changes touching balances, transactions, or regulatory flows carry asymmetric blast radius. Confidence to modify is structurally lower than the roadmap demands.",
         status: "validated" as ObservationStatus,
       },
       {
-        title: "Long testing and validation cycles",
-        body: "End-to-end regression and pre-prod validation absorb a disproportionate share of every modernization release window.",
-        status: "hypothesis" as ObservationStatus,
-      },
-      {
         title: "Senior engineers absorbed by maintenance",
-        body: "The most experienced capacity is concentrated on maintaining legacy estate, dependency upgrades, and regression triage rather than on differentiating digital programs.",
+        body: "The most experienced capacity is concentrated on maintaining legacy estate and regression triage — not on differentiating digital programs.",
         status: "validated" as ObservationStatus,
       },
       {
         title: "Tribal knowledge concentration",
-        body: "Critical legacy logic lives in the heads of a few senior engineers. Onboarding new contributors onto these systems is slow and risk-laden.",
-        status: "hypothesis" as ObservationStatus,
-      },
-      {
-        title: "Release governance bottlenecks",
-        body: "Multi-stage approvals, manual evidence assembly, and change-advisory windows extend lead time on even low-risk modernization changes.",
+        body: "Critical legacy logic lives with a few senior engineers. Onboarding new contributors onto these systems is slow and risk-laden.",
         status: "hypothesis" as ObservationStatus,
       },
       {
@@ -286,13 +276,8 @@ export const intesa = {
         status: "validated" as ObservationStatus,
       },
       {
-        title: "Modernization safety vs. velocity tension",
-        body: "The estate cannot trade safety for velocity, but the current operating model forces an implicit choice every quarter.",
-        status: "alignment" as ObservationStatus,
-      },
-      {
         title: "Where modernization compounds first",
-        body: "Which workstreams unlock the most resilience-and-throughput when modernized first is an executive call — engineering can rank the candidates, the EB ranks the business priority.",
+        body: "Which workstreams unlock the most resilience-and-throughput when modernized first is an EB call. Engineering ranks the candidates; the EB ranks the business priority.",
         status: "alignment" as ObservationStatus,
       },
     ] as CurrentStateObservation[],
@@ -319,16 +304,14 @@ export const intesa = {
       knownLabel: "Already framed by the Champion",
       knownItems: [
         "Modernization scope and the systems most under pressure.",
-        "Engineering team shape and the estate where Devin would attach.",
-        "Initial security expectations for AI-assisted execution.",
+        "Engineering team shape and where Devin would attach.",
         "Indicative pilot footprint and timeline.",
       ],
       validateLabel: "Only the Executive Buyer can confirm",
       validateItems: [
         "Where modernization risk has the highest board visibility.",
-        "Which initiatives are most exposed to regression and resilience risk.",
         "How operational risk gets priced into modernization decisions.",
-        "What success would have to look like for broader deployment.",
+        "What success would have to look like to scale beyond the pilot.",
       ],
     },
     questions: [
@@ -338,32 +321,22 @@ export const intesa = {
       },
       {
         question: "Is the main bottleneck migration speed, or regression confidence?",
-        why: "Disambiguates whether the pilot should optimize throughput or safety — the answer is rarely both.",
+        why: "Disambiguates whether the pilot should optimize throughput or safety — rarely both.",
       },
       {
-        question: "How much engineering capacity is spent on maintenance versus innovation today?",
-        why: "Anchors the economic case in a number the EB will defend in front of the board.",
+        question: "How much engineering capacity is spent on maintenance vs. innovation today?",
+        why: "Anchors the economic case in a number the EB can defend in front of the board.",
       },
       {
         question: "Which systems are currently considered too risky to modernize at the pace the roadmap demands?",
-        why: "Identifies where 'controlled modernization' would unlock board-visible programs that are stalled today.",
-      },
-      {
-        question: "How are release risks currently mitigated, and where is that envelope under strain?",
-        why: "Surfaces governance and resilience controls — the same envelope Devin must sit inside, not around.",
+        why: "Identifies where 'controlled modernization' unlocks board-visible programs that are stalled today.",
       },
       {
         question: "What is the business impact of delayed releases on the digital banking roadmap?",
         why: "Connects engineering execution capacity to revenue, customer experience, and regulatory commitment.",
       },
-      {
-        question: "How is operational resilience measured during software changes, and what would 'safer modernization' mean to you?",
-        why: "Lets the EB define the success criteria in their own language, before the pilot KPIs are agreed.",
-      },
     ] as DiscoveryGap[],
-    transition:
-      "The pilot earns its place only if these answers come from the EB's seat — not the team's. The full Champion-level discovery framework lives in the appendix.",
-    appendixCallout: "See appendix · Executive discovery framework — 4 blocks × 4 questions",
+    appendixCallout: "Appendix · Executive discovery framework — full 4 × 4 question matrix",
   },
 
   // -------------------------------------------------------------------------
@@ -456,27 +429,22 @@ export const intesa = {
       {
         index: 1,
         title: "Analyze the legacy architecture",
-        body: "Devin reads the repository end-to-end — language and framework mix, dependency graph, deprecated libraries, test coverage, and high-blast-radius modules — and produces a modernization map of the estate.",
+        body: "Devin reads the repository end-to-end — language mix, dependencies, deprecated libraries, coverage, blast-radius — and produces a modernization map.",
       },
       {
         index: 2,
-        title: "Identify a safe modernization slice",
-        body: "Devin proposes a scoped slice that maximizes business value while minimizing regression exposure. The Champion and engineering lead approve scope before any code change.",
+        title: "Scope a safe slice — protect it first",
+        body: "Propose a scoped modernization slice with maximum business value and minimum regression exposure, then add the safety net before any change: characterization, coverage, contract tests.",
       },
       {
         index: 3,
-        title: "Add regression protection first",
-        body: "Before refactoring, Devin strengthens the safety net: characterization tests on legacy behavior, missing unit / integration coverage, and contract tests across the legacy / modern boundary.",
+        title: "Execute the modernization slice",
+        body: "Refactor code, upgrade dependencies, bridge legacy ↔ modern flows — every change a reviewable PR inside the bank's existing review tooling.",
       },
       {
         index: 4,
-        title: "Execute the modernization slice",
-        body: "Devin refactors code, upgrades dependencies, and bridges legacy ↔ modern flows — every change captured as a reviewable pull request inside the bank's existing review tooling, never as an opaque action.",
-      },
-      {
-        index: 5,
         title: "Validate safely and document for audit",
-        body: "Devin runs the strengthened test suite, captures change rationale, evidence, and traceability, and hands a controlled, auditable modernization slice to engineering and governance review.",
+        body: "Run the strengthened test suite, capture rationale, evidence, and traceability, and hand a controlled, auditable slice to engineering and governance review.",
       },
     ] as WalkthroughStep[],
     valueStatements: [

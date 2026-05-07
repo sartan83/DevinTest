@@ -28,7 +28,7 @@ export function Panel5BusinessImpact() {
           <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
           {p.steps.map((s, i) => (
             <motion.div
               key={s.index}

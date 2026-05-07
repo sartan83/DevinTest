@@ -9,7 +9,7 @@ export function Panel4ExecutiveDiscovery() {
 
   return (
     <PanelShell eyebrow={p.eyebrow}>
-      <div className="flex flex-col gap-7 sm:gap-9">
+      <div className="flex flex-col gap-5 sm:gap-7">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr] lg:items-end lg:gap-10">
           <PanelHeadline text={p.headline} className="max-w-3xl" />
           <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead>
@@ -52,7 +52,7 @@ export function Panel4ExecutiveDiscovery() {
         </div>
 
         {/* Discovery questions list (workshop-style, no tabs) */}
-        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {p.questions.map((q, i) => (
             <motion.div
               key={q.question}
@@ -77,11 +77,7 @@ export function Panel4ExecutiveDiscovery() {
           ))}
         </div>
 
-        <p className="max-w-3xl text-sm leading-relaxed text-brand-ivory/75 sm:text-base">
-          {p.transition}
-        </p>
-
-        <p className="text-[11px] uppercase tracking-[0.26em] text-brand-ivory/45 sm:text-xs">
+        <p className="text-[10px] uppercase tracking-[0.26em] text-brand-ivory/45 sm:text-[11px]">
           {p.appendixCallout}
         </p>
       </div>
