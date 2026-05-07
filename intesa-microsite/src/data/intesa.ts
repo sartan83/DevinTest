@@ -106,8 +106,8 @@ export const intesa = {
     { index: 2, label: "2", full: "Executive working session", appendix: false },
     { index: 3, label: "3", full: "Execution gap", appendix: false },
     { index: 4, label: "4", full: "Current state assessment", appendix: false },
-    { index: 5, label: "5", full: "Discovery alignment", appendix: false },
-    { index: 6, label: "6", full: "Modernization workflow", appendix: false },
+    { index: 5, label: "5", full: "Executive validation areas", appendix: false },
+    { index: 6, label: "6", full: "Governed modernization workflow", appendix: false },
     { index: 7, label: "7", full: "Enterprise trust", appendix: false },
     { index: 8, label: "8", full: "Capacity redeployment", appendix: false },
     { index: 9, label: "9", full: "ROI signal", appendix: false },
@@ -166,8 +166,8 @@ export const intesa = {
       { panel: 3,  addMin: 0.27, addMax: 0.60, note: "Executive working session agenda (2')" },
       { panel: 4,  addMin: 0.53, addMax: 1.20, note: "Execution gap named (4')" },
       { panel: 5,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
-      { panel: 6,  addMin: 0.80, addMax: 1.80, note: "Executive alignment areas (6')" },
-      { panel: 7,  addMin: 0.93, addMax: 2.10, note: "Modernization workflow + impact (7')" },
+      { panel: 6,  addMin: 0.80, addMax: 1.80, note: "Executive validation areas (6')" },
+      { panel: 7,  addMin: 0.93, addMax: 2.10, note: "Governed modernization workflow + impact (7')" },
       { panel: 8,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
       { panel: 9,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
       { panel: 10, addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
@@ -386,9 +386,9 @@ export const intesa = {
   // pre-meeting discovery framework is moved into the appendix.
   // -------------------------------------------------------------------------
   panel4: {
-    eyebrow: "Executive alignment areas",
+    eyebrow: "Executive validation areas",
     headline:
-      "What has been identified so far —\nand what still requires executive alignment.",
+      "What has been identified so far —\nand what still requires executive validation.",
     subhead: "",
     questions: [
       {
@@ -513,7 +513,7 @@ export const intesa = {
   // governance constraints".
   // -------------------------------------------------------------------------
   panel5: {
-    eyebrow: "Governance-aware modernization workflow",
+    eyebrow: "Governed modernization workflow",
     headline:
       "How bounded autonomous execution\ntranslates into operational leverage.",
     subhead:

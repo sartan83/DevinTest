@@ -221,7 +221,11 @@ async def run_for_viewport(p, w: int, h: int):
     n_detail = p4_html.count('data-category="detail-question"')
     p4_checks = {
         "headline 'identified so far'": "What has been identified so far" in p4_text,
-        "headline 'executive alignment'": "executive alignment" in p4_text.lower(),
+        "eyebrow 'Executive validation areas'":
+            "executive validation areas" in p4_text.lower(),
+        "bridge line to Tab 5 (operational workflow)":
+            "validated priorities translate into governed operational workflow"
+            in p4_text.lower(),
         "exactly 3 alignment-area cards": n_strategic == 3,
         "exactly 2 detail questions in accordion": n_detail == 2,
         "Capacity Constraints category": "capacity constraints" in p4_text.lower(),
@@ -240,8 +244,10 @@ async def run_for_viewport(p, w: int, h: int):
     await goto_panel(page, 6)
     p5_text = await get_section_text(page, 6)
     p5_checks = {
-        "eyebrow 'Governance-aware modernization workflow'":
-            "governance-aware modernization workflow" in p5_text.lower(),
+        "eyebrow 'Governed modernization workflow'":
+            "governed modernization workflow" in p5_text.lower(),
+        "no legacy 'Governance-aware modernization workflow' eyebrow":
+            "governance-aware modernization workflow" not in p5_text.lower(),
         "headline 'How bounded autonomous execution'":
             "How bounded autonomous execution" in p5_text
             and "operational leverage" in p5_text.lower(),

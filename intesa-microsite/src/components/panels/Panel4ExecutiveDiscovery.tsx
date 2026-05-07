@@ -66,9 +66,15 @@ export function Panel4ExecutiveDiscovery() {
           </ul>
         </details>
 
-        <p className="text-[10px] uppercase tracking-[0.24em] text-brand-ivory/35">
-          {p.appendixCallout}
-        </p>
+        <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-brand-ivory/10 pt-3 sm:gap-6 sm:pt-4">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-brand-ivory/35">
+            {p.appendixCallout}
+          </p>
+          <p className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-brand-ivory/45">
+            <span>Validated priorities translate into governed operational workflow</span>
+            <span aria-hidden className="text-brand-ivory/35">→</span>
+          </p>
+        </div>
       </div>
     </PanelShell>
   );
