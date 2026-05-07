@@ -5,7 +5,7 @@ import { intesa } from "../../data/intesa";
 import { PanelShell, PanelHeadline, PanelSubhead } from "../PanelShell";
 
 export function Panel10Pilot() {
-  const p = intesa.panel10;
+  const p = intesa.panel11;
   return (
     <PanelShell eyebrow={p.eyebrow}>
       <div className="flex flex-col gap-8 sm:gap-10">

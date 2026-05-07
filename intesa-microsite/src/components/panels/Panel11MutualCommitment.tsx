@@ -62,16 +62,28 @@ function CommitmentColumn({
 }
 
 export function Panel11MutualCommitment() {
-  const p = intesa.panel11;
+  const p = intesa.panel12;
   return (
     <PanelShell eyebrow={p.eyebrow}>
-      <div className="flex flex-col gap-8 sm:gap-10">
-        <PanelHeadline text={p.headline} className="max-w-4xl text-2xl sm:text-4xl lg:text-5xl" />
+      <div className="flex flex-col gap-6 sm:gap-8">
+        <div className="grid gap-3 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-8">
+          <PanelHeadline
+            text={p.headline}
+            className="max-w-3xl text-2xl sm:text-4xl lg:text-5xl"
+          />
+          <p className="rounded-2xl border border-brand-orange/30 bg-brand-orange/5 px-4 py-3 text-[13px] leading-relaxed text-brand-ivory/90 sm:px-5 sm:py-4 sm:text-[14px]">
+            {p.partnership}
+          </p>
+        </div>
 
         <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
           <CommitmentColumn col={p.intesa} accent="client" delay={0.05} />
           <CommitmentColumn col={p.cognition} accent="partner" delay={0.15} />
         </div>
+
+        <p className="rounded-2xl border border-brand-ivory/12 bg-brand-green-deep/40 px-4 py-3 text-[13px] leading-relaxed text-brand-ivory/80 sm:px-5 sm:py-4 sm:text-[14px]">
+          {p.successDependsOn}
+        </p>
       </div>
     </PanelShell>
   );

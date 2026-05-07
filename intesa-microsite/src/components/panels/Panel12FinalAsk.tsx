@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function Panel12FinalAsk({ onCta }: Props) {
-  const p = intesa.panel12;
+  const p = intesa.panel13;
   return (
     <PanelShell eyebrow={p.eyebrow} className="items-center text-center">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
@@ -30,8 +30,23 @@ export function Panel12FinalAsk({ onCta }: Props) {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.22 }}
+          className="mt-6 max-w-3xl rounded-2xl border border-brand-ivory/15 bg-brand-green-deep/45 px-5 py-4 text-left sm:mt-8 sm:px-6 sm:py-5"
+        >
+          <div className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/55">
+            Commercial alignment
+          </div>
+          <p className="mt-2 text-[13px] leading-relaxed text-brand-ivory/85 sm:text-[14px]">
+            {p.commercialAlignment}
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-8 max-w-3xl rounded-2xl border border-brand-orange/35 bg-brand-orange/8 px-5 py-4 text-left sm:mt-10 sm:px-6 sm:py-5"
+          className="mt-6 max-w-3xl rounded-2xl border border-brand-orange/35 bg-brand-orange/8 px-5 py-4 text-left sm:mt-8 sm:px-6 sm:py-5"
         >
           <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft/90">
             Closing question
@@ -41,7 +56,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
           </p>
         </motion.div>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-2 sm:mt-10">
+        <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8">
           {p.nextSteps.map((step) => (
             <span
               key={step}
@@ -54,7 +69,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
         </div>
 
         {onCta && (
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <button
               onClick={() => onCta(1)}
               className="group inline-flex items-center gap-2 rounded-full border border-brand-ivory/20 px-5 py-3 text-sm font-medium text-brand-ivory/90 transition-all hover:border-brand-ivory/40 hover:bg-brand-ivory/5"
@@ -63,7 +78,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
               <span>Back to opening</span>
             </button>
             <button
-              onClick={() => onCta(10)}
+              onClick={() => onCta(11)}
               className="group inline-flex items-center gap-2 rounded-full bg-devin-gradient px-5 py-3 text-sm font-medium text-brand-ivory shadow-glow transition-all hover:brightness-110"
             >
               <span>Re-open the 4-week pilot</span>

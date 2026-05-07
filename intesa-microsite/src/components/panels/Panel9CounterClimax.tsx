@@ -14,7 +14,7 @@ function format(n: number) {
 }
 
 export function Panel9CounterClimax({ min, max }: Props) {
-  const p = intesa.panel9;
+  const p = intesa.panel10;
   const finalMin = Math.max(min, intesa.counter.finalRange.min);
   const finalMax = Math.max(max, intesa.counter.finalRange.max);
 

@@ -9,9 +9,13 @@ type Props = {
   children: ReactNode;
   /** Optional className forwarded to the inner container. */
   className?: string;
+  /** Compact mode reduces vertical padding and eyebrow margin so dense panels
+   * (Current State / Discovery Gaps / Demo) fit in a 1280×800 viewport without
+   * intra-panel scrolling. */
+  compact?: boolean;
 };
 
-export function PanelShell({ eyebrow, tone = "dark", children, className }: Props) {
+export function PanelShell({ eyebrow, tone = "dark", children, className, compact = false }: Props) {
   return (
     <section
       className={[
@@ -25,12 +29,15 @@ export function PanelShell({ eyebrow, tone = "dark", children, className }: Prop
         viewport={{ margin: "-10% 0px -10% 0px", amount: 0.3 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className={[
-          "mx-auto flex w-full max-w-[1400px] flex-col overflow-y-auto px-5 pb-16 pt-24 sm:px-10 sm:pb-20 sm:pt-24 md:px-16 lg:px-24 md:justify-center",
+          "mx-auto flex w-full max-w-[1400px] flex-col overflow-y-auto px-5 sm:px-10 md:px-16 lg:px-24 md:justify-center",
+          compact
+            ? "pb-10 pt-16 sm:pb-12 sm:pt-16 lg:pb-14 lg:pt-20"
+            : "pb-16 pt-24 sm:pb-20 sm:pt-24",
           className ?? "",
         ].join(" ")}
       >
         {eyebrow && (
-          <div className="mb-6 flex items-center gap-3">
+          <div className={["flex items-center gap-3", compact ? "mb-3" : "mb-6"].join(" ")}>
             <span
               className={[
                 "h-px w-8",
@@ -57,16 +64,21 @@ export function PanelHeadline({
   text,
   tone = "dark",
   className,
+  compact = false,
 }: {
   text: string;
   tone?: "dark" | "ivory";
   className?: string;
+  /** Compact reduces font scale by ~25% for dense panels. */
+  compact?: boolean;
 }) {
   return (
     <h2
       className={[
         "font-display font-light leading-[1.05] tracking-displaytight text-balance",
-        "text-3xl sm:text-5xl lg:text-6xl",
+        compact
+          ? "text-2xl sm:text-3xl lg:text-[2.5rem]"
+          : "text-3xl sm:text-5xl lg:text-6xl",
         tone === "dark" ? "text-brand-ivory" : "text-brand-charcoal",
         className ?? "",
       ].join(" ")}
@@ -92,7 +104,7 @@ export function PanelSubhead({
   return (
     <p
       className={[
-        "mt-4 max-w-3xl text-pretty text-base leading-relaxed sm:mt-6 sm:text-lg lg:text-xl",
+        "mt-4 max-w-3xl text-pretty text-sm leading-relaxed sm:mt-5 sm:text-base lg:text-lg",
         tone === "dark" ? "text-brand-ivory/70" : "text-brand-charcoal/70",
         className ?? "",
       ].join(" ")}

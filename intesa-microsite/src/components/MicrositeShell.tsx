@@ -13,20 +13,22 @@ import { Panel5BusinessImpact } from "./panels/Panel5BusinessImpact";
 import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
 import { Panel7TasksToOutcomes } from "./panels/Panel7TasksToOutcomes";
 import { Panel8RoiSignal } from "./panels/Panel8RoiSignal";
+import { Panel9ItauReference } from "./panels/Panel9ItauReference";
 import { Panel9CounterClimax } from "./panels/Panel9CounterClimax";
 import { Panel10Pilot } from "./panels/Panel10Pilot";
 import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 12 main panels (index 0–11) + 1 appendix panel (index 12) reachable only
+// 13 main panels (index 0–12) + 1 appendix panel (index 13) reachable only
 // via the discrete "Appendix" toggle in the header.
-const MAIN_PANELS = 12;
-const APPENDIX_INDEX = 12;
+const MAIN_PANELS = 13;
+const APPENDIX_INDEX = 13;
 const TOTAL_PANELS = MAIN_PANELS + 1;
-// Render index of the counter climax panel ("Reclaimed capacity"), the 9th
-// tile in the main sequence (zero-indexed → 8).
-const CLIMAX_INDEX = 8;
+// Render index of the counter climax panel ("Reclaimed capacity"), the 10th
+// tile in the main sequence (zero-indexed → 9). Itaú reference is panel 9
+// (zero-indexed → 8), inserted between ROI signal and the climax.
+const CLIMAX_INDEX = 9;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -360,6 +362,7 @@ export function MicrositeShell() {
           <Panel6EnterpriseTrust />
           <Panel7TasksToOutcomes />
           <Panel8RoiSignal />
+          <Panel9ItauReference />
           <Panel9CounterClimax min={counterValue.min} max={counterValue.max} />
           <Panel10Pilot />
           <Panel11MutualCommitment />
