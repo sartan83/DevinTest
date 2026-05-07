@@ -92,29 +92,31 @@ export const intesa = {
       "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
   },
 
-  // 13 sequential main panels. The narrative arc is: position the problem,
-  // validate discovery, show the work, frame trust, bridge to value, quantify,
-  // anchor on a credible enterprise reference, climax, commit to a 4-week
-  // pilot, and close on an executive ask.
-  // Index 0–12 are the main executive flow. Index 13 is the appendix
+  // 15 sequential main panels (after adding the executive opening screen at
+  // idx 0). The narrative arc is: stage-presence opener, position the
+  // problem, validate discovery, show the work, frame trust, bridge to
+  // value, quantify, anchor on a credible enterprise reference, climax,
+  // commit to a 4-week pilot, and close on an executive ask.
+  // Index 0–14 are the main executive flow. Index 15 is the appendix
   // ("Discovery framework") — reachable only via the discrete appendix
   // toggle, hidden from the progress dots.
   nav: [
-    { index: 0, label: "1", full: "Opening", appendix: false },
-    { index: 1, label: "2", full: "Executive working session", appendix: false },
-    { index: 2, label: "3", full: "Execution gap", appendix: false },
-    { index: 3, label: "4", full: "Current state assessment", appendix: false },
-    { index: 4, label: "5", full: "Discovery alignment", appendix: false },
-    { index: 5, label: "6", full: "Modernization workflow", appendix: false },
-    { index: 6, label: "7", full: "Enterprise trust", appendix: false },
-    { index: 7, label: "8", full: "Capacity redeployment", appendix: false },
-    { index: 8, label: "9", full: "ROI signal", appendix: false },
-    { index: 9, label: "10", full: "Enterprise reference", appendix: false },
-    { index: 10, label: "11", full: "Reclaimed capacity", appendix: false },
-    { index: 11, label: "12", full: "4-week pilot", appendix: false },
-    { index: 12, label: "13", full: "Operational readiness", appendix: false },
-    { index: 13, label: "14", full: "Next-step alignment", appendix: false },
-    { index: 14, label: "A", full: "Discovery framework (appendix)", appendix: true },
+    { index: 0, label: "·", full: "Executive working session", appendix: false },
+    { index: 1, label: "1", full: "Opening", appendix: false },
+    { index: 2, label: "2", full: "Executive working session", appendix: false },
+    { index: 3, label: "3", full: "Execution gap", appendix: false },
+    { index: 4, label: "4", full: "Current state assessment", appendix: false },
+    { index: 5, label: "5", full: "Discovery alignment", appendix: false },
+    { index: 6, label: "6", full: "Modernization workflow", appendix: false },
+    { index: 7, label: "7", full: "Enterprise trust", appendix: false },
+    { index: 8, label: "8", full: "Capacity redeployment", appendix: false },
+    { index: 9, label: "9", full: "ROI signal", appendix: false },
+    { index: 10, label: "10", full: "Enterprise reference", appendix: false },
+    { index: 11, label: "11", full: "Reclaimed capacity", appendix: false },
+    { index: 12, label: "12", full: "4-week pilot", appendix: false },
+    { index: 13, label: "13", full: "Operational readiness", appendix: false },
+    { index: 14, label: "14", full: "Next-step alignment", appendix: false },
+    { index: 15, label: "A", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
@@ -144,34 +146,49 @@ export const intesa = {
       "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
     // Steps accumulate per visited panel (1-indexed → maps to render index panel-1).
     // Calibrated to a 60-minute live presentation cadence: per-panel additions
-    // are time-weighted such that cumulative across all 14 main panels reaches
-    // exactly the headline 8–18 dev-days envelope at idx 13 (Next-step alignment).
+    // are time-weighted such that cumulative across all 15 main panels reaches
+    // exactly the headline 8–18 dev-days envelope at idx 14 (Next-step alignment).
     //
-    // Time budget per panel (sums to 60 min) — 14 panels after merging the
-    // demo + workflow preview into a single Governance-Aware Modernization
-    // Workflow section:
-    //   P0 Hero 3'   P1 Agenda 2'   P2 Gap 4'   P3 Current 5'
-    //   P4 Discovery 6'   P5 Workflow MERGED 7'   P6 Trust 3'
-    //   P7 Capacity 4'   P8 ROI 4'   P9 Itaú 5'   P10 Climax 4'
-    //   P11 Pilot 5'   P12 Operational readiness 5'   P13 Next-step 3'
+    // Idx 0 is the executive opening screen — pre-session stage presence.
+    // It contributes 0 to the counter so the working envelope still maps
+    // exactly to the 60-minute presentation budget across panels 1–14.
+    //
+    // Time budget per panel (sums to 60 min):
+    //   P0 Welcome 0'  P1 Hero 3'   P2 Agenda 2'   P3 Gap 4'   P4 Current 5'
+    //   P5 Discovery 6'   P6 Workflow MERGED 7'   P7 Trust 3'
+    //   P8 Capacity 4'   P9 ROI 4'   P10 Itaú 5'   P11 Climax 4'
+    //   P12 Pilot 5'   P13 Operational readiness 5'   P14 Next-step 3'
     //
     // Per-minute increment: 8/60 ≈ 0.133 (min) and 18/60 = 0.3 (max).
     steps: [
-      { panel: 1,  addMin: 0.40, addMax: 0.90, note: "Hero framing (3')" },
-      { panel: 2,  addMin: 0.27, addMax: 0.60, note: "Executive working session agenda (2')" },
-      { panel: 3,  addMin: 0.53, addMax: 1.20, note: "Execution gap named (4')" },
-      { panel: 4,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
-      { panel: 5,  addMin: 0.80, addMax: 1.80, note: "Executive alignment areas (6')" },
-      { panel: 6,  addMin: 0.93, addMax: 2.10, note: "Modernization workflow + impact (7')" },
-      { panel: 7,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
-      { panel: 8,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
-      { panel: 9,  addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
-      { panel: 10, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
-      { panel: 11, addMin: 0.53, addMax: 1.20, note: "Counter climax reveal (4')" },
-      { panel: 12, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
-      { panel: 13, addMin: 0.67, addMax: 1.50, note: "Operational readiness captured (5')" },
-      { panel: 14, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
+      { panel: 1,  addMin: 0.00, addMax: 0.00, note: "Executive opening screen (0' — pre-session)" },
+      { panel: 2,  addMin: 0.40, addMax: 0.90, note: "Hero framing (3')" },
+      { panel: 3,  addMin: 0.27, addMax: 0.60, note: "Executive working session agenda (2')" },
+      { panel: 4,  addMin: 0.53, addMax: 1.20, note: "Execution gap named (4')" },
+      { panel: 5,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
+      { panel: 6,  addMin: 0.80, addMax: 1.80, note: "Executive alignment areas (6')" },
+      { panel: 7,  addMin: 0.93, addMax: 2.10, note: "Modernization workflow + impact (7')" },
+      { panel: 8,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
+      { panel: 9,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
+      { panel: 10, addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
+      { panel: 11, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
+      { panel: 12, addMin: 0.53, addMax: 1.20, note: "Counter climax reveal (4')" },
+      { panel: 13, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
+      { panel: 14, addMin: 0.67, addMax: 1.50, note: "Operational readiness captured (5')" },
+      { panel: 15, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
     ] as CounterStep[],
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 0 — Executive Opening Screen (pre-session stage presence)
+  // -------------------------------------------------------------------------
+  panel0: {
+    leftWordmark: "Intesa Sanpaolo",
+    rightWordmark: "Cognition",
+    title: "Executive Working Session",
+    subtitle: "Governance-Aware Modernization Discussion",
+    footer: "Intesa Sanpaolo × Cognition",
+    cta: "Begin session",
   },
 
   // -------------------------------------------------------------------------

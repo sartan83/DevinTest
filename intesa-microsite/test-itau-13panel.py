@@ -1,43 +1,46 @@
 """
-Adversarial regression test for the 14-panel Intesa microsite
-(Executive working session agenda + Itaú reference + merged
-Governance-Aware Modernization Workflow + executive refinement).
+Adversarial regression test for the 15-panel Intesa microsite
+(Executive Working Session opening + Hero + Agenda + Itaú reference +
+merged Governance-Aware Modernization Workflow + executive refinement).
 
-Panel index map (14 main + 1 appendix):
-  0  Hero / opening
-  1  Executive working session (Agenda)
-  2  Execution gap
-  3  Current state
-  4  Discovery (executive alignment)
-  5  Governance-Aware Modernization Workflow (MERGED P5 + former P5b)
-  6  Enterprise trust
-  7  Capacity redeployment
-  8  ROI signal
-  9  Itaú enterprise reference  (counter teaser still visible here)
-  10 Counter climax (reveal panel)
-  11 4-week pilot
-  12 Operational readiness (was 'Mutual commitment')
-  13 Next-step alignment (was 'Final ask')
-  14 Appendix
+Panel index map (15 main + 1 appendix):
+  0  Executive Working Session — opening / stage-presence screen
+  1  Hero / opening
+  2  Executive working session (Agenda)
+  3  Execution gap
+  4  Current state
+  5  Discovery (executive alignment)
+  6  Governance-Aware Modernization Workflow (MERGED P5 + former P5b)
+  7  Enterprise trust
+  8  Capacity redeployment
+  9  ROI signal
+  10 Itaú enterprise reference  (counter teaser still visible here)
+  11 Counter climax (reveal panel)
+  12 4-week pilot
+  13 Operational readiness (was 'Mutual commitment')
+  14 Next-step alignment (was 'Final ask')
+  15 Appendix
 
 Tests:
   A. Overflow on dense panels at 1440x900 + 1280x800 + 1366x768
-  B. Counter reveal moves from idx 9 -> idx 10
-  C. Itaú panel content (idx 9): 4 KPI tiles, Factory workflow, Gartner source
-  D. Panel 7 capacity formula (idx 7): 400 / 30% / 120
-  E. Panel 4 discovery (idx 4): 3 Strategic Q + 2 Detail question + new headline
-  F. Panel 5 merged workflow (idx 5): transition + workflow nodes +
+  B. Counter reveal moves from idx 10 -> idx 11
+  C. Itaú panel content (idx 10): 4 KPI tiles, Factory workflow, Gartner source
+  D. Panel 7 capacity formula (idx 8): 400 / 30% / 120
+  E. Panel 4 discovery (idx 5): 3 Strategic Q + 2 Detail question + new headline
+  F. Panel 5 merged workflow (idx 6): transition + workflow nodes +
      business impact + dev-equivalent footnote
-  G. Panel 12 + 13 (idx 12, 13): jointly governed + Enterprise deployment path
+  G. Panel 12 + 13 (idx 13, 14): jointly governed + Enterprise deployment path
   H. Sales-methodology sweep (full HTML): 0 occurrences
-  I. Appendix toggle moves to idx 14, Esc returns to idx 13
+  I. Appendix toggle moves to idx 15, Esc returns to idx 14
   J. Wheel handler regression: deltaY=200 from idx 0 -> active becomes 1
-  L. Counter climax (idx 10): framing line + dev-equivalent translation +
+  L. Counter climax (idx 11): framing line + dev-equivalent translation +
      business interpretation
   M. Enterprise alignment refinement statements (P2 / P3 / P5 merged / P11)
-  N. Counter pacing reaches 8–18 envelope at idx 13 (Next-step alignment)
-  O. Executive working session agenda (idx 1): 5 focus blocks
+  N. Counter pacing reaches 8–18 envelope at idx 14 (Next-step alignment)
+  O. Executive working session agenda (idx 2): 5 focus blocks
   P. Hero anchors + merged P5 workflow nodes + scale anchors + dev-eq
+  Q. Visual rhythm & section contrast pass (tonal panel-bg variants per idx)
+  R. Executive opening screen (idx 0): wordmarks + title + footer + CTA
 """
 import asyncio
 import json
@@ -51,23 +54,23 @@ URL = "https://intesa-microsite.vercel.app/"
 OUT = Path(__file__).parent / "screenshots-itau"
 OUT.mkdir(exist_ok=True)
 
-# (panel_idx, slug, must-have substrings, must-NOT-have substrings)
-# NOTE: idx 10 (counter climax) is intentionally excluded — visiting it would
+# (panel_idx, slug)
+# NOTE: idx 11 (counter climax) is intentionally excluded — visiting it would
 # set `visited[CLIMAX_INDEX]` and unlock the counter reveal, breaking the
-# B1 "teaser still hidden at idx 9" assertion. The climax panel is centered
+# B1 "teaser still hidden at idx 10" assertion. The climax panel is centered
 # text and not at risk of overflow anyway. Test L covers its content.
 PANELS_TO_FIT = [
-    (1, "panel1b-agenda"),
-    (2, "panel2-execution-gap"),
-    (3, "panel3-current-state"),
-    (4, "panel4-discovery"),
-    (5, "panel5-modernization-workflow"),
-    (6, "panel6-trust"),
-    (7, "panel7-capacity"),
-    (8, "panel8-roi"),
-    (9, "panel9-itau"),
-    (11, "panel11-pilot"),
-    (12, "panel12-mutual"),
+    (2, "panel1b-agenda"),
+    (3, "panel2-execution-gap"),
+    (4, "panel3-current-state"),
+    (5, "panel4-discovery"),
+    (6, "panel5-modernization-workflow"),
+    (7, "panel6-trust"),
+    (8, "panel7-capacity"),
+    (9, "panel8-roi"),
+    (10, "panel9-itau"),
+    (12, "panel11-pilot"),
+    (13, "panel12-mutual"),
 ]
 
 # Includes typical laptop viewport (1366x768) and conference-screen at 90% zoom (~1422x800).
@@ -156,23 +159,23 @@ async def run_for_viewport(p, w: int, h: int):
         print(f"[{label}] A: panel-{idx} ({name}) overflowsInner={m['overflowsInner']:.1f} overflowsViewport={m['overflowsViewport']:.1f} -> {'PASS' if passed else 'FAIL'}", flush=True)
         results.append({"viewport": label, "test": f"A-overflow-{name}", "panel_idx": idx, "passed": passed, "measurement": {k: m.get(k) for k in ("overflowsInner", "overflowsViewport", "innerScrollHeight", "innerClientHeight", "viewportH")}, "screenshot": str(screenshot_path)})
 
-    # === Test B: counter teaser at idx 9 (Itaú) / reveal at idx 10 (climax) ===
-    await goto_panel(page, 9)
-    header_at_9 = await get_header_text(page)
-    teaser_visible_at_9 = "?" in header_at_9 and "modeled execution capacity reclaimed" not in header_at_9.lower()
-    print(f"[{label}] B1: counter teaser at idx 9 -> {'PASS' if teaser_visible_at_9 else 'FAIL'} | header={header_at_9!r}", flush=True)
-    results.append({"viewport": label, "test": "B1-teaser-at-idx-9", "passed": teaser_visible_at_9, "header": header_at_9})
-
+    # === Test B: counter teaser at idx 10 (Itaú) / reveal at idx 11 (climax) ===
     await goto_panel(page, 10)
-    header_at_10 = await get_header_text(page)
-    revealed_at_10 = "modeled execution capacity reclaimed" in header_at_10.lower()
-    print(f"[{label}] B2: counter reveal at idx 10 -> {'PASS' if revealed_at_10 else 'FAIL'} | header={header_at_10!r}", flush=True)
-    results.append({"viewport": label, "test": "B2-reveal-at-idx-10", "passed": revealed_at_10, "header": header_at_10})
+    header_at_teaser = await get_header_text(page)
+    teaser_visible = "?" in header_at_teaser and "modeled execution capacity reclaimed" not in header_at_teaser.lower()
+    print(f"[{label}] B1: counter teaser at idx 10 -> {'PASS' if teaser_visible else 'FAIL'} | header={header_at_teaser!r}", flush=True)
+    results.append({"viewport": label, "test": "B1-teaser-at-idx-10", "passed": teaser_visible, "header": header_at_teaser})
 
-    # === Test C: Itaú panel content at idx 9 ===
-    await goto_panel(page, 9)
-    p9_text = await get_section_text(page, 9)
-    p9_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 9)
+    await goto_panel(page, 11)
+    header_at_reveal = await get_header_text(page)
+    revealed = "modeled execution capacity reclaimed" in header_at_reveal.lower()
+    print(f"[{label}] B2: counter reveal at idx 11 -> {'PASS' if revealed else 'FAIL'} | header={header_at_reveal!r}", flush=True)
+    results.append({"viewport": label, "test": "B2-reveal-at-idx-11", "passed": revealed, "header": header_at_reveal})
+
+    # === Test C: Itaú panel content at idx 10 ===
+    await goto_panel(page, 10)
+    p9_text = await get_section_text(page, 10)
+    p9_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 10)
     itau_checks = {
         "Itaú": "Itaú" in p9_text,
         "20–30% increase": "20–30% increase" in p9_text,
@@ -193,9 +196,9 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "C-itau-content", "passed": p9_passed, "checks": itau_checks})
 
-    # === Test D: Panel 7 capacity formula at idx 7 ===
-    await goto_panel(page, 7)
-    p7_text = await get_section_text(page, 7)
+    # === Test D: Panel 7 capacity formula at idx 8 ===
+    await goto_panel(page, 8)
+    p7_text = await get_section_text(page, 8)
     p7_checks = {
         "400 engineers": "400 engineers" in p7_text,
         "30% repetitive": "30% repetitive" in p7_text.lower() or "× 30% repetitive" in p7_text,
@@ -210,13 +213,11 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "D-panel7-capacity", "passed": p7_passed, "checks": p7_checks})
 
-    # === Test E: Panel 4 discovery (idx 4) — 3 primary alignment areas + 2 secondary (in accordion) + new headline ===
-    await goto_panel(page, 4)
-    p4_text = await get_section_text(page, 4)
-    p4_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 4)
-    # Count primary cards by data attribute (executive alignment areas)
+    # === Test E: Panel 4 discovery (idx 5) — 3 primary + 2 secondary + new headline ===
+    await goto_panel(page, 5)
+    p4_text = await get_section_text(page, 5)
+    p4_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 5)
     n_strategic = len(re.findall(r'data-strategic-q="\d"', p4_html))
-    # Count secondary detail items by data attribute (rendered even when <details> is collapsed)
     n_detail = p4_html.count('data-category="detail-question"')
     p4_checks = {
         "headline 'identified so far'": "What has been identified so far" in p4_text,
@@ -235,10 +236,9 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "E-panel4-discovery", "passed": p4_passed, "checks": p4_checks, "strategic_count": n_strategic, "detail_count": n_detail})
 
-    # === Test F: Panel 5 merged workflow (idx 5) — transition + workflow
-    # nodes + business impact + repo disclaimer + dev-equivalent footnote ===
-    await goto_panel(page, 5)
-    p5_text = await get_section_text(page, 5)
+    # === Test F: Panel 5 merged workflow (idx 6) ===
+    await goto_panel(page, 6)
+    p5_text = await get_section_text(page, 6)
     p5_checks = {
         "eyebrow 'Governance-aware modernization workflow'":
             "governance-aware modernization workflow" in p5_text.lower(),
@@ -283,17 +283,17 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "F-panel5-merged-workflow", "passed": p5_passed, "checks": p5_checks})
 
-    # === Test G: Panel 12 (idx 12) Operational readiness + Panel 13 (idx 13) Next-step alignment ===
-    await goto_panel(page, 12)
-    p12_text = await get_section_text(page, 12)
+    # === Test G: Panel 12 (idx 13) Op readiness + Panel 13 (idx 14) Next-step alignment ===
+    await goto_panel(page, 13)
+    p12_text = await get_section_text(page, 13)
     p12_checks = {
         "jointly governed validation initiative": "jointly governed validation initiative" in p12_text,
         "Success depends not only on technical execution": "Success depends not only on technical execution" in p12_text,
         "go-live transition 'structured validation path'":
             "structured validation path toward broader enterprise deployment" in p12_text.lower(),
     }
-    await goto_panel(page, 13)
-    p13_text = await get_section_text(page, 13)
+    await goto_panel(page, 14)
+    p13_text = await get_section_text(page, 14)
     p13_checks = {
         "Enterprise deployment path header": "enterprise deployment path" in p13_text.lower(),
         "Strategic discussion prompt header": "strategic discussion prompt" in p13_text.lower(),
@@ -333,7 +333,7 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k} (still present)", flush=True)
     results.append({"viewport": label, "test": "H-methodology-sweep", "passed": sweep_passed, "checks": sweep_checks})
 
-    # === Test I: appendix toggle moves to idx 14 (14 main panels + 1 appendix) ===
+    # === Test I: appendix toggle moves to idx 15 (15 main + 1 appendix) ===
     await goto_panel(page, 0)
     await page.click("header button[title*='appendix' i]")
     await page.wait_for_timeout(900)
@@ -347,17 +347,17 @@ async def run_for_viewport(p, w: int, h: int):
             return { idx, left, cw, sectionText: sec ? sec.innerText.slice(0, 600) : '' };
         }"""
     )
-    appendix_idx_pass = appendix_state["idx"] == 14
+    appendix_idx_pass = appendix_state["idx"] == 15
     appendix_text_pass = (
         "discovery framework" in appendix_state["sectionText"].lower()
         and "bulletproof" in appendix_state["sectionText"].lower()
     )
-    print(f"[{label}] I1: appendix click -> idx {appendix_state['idx']} (expect 14) -> {'PASS' if appendix_idx_pass else 'FAIL'}", flush=True)
+    print(f"[{label}] I1: appendix click -> idx {appendix_state['idx']} (expect 15) -> {'PASS' if appendix_idx_pass else 'FAIL'}", flush=True)
     print(f"[{label}] I2: appendix section text contains discovery framework + bulletproof -> {'PASS' if appendix_text_pass else 'FAIL'}", flush=True)
     results.append({"viewport": label, "test": "I1-appendix-idx", "passed": appendix_idx_pass, "actual_idx": appendix_state["idx"]})
     results.append({"viewport": label, "test": "I2-appendix-text", "passed": appendix_text_pass, "section_text_excerpt": appendix_state["sectionText"][:200]})
 
-    # Esc -> back to last main panel (idx 13)
+    # Esc -> back to last main panel (idx 14)
     await page.keyboard.press("Escape")
     await page.wait_for_timeout(800)
     after_esc = await page.evaluate(
@@ -366,17 +366,13 @@ async def run_for_viewport(p, w: int, h: int):
             return Math.round(scroller.scrollLeft / scroller.clientWidth);
         }"""
     )
-    esc_pass = after_esc == 13
-    print(f"[{label}] I3: Esc from appendix -> idx {after_esc} (expect 13) -> {'PASS' if esc_pass else 'FAIL'}", flush=True)
+    esc_pass = after_esc == 14
+    print(f"[{label}] I3: Esc from appendix -> idx {after_esc} (expect 14) -> {'PASS' if esc_pass else 'FAIL'}", flush=True)
     results.append({"viewport": label, "test": "I3-esc-from-appendix", "passed": esc_pass, "actual_idx": after_esc})
 
-    # Test K (Live workflow preview at idx 6) is intentionally removed:
-    # the workflow preview content has been merged into Panel 5 (idx 5).
-    # Coverage now lives in Test F.
-
-    # === Test L: Counter climax storytelling at idx 10 ===
-    await goto_panel(page, 10)
-    p10_text = await get_section_text(page, 10)
+    # === Test L: Counter climax storytelling at idx 11 ===
+    await goto_panel(page, 11)
+    p10_text = await get_section_text(page, 11)
     p10_checks = {
         "framing 'large-scale modernization'": "large-scale modernization programs often consume" in p10_text.lower(),
         "developer-equivalent translation": "developer-equivalent capacity / year" in p10_text.lower(),
@@ -393,15 +389,15 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "L-counter-climax", "passed": p10_passed, "checks": p10_checks})
 
-    # === Test M: Enterprise alignment refinement statements (P2 idx 2 / P3 idx 3 / P5 merged idx 5 / P11 idx 11) ===
-    await goto_panel(page, 2)
-    p2_text = await get_section_text(page, 2)
+    # === Test M: alignment refinement (P2 idx 3 / P3 idx 4 / P5 merged idx 6 / P11 idx 12) ===
     await goto_panel(page, 3)
-    p3_text = await get_section_text(page, 3)
-    await goto_panel(page, 5)
-    p5_text_m = await get_section_text(page, 5)
-    await goto_panel(page, 11)
-    p11_text = await get_section_text(page, 11)
+    p2_text = await get_section_text(page, 3)
+    await goto_panel(page, 4)
+    p3_text = await get_section_text(page, 4)
+    await goto_panel(page, 6)
+    p5_text_m = await get_section_text(page, 6)
+    await goto_panel(page, 12)
+    p11_text = await get_section_text(page, 12)
     m_checks = {
         "P2 'Beyond engineering efficiency'":
             "beyond engineering efficiency" in p2_text.lower()
@@ -423,19 +419,18 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "M-enterprise-alignment-refinement", "passed": m_passed, "checks": m_checks})
 
-    # === Test N: counter pacing — value at idx 13 must reach the headline 8–18 envelope ===
+    # === Test N: counter pacing — value at idx 14 must reach the headline 8–18 envelope ===
     # Visit every main panel in order so cumulative add fires for each.
-    for idx in range(0, 14):
+    for idx in range(0, 15):
         await goto_panel(page, idx)
         await page.wait_for_timeout(120)
-    header_at_13 = await get_header_text(page)
-    # Extract the "≈ X.X–Y.Y" pair from the header.
-    m = re.search(r"≈\s*([\d.]+)\s*[–-]\s*([\d.]+)", header_at_13)
+    header_at_final = await get_header_text(page)
+    m = re.search(r"≈\s*([\d.]+)\s*[–-]\s*([\d.]+)", header_at_final)
     counter_min = float(m.group(1)) if m else 0.0
     counter_max = float(m.group(2)) if m else 0.0
     n_checks = {
-        "counter min reaches >= 7.5 at idx 13": counter_min >= 7.5,
-        "counter max reaches >= 17.5 at idx 13": counter_max >= 17.5,
+        "counter min reaches >= 7.5 at idx 14": counter_min >= 7.5,
+        "counter max reaches >= 17.5 at idx 14": counter_max >= 17.5,
         "counter max never exceeds final envelope (<= 18.0)": counter_max <= 18.0,
     }
     n_passed = all(n_checks.values())
@@ -449,9 +444,9 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "N-counter-pacing", "passed": n_passed, "min": counter_min, "max": counter_max})
 
-    # === Test O: Executive working session agenda at idx 1 ===
-    await goto_panel(page, 1)
-    p1b_text = await get_section_text(page, 1)
+    # === Test O: Executive working session agenda at idx 2 ===
+    await goto_panel(page, 2)
+    p1b_text = await get_section_text(page, 2)
     o_checks = {
         "eyebrow 'Executive working session'": "executive working session" in p1b_text.lower(),
         "headline 'Five focus areas for the next 55 minutes'":
@@ -477,17 +472,16 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "O-executive-agenda", "passed": o_passed, "checks": o_checks})
 
-    # === Test P: narrative refinement pass — Why Intesa Matters + merged P5
-    # workflow nodes + operational scale anchors (P9 Itaú idx 9) +
-    # dev-equivalent translation on P7 Capacity idx 7 ===
-    await goto_panel(page, 0)
-    p1_text = await get_section_text(page, 0)
-    await goto_panel(page, 5)
-    p5_text_q = await get_section_text(page, 5)
-    await goto_panel(page, 7)
-    p7_text_q = await get_section_text(page, 7)
-    await goto_panel(page, 9)
-    p9_text_q = await get_section_text(page, 9)
+    # === Test P: narrative refinement pass — Hero idx 1 / Workflow idx 6 /
+    # Capacity idx 8 / Itaú idx 10 ===
+    await goto_panel(page, 1)
+    p1_text = await get_section_text(page, 1)
+    await goto_panel(page, 6)
+    p5_text_q = await get_section_text(page, 6)
+    await goto_panel(page, 8)
+    p7_text_q = await get_section_text(page, 8)
+    await goto_panel(page, 10)
+    p9_text_q = await get_section_text(page, 10)
     p_checks = {
         "Hero — Why Intesa matters block": "why intesa matters" in p1_text.lower(),
         "Hero — '~14M Customers' anchor": "~14M" in p1_text and "Customers" in p1_text,
@@ -521,8 +515,6 @@ async def run_for_viewport(p, w: int, h: int):
     results.append({"viewport": label, "test": "P-narrative-refinement", "passed": p_passed, "checks": p_checks})
 
     # === Test Q: visual rhythm & section contrast pass ===
-    # Panel-specific tonal background variants + cinematic closing statement
-    # on the merged P5 workflow + amplified P13 final-ask headline scale.
     bg_classes = await page.evaluate(
         """() => {
             const sections = Array.from(document.querySelectorAll('section'));
@@ -534,41 +526,35 @@ async def run_for_viewport(p, w: int, h: int):
             });
         }"""
     )
-    # Expected variant per panel idx (0..14):
-    # 0 hero → deep, 1 agenda → deep, 2 gap → default, 3 current → default,
-    # 4 discovery → default, 5 workflow → cinematic, 6 trust → default,
-    # 7 capacity → bright, 8 roi → bright, 9 itau → bright,
-    # 10 climax → cinematic, 11 pilot → clean, 12 op-readiness → clean,
-    # 13 final-ask → deep, 14 appendix → default
-    expected_bg = [
-        "panel-bg-deep", "panel-bg-deep", "panel-bg", "panel-bg",
-        "panel-bg", "panel-bg-cinematic", "panel-bg",
-        "panel-bg-bright", "panel-bg-bright", "panel-bg-bright",
-        "panel-bg-cinematic", "panel-bg-clean", "panel-bg-clean",
-        "panel-bg-deep", "panel-bg",
-    ]
-    await goto_panel(page, 5)
-    p5_text_r = await get_section_text(page, 5)
-    await goto_panel(page, 13)
-    p13_text_r = await get_section_text(page, 13)
+    # Expected variant per panel idx (0..15) after welcome screen at idx 0:
+    # 0 welcome → deep, 1 hero → deep, 2 agenda → deep, 3 gap → default,
+    # 4 current → default, 5 discovery → default, 6 workflow → cinematic,
+    # 7 trust → default, 8 capacity → bright, 9 roi → bright,
+    # 10 itau → bright, 11 climax → cinematic, 12 pilot → clean,
+    # 13 op-readiness → clean, 14 final-ask → deep, 15 appendix → default
+    await goto_panel(page, 6)
+    p5_text_r = await get_section_text(page, 6)
+    await goto_panel(page, 14)
+    p13_text_r = await get_section_text(page, 14)
     p13_html = await page.evaluate(
         """(idx) => {
             const sections = document.querySelectorAll('section');
             const h2 = sections[idx]?.querySelector('h2');
             return h2 ? h2.className : '';
         }""",
-        13,
+        14,
     )
     q_checks = {
-        "Hero panel uses deep bg": bg_classes[0] == "panel-bg-deep",
-        "Workflow panel (idx 5) uses cinematic bg": bg_classes[5] == "panel-bg-cinematic",
-        "Capacity panel (idx 7) uses bright bg": bg_classes[7] == "panel-bg-bright",
-        "Itau benchmark panel (idx 9) uses bright bg": bg_classes[9] == "panel-bg-bright",
-        "Climax panel (idx 10) uses cinematic bg": bg_classes[10] == "panel-bg-cinematic",
-        "Pilot panel (idx 11) uses clean bg": bg_classes[11] == "panel-bg-clean",
-        "Op-readiness (idx 12) uses clean bg": bg_classes[12] == "panel-bg-clean",
-        "Final-ask (idx 13) uses deep bg": bg_classes[13] == "panel-bg-deep",
-        "All 15 panels render": len(bg_classes) == 15,
+        "Welcome panel (idx 0) uses deep bg": bg_classes[0] == "panel-bg-deep",
+        "Hero (idx 1) uses deep bg": bg_classes[1] == "panel-bg-deep",
+        "Workflow panel (idx 6) uses cinematic bg": bg_classes[6] == "panel-bg-cinematic",
+        "Capacity panel (idx 8) uses bright bg": bg_classes[8] == "panel-bg-bright",
+        "Itau benchmark panel (idx 10) uses bright bg": bg_classes[10] == "panel-bg-bright",
+        "Climax panel (idx 11) uses cinematic bg": bg_classes[11] == "panel-bg-cinematic",
+        "Pilot panel (idx 12) uses clean bg": bg_classes[12] == "panel-bg-clean",
+        "Op-readiness (idx 13) uses clean bg": bg_classes[13] == "panel-bg-clean",
+        "Final-ask (idx 14) uses deep bg": bg_classes[14] == "panel-bg-deep",
+        "All 16 panels render": len(bg_classes) == 16,
         "Cinematic closing statement on P5":
             "governed execution at enterprise scale" in p5_text_r.lower(),
         "P13 amplified headline scale (text-7xl)":
@@ -583,13 +569,46 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "Q-visual-rhythm", "passed": q_passed, "checks": q_checks})
 
+    # === Test R: Executive opening screen at idx 0 ===
+    # Pre-session stage-presence panel: wordmarks + title + subtitle +
+    # footer + Begin-session CTA. Subtle entry animation, no flashy effects.
+    await goto_panel(page, 0)
+    p0_text = await get_section_text(page, 0)
+    p0_html = await page.evaluate(
+        """() => document.querySelectorAll('section')[0].innerHTML"""
+    )
+    r_checks = {
+        "Title 'Executive Working Session'": "Executive Working Session" in p0_text,
+        "Subtitle 'Governance-Aware Modernization Discussion'":
+            "Governance-Aware Modernization Discussion".lower() in p0_text.lower(),
+        "Left wordmark 'Intesa Sanpaolo'": "Intesa Sanpaolo" in p0_text,
+        "Right wordmark 'Cognition'": "Cognition" in p0_text,
+        "Footer caption 'Intesa Sanpaolo × Cognition'":
+            "intesa sanpaolo × cognition" in p0_text.lower(),
+        "CTA 'Begin session'": "begin session" in p0_text.lower(),
+        "Connector SVG line element present": "<svg" in p0_html and "<line" in p0_html,
+        "Welcome panel uses deep bg variant": bg_classes[0] == "panel-bg-deep",
+        "Welcome panel uses 'Client'/'Partner' role labels":
+            "client" in p0_text.lower() and "partner" in p0_text.lower(),
+        "No startup-style 'Launch' or 'Powered by AI' copy":
+            "launch" not in p0_text.lower() and "powered by ai" not in p0_text.lower(),
+    }
+    r_passed = all(r_checks.values())
+    print(f"[{label}] R: executive opening screen -> {'PASS' if r_passed else 'FAIL'}", flush=True)
+    for k, v in r_checks.items():
+        if not v:
+            print(f"          -> miss: {k}", flush=True)
+    results.append({"viewport": label, "test": "R-executive-opening", "passed": r_passed, "checks": r_checks})
+
     # === Test J: wheel handler regression ===
     await goto_panel(page, 0)
     await page.wait_for_timeout(400)
     await page.evaluate(
         """() => {
             const scroller = document.querySelector('.no-scrollbar');
-            scroller.dispatchEvent(new WheelEvent('wheel', { deltaY: 200, bubbles: true, cancelable: true }));
+            scroller.focus({ preventScroll: true });
+            const evt = new WheelEvent('wheel', { deltaY: 200, bubbles: true, cancelable: true });
+            scroller.dispatchEvent(evt);
         }"""
     )
     await page.wait_for_timeout(900)
@@ -603,6 +622,7 @@ async def run_for_viewport(p, w: int, h: int):
     print(f"[{label}] J: wheel deltaY=200 idx 0 -> idx {after_wheel} (expect 1) -> {'PASS' if wheel_pass else 'FAIL'}", flush=True)
     results.append({"viewport": label, "test": "J-wheel-handler", "passed": wheel_pass, "actual_idx": after_wheel})
 
+    await ctx.close()
     await browser.close()
     return results
 
@@ -614,16 +634,19 @@ async def main():
             r = await run_for_viewport(p, w, h)
             all_results.extend(r)
 
-    out = OUT / "results.json"
-    out.write_text(json.dumps(all_results, indent=2, ensure_ascii=False))
-    failed = [r for r in all_results if not r.get("passed", False)]
-    print(f"\n=== SUMMARY: {len(all_results) - len(failed)}/{len(all_results)} passed ===", flush=True)
-    if failed:
-        print(f"FAILED:")
-        for f in failed:
-            print(f"  - [{f['viewport']}] {f['test']}", flush=True)
+    out_json = OUT / "results.json"
+    out_json.write_text(json.dumps(all_results, indent=2, ensure_ascii=False))
+
+    total = len(all_results)
+    passed = sum(1 for r in all_results if r["passed"])
+    print(f"\n=== SUMMARY: {passed}/{total} passed ===", flush=True)
+    if passed != total:
+        print("FAILURES:", flush=True)
+        for r in all_results:
+            if not r["passed"]:
+                print(json.dumps(r, indent=2, ensure_ascii=False), flush=True)
         sys.exit(1)
-    print("ALL TESTS PASSED")
+    print("ALL TESTS PASSED", flush=True)
 
 
 if __name__ == "__main__":

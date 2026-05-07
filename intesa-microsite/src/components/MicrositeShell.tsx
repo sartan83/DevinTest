@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { intesa } from "../data/intesa";
 import { ExecutiveCounter } from "./ExecutiveCounter";
 import { ProgressBar } from "./ProgressBar";
+import { Panel0Welcome } from "./panels/Panel0Welcome";
 import { Panel1Opening } from "./panels/Panel1Opening";
 import { Panel1bAgenda } from "./panels/Panel1bAgenda";
 import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
@@ -21,18 +22,20 @@ import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 14 main panels (index 0–13) + 1 appendix panel (index 14) reachable only
-// via the discrete "Appendix" toggle in the header. Executive working session
-// agenda (Panel1b) sits at idx 1; Governance-aware modernization workflow
-// (P5, merged) at idx 5; counter teaser at idx 9 (Itaú) and reveal at idx 10.
-const MAIN_PANELS = 14;
-const APPENDIX_INDEX = 14;
+// 15 main panels (index 0–14) + 1 appendix panel (index 15) reachable only
+// via the discrete "Appendix" toggle in the header. Idx 0 is the
+// pre-session executive opening screen ("Executive Working Session").
+// Hero sits at idx 1, agenda at idx 2, governance-aware modernization
+// workflow (P5 merged) at idx 6; counter teaser at idx 10 (Itaú) and
+// reveal at idx 11 (climax).
+const MAIN_PANELS = 15;
+const APPENDIX_INDEX = 15;
 const TOTAL_PANELS = MAIN_PANELS + 1;
 // Render index of the counter climax panel ("Reclaimed capacity"). After
-// merging the demo + workflow preview into a single P5, every panel from
-// idx 6 onward shifts -1 → climax now at idx 10. Counter teaser shows on
-// idx 9 (Itaú reference) and reveals on idx 10 (climax).
-const CLIMAX_INDEX = 10;
+// adding the executive opening screen at idx 0, every previous idx shifts
+// +1 → climax now at idx 11. Counter teaser shows on idx 10 (Itaú
+// reference) and reveals on idx 11 (climax).
+const CLIMAX_INDEX = 11;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -358,6 +361,7 @@ export function MicrositeShell() {
               : { width: `${TOTAL_PANELS * 100}vw` }
           }
         >
+          <Panel0Welcome onBegin={(idx) => goTo(idx)} />
           <Panel1Opening />
           <Panel1bAgenda />
           <Panel2ExecutionGap />
