@@ -148,7 +148,7 @@ export const intesa = {
     eyebrow: "Opening",
     headline: "Scaling Engineering Execution\nfor Intesa Sanpaolo.",
     subhead:
-      "Devin helps software-intensive financial institutions accelerate modernization, redeploy scarce engineering capacity, and increase delivery throughput — without proportional headcount growth.",
+      "Modernization leverage at enterprise scale — without proportional headcount growth.",
     framingLine:
       "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
     kpis: [
@@ -200,7 +200,7 @@ export const intesa = {
     headline:
       "Strategic ambition is clear.\nThe constraint is scalable engineering execution.",
     subhead:
-      "Where the published direction meets the day-to-day reality of running thousands of services, hundreds of squads, and a regulated change envelope.",
+      "Where published direction meets day-to-day delivery inside a regulated change envelope.",
     rows: [
       {
         ambition: "Cloud and core modernization",
@@ -224,7 +224,7 @@ export const intesa = {
       },
     ] as ExecutionGapRow[],
     closing:
-      "The business risk is not only slower technology delivery. It is delayed execution of board-visible transformation priorities.",
+      "The risk is not slower delivery. It is delayed execution of board-visible transformation priorities.",
   },
 
   // -------------------------------------------------------------------------
@@ -240,7 +240,7 @@ export const intesa = {
     headline:
       "What has been observed so far\n— and what still requires executive alignment.",
     subhead:
-      "Based on patterns commonly seen across large financial institutions and public Intesa Sanpaolo material. Surfaced as observations, hypotheses, and alignment areas — not assumptions.",
+      "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
     legend: [
       {
         status: "validated" as ObservationStatus,
@@ -261,37 +261,32 @@ export const intesa = {
     observations: [
       {
         title: "Legacy core ↔ modern surface coexistence",
-        body: "Based on patterns commonly seen across large financial institutions, critical core flows often remain on legacy stacks while modern channels evolve in parallel. Modernization safely bridges the two — not rewriting either.",
+        body: "Critical core flows often remain on legacy stacks while modern channels evolve in parallel.",
         status: "hypothesis" as ObservationStatus,
       },
       {
         title: "High regression risk on critical systems",
-        body: "Changes touching balances, transactions, or regulatory flows carry asymmetric blast radius. Confidence to modify is structurally lower than the roadmap demands.",
+        body: "Changes touching balances, transactions, or regulatory flows carry asymmetric blast radius.",
         status: "validated" as ObservationStatus,
       },
       {
         title: "Senior engineers absorbed by maintenance",
-        body: "In large banking environments, the most experienced engineering capacity is often concentrated on maintaining the legacy estate and regression triage — not on differentiating digital programs.",
+        body: "Top engineering capacity often concentrated on legacy upkeep — not on differentiating digital programs.",
         status: "validated" as ObservationStatus,
       },
       {
         title: "Tribal knowledge concentration",
-        body: "Critical legacy logic tends to live with a few senior engineers. Onboarding new contributors onto these systems is slow and risk-laden — a hypothesis to validate.",
+        body: "Critical legacy logic tends to live with a few senior engineers; onboarding is slow and risk-laden.",
         status: "hypothesis" as ObservationStatus,
       },
       {
-        title: "Manual testing and documentation overhead",
-        body: "Test authoring, regression evidence, and audit-ready documentation are still substantially manual in most large-bank environments — eroding capacity that should sit on the transformation backlog.",
-        status: "validated" as ObservationStatus,
-      },
-      {
         title: "Where modernization compounds first",
-        body: "Which workstreams unlock the most resilience-and-throughput when modernized first is an executive call. Engineering ranks the candidates; leadership ranks the business priority.",
+        body: "Which workstreams unlock the most resilience-and-throughput when modernized first is an executive call.",
         status: "alignment" as ObservationStatus,
       },
     ] as CurrentStateObservation[],
     closing:
-      "This is a strategic assessment, not a technical audit. The next 20 minutes are how we test where it bends.",
+      "Strategic assessment — not a technical audit.",
   },
 
   // -------------------------------------------------------------------------
@@ -303,39 +298,28 @@ export const intesa = {
   // pre-meeting discovery framework is moved into the appendix.
   // -------------------------------------------------------------------------
   panel4: {
-    eyebrow: "Discovery alignment",
+    eyebrow: "Executive alignment areas",
     headline:
       "What has been identified so far —\nand what still requires executive alignment.",
     subhead:
-      "An executive discovery moment, not a sales pitch. The pilot only earns its place if the answers below come from the executive seat — where transformation priorities are set.",
-    columns: {
-      knownLabel: "Identified so far",
-      knownItems: [
-        "Modernization scope and the systems most under pressure.",
-        "Engineering team shape and where Devin would attach.",
-        "Indicative pilot footprint and timeline.",
-      ],
-      validateLabel: "Requires executive alignment",
-      validateItems: [
-        "Where modernization risk has the highest board visibility.",
-        "How operational risk gets priced into modernization decisions.",
-        "What success would have to look like to scale beyond the pilot.",
-      ],
-    },
+      "Three prompts for the executive seat.",
     questions: [
       {
+        category: "Capacity Constraints",
         question: "Where is engineering capacity currently constrained by repetitive modernization or maintenance work?",
-        why: "Anchors the conversation in where scarce senior capacity is actually being spent today.",
+        why: "Anchors the conversation in where scarce senior capacity is being spent today.",
       },
       {
-        question: "Which transformation initiatives are most impacted by delivery bottlenecks today?",
-        why: "Connects engineering execution capacity to board-visible programs already on the roadmap.",
+        category: "Governance Requirements",
+        question: "Which transformation initiatives are most impacted by delivery bottlenecks today, and what controls would frame autonomous workflows?",
+        why: "Connects board-visible programs to the operating envelope any pilot must respect.",
       },
       {
-        question: "How does Intesa currently balance migration speed with governance and regression risk?",
-        why: "Surfaces the operational envelope inside which any pilot must safely operate.",
+        category: "Success Criteria",
+        question: "How does Intesa currently balance migration speed with governance — and what outcomes would justify broader deployment?",
+        why: "Frames the path from pilot evidence to scale-out commitment.",
       },
-    ] as DiscoveryGap[],
+    ] as (DiscoveryGap & { category: string })[],
     secondaryQuestions: [
       {
         question: "Which systems are currently considered too risky to modernize at the pace the roadmap demands?",
@@ -346,7 +330,8 @@ export const intesa = {
         why: "Connects execution capacity to revenue, customer experience, and regulatory commitment.",
       },
     ] as DiscoveryGap[],
-    appendixCallout: "Appendix · Full discovery framework — 4 × 4 question matrix",
+    secondaryToggleLabel: "More executive prompts",
+    appendixCallout: "Full discovery framework · Appendix",
   },
 
   // -------------------------------------------------------------------------
@@ -433,36 +418,35 @@ export const intesa = {
     headline:
       "Controlled modernization,\non a representative banking repository.",
     useCase:
-      "Reference repository: kushmirc/banking-modernization · representative legacy banking codebase used for the walkthrough.",
+      "Reference repository: kushmirc/banking-modernization",
     subhead:
-      "Not a feature tour. A walkthrough of how Devin acts as a modernization execution layer: analyze the legacy estate, scope a safe slice, add regression protection first, validate inside the bank's existing review envelope.",
+      "A modernization slice moving safely through analysis, planning, execution, and audit — inside the bank's existing review envelope.",
     repoDisclaimer:
       "Representative demonstration repository created to simulate a large-scale banking modernization workflow. No Intesa Sanpaolo source code or internal systems are used.",
     steps: [
       {
         index: 1,
-        title: "Analyze the legacy architecture",
-        body: "Devin reads the repository end-to-end — language mix, dependencies, deprecated libraries, coverage, blast-radius — and produces a modernization map.",
+        title: "Analyze modernization scope",
+        body: "Reads the repository end-to-end and produces a modernization map.",
       },
       {
         index: 2,
-        title: "Scope a safe slice — protect it first",
-        body: "Propose a scoped modernization slice with maximum business value and minimum regression exposure, then add the safety net before any change: characterization, coverage, contract tests.",
+        title: "Plan a safe slice",
+        body: "Scope the highest-value slice with minimum regression exposure; add coverage first.",
       },
       {
         index: 3,
-        title: "Execute the modernization slice",
-        body: "Refactor code, upgrade dependencies, bridge legacy ↔ modern flows — every change a reviewable PR inside the bank's existing review tooling.",
+        title: "Execute with governance",
+        body: "Refactor and upgrade as reviewable PRs inside the bank's existing tooling.",
       },
       {
         index: 4,
-        title: "Validate safely and document for audit",
-        body: "Run the strengthened test suite, capture rationale, evidence, and traceability, and hand a controlled, auditable slice to engineering and governance review.",
+        title: "Produce reviewable outcomes",
+        body: "Strengthened tests, captured rationale, audit-ready evidence — handed to governance review.",
       },
     ] as WalkthroughStep[],
     valueStatements: [
-      "Devin is not a code-generation toy. It is the execution layer that lets controlled modernization scale without overloading scarce senior engineers.",
-      "For Intesa, the value is operational resilience: safer modernization, lower regression risk, faster release confidence — at enterprise scale.",
+      "Operational resilience: safer modernization, lower regression risk, faster release confidence — at enterprise scale.",
     ],
     repoLink: {
       label: "github.com/kushmirc/banking-modernization",
@@ -532,7 +516,7 @@ export const intesa = {
     headline:
       "From repetitive execution\nto strategic transformation.",
     subhead:
-      "In large financial institutions, a significant share of senior engineering effort is often consumed by repetitive modernization, remediation, testing, and maintenance work. Even partial leverage across bounded workflows can materially shift the modernization throughput curve.",
+      "A significant share of senior engineering capacity is consumed by repetitive modernization work. Partial leverage shifts the throughput curve.",
     modelHypothesis: {
       label: "Illustrative hypothesis",
       formulaLines: [
@@ -566,9 +550,9 @@ export const intesa = {
       },
     ] as BusinessOutcomeRow[],
     leverageStatement:
-      "The strategic value is not replacing engineers. It is enabling large banking organizations to scale modernization and delivery execution without proportionally scaling engineering capacity.",
+      "Not replacing engineers — scaling modernization without proportionally scaling engineering capacity.",
     closing:
-      "Even partial automation leverage across bounded workflows could materially increase modernization throughput without proportional headcount growth.",
+      "Partial leverage across bounded workflows materially increases modernization throughput without proportional headcount growth.",
   },
 
   // -------------------------------------------------------------------------
@@ -578,7 +562,7 @@ export const intesa = {
     eyebrow: "ROI signal — directional, at Intesa scale",
     headline: "Even with a safety margin,\nthe math is disruptive.",
     subhead:
-      "If ~1 in 3 engineering hours is modernization-shaped, the compounding effect on a ~3,300-developer estate is measured in tens of €M per year — not seats or licenses.",
+      "~1 in 3 engineering hours is modernization-shaped — compounded across a ~3,300-developer estate.",
     formula:
       "Developers × Applicable work share × Productivity uplift × Adoption factor = Reclaimed capacity / year",
     baseline: {
@@ -619,7 +603,7 @@ export const intesa = {
       devDays: "~14k–44k developer-days / year",
     },
     safetyMarginNote:
-      "Safety margin applied: productivity uplift capped below the McKinsey 20–45% band; rollout factor below the Gartner 2028 trajectory; applicable-work share tied to the four surfaces defined on Panel 5.",
+      "Safety margin applied across uplift, rollout, and applicable-work share.",
     sources: [
       "Gartner, Apr 2024 — 75% of enterprise software engineers will use AI code assistants by 2028, up from <10% in early 2023.",
       "McKinsey, Jun 2023 — The economic potential of generative AI: software engineering task-level productivity gain ≈ 20–45%.",
@@ -641,9 +625,9 @@ export const intesa = {
     headline:
       "Measurable enterprise outcomes\nunder governance-aware execution.",
     subtitle:
-      "Examples from regulated banking environments show that autonomous engineering agents can deliver measurable gains when deployed within governance-aware factory workflows.",
+      "Itaú Bank — measurable gains under governance-aware factory workflows.",
     intro:
-      "One example comes from Itaú Bank, where autonomous engineering agents were integrated into bounded, governance-controlled software delivery workflows. The measurable improvements observed were driven not by unrestricted automation, but by disciplined operational structure, human oversight, and enterprise governance.",
+      "Autonomous engineering agents integrated into bounded, governance-controlled delivery workflows.",
     kpis: [
       {
         title: "Delivery throughput",
@@ -671,28 +655,32 @@ export const intesa = {
       },
     ] as ItauKpi[],
     governanceSignal: {
-      title: "The key signal is governance-aware execution",
-      body: "The most significant outcome from enterprise AI engineering adoption is not raw speed alone. It is the ability to achieve measurable operational gains inside governance-constrained workflows with human oversight, auditability, and repeatable execution standards.",
+      title: "The signal is governance-aware execution",
+      bullets: [
+        "Governance-constrained workflows",
+        "Human oversight maintained",
+        "Repeatable execution standards",
+        "Auditability preserved",
+      ],
     },
     factoryWorkflow: {
       title: "Factory workflow model",
-      body: "In this model, autonomous engineering agents are assigned to high-volume, repetitive, and well-bounded engineering tasks under standardized governance workflows — rather than open-ended autonomous software development.",
+      body: "Bounded, repetitive engineering tasks under standardized governance — not open-ended autonomous development.",
       examples: [
         "Dependency upgrades",
         "Migration preparation",
         "Test generation",
         "Remediation",
         "Documentation",
-        "Repetitive modernization work",
       ],
     },
     governanceConstraint:
-      "The observed gains were achieved by constraining autonomous agents within governance-aware workflows, applying the same review, quality, and security controls used for human-authored software delivery.",
+      "Gains achieved by applying the same review, quality, and security controls used for human-authored delivery.",
     sourceLabel: "Reference: Gartner Research · document 7778353",
     sourceUrl:
       "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
     disclaimer:
-      "Reference metrics shown are illustrative examples from a separate enterprise banking environment and are provided solely to frame potential operational impact categories. Actual outcomes depend on selected use cases, governance controls, engineering workflows, and deployment conditions.",
+      "Illustrative reference metrics from a separate enterprise banking environment. Actual outcomes depend on selected use cases, governance controls, and deployment conditions.",
   },
 
   // -------------------------------------------------------------------------
@@ -714,24 +702,22 @@ export const intesa = {
     headline:
       "From controlled validation\nto a go-live decision.",
     subhead:
-      "Outcomes, not slides. A bounded, governance-friendly entry point engineered to end with a decision — not another evaluation cycle.",
+      "Outcomes, not slides. A bounded entry point engineered to end with a decision.",
     weeks: [
       {
         week: 1,
         title: "Alignment & setup",
         items: [
-          "Select one scoped modernization use case",
-          "Confirm repository access and security requirements",
-          "Define baseline metrics",
-          "Align executive sponsor, engineering lead, security, and procurement stakeholders",
+          "Scope one modernization use case",
+          "Confirm access and security envelope",
+          "Align executive sponsor and engineering lead",
         ],
       },
       {
         week: 2,
         title: "First execution sprint",
         items: [
-          "Devin performs repository analysis",
-          "Devin executes first scoped modernization / refactoring / testing tasks",
+          "Repository analysis and scoped execution",
           "Track effort, quality, and review cycle metrics",
         ],
       },
@@ -739,9 +725,8 @@ export const intesa = {
         week: 3,
         title: "Expanded validation",
         items: [
-          "Increase task complexity",
-          "Validate repeatability across similar workstreams",
-          "Review governance, auditability, and developer acceptance",
+          "Increase task complexity and validate repeatability",
+          "Review governance, auditability, developer acceptance",
         ],
       },
       {
@@ -749,25 +734,21 @@ export const intesa = {
         title: "Executive value review",
         items: [
           "Compare pilot KPIs against baseline",
-          "Quantify engineering capacity unlocked",
-          "Validate scale-out use cases",
           "Agree go-live roadmap and commercial next steps",
         ],
       },
     ],
     kpisTitle: "Pilot success metrics",
     kpis: [
-      "Reduction in modernization cycle time",
-      "Engineering hours saved or redeployed",
-      "Number of reviewable PRs completed",
+      "Modernization cycle time",
+      "Engineering hours redeployed",
+      "Reviewable PRs completed",
       "Test coverage improvement",
-      "Reduction in manual QA or documentation effort",
       "Developer acceptance rate",
-      "Governance and security validation completed",
-      "Executive decision on scale-out timeline",
+      "Executive decision on scale-out",
     ],
     kpiNote:
-      "Vanity metrics like raw lines of code are intentionally excluded — what counts is reclaimed senior capacity and a decision-grade evidence base.",
+      "What counts: reclaimed senior capacity and a decision-grade evidence base.",
   },
 
   // -------------------------------------------------------------------------
@@ -782,23 +763,19 @@ export const intesa = {
     intesa: {
       title: "Intesa Sanpaolo commitment",
       items: [
-        "Provide scoped repository access",
-        "Nominate executive sponsor",
-        "Assign engineering lead and security contact",
-        "Confirm success metrics before pilot start",
-        "Join weekly value reviews",
-        "Define go-live decision process before pilot begins",
+        "Scoped repository access",
+        "Executive sponsor and engineering lead",
+        "Confirmed success metrics",
+        "Defined go-live decision process",
       ],
     },
     cognition: {
       title: "Cognition commitment",
       items: [
-        "Support secure pilot setup",
-        "Provide onboarding and best practices",
-        "Track agreed KPIs",
-        "Support weekly value reviews",
-        "Deliver executive pilot readout",
-        "Recommend scale-out roadmap after validation",
+        "Secure pilot setup and onboarding",
+        "Tracked KPIs and weekly reviews",
+        "Executive pilot readout",
+        "Scale-out roadmap recommendation",
       ],
     },
     successDependsOn:
@@ -811,7 +788,7 @@ export const intesa = {
   panel13: {
     eyebrow: "Final executive ask",
     headline: "If value is proven,\nare we aligned to move?",
-    body: "If Devin validates measurable impact during the 4-week pilot, the next step should be a defined scale-out roadmap across priority modernization and engineering execution workstreams.",
+    body: "After a successful pilot: a defined scale-out roadmap across priority modernization workstreams.",
     commercialAlignment:
       "Before launching the pilot, alignment should exist on what a successful outcome would operationally trigger: expanded deployment scope, stakeholder approval path, governance validation, and commercial go-live readiness.",
     question:
