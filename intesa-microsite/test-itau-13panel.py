@@ -1,17 +1,39 @@
 """
-Adversarial regression test for the 13-panel Intesa microsite (Itaú panel + executive refinement).
+Adversarial regression test for the 14-panel Intesa microsite
+(Itaú panel + Live workflow preview + executive refinement).
+
+Panel index map (14 main + 1 appendix):
+  0  Hero / opening
+  1  Execution gap
+  2  Current state
+  3  Discovery (executive alignment)
+  4  Modernization demo (P5 BusinessImpact)
+  5  Live workflow preview (P5b)  ← NEW
+  6  Enterprise trust
+  7  Capacity redeployment
+  8  ROI signal
+  9  Itaú enterprise reference  (counter teaser still visible here)
+  10 Counter climax (reveal panel)
+  11 4-week pilot
+  12 Mutual commitment
+  13 Final ask / closing
+  14 Appendix
 
 Tests:
-  A. Overflow on dense panels (3, 4, 5, 7, 9 [Itaú], 11, 12) at 1280x800 + 1440x900
-  B. Counter reveal moves from idx 8 -> idx 9
-  C. Itaú panel content (idx 8): 4 KPI tiles, Factory workflow, Gartner source
-  D. Panel 7 capacity formula (idx 6): 400 / 30% / 120
+  A. Overflow on dense panels at 1440x900 + 1280x800 + 1366x768
+  B. Counter reveal moves from idx 9 -> idx 10
+  C. Itaú panel content (idx 9): 4 KPI tiles, Factory workflow, Gartner source
+  D. Panel 7 capacity formula (idx 7): 400 / 30% / 120
   E. Panel 4 (idx 3): 3 Strategic Q + 2 Detail question + new headline
   F. Panel 5 (idx 4): repo disclaimer
-  G. Panel 12 + 13 (idx 10, 12): jointly governed + Commercial alignment
+  G. Panel 12 + 13 (idx 12, 13): jointly governed + Commercial alignment
   H. Sales-methodology sweep (full HTML): 0 occurrences
-  I. Appendix toggle moves to idx 13
+  I. Appendix toggle moves to idx 14, Esc returns to idx 13
   J. Wheel handler regression: deltaY=200 from idx 0 -> active becomes 1
+  K. Live workflow preview (idx 5): 4 steps + governed PR review card +
+     business insight + disclaimer
+  L. Counter climax (idx 10): framing line + dev-equivalent translation +
+     business interpretation
 """
 import asyncio
 import json
@@ -26,17 +48,22 @@ OUT = Path(__file__).parent / "screenshots-itau"
 OUT.mkdir(exist_ok=True)
 
 # (panel_idx, slug, must-have substrings, must-NOT-have substrings)
+# NOTE: idx 10 (counter climax) is intentionally excluded — visiting it would
+# set `visited[CLIMAX_INDEX]` and unlock the counter reveal, breaking the
+# B1 "teaser still hidden at idx 9" assertion. The climax panel is centered
+# text and not at risk of overflow anyway. Test L covers its content.
 PANELS_TO_FIT = [
     (1, "panel2-execution-gap"),
     (2, "panel3-current-state"),
     (3, "panel4-discovery"),
     (4, "panel5-demo"),
-    (5, "panel6-trust"),
-    (6, "panel7-capacity"),
-    (7, "panel8-roi"),
-    (8, "panel9-itau"),
-    (10, "panel11-pilot"),
-    (11, "panel12-mutual"),
+    (5, "panel5b-workflow-preview"),
+    (6, "panel6-trust"),
+    (7, "panel7-capacity"),
+    (8, "panel8-roi"),
+    (9, "panel9-itau"),
+    (11, "panel11-pilot"),
+    (12, "panel12-mutual"),
 ]
 
 # Includes typical laptop viewport (1366x768) and conference-screen at 90% zoom (~1422x800).
@@ -125,23 +152,23 @@ async def run_for_viewport(p, w: int, h: int):
         print(f"[{label}] A: panel-{idx} ({name}) overflowsInner={m['overflowsInner']:.1f} overflowsViewport={m['overflowsViewport']:.1f} -> {'PASS' if passed else 'FAIL'}", flush=True)
         results.append({"viewport": label, "test": f"A-overflow-{name}", "panel_idx": idx, "passed": passed, "measurement": {k: m.get(k) for k in ("overflowsInner", "overflowsViewport", "innerScrollHeight", "innerClientHeight", "viewportH")}, "screenshot": str(screenshot_path)})
 
-    # === Test B: counter reveal moves to idx 9 ===
-    await goto_panel(page, 8)
-    header_at_8 = await get_header_text(page)
-    teaser_visible_at_8 = "?" in header_at_8 and "modeled execution capacity reclaimed" not in header_at_8.lower()
-    print(f"[{label}] B1: counter teaser at idx 8 -> {'PASS' if teaser_visible_at_8 else 'FAIL'} | header={header_at_8!r}", flush=True)
-    results.append({"viewport": label, "test": "B1-teaser-at-idx-8", "passed": teaser_visible_at_8, "header": header_at_8})
-
+    # === Test B: counter reveal moves to idx 10 (was 9; Live Workflow Preview shifted indices +1) ===
     await goto_panel(page, 9)
     header_at_9 = await get_header_text(page)
-    revealed_at_9 = "modeled execution capacity reclaimed" in header_at_9.lower()
-    print(f"[{label}] B2: counter reveal at idx 9 -> {'PASS' if revealed_at_9 else 'FAIL'} | header={header_at_9!r}", flush=True)
-    results.append({"viewport": label, "test": "B2-reveal-at-idx-9", "passed": revealed_at_9, "header": header_at_9})
+    teaser_visible_at_9 = "?" in header_at_9 and "modeled execution capacity reclaimed" not in header_at_9.lower()
+    print(f"[{label}] B1: counter teaser at idx 9 -> {'PASS' if teaser_visible_at_9 else 'FAIL'} | header={header_at_9!r}", flush=True)
+    results.append({"viewport": label, "test": "B1-teaser-at-idx-9", "passed": teaser_visible_at_9, "header": header_at_9})
 
-    # === Test C: Itaú panel content at idx 8 ===
-    await goto_panel(page, 8)
-    p9_text = await get_section_text(page, 8)
-    p9_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 8)
+    await goto_panel(page, 10)
+    header_at_10 = await get_header_text(page)
+    revealed_at_10 = "modeled execution capacity reclaimed" in header_at_10.lower()
+    print(f"[{label}] B2: counter reveal at idx 10 -> {'PASS' if revealed_at_10 else 'FAIL'} | header={header_at_10!r}", flush=True)
+    results.append({"viewport": label, "test": "B2-reveal-at-idx-10", "passed": revealed_at_10, "header": header_at_10})
+
+    # === Test C: Itaú panel content at idx 9 (was 8) ===
+    await goto_panel(page, 9)
+    p9_text = await get_section_text(page, 9)
+    p9_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 9)
     itau_checks = {
         "Itaú": "Itaú" in p9_text,
         "20–30% increase": "20–30% increase" in p9_text,
@@ -162,9 +189,9 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "C-itau-content", "passed": p9_passed, "checks": itau_checks})
 
-    # === Test D: Panel 7 capacity formula at idx 6 ===
-    await goto_panel(page, 6)
-    p7_text = await get_section_text(page, 6)
+    # === Test D: Panel 7 capacity formula at idx 7 (was 6) ===
+    await goto_panel(page, 7)
+    p7_text = await get_section_text(page, 7)
     p7_checks = {
         "400 engineers": "400 engineers" in p7_text,
         "30% repetitive": "30% repetitive" in p7_text.lower() or "× 30% repetitive" in p7_text,
@@ -219,15 +246,15 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "F-panel5-repodisclaimer", "passed": p5_passed, "checks": p5_checks})
 
-    # === Test G: Panel 12 (idx 11) Mutual + Panel 13 (idx 12) Final Ask ===
-    await goto_panel(page, 11)
-    p12_text = await get_section_text(page, 11)
+    # === Test G: Panel 12 (idx 12) Mutual + Panel 13 (idx 13) Final Ask ===
+    await goto_panel(page, 12)
+    p12_text = await get_section_text(page, 12)
     p12_checks = {
         "jointly governed validation initiative": "jointly governed validation initiative" in p12_text,
         "Success depends not only on technical execution": "Success depends not only on technical execution" in p12_text,
     }
-    await goto_panel(page, 12)
-    p13_text = await get_section_text(page, 12)
+    await goto_panel(page, 13)
+    p13_text = await get_section_text(page, 13)
     p13_checks = {
         "Commercial alignment header": "Commercial alignment" in p13_text or "COMMERCIAL ALIGNMENT" in p13_text,
         "expanded deployment scope": "expanded deployment scope" in p13_text,
@@ -258,7 +285,7 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k} (still present)", flush=True)
     results.append({"viewport": label, "test": "H-methodology-sweep", "passed": sweep_passed, "checks": sweep_checks})
 
-    # === Test I: appendix toggle moves to idx 13 ===
+    # === Test I: appendix toggle moves to idx 14 (was 13) ===
     await goto_panel(page, 0)
     await page.click("header button[title*='appendix' i]")
     await page.wait_for_timeout(900)
@@ -272,18 +299,17 @@ async def run_for_viewport(p, w: int, h: int):
             return { idx, left, cw, sectionText: sec ? sec.innerText.slice(0, 600) : '' };
         }"""
     )
-    appendix_idx_pass = appendix_state["idx"] == 13
-    # Appendix uses eyebrow 'Appendix · Discovery framework' + headline starting with 'To bulletproof the business case'.
+    appendix_idx_pass = appendix_state["idx"] == 14
     appendix_text_pass = (
         "discovery framework" in appendix_state["sectionText"].lower()
         and "bulletproof" in appendix_state["sectionText"].lower()
     )
-    print(f"[{label}] I1: appendix click -> idx {appendix_state['idx']} (expect 13) -> {'PASS' if appendix_idx_pass else 'FAIL'}", flush=True)
+    print(f"[{label}] I1: appendix click -> idx {appendix_state['idx']} (expect 14) -> {'PASS' if appendix_idx_pass else 'FAIL'}", flush=True)
     print(f"[{label}] I2: appendix section text contains discovery framework + bulletproof -> {'PASS' if appendix_text_pass else 'FAIL'}", flush=True)
     results.append({"viewport": label, "test": "I1-appendix-idx", "passed": appendix_idx_pass, "actual_idx": appendix_state["idx"]})
     results.append({"viewport": label, "test": "I2-appendix-text", "passed": appendix_text_pass, "section_text_excerpt": appendix_state["sectionText"][:200]})
 
-    # Esc -> back to idx 12
+    # Esc -> back to idx 13 (was 12)
     await page.keyboard.press("Escape")
     await page.wait_for_timeout(800)
     after_esc = await page.evaluate(
@@ -292,9 +318,55 @@ async def run_for_viewport(p, w: int, h: int):
             return Math.round(scroller.scrollLeft / scroller.clientWidth);
         }"""
     )
-    esc_pass = after_esc == 12
-    print(f"[{label}] I3: Esc from appendix -> idx {after_esc} (expect 12) -> {'PASS' if esc_pass else 'FAIL'}", flush=True)
+    esc_pass = after_esc == 13
+    print(f"[{label}] I3: Esc from appendix -> idx {after_esc} (expect 13) -> {'PASS' if esc_pass else 'FAIL'}", flush=True)
     results.append({"viewport": label, "test": "I3-esc-from-appendix", "passed": esc_pass, "actual_idx": after_esc})
+
+    # === Test K: Live workflow preview at idx 5 ===
+    await goto_panel(page, 5)
+    p5b_text = await get_section_text(page, 5)
+    p5b_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 5)
+    p5b_checks = {
+        "eyebrow 'Live workflow preview'": "live workflow preview" in p5b_text.lower(),
+        "step 1 Repository analysis": "Repository analysis" in p5b_text,
+        "step 2 Modernization planning": "Modernization planning" in p5b_text,
+        "step 3 Controlled execution": "Controlled execution" in p5b_text,
+        "step 4 Governance & review": "Governance & review" in p5b_text,
+        "sub-bullet Dependency mapping": "Dependency mapping" in p5b_text,
+        "sub-bullet Reviewable PR creation": "Reviewable PR creation" in p5b_text,
+        "sub-bullet Human approval workflow": "Human approval workflow" in p5b_text,
+        "governed PR review card": 'data-testid="workflow-review-card"' in p5b_html,
+        "review card title": "Modernize legacy reconciliation flow" in p5b_text,
+        "review tick Tests passing": "Tests passing" in p5b_text,
+        "review tick Audit trail": "Audit trail captured" in p5b_text,
+        "executive insight": "operating inside enterprise engineering controls" in p5b_text.lower(),
+        "illustrative disclaimer": "illustrative workflow visualization" in p5b_text.lower(),
+    }
+    p5b_passed = all(p5b_checks.values())
+    print(f"[{label}] K: Live workflow preview -> {'PASS' if p5b_passed else 'FAIL'}", flush=True)
+    for k, v in p5b_checks.items():
+        if not v:
+            print(f"          -> miss: {k}", flush=True)
+    results.append({"viewport": label, "test": "K-live-workflow-preview", "passed": p5b_passed, "checks": p5b_checks})
+
+    # === Test L: Counter climax storytelling at idx 10 ===
+    await goto_panel(page, 10)
+    p10_text = await get_section_text(page, 10)
+    p10_checks = {
+        "framing 'large-scale modernization'": "large-scale modernization programs often consume" in p10_text.lower(),
+        "developer-equivalent translation": "developer-equivalent capacity / year" in p10_text.lower(),
+        "engineering hours translation": "engineering hours" in p10_text.lower(),
+        "business interpretation 'strategic value'": "strategic value is not reducing engineering teams" in p10_text.lower(),
+        "interpretation 'transformation throughput'": "transformation throughput" in p10_text.lower(),
+        "dev-equivalent footnote": "developer-equivalent figures are illustrative" in p10_text.lower(),
+        "NOT headcount-reduction language": "headcount reduction" not in p10_text.lower() and "workforce replacement" not in p10_text.lower(),
+    }
+    p10_passed = all(p10_checks.values())
+    print(f"[{label}] L: Counter climax storytelling -> {'PASS' if p10_passed else 'FAIL'}", flush=True)
+    for k, v in p10_checks.items():
+        if not v:
+            print(f"          -> miss: {k}", flush=True)
+    results.append({"viewport": label, "test": "L-counter-climax", "passed": p10_passed, "checks": p10_checks})
 
     # === Test J: wheel handler regression ===
     await goto_panel(page, 0)

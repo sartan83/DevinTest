@@ -10,6 +10,7 @@ import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
 import { Panel3CurrentState } from "./panels/Panel3CurrentState";
 import { Panel4ExecutiveDiscovery } from "./panels/Panel4ExecutiveDiscovery";
 import { Panel5BusinessImpact } from "./panels/Panel5BusinessImpact";
+import { Panel5bWorkflowPreview } from "./panels/Panel5bWorkflowPreview";
 import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
 import { Panel7TasksToOutcomes } from "./panels/Panel7TasksToOutcomes";
 import { Panel8RoiSignal } from "./panels/Panel8RoiSignal";
@@ -20,15 +21,17 @@ import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 13 main panels (index 0–12) + 1 appendix panel (index 13) reachable only
-// via the discrete "Appendix" toggle in the header.
-const MAIN_PANELS = 13;
-const APPENDIX_INDEX = 13;
+// 14 main panels (index 0–13) + 1 appendix panel (index 14) reachable only
+// via the discrete "Appendix" toggle in the header. Live workflow preview
+// (Panel5b) is inserted at idx 5, between modernization demo and trust.
+const MAIN_PANELS = 14;
+const APPENDIX_INDEX = 14;
 const TOTAL_PANELS = MAIN_PANELS + 1;
-// Render index of the counter climax panel ("Reclaimed capacity"), the 10th
-// tile in the main sequence (zero-indexed → 9). Itaú reference is panel 9
-// (zero-indexed → 8), inserted between ROI signal and the climax.
-const CLIMAX_INDEX = 9;
+// Render index of the counter climax panel ("Reclaimed capacity"), now the
+// 11th tile in the main sequence (zero-indexed → 10) after inserting the
+// Live workflow preview at idx 5. Itaú reference shifts to idx 9; counter
+// teaser shows on idx 9 and reveals on idx 10.
+const CLIMAX_INDEX = 10;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -359,6 +362,7 @@ export function MicrositeShell() {
           <Panel3CurrentState />
           <Panel4ExecutiveDiscovery />
           <Panel5BusinessImpact />
+          <Panel5bWorkflowPreview />
           <Panel6EnterpriseTrust />
           <Panel7TasksToOutcomes />
           <Panel8RoiSignal />

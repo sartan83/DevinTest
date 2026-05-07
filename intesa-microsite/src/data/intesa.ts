@@ -105,15 +105,16 @@ export const intesa = {
     { index: 2, label: "3", full: "Current state assessment", appendix: false },
     { index: 3, label: "4", full: "Discovery alignment", appendix: false },
     { index: 4, label: "5", full: "Modernization demo", appendix: false },
-    { index: 5, label: "6", full: "Enterprise trust", appendix: false },
-    { index: 6, label: "7", full: "Capacity redeployment", appendix: false },
-    { index: 7, label: "8", full: "ROI signal", appendix: false },
-    { index: 8, label: "9", full: "Enterprise reference", appendix: false },
-    { index: 9, label: "10", full: "Reclaimed capacity", appendix: false },
-    { index: 10, label: "11", full: "4-week pilot", appendix: false },
-    { index: 11, label: "12", full: "Mutual commitment", appendix: false },
-    { index: 12, label: "13", full: "Aligned to move", appendix: false },
-    { index: 13, label: "A", full: "Discovery framework (appendix)", appendix: true },
+    { index: 5, label: "6", full: "Live workflow preview", appendix: false },
+    { index: 6, label: "7", full: "Enterprise trust", appendix: false },
+    { index: 7, label: "8", full: "Capacity redeployment", appendix: false },
+    { index: 8, label: "9", full: "ROI signal", appendix: false },
+    { index: 9, label: "10", full: "Enterprise reference", appendix: false },
+    { index: 10, label: "11", full: "Reclaimed capacity", appendix: false },
+    { index: 11, label: "12", full: "4-week pilot", appendix: false },
+    { index: 12, label: "13", full: "Mutual commitment", appendix: false },
+    { index: 13, label: "14", full: "Aligned to move", appendix: false },
+    { index: 14, label: "A", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
@@ -122,22 +123,43 @@ export const intesa = {
     disclaimer: "Illustrative scenario based on modeled assumptions",
     unit: "developer days",
     finalRange: { min: 8, max: 18 },
+    // Hours-per-developer-day used to translate the dev-day counter into
+    // "engineering hours" for the executive-translation layer on the
+    // climax panel. 8h/day is the standard banking baseline used by P8 too.
+    hoursPerDay: 8,
+    // Used to translate "reclaimed engineering hours" into a developer-FTE
+    // equivalent across an annualized window for executive readability.
+    // 220 working days/year * 8h/day = 1,760 hours/FTE-year (matches P8 baseline).
+    hoursPerFteYear: 1760,
+    // Annual scale-out factor: "during this session" capacity, projected to
+    // a steady-state annualized program. Used only as the executive
+    // translation context ("this session captured X dev days; scaled across a
+    // modernization program, that maps to ~Y FTE-equivalents per year").
+    annualizedFteProjectionFactor: 220, // dev-days/year per FTE
+    framing:
+      "Large-scale modernization programs often consume thousands of hours of repetitive engineering execution.",
+    interpretation:
+      "The strategic value is not reducing engineering teams. It is increasing transformation throughput without proportionally increasing delivery capacity.",
+    devEquivalentFootnote:
+      "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
     // Steps accumulate per visited panel (1-indexed → maps to render index panel-1).
-    // Sum across all 13 panels ≈ 8–18 dev days.
+    // Sum across all 14 panels ≈ 8–18 dev days. Panel 6 is the new
+    // "Live workflow preview" inserted between the demo and trust panels.
     steps: [
       { panel: 1, addMin: 0.4, addMax: 0.8, note: "Framing engagement" },
-      { panel: 2, addMin: 0.6, addMax: 1.3, note: "Naming the execution gap" },
-      { panel: 3, addMin: 0.7, addMax: 1.5, note: "Current state pressure mapped" },
-      { panel: 4, addMin: 1.0, addMax: 2.0, note: "Discovery alignment validated" },
-      { panel: 5, addMin: 0.9, addMax: 1.8, note: "Modernization walkthrough" },
-      { panel: 6, addMin: 0.5, addMax: 1.2, note: "Enterprise trust envelope" },
-      { panel: 7, addMin: 0.7, addMax: 1.6, note: "Capacity redeployment framed" },
-      { panel: 8, addMin: 0.8, addMax: 2.0, note: "ROI signal at Intesa scale" },
-      { panel: 9, addMin: 0.6, addMax: 1.4, note: "Enterprise reference anchored" },
-      { panel: 10, addMin: 0.5, addMax: 1.2, note: "Climax consolidation" },
-      { panel: 11, addMin: 0.5, addMax: 1.2, note: "Pilot structure agreed" },
-      { panel: 12, addMin: 0.3, addMax: 0.7, note: "Mutual commitment captured" },
-      { panel: 13, addMin: 0.2, addMax: 0.6, note: "Closing alignment" },
+      { panel: 2, addMin: 0.5, addMax: 1.1, note: "Naming the execution gap" },
+      { panel: 3, addMin: 0.6, addMax: 1.3, note: "Current state pressure mapped" },
+      { panel: 4, addMin: 0.9, addMax: 1.7, note: "Discovery alignment validated" },
+      { panel: 5, addMin: 0.7, addMax: 1.5, note: "Modernization walkthrough" },
+      { panel: 6, addMin: 0.6, addMax: 1.3, note: "Live workflow preview" },
+      { panel: 7, addMin: 0.5, addMax: 1.1, note: "Enterprise trust envelope" },
+      { panel: 8, addMin: 0.7, addMax: 1.5, note: "Capacity redeployment framed" },
+      { panel: 9, addMin: 0.8, addMax: 1.8, note: "ROI signal at Intesa scale" },
+      { panel: 10, addMin: 0.6, addMax: 1.3, note: "Enterprise reference anchored" },
+      { panel: 11, addMin: 0.5, addMax: 1.2, note: "Climax consolidation" },
+      { panel: 12, addMin: 0.4, addMax: 0.9, note: "Pilot structure agreed" },
+      { panel: 13, addMin: 0.3, addMax: 0.6, note: "Mutual commitment captured" },
+      { panel: 14, addMin: 0.2, addMax: 0.5, note: "Closing alignment" },
     ] as CounterStep[],
   },
 
@@ -434,6 +456,75 @@ export const intesa = {
       label: "github.com/kushmirc/banking-modernization",
       url: "https://github.com/kushmirc/banking-modernization",
     },
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 5b — Live Workflow Preview
+  //
+  // A concrete, governance-aware modernization workflow rendered as a
+  // 4-step pipeline. Complements P5 (conceptual demo) with an
+  // enterprise-grade visual showing what Devin actually does inside the
+  // engineering workflow — without terminal/IDE aesthetics.
+  // -------------------------------------------------------------------------
+  panel5b: {
+    eyebrow: "Live workflow preview",
+    headline:
+      "A governance-aware modernization workflow,\nexecuted by Devin.",
+    subhead:
+      "Example of a modernization workflow Devin executes inside enterprise engineering controls — analysis through governed PR review.",
+    steps: [
+      {
+        index: 1,
+        title: "Repository analysis",
+        items: [
+          "Dependency mapping",
+          "Migration scope detection",
+          "Risk identification",
+        ],
+      },
+      {
+        index: 2,
+        title: "Modernization planning",
+        items: [
+          "Upgrade path proposal",
+          "Impact analysis",
+          "Task decomposition",
+        ],
+      },
+      {
+        index: 3,
+        title: "Controlled execution",
+        items: [
+          "Refactoring",
+          "Test generation",
+          "Reviewable PR creation",
+        ],
+      },
+      {
+        index: 4,
+        title: "Governance & review",
+        items: [
+          "Human approval workflow",
+          "Auditability + documentation",
+          "CI/CD validation",
+        ],
+      },
+    ],
+    review: {
+      label: "Mock review evidence",
+      title: "PR · Modernize legacy reconciliation flow",
+      meta: "+2,134 / −1,807 across 18 files · 24 tests passing",
+      ticks: [
+        "Tests passing",
+        "Audit trail captured",
+        "Human approval required",
+        "DORA-aligned change log",
+      ],
+    },
+    insight:
+      "Modernization workflow operating inside enterprise engineering controls — not bypassing them.",
+    disclaimer:
+      "Illustrative workflow visualization. Actual execution adapts to client repositories, security envelope, and governance configuration.",
   },
 
   // -------------------------------------------------------------------------
