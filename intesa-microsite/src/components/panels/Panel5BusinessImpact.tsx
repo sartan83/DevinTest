@@ -157,10 +157,10 @@ function WorkflowNode({
   return (
     <>
       <motion.li
-        initial={{ opacity: 0, y: 6 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, x: -8 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.42, delay: 0.06 * index, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.45, delay: 0.07 * index, ease: [0.22, 1, 0.36, 1] }}
         className={[
           "flex items-center gap-2 rounded-lg border px-2.5 py-1 text-[11px] leading-snug sm:text-[12px]",
           toneClass,
@@ -172,9 +172,14 @@ function WorkflowNode({
         <span>{label}</span>
       </motion.li>
       {!isLast && (
-        <span aria-hidden className="ml-3 text-[10px] leading-none text-brand-ivory/30 sm:ml-4">
+        <motion.span
+          aria-hidden
+          animate={{ opacity: [0.25, 0.5, 0.25] }}
+          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 * index }}
+          className="ml-3 text-[10px] leading-none text-brand-ivory/30 sm:ml-4"
+        >
           ↓
-        </span>
+        </motion.span>
       )}
     </>
   );

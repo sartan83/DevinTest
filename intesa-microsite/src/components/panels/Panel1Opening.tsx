@@ -8,12 +8,12 @@ export function Panel1Opening() {
   const p = intesa.panel1;
   return (
     <PanelShell eyebrow={p.eyebrow}>
-      <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1.1fr_1fr]">
+      <div className="grid items-center gap-6 sm:gap-9 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <PanelHeadline text={p.headline} />
           <PanelSubhead>{p.subhead}</PanelSubhead>
 
-          <div className="mt-6 inline-flex max-w-2xl items-start gap-3 rounded-2xl border border-brand-orange/30 bg-brand-orange/5 px-4 py-3 sm:mt-8 sm:px-5 sm:py-4">
+          <div className="mt-5 inline-flex max-w-2xl items-start gap-3 rounded-2xl border border-brand-orange/30 bg-brand-orange/5 px-4 py-2.5 sm:mt-6 sm:px-5 sm:py-3.5">
             <span aria-hidden className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
             <p className="text-[13px] font-medium leading-relaxed text-brand-ivory/90 sm:text-base">
               {p.framingLine}
@@ -56,7 +56,7 @@ export function Panel1Opening() {
 
       {/* Why Intesa matters — strategic anchors (scale / regulation / complexity).
          Compact horizontal strip; distinct from the investor-KPI grid above. */}
-      <div className="mt-7 sm:mt-9">
+      <div className="mt-5 sm:mt-7">
         <div className="mb-2 flex items-baseline gap-3">
           <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
             {p.whyMatters.title}
@@ -84,7 +84,7 @@ export function Panel1Opening() {
         </div>
       </div>
 
-      <p className="mt-6 max-w-3xl text-[10px] leading-relaxed text-brand-ivory/40 sm:mt-8 sm:text-[11px]">
+      <p className="mt-5 max-w-3xl text-[10px] leading-relaxed text-brand-ivory/40 sm:mt-6 sm:text-[11px]">
         {p.sourcesLine}
       </p>
     </PanelShell>

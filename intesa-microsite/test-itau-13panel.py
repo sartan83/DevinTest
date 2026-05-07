@@ -302,6 +302,8 @@ async def run_for_viewport(p, w: int, h: int):
         "expanded deployment scope": "expanded deployment scope" in p13_text,
         "governance validation": "governance validation" in p13_text,
         "commercial go-live readiness": "commercial go-live readiness" in p13_text,
+        "executive ownership next-step": "confirm executive ownership" in p13_text.lower(),
+        "no 'executive sponsor' leakage in P13": "executive sponsor" not in p13_text.lower(),
     }
     g_passed = all(p12_checks.values()) and all(p13_checks.values())
     print(f"[{label}] G: Panel 12 + Panel 13 -> {'PASS' if g_passed else 'FAIL'}", flush=True)
@@ -319,6 +321,10 @@ async def run_for_viewport(p, w: int, h: int):
         "MEDDPICC": "meddpicc" not in full_html.lower(),
         "Economic Buyer": "economic buyer" not in full_html.lower(),
         "EB whole-word": not bool(re.search(r"\bEB\b", full_html)),
+        "Executive Sponsor (renamed -> ownership)": "executive sponsor" not in full_html.lower(),
+        "Buy-in / Buy in": "buy-in" not in full_html.lower() and " buy in " not in full_html.lower(),
+        "Closing Question label": "closing question" not in full_html.lower(),
+        "Commitment Discussion label": "commitment discussion" not in full_html.lower(),
     }
     sweep_passed = all(sweep_checks.values())
     print(f"[{label}] H: methodology sweep -> {'PASS' if sweep_passed else 'FAIL'}", flush=True)

@@ -817,7 +817,7 @@ export const intesa = {
         items: [
           "Scope one modernization use case",
           "Confirm access and security envelope",
-          "Align executive sponsor and engineering lead",
+          "Align executive ownership and engineering lead",
         ],
       },
       {
@@ -841,7 +841,7 @@ export const intesa = {
         title: "Executive go-live decision",
         items: [
           "Compare pilot KPIs against baseline",
-          "Agree go-live roadmap and commercial next steps",
+          "Agree go-live roadmap and enterprise scaling path",
         ],
       },
     ],
@@ -873,7 +873,7 @@ export const intesa = {
       title: "Intesa Sanpaolo commitment",
       items: [
         "Scoped repository access",
-        "Executive sponsor and engineering lead",
+        "Executive ownership and engineering lead",
         "Confirmed success metrics",
         "Defined go-live decision process",
       ],
@@ -905,7 +905,7 @@ export const intesa = {
     question:
       "Assuming we jointly validate measurable impact during the pilot, what would need to happen internally at Intesa Sanpaolo to support broader deployment?",
     nextSteps: [
-      "Confirm executive sponsor",
+      "Confirm executive ownership",
       "Agree pilot success metrics",
       "Define post-pilot go-live timeline",
     ],
