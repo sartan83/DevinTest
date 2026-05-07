@@ -333,7 +333,7 @@ export const intesa = {
       {
         title: "Legacy core ↔ modern surface coexistence",
         body: "Core flows on legacy stacks; modern channels evolve in parallel.",
-        status: "hypothesis" as ObservationStatus,
+        status: "validated" as ObservationStatus,
       },
       {
         title: "High regression risk on critical systems",
