@@ -1,67 +1,65 @@
-# Intesa × Devin microsite — test report
+# Test report — ROI slide + scroll regression + Panel 3.5 rewrite + 10-panel flow
 
-**PR:** https://github.com/sartan83/DevinTest/pull/4
-**Session:** https://app.devin.ai/sessions/6cabc16aa4df4ea8ac9dae4f7dc39586
-**Environment:** local `next dev` (Next.js 14) on http://localhost:3000
-**Recording:** https://app.devin.ai/attachments/49fea192-c00d-4a6c-8176-1cd9c15d33c8/rec-80fea0af-8bbf-4d83-bc60-5d9ddaf82609-edited.mp4
+**Result**: 23 / 23 assertions passed. No regressions detected.
 
-## Headline
+**Environment**:
+- Demo: https://out-olywabav.devinapps.com (static export of commit `ffab59e`)
+- Method: Playwright headless Chromium, viewport `1280 × 800`
+- Session: https://app.devin.ai/sessions/6cabc16aa4df4ea8ac9dae4f7dc39586
 
-- All 5 primary tests **passed**.
-- The off-by-one bug caught by Devin Review (fixed in 557d385) is verified end-to-end: the persistent counter stays **compact on Panel 6 Executive Value** and only **expands centrally on Panel 7 CounterClimax**.
+**Escalation** (lead with this): unable to produce a live-desktop **video recording** on this VM — Chrome/window-manager not running. Pivoted to Playwright with word-for-word DOM assertions + per-panel screenshots, which is stronger than a visual recording for the copy assertions (string mismatches would fail automatically).
 
-## Escalations
+---
 
-- **Minor UX inconsistency (not a regression, does not affect the fix):** digit-key shortcuts map linearly to panel index (`"6"` → 6th panel in render order = Panel 5 Use Case), while the sticky progress bar displays labels `1 / 2 / 3 / 3.5 / 4 / 5 / 6 / 7 / 8`. So pressing `"6"` does NOT land on the panel labeled "6" (Executive Value). Arrow keys and clicking the progress bar dots are unaffected. Happy to change the digit mapping to respect labels in a follow-up if you want — the spec only requires "keyboard navigation".
-
-## Test results
+## Summary per test
 
 | # | Test | Result |
 |---|---|---|
-| 1 | Panel 1 renders with correct headline, 6 KPIs, and initial counter `≈ 0.4–0.9` (compact) | **passed** |
-| 2 | Number keys snap-navigate Panels 2 → 3 → 3.5; counter accumulates monotonically | **passed** |
-| 3 | Panel 3.5 `COO` pill swaps Q1 from CIO text to `"How much visibility do you have into engineering delivery?"` | **passed** |
-| 4 | **[The fix]** Counter stays compact on Panel 6 Executive Value; expands centrally on Panel 7 CounterClimax | **passed** |
-| 5 | Panel 1 `Open lighthouse` CTA deep-links to Panel 8 (4 week cards, 5 KPI chips, 2 CTAs) | **passed** |
+| T1.A.1 | Panel 1 `~3,300` developers KPI present | PASS |
+| T1.A.2 | `est.` pill present on estimated KPI | PASS |
+| T1.A.3 | Old KPI `€10B+ Tech investment 2022–2029` removed | PASS |
+| T1.B.1 | Counter teaser `?` visible on Panel 1 | PASS |
+| T1.B.2 | Counter label hidden in teaser mode | PASS |
+| T2.CIO | Panel 3.5 CIO Q1 text matches | PASS |
+| T2.CTO | Panel 3.5 CTO Q1 text matches | PASS |
+| T2.COO | Panel 3.5 COO Q1 text matches | PASS |
+| T2.Risk | Panel 3.5 Risk Q1 text matches | PASS |
+| T8.A | Panel 3.5 eyebrow rewritten to `WHERE REALITY BENDS` | PASS |
+| T8.B | Panel 3.5 headline rewritten to `The same constraint looks different from every seat.` | PASS |
+| T8.C | Panel 3.5 meta-narration (subhead + framing note) removed | PASS |
+| T3.A | Panel 6.5 eyebrow + headline | PASS |
+| T3.B | Panel 6.5 headline range (`~€6–19M / year`, `~14k–44k developer-days / year`) | PASS |
+| T3.C.conservative | Conservative card complete (parameters + `~€5.9M` + `~13,600`) | PASS |
+| T3.C.realistic | Realistic card complete (parameters + `~€18.8M` + `~43,500` + `FOCUS`) | PASS |
+| T3.D | Panel 6.5 sources cited (Gartner, McKinsey, Il Sole 24 Ore) | PASS |
+| T3.E | Counter still in teaser on Panel 6.5 | PASS |
+| T4.A | Panel 7 climax content (`Reclaimed capacity`, `≈ 8–18`, unit, disclaimer) | PASS |
+| T4.B | Counter revealed on Panel 7 with full label + range | PASS |
+| T5 | CTA `Open lighthouse` lands on Panel 8 (regression fix `a333df7`) | PASS |
+| T6 | Space on focused `Open lighthouse` activates the CTA (a11y fix `3f058a1`) | PASS |
+| T7 | Mouse-wheel advances panels (scroll regression fix `ffab59e`) | PASS |
 
-## Evidence
+## T7 detail (adversarial)
+Scroll-snap-x mandatory means a rotella under ~half-viewport is snapped back to the starting panel. A real CDP `page.mouse.wheel(0, 1500)` from panel 1 produced: before `scrollLeft=0`, after `scrollLeft=1280`, active label moved `1 → 2`. Pre-`ffab59e`, the wheel handler was suppressed by `data-allow-native-scroll="true"` on the panel content wrapper and `scrollLeft` would have stayed at `0` — verified indirectly by the code path (`MicrositeShell.tsx` `onWheel` composedPath check) and by the behaviour changing between builds.
 
-### Test 1 — Panel 1 opening state
+## Screenshots
 
-| Panel 1 full view | Counter top-right (zoomed) |
+| Panel 1 (KPI + teaser counter) | Panel 3.5 (new eyebrow/headline) |
 |---|---|
-| ![Panel 1 Opening](https://app.devin.ai/attachments/fc9eb795-4d60-4c37-8c57-c914dd39e287/screenshot_a9fd025e05db41e98518f3133bc81aa7.png) | ![Counter at 0.4–0.9 developer days](https://app.devin.ai/attachments/ea442c3e-e316-4366-ab13-0c50f092b9b3/screenshot_zoom_b692d924719a41be92b057b6ae45765c.png) |
-| Headline, 6 KPIs, two CTAs, progress dot on "1 · Opening" | `≈ 0.4–0.9 developer days` with label + illustrative disclaimer |
+| ![T1 Panel 1](https://app.devin.ai/attachments/80e0d9a1-6ce0-4b39-b435-579c1b71acea/T1-panel1.png) | ![T2 Panel 3.5 CIO](https://app.devin.ai/attachments/3ae204f1-7023-4662-bfb4-b35da47c9150/T2-panel35-CIO.png) |
 
-### Test 3 — Panel 3.5 persona toggle
-
-| CIO default (Q1 = modernization slowdown) | After clicking `COO` (Q1 = visibility) |
+| Panel 3.5 CTO persona | Panel 3.5 COO persona |
 |---|---|
-| ![Panel 3.5 CIO](https://app.devin.ai/attachments/8c55d21b-5819-476e-9b4a-22657737fa28/screenshot_e4c50b5cc5e24406b8f5d70e640bea7b.png) | ![Panel 3.5 COO](https://app.devin.ai/attachments/d04d32d5-93ef-4629-bbd7-dc20a988250c/screenshot_4c9687c1c05d4d0d9bc18dc9c7be84f2.png) |
-| `"Where is your modernization effort slowing down the most?"` | `"How much visibility do you have into engineering delivery?"` |
+| ![CTO](https://app.devin.ai/attachments/c1b144af-5b17-4f56-9d18-a05b11fe7707/T2-panel35-CTO.png) | ![COO](https://app.devin.ai/attachments/14e1ddf4-db4a-4107-8e18-bcb57eba6dcd/T2-panel35-COO.png) |
 
-### Test 4 — The fix: climax only fires on Panel 7
-
-| Panel 6 Executive Value (counter COMPACT) | Panel 7 CounterClimax (counter EXPANDED) |
+| Panel 3.5 Risk persona | Panel 6.5 ROI signal (FOCUS) |
 |---|---|
-| ![Panel 6 full](https://app.devin.ai/attachments/dbf908a0-3ee6-4233-b4a5-9cae03d833ba/screenshot_077eeba20a0443fb9d6d5d602825bf0f.png) | ![Panel 7 full](https://app.devin.ai/attachments/b5bd9c6e-5224-4b75-8777-ff7f9858bc65/screenshot_024c99524e004434ac04fb6b2a06f3a8.png) |
-| Counter top-right: `≈ 7.4–15.5` in small form factor (`text-lg`, no pulse) | Counter top-right: `≈ 8–18` in larger form factor + central hero card |
+| ![Risk](https://app.devin.ai/attachments/faab797e-96f4-47a0-8f10-a07d3c66b0bd/T2-panel35-Risk.png) | ![ROI](https://app.devin.ai/attachments/9fbdb358-88a9-47ab-a174-820be38add64/T3-panel65-ROI.png) |
 
-| Counter on Panel 6 (zoomed) | Counter on Panel 7 (zoomed) |
+| Panel 7 climax (counter revealed) | Panel 8 Lighthouse (after `Open lighthouse`) |
 |---|---|
-| ![Counter compact on Panel 6](https://app.devin.ai/attachments/83c63166-5366-47a4-9dae-a0eac075afa7/screenshot_zoom_9bc5e03a42f140c2873128ccbf4e9a8f.png) | ![Counter expanded on Panel 7](https://app.devin.ai/attachments/c893ce6e-7ec6-4be9-a735-5d8e40b0da5d/screenshot_zoom_ad7f2c8678224b26b9b5bfa589848445.png) |
-| Small padding, `text-lg` value, static orange dot | Larger padding, `text-3xl` value, pulsing orange dot |
+| ![Climax](https://app.devin.ai/attachments/71b86d4a-3243-4c20-a7c6-78413890403b/T4-panel7-climax.png) | ![Lighthouse](https://app.devin.ai/attachments/aba9d0f0-85f4-4595-a323-24be5f1e7567/T5-after-open-lighthouse.png) |
 
-This is the exact behavior Devin Review flagged. Pre-fix, the expansion would have occurred on Panel 6 (one panel early). Post-fix, it correctly fires on Panel 7.
-
-### Test 5 — Panel 1 `Open lighthouse` CTA → Panel 8
-
-![Panel 8 Lighthouse after CTA click](https://app.devin.ai/attachments/d7a37635-a6e1-4bee-a61a-e9c82ba603b5/screenshot_874c431ee20f4d5abc3ae874bf93bf31.png)
-
-Weeks 1–4, 5 readout KPI chips, `Simulate lighthouse` + `Download summary` CTAs, and the compliance-safe footer (`customer-dedicated isolated environment · single-tenant · human-in-the-loop`).
-
-## Not tested (intentional)
-
-- `Simulate lighthouse` and `Download summary` click handlers — intentionally placeholders in this PR (no backend wired).
-- Mobile/narrow viewport — brief explicitly targets executive landscape displays.
-- Compliance copy scan — verified inline above (no banned phrases observed: no `on-prem`, no `DORA compliant`, no `fully autonomous`, no `replaces developers`).
+| After Space on focused CTA (T6) | After mouse wheel on Panel 1 (T7) |
+|---|---|
+| ![Space](https://app.devin.ai/attachments/4608c34e-abb9-4344-9d6b-825ea4c1b24c/T6-after-space-on-cta.png) | ![Wheel](https://app.devin.ai/attachments/f85e1391-df96-4d07-9e55-d3b63d533494/T7-after-wheel.png) |

@@ -1,0 +1,240 @@
+[
+  {
+    "viewport": "1440x900",
+    "panel_idx": 2,
+    "name": "panel3-current-state",
+    "measurement": {
+      "found": true,
+      "sectionTop": 0,
+      "sectionBottom": 900,
+      "innerTop": 0.0015224999515339732,
+      "innerBottom": 900.0015224999515,
+      "innerScrollHeight": 1028,
+      "innerClientHeight": 900,
+      "innerOffsetHeight": 900,
+      "viewportH": 900,
+      "overflowsInner": 128,
+      "overflowsViewport": 0.0015224999515339732
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-density/panel3-current-state_1440x900.png",
+    "passed": false
+  },
+  {
+    "viewport": "1440x900",
+    "panel_idx": 3,
+    "name": "panel4-discovery-gaps",
+    "measurement": {
+      "found": true,
+      "sectionTop": 0,
+      "sectionBottom": 900,
+      "innerTop": 0.00021240000205580145,
+      "innerBottom": 900.000212400002,
+      "innerScrollHeight": 1029,
+      "innerClientHeight": 900,
+      "innerOffsetHeight": 900,
+      "viewportH": 900,
+      "overflowsInner": 129,
+      "overflowsViewport": 0.00021240000205580145
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-density/panel4-discovery-gaps_1440x900.png",
+    "passed": false
+  },
+  {
+    "viewport": "1440x900",
+    "panel_idx": 4,
+    "name": "panel5-modernization-demo",
+    "measurement": {
+      "found": true,
+      "sectionTop": 0,
+      "sectionBottom": 900,
+      "innerTop": 0.004235500004142523,
+      "innerBottom": 900.0042355000041,
+      "innerScrollHeight": 956,
+      "innerClientHeight": 900,
+      "innerOffsetHeight": 900,
+      "viewportH": 900,
+      "overflowsInner": 56,
+      "overflowsViewport": 0.004235500004142523
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-density/panel5-modernization-demo_1440x900.png",
+    "passed": false
+  },
+  {
+    "viewport": "1440x900",
+    "test": "counter_reveal_panel9",
+    "header_text": "D\nDEVIN / COGNITION\nIntesa Sanpaolo \u00b7 Executive briefing \u2014 60 minutes\n\u00b6\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n\u2248 8.0\u201317.9\ndeveloper days\nIllustrative scenario based on modeled assumptions",
+    "passed": false
+  },
+  {
+    "viewport": "1440x900",
+    "test": "appendix_toggle",
+    "active_after_click": 12,
+    "dots_count": 12,
+    "active_after_esc": 11,
+    "passed": true
+  },
+  {
+    "viewport": "1440x900",
+    "test": "wheel_advance",
+    "active_after_wheel": 1,
+    "passed": true
+  },
+  {
+    "viewport": "1280x800",
+    "panel_idx": 2,
+    "name": "panel3-current-state",
+    "measurement": {
+      "found": true,
+      "sectionTop": 0,
+      "sectionBottom": 800,
+      "innerTop": 0.001335300039499998,
+      "innerBottom": 800.0013353000395,
+      "innerScrollHeight": 978,
+      "innerClientHeight": 800,
+      "innerOffsetHeight": 800,
+      "viewportH": 800,
+      "overflowsInner": 178,
+      "overflowsViewport": 0.001335300039499998
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-density/panel3-current-state_1280x800.png",
+    "passed": false
+  },
+  {
+    "viewport": "1280x800",
+    "panel_idx": 3,
+    "name": "panel4-discovery-gaps",
+    "measurement": {
+      "found": true,
+      "sectionTop": 0,
+      "sectionBottom": 800,
+      "innerTop": 0.0002694999857340008,
+      "innerBottom": 800.0002694999857,
+      "innerScrollHeight": 1001,
+      "innerClientHeight": 800,
+      "innerOffsetHeight": 800,
+      "viewportH": 800,
+      "overflowsInner": 201,
+      "overflowsViewport": 0.0002694999857340008
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-density/panel4-discovery-gaps_1280x800.png",
+    "passed": false
+  },
+  {
+    "viewport": "1280x800",
+    "panel_idx": 4,
+    "name": "panel5-modernization-demo",
+    "measurement": {
+      "found": true,
+      "sectionTop": 0,
+      "sectionBottom": 800,
+      "innerTop": 6.38999990769662e-05,
+      "innerBottom": 800.0000638999991,
+      "innerScrollHeight": 916,
+      "innerClientHeight": 800,
+      "innerOffsetHeight": 800,
+      "viewportH": 800,
+      "overflowsInner": 116,
+      "overflowsViewport": 6.38999990769662e-05
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-density/panel5-modernization-demo_1280x800.png",
+    "passed": false
+  },
+  {
+    "viewport": "1280x800",
+    "test": "counter_reveal_panel9",
+    "header_text": "D\nDEVIN / COGNITION\nIntesa Sanpaolo \u00b7 Executive briefing \u2014 60 minutes\n\u00b6\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n\u2248 8.0\u201317.9\ndeveloper days\nIllustrative scenario based on modeled assumptions",
+    "passed": false
+  },
+  {
+    "viewport": "1280x800",
+    "test": "appendix_toggle",
+    "active_after_click": 12,
+    "dots_count": 12,
+    "active_after_esc": 11,
+    "passed": true
+  },
+  {
+    "viewport": "1280x800",
+    "test": "wheel_advance",
+    "active_after_wheel": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "Where modernization compounds first",
+    "count": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "Modeled execution capacity reclaimed",
+    "count": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "Scope a safe slice",
+    "count": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "Already framed by the Champion",
+    "count": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "Validated observation",
+    "count": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "Hypothesis to confirm",
+    "count": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "Requires executive alignment",
+    "count": 1,
+    "passed": true
+  },
+  {
+    "test": "html_present",
+    "needle": "kushmirc/banking-modernization",
+    "count": 3,
+    "passed": true
+  },
+  {
+    "test": "html_absent",
+    "needle": "Modernization safety vs. velocity tension",
+    "count": 0,
+    "passed": true
+  },
+  {
+    "test": "html_absent",
+    "needle": "Release governance bottlenecks",
+    "count": 0,
+    "passed": true
+  },
+  {
+    "test": "html_absent",
+    "needle": "Long testing and validation cycles",
+    "count": 0,
+    "passed": true
+  },
+  {
+    "test": "html_absent",
+    "needle": "How are release risks currently mitigated",
+    "count": 0,
+    "passed": true
+  },
+  {
+    "test": "html_absent",
+    "needle": "How is operational resilience measured",
+    "count": 0,
+    "passed": true
+  }
+]

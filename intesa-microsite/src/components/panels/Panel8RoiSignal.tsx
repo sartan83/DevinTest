@@ -105,21 +105,27 @@ export function Panel8RoiSignal() {
           ))}
         </div>
 
-        <div className="flex flex-col gap-3 text-[11px] leading-relaxed text-brand-ivory/55 sm:text-xs">
-          <p className="rounded-lg border border-brand-ivory/10 bg-brand-green-deep/40 px-4 py-3">
+        <div className="flex flex-col gap-2 text-[11px] leading-relaxed text-brand-ivory/55 sm:text-xs">
+          <p className="rounded-lg border border-brand-ivory/10 bg-brand-green-deep/40 px-3 py-2">
             <span className="uppercase tracking-[0.22em] text-brand-ivory/45">
               Safety margin ·{" "}
             </span>
             {p.safetyMarginNote}
           </p>
-          <ul className="grid gap-1 px-1 sm:grid-cols-3 sm:gap-3">
-            {p.sources.map((s) => (
-              <li key={s} className="text-[10px] leading-snug text-brand-ivory/45 sm:text-[11px]">
-                · {s}
-              </li>
-            ))}
-          </ul>
-          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/40">
+          <details className="group">
+            <summary className="cursor-pointer text-[10px] uppercase tracking-[0.22em] text-brand-ivory/40 hover:text-brand-ivory/65 sm:text-[11px]">
+              Sources
+              <span aria-hidden className="ml-1 inline-block transition-transform group-open:rotate-180">↓</span>
+            </summary>
+            <ul className="mt-1.5 grid gap-1 px-1 sm:grid-cols-3 sm:gap-2">
+              {p.sources.map((s) => (
+                <li key={s} className="text-[10px] leading-snug text-brand-ivory/45 sm:text-[11px]">
+                  · {s}
+                </li>
+              ))}
+            </ul>
+          </details>
+          <p className="text-[10px] leading-relaxed text-brand-ivory/45">
             {p.disclaimer}
           </p>
         </div>

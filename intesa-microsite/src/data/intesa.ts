@@ -155,37 +155,23 @@ export const intesa = {
       {
         value: "€5.6B",
         label: "Invested in tech 2022–2025",
-        caption: "ISP · Il Sole 24 Ore, Feb 2026",
       },
       {
         value: "2,400+",
         label: "IT specialists hired 2022–2025",
-        caption: "ISP · Il Sole 24 Ore, Feb 2026",
       },
       {
         value: "64%",
         label: "Applications cloud-based (end 2025)",
-        caption: "From 10% in 2021 · ISP, Feb 2026",
-      },
-      {
-        value: "ISYTECH",
-        label: "Proprietary cloud-native core banking",
-        caption: "Google · TIM · Thought Machine",
       },
       {
         value: "~3,300",
         label: "Developers & IT engineers",
-        caption: "Triangulated: ISP press, Revelio Labs workforce data",
         estimated: true,
-      },
-      {
-        value: "~100%",
-        label: "Cloud-native apps target by 2029",
-        caption: "Piano di Impresa 2026–2029",
       },
     ] as KpiCard[],
     sourcesLine:
-      "Sources: Intesa Sanpaolo investor materials & press (2022–2026) · Proverbio interview, Il Sole 24 Ore, Feb 2026 · Piano di Impresa 2026–2029 · Revelio Labs workforce intelligence (Sep 2025)",
+      "Sources: ISP investor materials & press (2022–2026) · Piano di Impresa 2026–2029 · Revelio Labs workforce data",
     ctas: [
       { label: "Start the discussion", target: 2, primary: true },
       { label: "Open 4-week pilot", target: 11, primary: false },
@@ -211,20 +197,16 @@ export const intesa = {
         reality: "Governance and release bottlenecks",
       },
       {
-        ambition: "Governance-aware AI adoption",
+        ambition: "AI-assisted execution",
         reality: "Fragmented engineering workflows",
       },
       {
         ambition: "Resilient banking platforms",
         reality: "Legacy dependency burden",
       },
-      {
-        ambition: "Regulatory readiness",
-        reality: "Manual validation and documentation effort",
-      },
     ] as ExecutionGapRow[],
     closing:
-      "The risk is not slower delivery. It is delayed execution of board-visible transformation priorities.",
+      "Delayed execution of board-visible transformation priorities.",
   },
 
   // -------------------------------------------------------------------------
@@ -261,27 +243,27 @@ export const intesa = {
     observations: [
       {
         title: "Legacy core ↔ modern surface coexistence",
-        body: "Critical core flows often remain on legacy stacks while modern channels evolve in parallel.",
+        body: "Core flows on legacy stacks; modern channels evolve in parallel.",
         status: "hypothesis" as ObservationStatus,
       },
       {
         title: "High regression risk on critical systems",
-        body: "Changes touching balances, transactions, or regulatory flows carry asymmetric blast radius.",
+        body: "Balances, transactions, regulatory flows carry asymmetric blast radius.",
         status: "validated" as ObservationStatus,
       },
       {
         title: "Senior engineers absorbed by maintenance",
-        body: "Top engineering capacity often concentrated on legacy upkeep — not on differentiating digital programs.",
+        body: "Top capacity concentrated on legacy upkeep, not differentiating programs.",
         status: "validated" as ObservationStatus,
       },
       {
         title: "Tribal knowledge concentration",
-        body: "Critical legacy logic tends to live with a few senior engineers; onboarding is slow and risk-laden.",
+        body: "Legacy logic lives with few engineers; onboarding is slow and risk-laden.",
         status: "hypothesis" as ObservationStatus,
       },
       {
         title: "Where modernization compounds first",
-        body: "Which workstreams unlock the most resilience-and-throughput when modernized first is an executive call.",
+        body: "An executive call — engineering ranks the candidates, leadership ranks the priority.",
         status: "alignment" as ObservationStatus,
       },
     ] as CurrentStateObservation[],
@@ -446,7 +428,7 @@ export const intesa = {
       },
     ] as WalkthroughStep[],
     valueStatements: [
-      "Operational resilience: safer modernization, lower regression risk, faster release confidence — at enterprise scale.",
+      "Safer modernization, lower regression risk, faster release confidence — at enterprise scale.",
     ],
     repoLink: {
       label: "github.com/kushmirc/banking-modernization",
@@ -465,38 +447,28 @@ export const intesa = {
       "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
     pillars: [
       {
-        title: "Isolated VM per Devin session",
-        body: "Each session runs in a customer-dedicated, single-tenant environment. No cross-tenant data exposure.",
+        title: "Isolated VM per session",
+        body: "Single-tenant environment per session. No cross-tenant exposure.",
         tag: "Isolation",
       },
       {
-        title: "Reproducible execution environment",
-        body: "Pinned dependencies and versioned environments. Re-runs produce comparable, reviewable outputs.",
-        tag: "Reproducibility",
-      },
-      {
         title: "Human approval workflow",
-        body: "No production change without your gates. AI proposes; engineering and governance approve.",
+        body: "AI proposes; engineering and governance approve.",
         tag: "Human-in-the-loop",
       },
       {
-        title: "Clear PR review process",
-        body: "Every output is a reviewable pull request inside your existing review tooling — not a black-box action.",
+        title: "Reviewable pull requests",
+        body: "Every output a PR inside your existing review tooling.",
         tag: "Reviewable",
       },
       {
-        title: "Audit-friendly documentation",
-        body: "Change rationale, test evidence, and decision trail captured per task, ready for audit and DORA-aligned ICT processes.",
+        title: "Audit-friendly evidence",
+        body: "Rationale, tests, decision trail captured per task — DORA-aligned.",
         tag: "Auditability",
       },
       {
-        title: "Enterprise security review compatibility",
-        body: "Designed to be evaluated through standard third-party risk and security review processes.",
-        tag: "Compatibility",
-      },
-      {
-        title: "VPC / private deployment posture",
-        body: "Supports private connectivity (PrivateLink / IPSec) and VPC-style deployment review for regulated environments.",
+        title: "VPC / private deployment",
+        body: "PrivateLink / IPSec connectivity; VPC-style deployment review.",
         tag: "Deployment",
       },
     ] as LabeledCard[],
@@ -529,11 +501,11 @@ export const intesa = {
     },
     rows: [
       {
-        technical: "Automated dependency analysis",
+        technical: "Dependency analysis",
         outcome: "Faster modernization assessment",
       },
       {
-        technical: "Test generation and improvement",
+        technical: "Test generation",
         outcome: "Lower delivery risk",
       },
       {
@@ -544,15 +516,9 @@ export const intesa = {
         technical: "PR documentation",
         outcome: "Stronger governance and auditability",
       },
-      {
-        technical: "Autonomous task execution",
-        outcome: "More delivery throughput without proportional headcount growth",
-      },
     ] as BusinessOutcomeRow[],
     leverageStatement:
       "Not replacing engineers — scaling modernization without proportionally scaling engineering capacity.",
-    closing:
-      "Partial leverage across bounded workflows materially increases modernization throughput without proportional headcount growth.",
   },
 
   // -------------------------------------------------------------------------
@@ -702,7 +668,7 @@ export const intesa = {
     headline:
       "From controlled validation\nto a go-live decision.",
     subhead:
-      "Outcomes, not slides. A bounded entry point engineered to end with a decision.",
+      "A bounded entry point engineered to end with a decision — not another evaluation cycle.",
     weeks: [
       {
         week: 1,
@@ -715,7 +681,7 @@ export const intesa = {
       },
       {
         week: 2,
-        title: "First execution sprint",
+        title: "Controlled execution",
         items: [
           "Repository analysis and scoped execution",
           "Track effort, quality, and review cycle metrics",
@@ -723,7 +689,7 @@ export const intesa = {
       },
       {
         week: 3,
-        title: "Expanded validation",
+        title: "Validation & governance review",
         items: [
           "Increase task complexity and validate repeatability",
           "Review governance, auditability, developer acceptance",
@@ -731,7 +697,7 @@ export const intesa = {
       },
       {
         week: 4,
-        title: "Executive value review",
+        title: "Executive go-live decision",
         items: [
           "Compare pilot KPIs against baseline",
           "Agree go-live roadmap and commercial next steps",
@@ -742,13 +708,15 @@ export const intesa = {
     kpis: [
       "Modernization cycle time",
       "Engineering hours redeployed",
+      "Executive decision on scale-out",
+    ],
+    kpisDetailToggleLabel: "Additional pilot KPIs",
+    kpisDetail: [
       "Reviewable PRs completed",
       "Test coverage improvement",
       "Developer acceptance rate",
-      "Executive decision on scale-out",
     ],
-    kpiNote:
-      "What counts: reclaimed senior capacity and a decision-grade evidence base.",
+    kpiNote: "Decision-grade evidence — not vanity metrics.",
   },
 
   // -------------------------------------------------------------------------

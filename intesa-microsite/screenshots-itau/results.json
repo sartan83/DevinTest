@@ -1,0 +1,436 @@
+[
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel3-current-state",
+    "panel_idx": 2,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel3-current-state_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel4-discovery",
+    "panel_idx": 3,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel4-discovery_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel5-demo",
+    "panel_idx": 4,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-demo_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel7-capacity",
+    "panel_idx": 6,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel7-capacity_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel9-itau",
+    "panel_idx": 8,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel9-itau_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel11-pilot",
+    "panel_idx": 10,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel11-pilot_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "A-overflow-panel12-mutual",
+    "panel_idx": 11,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 900,
+      "innerClientHeight": 900,
+      "viewportH": 900
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel12-mutual_1440x900.png"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "B1-teaser-at-idx-8",
+    "passed": true,
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 5.1–11.0"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "B2-reveal-at-idx-9",
+    "passed": true,
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–18.0\ndeveloper days\nIllustrative scenario based on modeled assumptions"
+  },
+  {
+    "viewport": "1440x900",
+    "test": "C-itau-content",
+    "passed": true,
+    "checks": {
+      "Itaú": true,
+      "20–30% increase": true,
+      "15% improvement": true,
+      "25% reduction": true,
+      "5–6× faster": true,
+      "Factory workflow model": true,
+      "factory examples (>=4)": true,
+      "Gartner source label": true,
+      "Gartner href": true,
+      "governance language": true,
+      "illustrative disclaimer": true
+    }
+  },
+  {
+    "viewport": "1440x900",
+    "test": "D-panel7-capacity",
+    "passed": true,
+    "checks": {
+      "400 engineers": true,
+      "30% repetitive": true,
+      "120 engineering-equivalent": true,
+      "From repetitive execution": true,
+      "leverage statement (not replacing engineers)": true
+    }
+  },
+  {
+    "viewport": "1440x900",
+    "test": "E-panel4-discovery",
+    "passed": true,
+    "checks": {
+      "headline 'identified so far'": true,
+      "headline 'executive alignment'": true,
+      "exactly 3 alignment-area cards": true,
+      "exactly 2 detail questions in accordion": true,
+      "Capacity Constraints category": true,
+      "Governance Requirements category": true,
+      "Success Criteria category": true,
+      "Q1 wording": true
+    },
+    "strategic_count": 3,
+    "detail_count": 2
+  },
+  {
+    "viewport": "1440x900",
+    "test": "F-panel5-repodisclaimer",
+    "passed": true,
+    "checks": {
+      "Representative demonstration repository": true,
+      "No Intesa Sanpaolo source code": true,
+      "kushmirc/banking-modernization": true
+    }
+  },
+  {
+    "viewport": "1440x900",
+    "test": "G-mutual-and-final",
+    "passed": true,
+    "checks": {
+      "jointly governed validation initiative": true,
+      "Success depends not only on technical execution": true,
+      "Commercial alignment header": true,
+      "expanded deployment scope": true,
+      "governance validation": true,
+      "commercial go-live readiness": true
+    }
+  },
+  {
+    "viewport": "1440x900",
+    "test": "H-methodology-sweep",
+    "passed": true,
+    "checks": {
+      "Champion": true,
+      "Executive Buyer": true,
+      "MEDDIC": true,
+      "MEDDPICC": true,
+      "Economic Buyer": true,
+      "EB whole-word": true
+    }
+  },
+  {
+    "viewport": "1440x900",
+    "test": "I1-appendix-idx",
+    "passed": true,
+    "actual_idx": 13
+  },
+  {
+    "viewport": "1440x900",
+    "test": "I2-appendix-text",
+    "passed": true,
+    "section_text_excerpt": "APPENDIX · DISCOVERY FRAMEWORK\nTo bulletproof the business case,\nthis conversation has to validate\nwhat pre-meeting discovery alone cannot confirm.\n\nThis is the full discovery framework underlying an "
+  },
+  {
+    "viewport": "1440x900",
+    "test": "I3-esc-from-appendix",
+    "passed": true,
+    "actual_idx": 12
+  },
+  {
+    "viewport": "1440x900",
+    "test": "J-wheel-handler",
+    "passed": true,
+    "actual_idx": 1
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel3-current-state",
+    "panel_idx": 2,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel3-current-state_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel4-discovery",
+    "panel_idx": 3,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel4-discovery_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel5-demo",
+    "panel_idx": 4,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-demo_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel7-capacity",
+    "panel_idx": 6,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel7-capacity_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel9-itau",
+    "panel_idx": 8,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel9-itau_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel11-pilot",
+    "panel_idx": 10,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel11-pilot_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "A-overflow-panel12-mutual",
+    "panel_idx": 11,
+    "passed": true,
+    "measurement": {
+      "overflowsInner": 0,
+      "overflowsViewport": 0,
+      "innerScrollHeight": 800,
+      "innerClientHeight": 800,
+      "viewportH": 800
+    },
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel12-mutual_1280x800.png"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "B1-teaser-at-idx-8",
+    "passed": true,
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 5.1–11.0"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "B2-reveal-at-idx-9",
+    "passed": true,
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–18.0\ndeveloper days\nIllustrative scenario based on modeled assumptions"
+  },
+  {
+    "viewport": "1280x800",
+    "test": "C-itau-content",
+    "passed": true,
+    "checks": {
+      "Itaú": true,
+      "20–30% increase": true,
+      "15% improvement": true,
+      "25% reduction": true,
+      "5–6× faster": true,
+      "Factory workflow model": true,
+      "factory examples (>=4)": true,
+      "Gartner source label": true,
+      "Gartner href": true,
+      "governance language": true,
+      "illustrative disclaimer": true
+    }
+  },
+  {
+    "viewport": "1280x800",
+    "test": "D-panel7-capacity",
+    "passed": true,
+    "checks": {
+      "400 engineers": true,
+      "30% repetitive": true,
+      "120 engineering-equivalent": true,
+      "From repetitive execution": true,
+      "leverage statement (not replacing engineers)": true
+    }
+  },
+  {
+    "viewport": "1280x800",
+    "test": "E-panel4-discovery",
+    "passed": true,
+    "checks": {
+      "headline 'identified so far'": true,
+      "headline 'executive alignment'": true,
+      "exactly 3 alignment-area cards": true,
+      "exactly 2 detail questions in accordion": true,
+      "Capacity Constraints category": true,
+      "Governance Requirements category": true,
+      "Success Criteria category": true,
+      "Q1 wording": true
+    },
+    "strategic_count": 3,
+    "detail_count": 2
+  },
+  {
+    "viewport": "1280x800",
+    "test": "F-panel5-repodisclaimer",
+    "passed": true,
+    "checks": {
+      "Representative demonstration repository": true,
+      "No Intesa Sanpaolo source code": true,
+      "kushmirc/banking-modernization": true
+    }
+  },
+  {
+    "viewport": "1280x800",
+    "test": "G-mutual-and-final",
+    "passed": true,
+    "checks": {
+      "jointly governed validation initiative": true,
+      "Success depends not only on technical execution": true,
+      "Commercial alignment header": true,
+      "expanded deployment scope": true,
+      "governance validation": true,
+      "commercial go-live readiness": true
+    }
+  },
+  {
+    "viewport": "1280x800",
+    "test": "H-methodology-sweep",
+    "passed": true,
+    "checks": {
+      "Champion": true,
+      "Executive Buyer": true,
+      "MEDDIC": true,
+      "MEDDPICC": true,
+      "Economic Buyer": true,
+      "EB whole-word": true
+    }
+  },
+  {
+    "viewport": "1280x800",
+    "test": "I1-appendix-idx",
+    "passed": true,
+    "actual_idx": 13
+  },
+  {
+    "viewport": "1280x800",
+    "test": "I2-appendix-text",
+    "passed": true,
+    "section_text_excerpt": "APPENDIX · DISCOVERY FRAMEWORK\nTo bulletproof the business case,\nthis conversation has to validate\nwhat pre-meeting discovery alone cannot confirm.\n\nThis is the full discovery framework underlying an "
+  },
+  {
+    "viewport": "1280x800",
+    "test": "I3-esc-from-appendix",
+    "passed": true,
+    "actual_idx": 12
+  },
+  {
+    "viewport": "1280x800",
+    "test": "J-wheel-handler",
+    "passed": true,
+    "actual_idx": 1
+  }
+]
