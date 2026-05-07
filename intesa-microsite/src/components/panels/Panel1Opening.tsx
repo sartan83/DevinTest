@@ -17,7 +17,14 @@ export function Panel1Opening({ onCta }: Props) {
           <PanelHeadline text={p.headline} />
           <PanelSubhead>{p.subhead}</PanelSubhead>
 
-          <div className="mt-6 flex flex-wrap gap-3 sm:mt-10">
+          <div className="mt-6 inline-flex max-w-2xl items-start gap-3 rounded-2xl border border-brand-orange/30 bg-brand-orange/5 px-4 py-3 sm:mt-8 sm:px-5 sm:py-4">
+            <span aria-hidden className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
+            <p className="text-[13px] font-medium leading-relaxed text-brand-ivory/90 sm:text-base">
+              {p.framingLine}
+            </p>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
             {p.ctas.map((cta) => (
               <button
                 key={cta.label}

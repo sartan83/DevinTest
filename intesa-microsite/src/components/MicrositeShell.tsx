@@ -6,19 +6,21 @@ import { intesa } from "../data/intesa";
 import { ExecutiveCounter } from "./ExecutiveCounter";
 import { ProgressBar } from "./ProgressBar";
 import { Panel1Opening } from "./panels/Panel1Opening";
-import { Panel2Transformation } from "./panels/Panel2Transformation";
-import { Panel3Dora } from "./panels/Panel3Dora";
-import { Panel35Discovery } from "./panels/Panel35Discovery";
-import { Panel4WhereDevinFits } from "./panels/Panel4WhereDevinFits";
-import { Panel5UseCase } from "./panels/Panel5UseCase";
-import { Panel6ExecutiveValue } from "./panels/Panel6ExecutiveValue";
-import { Panel65RoiSignal } from "./panels/Panel65RoiSignal";
-import { Panel7CounterClimax } from "./panels/Panel7CounterClimax";
-import { Panel8Lighthouse } from "./panels/Panel8Lighthouse";
+import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
+import { Panel3CurrentState } from "./panels/Panel3CurrentState";
+import { Panel4ExecutiveDiscovery } from "./panels/Panel4ExecutiveDiscovery";
+import { Panel5BusinessImpact } from "./panels/Panel5BusinessImpact";
+import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
+import { Panel7TasksToOutcomes } from "./panels/Panel7TasksToOutcomes";
+import { Panel8RoiSignal } from "./panels/Panel8RoiSignal";
+import { Panel9CounterClimax } from "./panels/Panel9CounterClimax";
+import { Panel10Pilot } from "./panels/Panel10Pilot";
+import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
+import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 
-const TOTAL_PANELS = 10;
-// Render index of the counter climax panel (Panel 7 in the narrative, but the
-// 8th tile once 3.5 Discovery and 6.5 ROI signal are inserted).
+const TOTAL_PANELS = 12;
+// Render index of the counter climax panel ("Reclaimed capacity"), the 9th
+// tile in the 12-panel sequence (zero-indexed → 8).
 const CLIMAX_INDEX = 8;
 const MOBILE_MAX_WIDTH = 767;
 
@@ -146,11 +148,10 @@ export function MicrositeShell() {
           break;
       }
     };
-    const el = scrollerRef.current;
     window.addEventListener("keydown", handler);
-    // Give the scroller focus so key events land somewhere sensible on first load
-    // (covers embedded / iframe preview contexts where body may not initially have focus).
-    if (el && typeof document !== "undefined" && document.activeElement === document.body) {
+    // Make the scroller focusable on mount so keys "just work" without clicking.
+    const el = scrollerRef.current;
+    if (el && document.activeElement === document.body) {
       el.focus({ preventScroll: true });
     }
     return () => {
@@ -288,15 +289,17 @@ export function MicrositeShell() {
           }
         >
           <Panel1Opening onCta={(target) => goTo(target - 1)} />
-          <Panel2Transformation />
-          <Panel3Dora />
-          <Panel35Discovery />
-          <Panel4WhereDevinFits />
-          <Panel5UseCase />
-          <Panel6ExecutiveValue />
-          <Panel65RoiSignal />
-          <Panel7CounterClimax min={counterValue.min} max={counterValue.max} />
-          <Panel8Lighthouse />
+          <Panel2ExecutionGap />
+          <Panel3CurrentState />
+          <Panel4ExecutiveDiscovery />
+          <Panel5BusinessImpact />
+          <Panel6EnterpriseTrust />
+          <Panel7TasksToOutcomes />
+          <Panel8RoiSignal />
+          <Panel9CounterClimax min={counterValue.min} max={counterValue.max} />
+          <Panel10Pilot />
+          <Panel11MutualCommitment />
+          <Panel12FinalAsk onCta={(target) => goTo(target - 1)} />
         </div>
       </div>
 

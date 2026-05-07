@@ -13,8 +13,8 @@ function format(n: number) {
   return Math.round(n).toLocaleString("en-GB");
 }
 
-export function Panel7CounterClimax({ min, max }: Props) {
-  const p = intesa.panel7;
+export function Panel9CounterClimax({ min, max }: Props) {
+  const p = intesa.panel9;
   const finalMin = Math.max(min, intesa.counter.finalRange.min);
   const finalMax = Math.max(max, intesa.counter.finalRange.max);
 

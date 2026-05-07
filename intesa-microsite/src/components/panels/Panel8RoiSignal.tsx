@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { intesa } from "../../data/intesa";
 import { PanelShell, PanelHeadline, PanelSubhead } from "../PanelShell";
 
-export function Panel65RoiSignal() {
-  const p = intesa.panel65;
+export function Panel8RoiSignal() {
+  const p = intesa.panel8;
   return (
     <PanelShell eyebrow={p.eyebrow}>
       <div className="flex flex-col gap-8 sm:gap-10">
@@ -101,25 +101,27 @@ export function Panel65RoiSignal() {
               </dl>
 
               <p className="mt-5 text-[11px] leading-relaxed text-brand-ivory/55">{s.footnote}</p>
-              <div className="pointer-events-none absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-brand-orange/5 blur-3xl" />
             </motion.div>
           ))}
         </div>
 
-        <div className="rounded-lg border-l-2 border-brand-orange/50 bg-brand-green-mid/20 px-4 py-3 text-[11px] italic leading-relaxed text-brand-ivory/65 sm:text-xs">
-          {p.safetyMarginNote}
-        </div>
-
-        <div className="flex flex-col gap-2 text-[10px] leading-relaxed text-brand-ivory/45 sm:text-[11px]">
-          {p.sources.map((s) => (
-            <div key={s} className="flex gap-2">
-              <span aria-hidden className="text-brand-ivory/30">
-                ·
-              </span>
-              <span>{s}</span>
-            </div>
-          ))}
-          <div className="mt-1 text-brand-ivory/35">{p.disclaimer}</div>
+        <div className="flex flex-col gap-3 text-[11px] leading-relaxed text-brand-ivory/55 sm:text-xs">
+          <p className="rounded-lg border border-brand-ivory/10 bg-brand-green-deep/40 px-4 py-3">
+            <span className="uppercase tracking-[0.22em] text-brand-ivory/45">
+              Safety margin ·{" "}
+            </span>
+            {p.safetyMarginNote}
+          </p>
+          <ul className="grid gap-1 px-1 sm:grid-cols-3 sm:gap-3">
+            {p.sources.map((s) => (
+              <li key={s} className="text-[10px] leading-snug text-brand-ivory/45 sm:text-[11px]">
+                · {s}
+              </li>
+            ))}
+          </ul>
+          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/40">
+            {p.disclaimer}
+          </p>
         </div>
       </div>
     </PanelShell>

@@ -4,6 +4,10 @@
  * All figures are public-reference or illustrative modeling assumptions
  * intended to frame a strategic conversation. Nothing here should be read
  * as a commitment, benchmark, or guarantee of outcome.
+ *
+ * Audience: Intesa Sanpaolo Executive Buyer (EB) — not a developer-tool demo.
+ * Narrative: "Intesa is not facing a technology problem. It is facing an
+ * execution scalability problem."
  */
 
 export type KpiCard = {
@@ -21,17 +25,34 @@ export type LabeledCard = {
   tag?: string;
 };
 
-export type DiscoveryPersona = "CIO" | "CTO" | "COO" | "Risk";
-
-export type DiscoveryQuestion = {
-  q: string;
-  followUps: string[];
+export type ExecutionGapRow = {
+  ambition: string;
+  reality: string;
 };
 
+export type DiscoveryBlockKey =
+  | "engineering-economics"
+  | "governance-security"
+  | "strategic-priorities"
+  | "success-criteria";
+
 export type DiscoveryBlock = {
-  persona: DiscoveryPersona;
+  key: DiscoveryBlockKey;
+  label: string;
   headline: string;
-  questions: DiscoveryQuestion[];
+  listening: string;
+  questions: string[];
+};
+
+export type WalkthroughStep = {
+  index: number;
+  title: string;
+  body: string;
+};
+
+export type BusinessOutcomeRow = {
+  technical: string;
+  outcome: string;
 };
 
 export type CounterStep = {
@@ -47,52 +68,61 @@ export const intesa = {
     partner: "Devin / Cognition",
     sessionLabel: "Executive briefing — 60 minutes",
     thesis:
-      "Intesa has already chosen the direction. The opportunity now is controlled execution at scale.",
+      "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
   },
 
-  // Logical index (0..9) → displayed label. 3.5 (Discovery) and 6.5 (ROI signal)
-  // are interstitials that reshape the narrative arc without breaking the 1–8 spine.
+  // 12 sequential panels. The narrative arc is: position the problem, validate
+  // discovery, show the work, frame trust, bridge to value, quantify, climax,
+  // commit to a 4-week pilot, and close on an executive ask.
   nav: [
     { index: 0, label: "1", full: "Opening" },
-    { index: 1, label: "2", full: "Context" },
-    { index: 2, label: "3", full: "Governance" },
-    { index: 3, label: "3.5", full: "Discovery" },
-    { index: 4, label: "4", full: "Where Devin fits" },
-    { index: 5, label: "5", full: "Use case" },
-    { index: 6, label: "6", full: "Executive value" },
-    { index: 7, label: "6.5", full: "ROI signal" },
-    { index: 8, label: "7", full: "Reclaimed capacity" },
-    { index: 9, label: "8", full: "Lighthouse" },
+    { index: 1, label: "2", full: "Execution gap" },
+    { index: 2, label: "3", full: "Current state" },
+    { index: 3, label: "4", full: "Executive discovery" },
+    { index: 4, label: "5", full: "Business impact" },
+    { index: 5, label: "6", full: "Enterprise trust" },
+    { index: 6, label: "7", full: "From tasks to outcomes" },
+    { index: 7, label: "8", full: "ROI signal" },
+    { index: 8, label: "9", full: "Reclaimed capacity" },
+    { index: 9, label: "10", full: "4-week pilot" },
+    { index: 10, label: "11", full: "Mutual commitment" },
+    { index: 11, label: "12", full: "Aligned to move" },
   ],
 
   counter: {
-    label: "Modeled engineering capacity during this session",
-    shortLabel: "Capacity this session",
+    label: "Modeled execution capacity reclaimed during this session",
+    shortLabel: "Capacity reclaimed",
     disclaimer: "Illustrative scenario based on modeled assumptions",
     unit: "developer days",
     finalRange: { min: 8, max: 18 },
     // Steps accumulate per visited panel (1-indexed → maps to render index panel-1).
-    // Sum across all steps ≈ 8–18 dev days.
+    // Sum across all 12 panels ≈ 8–18 dev days.
     steps: [
-      { panel: 1, addMin: 0.4, addMax: 0.9, note: "Framing engagement" },
-      { panel: 2, addMin: 0.8, addMax: 1.6, note: "Context of execution friction" },
-      { panel: 3, addMin: 1.1, addMax: 2.2, note: "Governance envelope defined" },
-      { panel: 4, addMin: 1.2, addMax: 2.4, note: "Discovery signals" },
-      { panel: 5, addMin: 1.4, addMax: 3.0, note: "Execution surface mapped" },
-      { panel: 6, addMin: 1.6, addMax: 3.4, note: "Modernization use case" },
-      { panel: 7, addMin: 0.7, addMax: 1.5, note: "Value framing" },
-      { panel: 8, addMin: 0.5, addMax: 1.5, note: "ROI signal at Intesa scale" },
-      { panel: 9, addMin: 0.3, addMax: 1.5, note: "Climax consolidation" },
-      { panel: 10, addMin: 0.0, addMax: 0.0, note: "Lighthouse plan" },
+      { panel: 1, addMin: 0.4, addMax: 0.8, note: "Framing engagement" },
+      { panel: 2, addMin: 0.7, addMax: 1.4, note: "Naming the execution gap" },
+      { panel: 3, addMin: 0.8, addMax: 1.6, note: "Current state pressure mapped" },
+      { panel: 4, addMin: 1.1, addMax: 2.2, note: "Executive discovery validated" },
+      { panel: 5, addMin: 1.0, addMax: 2.0, note: "Business impact walkthrough" },
+      { panel: 6, addMin: 0.6, addMax: 1.4, note: "Enterprise trust envelope" },
+      { panel: 7, addMin: 0.8, addMax: 1.8, note: "Tech → business outcomes bridged" },
+      { panel: 8, addMin: 1.0, addMax: 2.4, note: "ROI signal at Intesa scale" },
+      { panel: 9, addMin: 0.6, addMax: 1.4, note: "Climax consolidation" },
+      { panel: 10, addMin: 0.5, addMax: 1.5, note: "Pilot structure agreed" },
+      { panel: 11, addMin: 0.3, addMax: 0.8, note: "Mutual commitment captured" },
+      { panel: 12, addMin: 0.2, addMax: 0.7, note: "Closing alignment" },
     ] as CounterStep[],
   },
 
+  // -------------------------------------------------------------------------
+  // PANEL 1 — Opening / Hero
+  // -------------------------------------------------------------------------
   panel1: {
     eyebrow: "Opening",
-    headline:
-      "Intesa has already chosen the direction.\nThe opportunity now is execution.",
+    headline: "Scaling Engineering Execution\nfor Intesa Sanpaolo.",
     subhead:
-      "The tech transformation is already funded, staffed, and underway. The constraint is how fast engineering can keep moving at this scale — without bending governance.",
+      "Devin helps software-intensive financial institutions accelerate modernization, reduce repetitive engineering effort, and increase delivery capacity — without linearly increasing headcount.",
+    framingLine:
+      "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
     kpis: [
       {
         value: "€5.6B",
@@ -129,15 +159,281 @@ export const intesa = {
     sourcesLine:
       "Sources: Intesa Sanpaolo investor materials & press (2022–2026) · Proverbio interview, Il Sole 24 Ore, Feb 2026 · Piano di Impresa 2026–2029 · Revelio Labs workforce intelligence (Sep 2025)",
     ctas: [
-      // `target` is 1-indexed into the rendered panel array. Panel8Lighthouse
-      // sits at render index 9 (10th panel) once Discovery (3.5) and ROI
-      // signal (6.5) are inserted.
       { label: "Start the discussion", target: 2, primary: true },
-      { label: "Open lighthouse", target: 10, primary: false },
+      { label: "Open 4-week pilot", target: 10, primary: false },
     ],
   },
 
-  panel65: {
+  // -------------------------------------------------------------------------
+  // PANEL 2 — The Execution Gap
+  // -------------------------------------------------------------------------
+  panel2: {
+    eyebrow: "The execution gap",
+    headline:
+      "Strategic ambition is clear.\nThe constraint is scalable engineering execution.",
+    subhead:
+      "Where the published direction meets the day-to-day reality of running thousands of services, hundreds of squads, and a regulated change envelope.",
+    rows: [
+      {
+        ambition: "Cloud and core modernization",
+        reality: "Limited senior engineering bandwidth",
+      },
+      {
+        ambition: "Faster digital delivery",
+        reality: "Governance and release bottlenecks",
+      },
+      {
+        ambition: "AI-enabled transformation",
+        reality: "Fragmented engineering workflows",
+      },
+      {
+        ambition: "Resilient banking platforms",
+        reality: "Legacy dependency burden",
+      },
+      {
+        ambition: "Regulatory readiness",
+        reality: "Manual validation and documentation effort",
+      },
+    ] as ExecutionGapRow[],
+    closing:
+      "The business risk is not only slower technology delivery. It is delayed execution of board-visible transformation priorities.",
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 3 — Current State / Problem statement
+  // -------------------------------------------------------------------------
+  panel3: {
+    eyebrow: "Current state",
+    headline:
+      "The cost of every quarter\nis paid in scarce senior capacity.",
+    subhead:
+      "The work is not invisible. It is structurally trapped — necessary, regulated, and routinely deprioritized in favor of board-visible programs.",
+    cards: [
+      {
+        title: "Modernization backlog compounding",
+        body: "Each quarter adds modernization tickets faster than the estate retires them. The compounding effect quietly extends every transformation timeline.",
+        tag: "Backlog",
+      },
+      {
+        title: "Senior engineers trapped in repetitive work",
+        body: "Migration, refactoring, test remediation and dependency upgrades absorb the most experienced capacity — exactly the capacity needed for differentiation.",
+        tag: "Capacity",
+      },
+      {
+        title: "Critical initiatives compete with operational backlog",
+        body: "Board-visible programs share the same teams as operational maintenance. Prioritization meetings replace delivery hours.",
+        tag: "Prioritization",
+      },
+      {
+        title: "Legacy dependency risk",
+        body: "EOL frameworks, deprecated libraries, and outdated runtimes accumulate as security and resilience exposures across the estate.",
+        tag: "Risk",
+      },
+      {
+        title: "Delivery delays on digital banking priorities",
+        body: "Engineering capacity constraints translate directly into slipped commitments on customer-facing digital programs.",
+        tag: "Delivery",
+      },
+      {
+        title: "Higher cost of change",
+        body: "Manual validation, manual documentation, manual evidence for governance — every change costs more engineering hours than the change itself.",
+        tag: "Cost",
+      },
+    ] as LabeledCard[],
+    closing: "Execution friction is structural — and it is paid in senior capacity.",
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 4 — Executive Discovery Required
+  // -------------------------------------------------------------------------
+  panel4: {
+    eyebrow: "Executive discovery required",
+    headline:
+      "To bulletproof the business case,\nthe first EB meeting must validate\nwhat the Champion alone cannot confirm.",
+    transition:
+      "The pilot should not be positioned as a sandbox experiment. It should be structured as a controlled entry point to broader engineering transformation.",
+    blocks: [
+      {
+        key: "engineering-economics",
+        label: "Engineering economics",
+        headline: "Where engineering hours actually go.",
+        listening:
+          "What I'm listening for: a credible split of maintenance vs. innovation capacity, and where the estate is paying scarce senior time for repetitive execution.",
+        questions: [
+          "What is the current cost and effort of modernization streams?",
+          "What percentage of engineering capacity is spent on maintenance vs. innovation?",
+          "Where are senior engineers spending time on repetitive work?",
+          "What is the internal vs. external engineering mix?",
+        ],
+      },
+      {
+        key: "governance-security",
+        label: "Governance & security",
+        headline: "What the control envelope must look like.",
+        listening:
+          "What I'm listening for: which controls are non-negotiable, which approval flows must wrap any AI-assisted execution, and what deployment topology unlocks security review.",
+        questions: [
+          "What are the AI policy requirements for software delivery?",
+          "Is VPC, private deployment, or on-prem validation required?",
+          "What level of auditability and traceability is expected?",
+          "Who must approve autonomous AI workflows?",
+        ],
+      },
+      {
+        key: "strategic-priorities",
+        label: "Strategic priorities",
+        headline: "Where faster execution would compound.",
+        listening:
+          "What I'm listening for: which programs are board-visible, which are constrained by engineering capacity, and where unlocking throughput would change a quarter, not a sprint.",
+        questions: [
+          "Which modernization programs are most board-visible?",
+          "Which initiatives are delayed due to engineering capacity constraints?",
+          "Where would faster execution create the highest business impact?",
+          "Which business units would benefit first?",
+        ],
+      },
+      {
+        key: "success-criteria",
+        label: "Success criteria & commitment",
+        headline: "What a green pilot must look like to scale.",
+        listening:
+          "What I'm listening for: KPIs that the EB would defend in front of the board, and the procurement / governance steps that would have to start moving before week 4.",
+        questions: [
+          "What KPIs would justify broader deployment?",
+          "Who needs to be involved in the pilot steering committee?",
+          "If value is proven, what procurement or governance steps are required?",
+          "What timeline would Intesa commit to after a successful pilot?",
+        ],
+      },
+    ] as DiscoveryBlock[],
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 5 — Devin Preview: Business Impact Walkthrough
+  // -------------------------------------------------------------------------
+  panel5: {
+    eyebrow: "Devin preview",
+    headline: "Business impact walkthrough.",
+    useCase:
+      "Legacy modernization and test acceleration for a strategic banking application.",
+    subhead:
+      "Not a feature tour. A walkthrough of how scoped engineering work moves from intent to a reviewable, auditable outcome — inside an enterprise control envelope.",
+    steps: [
+      {
+        index: 1,
+        title: "Understand the modernization scope",
+        body: "Devin analyzes the repository, dependencies, deprecated libraries, test coverage, and migration risks.",
+      },
+      {
+        index: 2,
+        title: "Plan the work autonomously",
+        body: "Devin creates an execution plan, identifies impacted files, and proposes a safe modernization path.",
+      },
+      {
+        index: 3,
+        title: "Execute with governance",
+        body: "Devin refactors code, upgrades dependencies, adds or improves tests, and prepares a reviewable pull request.",
+      },
+      {
+        index: 4,
+        title: "Document for auditability",
+        body: "Devin produces clear change rationale, testing evidence, PR documentation, and traceability for engineering and governance stakeholders.",
+      },
+    ] as WalkthroughStep[],
+    valueStatements: [
+      "This is not about replacing engineers. It is about increasing execution capacity without linearly increasing headcount.",
+      "For Intesa, the value is not only faster code delivery. It is safer, more auditable modernization at enterprise scale.",
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 6 — Built for Enterprise Trust
+  // -------------------------------------------------------------------------
+  panel6: {
+    eyebrow: "Built for enterprise trust",
+    headline:
+      "Acceleration that survives\nbanking governance and security review.",
+    subhead:
+      "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
+    pillars: [
+      {
+        title: "Isolated VM per Devin session",
+        body: "Each session runs in a customer-dedicated, single-tenant environment. No cross-tenant data exposure.",
+        tag: "Isolation",
+      },
+      {
+        title: "Reproducible execution environment",
+        body: "Pinned dependencies and versioned environments. Re-runs produce comparable, reviewable outputs.",
+        tag: "Reproducibility",
+      },
+      {
+        title: "Human approval workflow",
+        body: "No production change without your gates. AI proposes; engineering and governance approve.",
+        tag: "Human-in-the-loop",
+      },
+      {
+        title: "Clear PR review process",
+        body: "Every output is a reviewable pull request inside your existing review tooling — not a black-box action.",
+        tag: "Reviewable",
+      },
+      {
+        title: "Audit-friendly documentation",
+        body: "Change rationale, test evidence, and decision trail captured per task, ready for audit and DORA-aligned ICT processes.",
+        tag: "Auditability",
+      },
+      {
+        title: "Enterprise security review compatibility",
+        body: "Designed to be evaluated through standard third-party risk and security review processes.",
+        tag: "Compatibility",
+      },
+      {
+        title: "VPC / private deployment posture",
+        body: "Supports private connectivity (PrivateLink / IPSec) and VPC-style deployment review for regulated environments.",
+        tag: "Deployment",
+      },
+    ] as LabeledCard[],
+    closing: "Trust is not added at the end. It is the operating envelope.",
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 7 — From Engineering Tasks to Business Outcomes
+  // -------------------------------------------------------------------------
+  panel7: {
+    eyebrow: "Value bridge",
+    headline:
+      "From engineering tasks\nto business outcomes.",
+    subhead:
+      "The economic case is not built on lines of code or seats. It is built on what scarce senior capacity stops doing — and what it starts doing instead.",
+    rows: [
+      {
+        technical: "Automated dependency analysis",
+        outcome: "Faster modernization assessment",
+      },
+      {
+        technical: "Test generation and improvement",
+        outcome: "Lower delivery risk",
+      },
+      {
+        technical: "Refactoring support",
+        outcome: "Reduced manual engineering effort",
+      },
+      {
+        technical: "PR documentation",
+        outcome: "Stronger governance and auditability",
+      },
+      {
+        technical: "Autonomous task execution",
+        outcome: "More delivery capacity without proportional headcount growth",
+      },
+    ] as BusinessOutcomeRow[],
+    closing:
+      "The economic case is built on redeploying scarce senior engineering capacity from repetitive execution work to strategic transformation.",
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 8 — ROI Signal (€€€ math, separated from value bridge)
+  // -------------------------------------------------------------------------
+  panel8: {
     eyebrow: "ROI signal — annualized, at Intesa scale",
     headline: "Even with a safety margin,\nthe math is disruptive.",
     subhead:
@@ -161,7 +457,8 @@ export const intesa = {
         adoptionPct: 50,
         reclaimedDevDays: "~13,600",
         reclaimedEur: "~€5.9M",
-        footnote: "Uplift cut from McKinsey 20–45% floor to 15%. Rollout limited to 50%.",
+        footnote:
+          "Uplift cut from McKinsey 20–45% floor to 15%. Rollout limited to 50%.",
       },
       {
         key: "realistic",
@@ -172,7 +469,8 @@ export const intesa = {
         adoptionPct: 80,
         reclaimedDevDays: "~43,500",
         reclaimedEur: "~€18.8M",
-        footnote: "Uplift kept at the middle of McKinsey 20–45% band. Rollout at Gartner 2028 trajectory, discounted.",
+        footnote:
+          "Uplift kept at the middle of McKinsey 20–45% band. Rollout at Gartner 2028 trajectory, discounted.",
       },
     ],
     headlineRange: {
@@ -180,7 +478,7 @@ export const intesa = {
       devDays: "~14k–44k developer-days / year",
     },
     safetyMarginNote:
-      "Safety margin applied: productivity uplift capped below the McKinsey 20–45% band; rollout factor below the Gartner 2028 trajectory; applicable-work share tied to the four surfaces defined on Panel 6.",
+      "Safety margin applied: productivity uplift capped below the McKinsey 20–45% band; rollout factor below the Gartner 2028 trajectory; applicable-work share tied to the four surfaces defined on Panel 5.",
     sources: [
       "Gartner, Apr 2024 — 75% of enterprise software engineers will use AI code assistants by 2028, up from <10% in early 2023.",
       "McKinsey, Jun 2023 — The economic potential of generative AI: software engineering task-level productivity gain ≈ 20–45%.",
@@ -190,286 +488,125 @@ export const intesa = {
       "Illustrative model, not a commitment. Figures are scenario-level estimates intended to frame a strategic conversation.",
   },
 
-  panel2: {
-    eyebrow: "Transformation context",
-    headline: "The strategy exists.\nExecution is the constraint.",
-    body:
-      "At Intesa's scale, transformation is not about direction. It is about managing execution across thousands of services, dependencies, and engineering tasks.",
-    cards: [
-      {
-        title: "Cloud expansion",
-        body: "Application estate continues to migrate. Each wave carries coupling and integration work.",
-      },
-      {
-        title: "Digital banking scale",
-        body: "Millions of daily interactions, with zero tolerance for regressions.",
-      },
-      {
-        title: "AI adoption",
-        body: "Dozens of use cases already in production — each requires maintained, well-tested code.",
-      },
-      {
-        title: "Efficiency pressure",
-        body: "Cost-to-income targets require engineering output to rise without headcount expansion.",
-      },
-      {
-        title: "Engineering complexity",
-        body: "Java / .NET / mainframe coexist with modern stacks. Dependencies compound.",
-      },
-    ] as LabeledCard[],
-    closing: "Execution friction becomes structural.",
-  },
-
-  panel3: {
-    eyebrow: "DORA-aware operating model",
-    headline: "Speed must increase.\nControl cannot decrease.",
-    body:
-      "In a regulated environment, acceleration must operate inside governance. Devin is designed to support a DORA-aligned operating model — not to sit outside it.",
-    cards: [
-      {
-        title: "Controlled change",
-        body: "Reviewable outputs aligned to approval flows. Nothing reaches production without your gates.",
-        tag: "Human-in-the-loop",
-      },
-      {
-        title: "Traceability",
-        body: "Versioned, auditable work. Every action, every diff, every decision is logged.",
-        tag: "Auditability",
-      },
-      {
-        title: "Isolated deployment",
-        body: "Customer-dedicated isolated environment, single-tenant, with private connectivity (PrivateLink / IPSec).",
-        tag: "Single-tenant",
-      },
-      {
-        title: "Risk governance",
-        body: "Structured third-party integration. Supports a DORA-aligned operating model across ICT risk processes.",
-        tag: "Review gates",
-      },
-    ] as LabeledCard[],
-    closing: "Devin operates within control frameworks, not outside them.",
-  },
-
-  panel35: {
-    eyebrow: "Where reality bends",
-    headline: "The same constraint looks different from every seat.",
-    bottomLine: "Acceleration only matters if aligned to your reality.",
-    personas: [
-      {
-        persona: "CIO",
-        headline: "Where announced direction meets actual pace",
-        questions: [
-          {
-            q: "Where is the gap widest between your announced cloud/AI direction and the pace teams can actually execute?",
-            followUps: [
-              "Is the rate-limiting step hiring, platform readiness, or governance?",
-            ],
-          },
-          {
-            q: "Of the engineering capacity you have today, how much compounds vs. keeps the lights on?",
-            followUps: [
-              "What would move that ratio by 10 points in 90 days?",
-            ],
-          },
-        ],
-      },
-      {
-        persona: "CTO",
-        headline: "Where the backlog actually lives",
-        questions: [
-          {
-            q: "If we sampled 100 open engineering tickets across the estate, what share is modernization, upgrades, test debt, docs?",
-            followUps: [
-              "Which of those categories has the clearest ROI per engineer-hour?",
-            ],
-          },
-          {
-            q: "How long is an intent → PR-ready cycle for a typical modernization task today?",
-            followUps: [
-              "Where in that cycle does time leak — discovery, implementation, or review?",
-            ],
-          },
-        ],
-      },
-      {
-        persona: "COO",
-        headline: "Where predictability breaks",
-        questions: [
-          {
-            q: "What share of quarterly engineering commitments lands on the committed date?",
-            followUps: [
-              "When they slip, is it scope, capacity, or integration risk?",
-            ],
-          },
-          {
-            q: "Where do you lack the data to challenge engineering estimates in real time?",
-            followUps: [
-              "What decision would a live delivery signal unlock?",
-            ],
-          },
-        ],
-      },
-      {
-        persona: "Risk",
-        headline: "Where control must not bend",
-        questions: [
-          {
-            q: "Which evidence do auditors ask for most often, and how long does engineering take to produce it?",
-            followUps: [
-              "If change volume doubled, which of those controls would bend first?",
-            ],
-          },
-          {
-            q: "What would need to be true for a 2× increase in change volume to be approved?",
-            followUps: [
-              "Is the blocker policy, tooling, or evidence?",
-            ],
-          },
-        ],
-      },
-    ] as DiscoveryBlock[],
-  },
-
-  panel4: {
-    eyebrow: "Where Devin fits",
-    headline: "Where execution slows today",
-    subhead:
-      "Four surfaces where engineering intent is clear, but throughput is structurally constrained.",
-    modules: [
-      {
-        title: "Modernization",
-        body: "Legacy Java and .NET estates carrying the weight of digital channels. Refactors planned, rarely finished.",
-        tag: "Structural",
-      },
-      {
-        title: "Test remediation",
-        body: "Coverage drifts as services evolve. Flaky suites quietly become release risks.",
-        tag: "Quality",
-      },
-      {
-        title: "Dependency upgrades",
-        body: "Security patches, framework bumps, EOL migrations. High volume, low glamour, always pending.",
-        tag: "Resilience",
-      },
-      {
-        title: "Documentation",
-        body: "System knowledge trapped in individuals. Auditable documentation is a constant catch-up exercise.",
-        tag: "Auditability",
-      },
-    ] as LabeledCard[],
-    closing: "Necessary work that moves too slowly.",
-  },
-
-  panel5: {
-    eyebrow: "Use case",
-    headline: "Controlled modernization at scale",
-    scenarioTitle: "Java / .NET services powering digital channels",
-    scenarioBody:
-      "A representative scenario: a portfolio of customer-facing services with overlapping modernization debt, aging test suites, and overdue dependency upgrades.",
-    before: {
-      title: "Before",
-      points: [
-        "Fragmented work across squads",
-        "Slow modernization cycles",
-        "Outdated and flaky test suites",
-        "Release windows repeatedly delayed",
-      ],
-    },
-    after: {
-      title: "With Devin",
-      points: [
-        "Parallel execution across services",
-        "Structured, reviewable outputs",
-        "Refreshed and consistent tests",
-        "Release readiness reached sooner",
-      ],
-    },
-    workflow: [
-      "Task intake",
-      "Breakdown",
-      "Parallel work",
-      "Validation",
-      "Human review",
-      "PR",
-    ],
-    closing: "Acceleration inside controlled flows.",
-  },
-
-  panel6: {
-    eyebrow: "Executive value",
-    headline: "Unlocking trapped capacity",
-    subhead:
-      "The same engineering intent, delivered with more throughput and the same — or stronger — control posture.",
-    cards: [
-      {
-        role: "CIO",
-        metric: "Throughput",
-        body: "More work delivered across the same portfolio, without expanding headcount.",
-      },
-      {
-        role: "CTO",
-        metric: "Velocity",
-        body: "Shorter cycles from intent to PR. Backlog composition shifts from maintenance to differentiation.",
-      },
-      {
-        role: "COO",
-        metric: "Efficiency",
-        body: "Predictable delivery, lower rework, measurable reduction in structural inefficiencies.",
-      },
-      {
-        role: "Risk",
-        metric: "Control",
-        body: "Auditable trail, human-in-the-loop review gates, isolated deployment footprint.",
-      },
-    ],
-  },
-
-  panel7: {
+  // -------------------------------------------------------------------------
+  // PANEL 9 — Counter Climax (reveal of the session counter)
+  // -------------------------------------------------------------------------
+  panel9: {
     eyebrow: "Reclaimed capacity",
     headlinePrefix: "During this discussion,",
     headlineSuffix: "could already be reclaimed.",
     sub: "Illustrative scenario based on modeled assumptions.",
-    closing:
-      "The constraint is not strategy.\nIt is execution capacity.",
+    closing: "The constraint is not strategy.\nIt is execution capacity.",
   },
 
-  panel8: {
-    eyebrow: "Lighthouse",
-    headline: "Start with a 30-day lighthouse",
+  // -------------------------------------------------------------------------
+  // PANEL 10 — 4-Week Pilot + Success Metrics
+  // -------------------------------------------------------------------------
+  panel10: {
+    eyebrow: "4-week pilot",
+    headline:
+      "From controlled validation\nto a go-live decision.",
     subhead:
-      "A focused, low-risk engagement inside your governance envelope. Outcomes, not slides.",
+      "Outcomes, not slides. A bounded, governance-friendly entry point engineered to end with a decision — not another evaluation cycle.",
     weeks: [
       {
         week: 1,
-        title: "Scope",
-        body: "Select a bounded workstream — a small portfolio of services or a modernization theme — with clear acceptance criteria.",
+        title: "Alignment & setup",
+        items: [
+          "Select one scoped modernization use case",
+          "Confirm repository access and security requirements",
+          "Define baseline metrics",
+          "Align executive sponsor, engineering lead, security, and procurement stakeholders",
+        ],
       },
       {
         week: 2,
-        title: "First tasks",
-        body: "Devin executes the first structured tasks inside the customer-dedicated environment. Every output reviewed.",
+        title: "First execution sprint",
+        items: [
+          "Devin performs repository analysis",
+          "Devin executes first scoped modernization / refactoring / testing tasks",
+          "Track effort, quality, and review cycle metrics",
+        ],
       },
       {
         week: 3,
-        title: "Scale",
-        body: "Parallelization across additional tasks. Throughput measured against baseline.",
+        title: "Expanded validation",
+        items: [
+          "Increase task complexity",
+          "Validate repeatability across similar workstreams",
+          "Review governance, auditability, and developer acceptance",
+        ],
       },
       {
         week: 4,
-        title: "Readout",
-        body: "Executive readout with KPIs, evidence, and a decision-grade recommendation on scale-up.",
+        title: "Executive value review",
+        items: [
+          "Compare pilot KPIs against baseline",
+          "Quantify engineering capacity unlocked",
+          "Validate scale-out use cases",
+          "Agree go-live roadmap and commercial next steps",
+        ],
       },
     ],
+    kpisTitle: "Pilot success metrics",
     kpis: [
-      { value: "Cycle time", label: "Intent → PR" },
-      { value: "Throughput", label: "Tasks completed / week" },
-      { value: "Test coverage", label: "Delta vs. baseline" },
-      { value: "Documentation", label: "Coverage vs. inventory" },
-      { value: "Hours saved", label: "Illustrative, modeled" },
+      "Reduction in modernization cycle time",
+      "Engineering hours saved or redeployed",
+      "Number of reviewable PRs completed",
+      "Test coverage improvement",
+      "Reduction in manual QA or documentation effort",
+      "Developer acceptance rate",
+      "Governance and security validation completed",
+      "Executive decision on scale-out timeline",
     ],
-    ctas: [
-      { label: "Simulate lighthouse", kind: "primary" as const },
-      { label: "Download summary", kind: "secondary" as const },
+    kpiNote:
+      "Vanity metrics like raw lines of code are intentionally excluded — what counts is reclaimed senior capacity and a decision-grade evidence base.",
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 11 — Mutual Commitment
+  // -------------------------------------------------------------------------
+  panel11: {
+    eyebrow: "Mutual commitment",
+    headline:
+      "A successful pilot should not end\nwith another evaluation.\nIt should end with a go-live decision.",
+    intesa: {
+      title: "Intesa Sanpaolo commitment",
+      items: [
+        "Provide scoped repository access",
+        "Nominate executive sponsor",
+        "Assign engineering lead and security contact",
+        "Confirm success metrics before pilot start",
+        "Join weekly value reviews",
+        "Define go-live decision process before pilot begins",
+      ],
+    },
+    cognition: {
+      title: "Cognition commitment",
+      items: [
+        "Support secure pilot setup",
+        "Provide onboarding and best practices",
+        "Track agreed KPIs",
+        "Support weekly value reviews",
+        "Deliver executive pilot readout",
+        "Recommend scale-out roadmap after validation",
+      ],
+    },
+  },
+
+  // -------------------------------------------------------------------------
+  // PANEL 12 — Final Executive Ask
+  // -------------------------------------------------------------------------
+  panel12: {
+    eyebrow: "Final executive ask",
+    headline: "If value is proven,\nare we aligned to move?",
+    body: "If Devin validates measurable impact during the 4-week pilot, the next step should be a defined scale-out roadmap across priority modernization and engineering execution workstreams.",
+    question:
+      "Assuming we jointly validate measurable impact during the pilot, what would need to happen internally at Intesa Sanpaolo to support broader deployment?",
+    nextSteps: [
+      "Confirm executive sponsor",
+      "Agree pilot success metrics",
+      "Define post-pilot go-live timeline",
     ],
   },
 };
