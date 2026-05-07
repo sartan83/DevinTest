@@ -6,7 +6,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 9.819999831961468e-05,
+      "overflowsViewport": 0,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -253,7 +253,9 @@
       "no 'Commercial alignment' label leakage": true,
       "expanded deployment scope": true,
       "governance validation": true,
-      "commercial go-live readiness": true
+      "commercial go-live readiness": true,
+      "executive ownership next-step": true,
+      "no 'executive sponsor' leakage in P13": true
     }
   },
   {
@@ -266,7 +268,11 @@
       "MEDDIC": true,
       "MEDDPICC": true,
       "Economic Buyer": true,
-      "EB whole-word": true
+      "EB whole-word": true,
+      "Executive Sponsor (renamed -> ownership)": true,
+      "Buy-in / Buy in": true,
+      "Closing Question label": true,
+      "Commitment Discussion label": true
     }
   },
   {
@@ -620,7 +626,9 @@
       "no 'Commercial alignment' label leakage": true,
       "expanded deployment scope": true,
       "governance validation": true,
-      "commercial go-live readiness": true
+      "commercial go-live readiness": true,
+      "executive ownership next-step": true,
+      "no 'executive sponsor' leakage in P13": true
     }
   },
   {
@@ -633,7 +641,11 @@
       "MEDDIC": true,
       "MEDDPICC": true,
       "Economic Buyer": true,
-      "EB whole-word": true
+      "EB whole-word": true,
+      "Executive Sponsor (renamed -> ownership)": true,
+      "Buy-in / Buy in": true,
+      "Closing Question label": true,
+      "Commitment Discussion label": true
     }
   },
   {
@@ -987,7 +999,9 @@
       "no 'Commercial alignment' label leakage": true,
       "expanded deployment scope": true,
       "governance validation": true,
-      "commercial go-live readiness": true
+      "commercial go-live readiness": true,
+      "executive ownership next-step": true,
+      "no 'executive sponsor' leakage in P13": true
     }
   },
   {
@@ -1000,7 +1014,11 @@
       "MEDDIC": true,
       "MEDDPICC": true,
       "Economic Buyer": true,
-      "EB whole-word": true
+      "EB whole-word": true,
+      "Executive Sponsor (renamed -> ownership)": true,
+      "Buy-in / Buy in": true,
+      "Closing Question label": true,
+      "Commitment Discussion label": true
     }
   },
   {

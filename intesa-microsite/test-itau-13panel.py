@@ -47,7 +47,7 @@ from pathlib import Path
 
 from playwright.async_api import async_playwright
 
-URL = "https://intesa-devin-microsite.netlify.app/"
+URL = "https://intesa-microsite.vercel.app/"
 OUT = Path(__file__).parent / "screenshots-itau"
 OUT.mkdir(exist_ok=True)
 
