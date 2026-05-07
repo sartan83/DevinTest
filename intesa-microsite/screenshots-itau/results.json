@@ -6,7 +6,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0,
+      "overflowsViewport": 9.819999831961468e-05,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -57,7 +57,7 @@
   },
   {
     "viewport": "1440x900",
-    "test": "A-overflow-panel5-demo",
+    "test": "A-overflow-panel5-modernization-workflow",
     "panel_idx": 5,
     "passed": true,
     "measurement": {
@@ -67,26 +67,12 @@
       "innerClientHeight": 900,
       "viewportH": 900
     },
-    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-demo_1440x900.png"
-  },
-  {
-    "viewport": "1440x900",
-    "test": "A-overflow-panel5b-workflow-preview",
-    "panel_idx": 6,
-    "passed": true,
-    "measurement": {
-      "overflowsInner": 0,
-      "overflowsViewport": 0,
-      "innerScrollHeight": 900,
-      "innerClientHeight": 900,
-      "viewportH": 900
-    },
-    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5b-workflow-preview_1440x900.png"
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-modernization-workflow_1440x900.png"
   },
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel6-trust",
-    "panel_idx": 7,
+    "panel_idx": 6,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -100,7 +86,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel7-capacity",
-    "panel_idx": 8,
+    "panel_idx": 7,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -114,7 +100,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel8-roi",
-    "panel_idx": 9,
+    "panel_idx": 8,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -128,7 +114,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel9-itau",
-    "panel_idx": 10,
+    "panel_idx": 9,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -142,7 +128,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel11-pilot",
-    "panel_idx": 12,
+    "panel_idx": 11,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -156,7 +142,7 @@
   {
     "viewport": "1440x900",
     "test": "A-overflow-panel12-mutual",
-    "panel_idx": 13,
+    "panel_idx": 12,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -171,7 +157,7 @@
     "viewport": "1440x900",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.2–16.2"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.1–15.9"
   },
   {
     "viewport": "1440x900",
@@ -228,12 +214,29 @@
   },
   {
     "viewport": "1440x900",
-    "test": "F-panel5-repodisclaimer",
+    "test": "F-panel5-merged-workflow",
     "passed": true,
     "checks": {
-      "Representative demonstration repository": true,
-      "No Intesa Sanpaolo source code": true,
-      "kushmirc/banking-modernization": true
+      "eyebrow 'Governance-aware modernization workflow'": true,
+      "headline 'How bounded autonomous execution'": true,
+      "transition 'no longer whether AI can generate code'": true,
+      "transition 'enterprise governance constraints'": true,
+      "workflow node 'Repository analysis'": true,
+      "workflow node 'Migration planning'": true,
+      "workflow node 'Automated refactoring'": true,
+      "workflow node 'Test generation'": true,
+      "workflow node 'Governed pull request review'": true,
+      "workflow insight 'Bounded execution inside the bank's existing review envelope'": true,
+      "business impact metric '20–30%'": true,
+      "business impact metric '12,000 engineering hours'": true,
+      "dev-equivalent translation '≈ 7 developer-equivalent capacity'": true,
+      "business impact metric '59 → 9'": true,
+      "governance statement": true,
+      "scalability statement": true,
+      "dev-equivalent footnote": true,
+      "repo link 'kushmirc/banking-modernization'": true,
+      "repo disclaimer 'No Intesa Sanpaolo source code'": true,
+      "no legacy P5b 'Live workflow preview' label": true
     }
   },
   {
@@ -270,7 +273,7 @@
     "viewport": "1440x900",
     "test": "I1-appendix-idx",
     "passed": true,
-    "actual_idx": 15
+    "actual_idx": 14
   },
   {
     "viewport": "1440x900",
@@ -282,27 +285,7 @@
     "viewport": "1440x900",
     "test": "I3-esc-from-appendix",
     "passed": true,
-    "actual_idx": 14
-  },
-  {
-    "viewport": "1440x900",
-    "test": "K-live-workflow-preview",
-    "passed": true,
-    "checks": {
-      "eyebrow 'Live workflow preview'": true,
-      "step 1 Repository analysis": true,
-      "step 2 Modernization planning": true,
-      "step 3 Controlled execution": true,
-      "step 4 Governance & review": true,
-      "sub-bullet Dependency mapping": true,
-      "sub-bullet Reviewable PR creation": true,
-      "sub-bullet Human approval workflow": true,
-      "no mock review card": true,
-      "no PR-mock title leakage": true,
-      "exec insight 'not whether AI can generate code'": true,
-      "exec insight 'governance constraints'": true,
-      "illustrative disclaimer": true
-    }
+    "actual_idx": 13
   },
   {
     "viewport": "1440x900",
@@ -325,7 +308,7 @@
     "checks": {
       "P2 'Beyond engineering efficiency'": true,
       "P3 'transformation constraints are often operational'": true,
-      "P5b 'not whether AI can generate code'": true,
+      "P5 merged 'no longer whether AI can generate code'": true,
       "P11 executive framing 'measurable operational outcomes jointly agreed'": true,
       "P11 validation maturity 'operational fit, governance readiness'": true
     }
@@ -362,18 +345,19 @@
       "Hero — '~14M Customers' anchor": true,
       "Hero — 'Top European' anchor": true,
       "Hero — 'Highly regulated' anchor": true,
-      "P5 — Modernization flow diagram title": true,
-      "P5 — flow node 'Devin bounded workflow'": true,
-      "P5 — flow node 'Faster validated delivery'": true,
-      "P5 — flow insight 'Bounded execution under governance'": true,
+      "P5 merged — 'Bounded operational workflow' title": true,
+      "P5 merged — workflow node 'Repository analysis'": true,
+      "P5 merged — workflow node 'Governed pull request review'": true,
+      "P5 merged — 'Operational leverage' business title": true,
+      "P5 merged — dev-equivalent translation": true,
       "P7 — dev-equivalent hours line": true,
       "P7 — dev-equivalent FTE line": true,
       "P7 — dev-equivalent footnote": true,
-      "P10 — Operational scale signals title": true,
-      "P10 — '800' DB anchor": true,
-      "P10 — '59 → 9' service anchor": true,
-      "P10 — '70%' autonomous remediation": true,
-      "P10 — '50% → 90%' coverage": true
+      "P9 — Operational scale signals title": true,
+      "P9 — '800' DB anchor": true,
+      "P9 — '59 → 9' service anchor": true,
+      "P9 — '70%' autonomous remediation": true,
+      "P9 — '50% → 90%' coverage": true
     }
   },
   {
@@ -440,7 +424,7 @@
   },
   {
     "viewport": "1280x800",
-    "test": "A-overflow-panel5-demo",
+    "test": "A-overflow-panel5-modernization-workflow",
     "panel_idx": 5,
     "passed": true,
     "measurement": {
@@ -450,26 +434,12 @@
       "innerClientHeight": 800,
       "viewportH": 800
     },
-    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-demo_1280x800.png"
-  },
-  {
-    "viewport": "1280x800",
-    "test": "A-overflow-panel5b-workflow-preview",
-    "panel_idx": 6,
-    "passed": true,
-    "measurement": {
-      "overflowsInner": 0,
-      "overflowsViewport": 0,
-      "innerScrollHeight": 800,
-      "innerClientHeight": 800,
-      "viewportH": 800
-    },
-    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5b-workflow-preview_1280x800.png"
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-modernization-workflow_1280x800.png"
   },
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel6-trust",
-    "panel_idx": 7,
+    "panel_idx": 6,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -483,7 +453,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel7-capacity",
-    "panel_idx": 8,
+    "panel_idx": 7,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -497,7 +467,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel8-roi",
-    "panel_idx": 9,
+    "panel_idx": 8,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -511,7 +481,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel9-itau",
-    "panel_idx": 10,
+    "panel_idx": 9,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -525,7 +495,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel11-pilot",
-    "panel_idx": 12,
+    "panel_idx": 11,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -539,7 +509,7 @@
   {
     "viewport": "1280x800",
     "test": "A-overflow-panel12-mutual",
-    "panel_idx": 13,
+    "panel_idx": 12,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -554,7 +524,7 @@
     "viewport": "1280x800",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.2–16.2"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.1–15.9"
   },
   {
     "viewport": "1280x800",
@@ -611,12 +581,29 @@
   },
   {
     "viewport": "1280x800",
-    "test": "F-panel5-repodisclaimer",
+    "test": "F-panel5-merged-workflow",
     "passed": true,
     "checks": {
-      "Representative demonstration repository": true,
-      "No Intesa Sanpaolo source code": true,
-      "kushmirc/banking-modernization": true
+      "eyebrow 'Governance-aware modernization workflow'": true,
+      "headline 'How bounded autonomous execution'": true,
+      "transition 'no longer whether AI can generate code'": true,
+      "transition 'enterprise governance constraints'": true,
+      "workflow node 'Repository analysis'": true,
+      "workflow node 'Migration planning'": true,
+      "workflow node 'Automated refactoring'": true,
+      "workflow node 'Test generation'": true,
+      "workflow node 'Governed pull request review'": true,
+      "workflow insight 'Bounded execution inside the bank's existing review envelope'": true,
+      "business impact metric '20–30%'": true,
+      "business impact metric '12,000 engineering hours'": true,
+      "dev-equivalent translation '≈ 7 developer-equivalent capacity'": true,
+      "business impact metric '59 → 9'": true,
+      "governance statement": true,
+      "scalability statement": true,
+      "dev-equivalent footnote": true,
+      "repo link 'kushmirc/banking-modernization'": true,
+      "repo disclaimer 'No Intesa Sanpaolo source code'": true,
+      "no legacy P5b 'Live workflow preview' label": true
     }
   },
   {
@@ -653,7 +640,7 @@
     "viewport": "1280x800",
     "test": "I1-appendix-idx",
     "passed": true,
-    "actual_idx": 15
+    "actual_idx": 14
   },
   {
     "viewport": "1280x800",
@@ -665,27 +652,7 @@
     "viewport": "1280x800",
     "test": "I3-esc-from-appendix",
     "passed": true,
-    "actual_idx": 14
-  },
-  {
-    "viewport": "1280x800",
-    "test": "K-live-workflow-preview",
-    "passed": true,
-    "checks": {
-      "eyebrow 'Live workflow preview'": true,
-      "step 1 Repository analysis": true,
-      "step 2 Modernization planning": true,
-      "step 3 Controlled execution": true,
-      "step 4 Governance & review": true,
-      "sub-bullet Dependency mapping": true,
-      "sub-bullet Reviewable PR creation": true,
-      "sub-bullet Human approval workflow": true,
-      "no mock review card": true,
-      "no PR-mock title leakage": true,
-      "exec insight 'not whether AI can generate code'": true,
-      "exec insight 'governance constraints'": true,
-      "illustrative disclaimer": true
-    }
+    "actual_idx": 13
   },
   {
     "viewport": "1280x800",
@@ -708,7 +675,7 @@
     "checks": {
       "P2 'Beyond engineering efficiency'": true,
       "P3 'transformation constraints are often operational'": true,
-      "P5b 'not whether AI can generate code'": true,
+      "P5 merged 'no longer whether AI can generate code'": true,
       "P11 executive framing 'measurable operational outcomes jointly agreed'": true,
       "P11 validation maturity 'operational fit, governance readiness'": true
     }
@@ -745,18 +712,19 @@
       "Hero — '~14M Customers' anchor": true,
       "Hero — 'Top European' anchor": true,
       "Hero — 'Highly regulated' anchor": true,
-      "P5 — Modernization flow diagram title": true,
-      "P5 — flow node 'Devin bounded workflow'": true,
-      "P5 — flow node 'Faster validated delivery'": true,
-      "P5 — flow insight 'Bounded execution under governance'": true,
+      "P5 merged — 'Bounded operational workflow' title": true,
+      "P5 merged — workflow node 'Repository analysis'": true,
+      "P5 merged — workflow node 'Governed pull request review'": true,
+      "P5 merged — 'Operational leverage' business title": true,
+      "P5 merged — dev-equivalent translation": true,
       "P7 — dev-equivalent hours line": true,
       "P7 — dev-equivalent FTE line": true,
       "P7 — dev-equivalent footnote": true,
-      "P10 — Operational scale signals title": true,
-      "P10 — '800' DB anchor": true,
-      "P10 — '59 → 9' service anchor": true,
-      "P10 — '70%' autonomous remediation": true,
-      "P10 — '50% → 90%' coverage": true
+      "P9 — Operational scale signals title": true,
+      "P9 — '800' DB anchor": true,
+      "P9 — '59 → 9' service anchor": true,
+      "P9 — '70%' autonomous remediation": true,
+      "P9 — '50% → 90%' coverage": true
     }
   },
   {
@@ -823,7 +791,7 @@
   },
   {
     "viewport": "1366x768",
-    "test": "A-overflow-panel5-demo",
+    "test": "A-overflow-panel5-modernization-workflow",
     "panel_idx": 5,
     "passed": true,
     "measurement": {
@@ -833,26 +801,12 @@
       "innerClientHeight": 768,
       "viewportH": 768
     },
-    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-demo_1366x768.png"
-  },
-  {
-    "viewport": "1366x768",
-    "test": "A-overflow-panel5b-workflow-preview",
-    "panel_idx": 6,
-    "passed": true,
-    "measurement": {
-      "overflowsInner": 0,
-      "overflowsViewport": 0,
-      "innerScrollHeight": 768,
-      "innerClientHeight": 768,
-      "viewportH": 768
-    },
-    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5b-workflow-preview_1366x768.png"
+    "screenshot": "/home/ubuntu/repos/DevinTest/intesa-microsite/screenshots-itau/panel5-modernization-workflow_1366x768.png"
   },
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel6-trust",
-    "panel_idx": 7,
+    "panel_idx": 6,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -866,7 +820,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel7-capacity",
-    "panel_idx": 8,
+    "panel_idx": 7,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -880,7 +834,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel8-roi",
-    "panel_idx": 9,
+    "panel_idx": 8,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -894,7 +848,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel9-itau",
-    "panel_idx": 10,
+    "panel_idx": 9,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -908,7 +862,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel11-pilot",
-    "panel_idx": 12,
+    "panel_idx": 11,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -922,7 +876,7 @@
   {
     "viewport": "1366x768",
     "test": "A-overflow-panel12-mutual",
-    "panel_idx": 13,
+    "panel_idx": 12,
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
@@ -937,7 +891,7 @@
     "viewport": "1366x768",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.2–16.2"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.1–15.9"
   },
   {
     "viewport": "1366x768",
@@ -994,12 +948,29 @@
   },
   {
     "viewport": "1366x768",
-    "test": "F-panel5-repodisclaimer",
+    "test": "F-panel5-merged-workflow",
     "passed": true,
     "checks": {
-      "Representative demonstration repository": true,
-      "No Intesa Sanpaolo source code": true,
-      "kushmirc/banking-modernization": true
+      "eyebrow 'Governance-aware modernization workflow'": true,
+      "headline 'How bounded autonomous execution'": true,
+      "transition 'no longer whether AI can generate code'": true,
+      "transition 'enterprise governance constraints'": true,
+      "workflow node 'Repository analysis'": true,
+      "workflow node 'Migration planning'": true,
+      "workflow node 'Automated refactoring'": true,
+      "workflow node 'Test generation'": true,
+      "workflow node 'Governed pull request review'": true,
+      "workflow insight 'Bounded execution inside the bank's existing review envelope'": true,
+      "business impact metric '20–30%'": true,
+      "business impact metric '12,000 engineering hours'": true,
+      "dev-equivalent translation '≈ 7 developer-equivalent capacity'": true,
+      "business impact metric '59 → 9'": true,
+      "governance statement": true,
+      "scalability statement": true,
+      "dev-equivalent footnote": true,
+      "repo link 'kushmirc/banking-modernization'": true,
+      "repo disclaimer 'No Intesa Sanpaolo source code'": true,
+      "no legacy P5b 'Live workflow preview' label": true
     }
   },
   {
@@ -1036,7 +1007,7 @@
     "viewport": "1366x768",
     "test": "I1-appendix-idx",
     "passed": true,
-    "actual_idx": 15
+    "actual_idx": 14
   },
   {
     "viewport": "1366x768",
@@ -1048,27 +1019,7 @@
     "viewport": "1366x768",
     "test": "I3-esc-from-appendix",
     "passed": true,
-    "actual_idx": 14
-  },
-  {
-    "viewport": "1366x768",
-    "test": "K-live-workflow-preview",
-    "passed": true,
-    "checks": {
-      "eyebrow 'Live workflow preview'": true,
-      "step 1 Repository analysis": true,
-      "step 2 Modernization planning": true,
-      "step 3 Controlled execution": true,
-      "step 4 Governance & review": true,
-      "sub-bullet Dependency mapping": true,
-      "sub-bullet Reviewable PR creation": true,
-      "sub-bullet Human approval workflow": true,
-      "no mock review card": true,
-      "no PR-mock title leakage": true,
-      "exec insight 'not whether AI can generate code'": true,
-      "exec insight 'governance constraints'": true,
-      "illustrative disclaimer": true
-    }
+    "actual_idx": 13
   },
   {
     "viewport": "1366x768",
@@ -1091,7 +1042,7 @@
     "checks": {
       "P2 'Beyond engineering efficiency'": true,
       "P3 'transformation constraints are often operational'": true,
-      "P5b 'not whether AI can generate code'": true,
+      "P5 merged 'no longer whether AI can generate code'": true,
       "P11 executive framing 'measurable operational outcomes jointly agreed'": true,
       "P11 validation maturity 'operational fit, governance readiness'": true
     }
@@ -1128,18 +1079,19 @@
       "Hero — '~14M Customers' anchor": true,
       "Hero — 'Top European' anchor": true,
       "Hero — 'Highly regulated' anchor": true,
-      "P5 — Modernization flow diagram title": true,
-      "P5 — flow node 'Devin bounded workflow'": true,
-      "P5 — flow node 'Faster validated delivery'": true,
-      "P5 — flow insight 'Bounded execution under governance'": true,
+      "P5 merged — 'Bounded operational workflow' title": true,
+      "P5 merged — workflow node 'Repository analysis'": true,
+      "P5 merged — workflow node 'Governed pull request review'": true,
+      "P5 merged — 'Operational leverage' business title": true,
+      "P5 merged — dev-equivalent translation": true,
       "P7 — dev-equivalent hours line": true,
       "P7 — dev-equivalent FTE line": true,
       "P7 — dev-equivalent footnote": true,
-      "P10 — Operational scale signals title": true,
-      "P10 — '800' DB anchor": true,
-      "P10 — '59 → 9' service anchor": true,
-      "P10 — '70%' autonomous remediation": true,
-      "P10 — '50% → 90%' coverage": true
+      "P9 — Operational scale signals title": true,
+      "P9 — '800' DB anchor": true,
+      "P9 — '59 → 9' service anchor": true,
+      "P9 — '70%' autonomous remediation": true,
+      "P9 — '50% → 90%' coverage": true
     }
   },
   {

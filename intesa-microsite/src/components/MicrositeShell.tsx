@@ -11,7 +11,6 @@ import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
 import { Panel3CurrentState } from "./panels/Panel3CurrentState";
 import { Panel4ExecutiveDiscovery } from "./panels/Panel4ExecutiveDiscovery";
 import { Panel5BusinessImpact } from "./panels/Panel5BusinessImpact";
-import { Panel5bWorkflowPreview } from "./panels/Panel5bWorkflowPreview";
 import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
 import { Panel7TasksToOutcomes } from "./panels/Panel7TasksToOutcomes";
 import { Panel8RoiSignal } from "./panels/Panel8RoiSignal";
@@ -22,17 +21,18 @@ import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 15 main panels (index 0–14) + 1 appendix panel (index 15) reachable only
+// 14 main panels (index 0–13) + 1 appendix panel (index 14) reachable only
 // via the discrete "Appendix" toggle in the header. Executive working session
-// agenda (Panel1b) sits at idx 1; Live workflow preview (Panel5b) at idx 6.
-const MAIN_PANELS = 15;
-const APPENDIX_INDEX = 15;
+// agenda (Panel1b) sits at idx 1; Governance-aware modernization workflow
+// (P5, merged) at idx 5; counter teaser at idx 9 (Itaú) and reveal at idx 10.
+const MAIN_PANELS = 14;
+const APPENDIX_INDEX = 14;
 const TOTAL_PANELS = MAIN_PANELS + 1;
 // Render index of the counter climax panel ("Reclaimed capacity"). After
-// inserting the Executive working session agenda at idx 1, every panel from
-// idx 1 onward shifts +1 → climax now at idx 11. Counter teaser shows on
-// idx 10 (Itaú reference) and reveals on idx 11 (climax).
-const CLIMAX_INDEX = 11;
+// merging the demo + workflow preview into a single P5, every panel from
+// idx 6 onward shifts -1 → climax now at idx 10. Counter teaser shows on
+// idx 9 (Itaú reference) and reveals on idx 10 (climax).
+const CLIMAX_INDEX = 10;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -364,7 +364,6 @@ export function MicrositeShell() {
           <Panel3CurrentState />
           <Panel4ExecutiveDiscovery />
           <Panel5BusinessImpact />
-          <Panel5bWorkflowPreview />
           <Panel6EnterpriseTrust />
           <Panel7TasksToOutcomes />
           <Panel8RoiSignal />

@@ -105,17 +105,16 @@ export const intesa = {
     { index: 2, label: "3", full: "Execution gap", appendix: false },
     { index: 3, label: "4", full: "Current state assessment", appendix: false },
     { index: 4, label: "5", full: "Discovery alignment", appendix: false },
-    { index: 5, label: "6", full: "Modernization demo", appendix: false },
-    { index: 6, label: "7", full: "Live workflow preview", appendix: false },
-    { index: 7, label: "8", full: "Enterprise trust", appendix: false },
-    { index: 8, label: "9", full: "Capacity redeployment", appendix: false },
-    { index: 9, label: "10", full: "ROI signal", appendix: false },
-    { index: 10, label: "11", full: "Enterprise reference", appendix: false },
-    { index: 11, label: "12", full: "Reclaimed capacity", appendix: false },
-    { index: 12, label: "13", full: "4-week pilot", appendix: false },
-    { index: 13, label: "14", full: "Operational readiness", appendix: false },
-    { index: 14, label: "15", full: "Next-step alignment", appendix: false },
-    { index: 15, label: "A", full: "Discovery framework (appendix)", appendix: true },
+    { index: 5, label: "6", full: "Modernization workflow", appendix: false },
+    { index: 6, label: "7", full: "Enterprise trust", appendix: false },
+    { index: 7, label: "8", full: "Capacity redeployment", appendix: false },
+    { index: 8, label: "9", full: "ROI signal", appendix: false },
+    { index: 9, label: "10", full: "Enterprise reference", appendix: false },
+    { index: 10, label: "11", full: "Reclaimed capacity", appendix: false },
+    { index: 11, label: "12", full: "4-week pilot", appendix: false },
+    { index: 12, label: "13", full: "Operational readiness", appendix: false },
+    { index: 13, label: "14", full: "Next-step alignment", appendix: false },
+    { index: 14, label: "A", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
@@ -145,14 +144,16 @@ export const intesa = {
       "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
     // Steps accumulate per visited panel (1-indexed → maps to render index panel-1).
     // Calibrated to a 60-minute live presentation cadence: per-panel additions
-    // are time-weighted such that cumulative across all 15 main panels reaches
-    // exactly the headline 8–18 dev-days envelope at idx 14 (Final ask).
+    // are time-weighted such that cumulative across all 14 main panels reaches
+    // exactly the headline 8–18 dev-days envelope at idx 13 (Next-step alignment).
     //
-    // Time budget per panel (sums to 60 min):
+    // Time budget per panel (sums to 60 min) — 14 panels after merging the
+    // demo + workflow preview into a single Governance-Aware Modernization
+    // Workflow section:
     //   P0 Hero 3'   P1 Agenda 2'   P2 Gap 4'   P3 Current 5'
-    //   P4 Discovery 6'   P5 Demo 5'   P6 Workflow 4'   P7 Trust 3'
-    //   P8 Capacity 4'   P9 ROI 4'   P10 Itaú 5'   P11 Climax 3'
-    //   P12 Pilot 5'   P13 Mutual 4'   P14 Final 3'
+    //   P4 Discovery 6'   P5 Workflow MERGED 7'   P6 Trust 3'
+    //   P7 Capacity 4'   P8 ROI 4'   P9 Itaú 5'   P10 Climax 4'
+    //   P11 Pilot 5'   P12 Operational readiness 5'   P13 Next-step 3'
     //
     // Per-minute increment: 8/60 ≈ 0.133 (min) and 18/60 = 0.3 (max).
     steps: [
@@ -161,16 +162,15 @@ export const intesa = {
       { panel: 3,  addMin: 0.53, addMax: 1.20, note: "Execution gap named (4')" },
       { panel: 4,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
       { panel: 5,  addMin: 0.80, addMax: 1.80, note: "Executive alignment areas (6')" },
-      { panel: 6,  addMin: 0.67, addMax: 1.50, note: "Modernization walkthrough (5')" },
-      { panel: 7,  addMin: 0.53, addMax: 1.20, note: "Live workflow preview (4')" },
-      { panel: 8,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
-      { panel: 9,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
-      { panel: 10, addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
-      { panel: 11, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
-      { panel: 12, addMin: 0.40, addMax: 0.90, note: "Counter climax reveal (3')" },
-      { panel: 13, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
-      { panel: 14, addMin: 0.53, addMax: 1.20, note: "Operational readiness captured (4')" },
-      { panel: 15, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
+      { panel: 6,  addMin: 0.93, addMax: 2.10, note: "Modernization workflow + impact (7')" },
+      { panel: 7,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
+      { panel: 8,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
+      { panel: 9,  addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
+      { panel: 10, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
+      { panel: 11, addMin: 0.53, addMax: 1.20, note: "Counter climax reveal (4')" },
+      { panel: 12, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
+      { panel: 13, addMin: 0.67, addMax: 1.50, note: "Operational readiness captured (5')" },
+      { panel: 14, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
     ] as CounterStep[],
   },
 
@@ -483,130 +483,71 @@ export const intesa = {
   // analysis, scoping, regression protection, and validation, inside the
   // bank's existing review envelope.
   // -------------------------------------------------------------------------
-  // Modernization flow diagram — clean enterprise process schema used in P5
-  // to differentiate it visually from P5b (live workflow preview pipeline).
-  // 5 nodes, single horizontal flow, governance-aware framing.
-  modernizationFlow: {
-    title: "Modernization flow",
-    nodes: [
-      { label: "Legacy modernization backlog", tone: "muted" as const },
-      { label: "Devin bounded workflow", tone: "accent" as const },
-      { label: "Automated migration · testing · remediation", tone: "default" as const },
-      { label: "Human review & governance", tone: "default" as const },
-      { label: "Faster validated delivery", tone: "accent" as const },
-    ],
-    insight:
-      "Bounded execution under governance — not open-ended autonomous engineering.",
-  },
-
+  // PANEL 5 — Governance-Aware Modernization Workflow (MERGED)
+  //
+  // Consolidated section combining the conceptual demo (former P5) and the
+  // live workflow preview (former P5b). Left side: bounded operational
+  // workflow (5 nodes). Right side: business interpretation with scale
+  // anchors and developer-equivalent translation. Audience moves from
+  // "what Devin does" to "why it matters operationally" inside one panel.
+  //
+  // Opens with a cinematic executive transition statement that frames the
+  // shift from "can AI generate code" to "can it operate inside enterprise
+  // governance constraints".
+  // -------------------------------------------------------------------------
   panel5: {
-    eyebrow: "Devin modernization demo",
+    eyebrow: "Governance-aware modernization workflow",
     headline:
-      "Controlled modernization,\non a representative banking repository.",
-    useCase:
-      "Reference repository: kushmirc/banking-modernization",
+      "How bounded autonomous execution\ntranslates into operational leverage.",
     subhead:
-      "A modernization slice moving safely through analysis, planning, execution, and audit — inside the bank's existing review envelope.",
-    repoDisclaimer:
-      "Representative demonstration repository created to simulate a large-scale banking modernization workflow. No Intesa Sanpaolo source code or internal systems are used.",
-    steps: [
-      {
-        index: 1,
-        title: "Analyze modernization scope",
-        body: "Reads the repository end-to-end and produces a modernization map.",
-      },
-      {
-        index: 2,
-        title: "Plan a safe slice",
-        body: "Scope the highest-value slice with minimum regression exposure; add coverage first.",
-      },
-      {
-        index: 3,
-        title: "Execute with governance",
-        body: "Refactor and upgrade as reviewable PRs inside the bank's existing tooling.",
-      },
-      {
-        index: 4,
-        title: "Produce reviewable outcomes",
-        body: "Strengthened tests, captured rationale, audit-ready evidence — handed to governance review.",
-      },
-    ] as WalkthroughStep[],
-    valueStatements: [
-      "Safer modernization, lower regression risk, faster release confidence — at enterprise scale.",
-    ],
+      "What Devin actually does inside enterprise engineering controls — and what that unlocks operationally.",
+    transitionStatement:
+      "The challenge is no longer whether AI can generate code. The challenge is whether it can operate reliably inside enterprise governance constraints.",
+    // Left side: bounded operational flow — 5 nodes, what Devin actually does.
+    workflow: {
+      title: "Bounded operational workflow",
+      nodes: [
+        { label: "Repository analysis", tone: "muted" as const },
+        { label: "Migration planning", tone: "default" as const },
+        { label: "Automated refactoring", tone: "accent" as const },
+        { label: "Test generation", tone: "default" as const },
+        { label: "Governed pull request review", tone: "accent" as const },
+      ],
+      insight:
+        "Bounded execution inside the bank's existing review envelope — not open-ended autonomous engineering.",
+    },
+    // Right side: business interpretation — why it matters operationally.
+    businessImpact: {
+      title: "Operational leverage",
+      metrics: [
+        {
+          value: "20–30%",
+          label: "Throughput increase (illustrative reference)",
+        },
+        {
+          value: "12,000 engineering hours",
+          label: "≈ 7 developer-equivalent capacity (illustrative)",
+        },
+        {
+          value: "59 → 9",
+          label: "Service consolidation (illustrative)",
+        },
+      ],
+      statements: [
+        "Governance-aware modernization execution.",
+        "Operational scalability without proportional delivery scaling.",
+      ],
+      devEquivalentFootnote:
+        "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
+    },
     repoLink: {
       label: "github.com/kushmirc/banking-modernization",
       url: "https://github.com/kushmirc/banking-modernization",
     },
-  },
-
-  // -------------------------------------------------------------------------
-  // PANEL 5b — Live Workflow Preview
-  //
-  // A concrete, governance-aware modernization workflow rendered as a
-  // 4-step pipeline. Complements P5 (conceptual demo) with an
-  // enterprise-grade visual showing what Devin actually does inside the
-  // engineering workflow — without terminal/IDE aesthetics.
-  // -------------------------------------------------------------------------
-  panel5b: {
-    eyebrow: "Live workflow preview",
-    headline:
-      "A governance-aware modernization workflow,\nexecuted by Devin.",
-    subhead:
-      "Example of a modernization workflow Devin executes inside enterprise engineering controls — analysis through governed PR review.",
-    steps: [
-      {
-        index: 1,
-        title: "Repository analysis",
-        items: [
-          "Dependency mapping",
-          "Migration scope detection",
-          "Risk identification",
-        ],
-      },
-      {
-        index: 2,
-        title: "Modernization planning",
-        items: [
-          "Upgrade path proposal",
-          "Impact analysis",
-          "Task decomposition",
-        ],
-      },
-      {
-        index: 3,
-        title: "Controlled execution",
-        items: [
-          "Refactoring",
-          "Test generation",
-          "Reviewable PR creation",
-        ],
-      },
-      {
-        index: 4,
-        title: "Governance & review",
-        items: [
-          "Human approval workflow",
-          "Auditability + documentation",
-          "CI/CD validation",
-        ],
-      },
-    ],
-    review: {
-      label: "Mock review evidence",
-      title: "PR · Modernize legacy reconciliation flow",
-      meta: "+2,134 / −1,807 across 18 files · 24 tests passing",
-      ticks: [
-        "Tests passing",
-        "Audit trail captured",
-        "Human approval required",
-        "DORA-aligned change log",
-      ],
-    },
-    insight:
-      "The question is not whether AI can generate code. The question is whether it can operate inside enterprise governance constraints.",
+    repoDisclaimer:
+      "Representative demonstration repository simulating a large-scale banking modernization workflow. No Intesa Sanpaolo source code or internal systems are used.",
     disclaimer:
-      "Illustrative workflow visualization. Actual execution adapts to client repositories, security envelope, and governance configuration.",
+      "Illustrative enterprise reference points. Actual execution adapts to client repositories, security envelope, and governance configuration. Not guaranteed outcomes.",
   },
 
   // -------------------------------------------------------------------------
