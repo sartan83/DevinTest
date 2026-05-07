@@ -44,6 +44,21 @@ export type DiscoveryBlock = {
   questions: string[];
 };
 
+/** Status of a current-state observation surfaced to the EB. */
+export type ObservationStatus = "validated" | "hypothesis" | "alignment";
+
+export type CurrentStateObservation = {
+  title: string;
+  body: string;
+  status: ObservationStatus;
+};
+
+export type DiscoveryGap = {
+  question: string;
+  /** Why this question matters at the EB level — short subtext. */
+  why: string;
+};
+
 export type WalkthroughStep = {
   index: number;
   title: string;
@@ -74,20 +89,24 @@ export const intesa = {
   // 12 sequential panels. The narrative arc is: position the problem, validate
   // discovery, show the work, frame trust, bridge to value, quantify, climax,
   // commit to a 4-week pilot, and close on an executive ask.
+  // Index 0–11 are the main executive flow. Index 12 is the appendix
+  // ("Executive discovery framework") — reachable only via the discrete
+  // appendix toggle, hidden from the progress dots.
   nav: [
-    { index: 0, label: "1", full: "Opening" },
-    { index: 1, label: "2", full: "Execution gap" },
-    { index: 2, label: "3", full: "Current state" },
-    { index: 3, label: "4", full: "Executive discovery" },
-    { index: 4, label: "5", full: "Business impact" },
-    { index: 5, label: "6", full: "Enterprise trust" },
-    { index: 6, label: "7", full: "From tasks to outcomes" },
-    { index: 7, label: "8", full: "ROI signal" },
-    { index: 8, label: "9", full: "Reclaimed capacity" },
-    { index: 9, label: "10", full: "4-week pilot" },
-    { index: 10, label: "11", full: "Mutual commitment" },
-    { index: 11, label: "12", full: "Aligned to move" },
-  ],
+    { index: 0, label: "1", full: "Opening", appendix: false },
+    { index: 1, label: "2", full: "Execution gap", appendix: false },
+    { index: 2, label: "3", full: "Current state assessment", appendix: false },
+    { index: 3, label: "4", full: "Discovery gaps to validate", appendix: false },
+    { index: 4, label: "5", full: "Modernization demo", appendix: false },
+    { index: 5, label: "6", full: "Enterprise trust", appendix: false },
+    { index: 6, label: "7", full: "From tasks to outcomes", appendix: false },
+    { index: 7, label: "8", full: "ROI signal", appendix: false },
+    { index: 8, label: "9", full: "Reclaimed capacity", appendix: false },
+    { index: 9, label: "10", full: "4-week pilot", appendix: false },
+    { index: 10, label: "11", full: "Mutual commitment", appendix: false },
+    { index: 11, label: "12", full: "Aligned to move", appendix: false },
+    { index: 12, label: "A", full: "Discovery framework (appendix)", appendix: true },
+  ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
     label: "Modeled execution capacity reclaimed during this session",
@@ -200,56 +219,165 @@ export const intesa = {
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 3 — Current State / Problem statement
+  // PANEL 3 — Current State Assessment
+  //
+  // Surfaces likely modernization pressure points already discovered with the
+  // Champion. Each item is tagged so the EB sees what is already validated,
+  // what is still a hypothesis, and what needs executive alignment — never
+  // assumed.
   // -------------------------------------------------------------------------
   panel3: {
-    eyebrow: "Current state",
+    eyebrow: "Current state assessment",
     headline:
-      "The cost of every quarter\nis paid in scarce senior capacity.",
+      "What we believe we are seeing\n— and what we still need you to confirm.",
     subhead:
-      "The work is not invisible. It is structurally trapped — necessary, regulated, and routinely deprioritized in favor of board-visible programs.",
-    cards: [
+      "A pre-EB assessment based on Champion conversations and public Intesa Sanpaolo material. Surfaced as observations, hypotheses, and alignment areas — not assumptions.",
+    legend: [
       {
-        title: "Modernization backlog compounding",
-        body: "Each quarter adds modernization tickets faster than the estate retires them. The compounding effect quietly extends every transformation timeline.",
-        tag: "Backlog",
+        status: "validated" as ObservationStatus,
+        label: "Validated observation",
+        helper: "Confirmed in Champion-level discovery and triangulated against public material.",
       },
       {
-        title: "Senior engineers trapped in repetitive work",
-        body: "Migration, refactoring, test remediation and dependency upgrades absorb the most experienced capacity — exactly the capacity needed for differentiation.",
-        tag: "Capacity",
+        status: "hypothesis" as ObservationStatus,
+        label: "Hypothesis to confirm",
+        helper: "Pattern likely present at Intesa scale; the EB conversation is the place to validate.",
       },
       {
-        title: "Critical initiatives compete with operational backlog",
-        body: "Board-visible programs share the same teams as operational maintenance. Prioritization meetings replace delivery hours.",
-        tag: "Prioritization",
+        status: "alignment" as ObservationStatus,
+        label: "Requires executive alignment",
+        helper: "Direction depends on EB priorities; the conversation should pick the angle.",
+      },
+    ],
+    observations: [
+      {
+        title: "COBOL and Java coexistence",
+        body: "Critical core flows still anchored in COBOL while the surface estate runs on Java, JSP, and modern frontends — the modernization effort is about safely bridging the two, not rewriting either.",
+        status: "hypothesis" as ObservationStatus,
       },
       {
-        title: "Legacy dependency risk",
-        body: "EOL frameworks, deprecated libraries, and outdated runtimes accumulate as security and resilience exposures across the estate.",
-        tag: "Risk",
+        title: "High regression risk on critical systems",
+        body: "Changes touching customer balances, transactions, or regulatory flows carry asymmetric blast radius. Confidence to modify these systems is structurally lower than the modernization roadmap demands.",
+        status: "validated" as ObservationStatus,
       },
       {
-        title: "Delivery delays on digital banking priorities",
-        body: "Engineering capacity constraints translate directly into slipped commitments on customer-facing digital programs.",
-        tag: "Delivery",
+        title: "Long testing and validation cycles",
+        body: "End-to-end regression and pre-prod validation absorb a disproportionate share of every modernization release window.",
+        status: "hypothesis" as ObservationStatus,
       },
       {
-        title: "Higher cost of change",
-        body: "Manual validation, manual documentation, manual evidence for governance — every change costs more engineering hours than the change itself.",
-        tag: "Cost",
+        title: "Senior engineers absorbed by maintenance",
+        body: "The most experienced capacity is concentrated on maintaining legacy estate, dependency upgrades, and regression triage rather than on differentiating digital programs.",
+        status: "validated" as ObservationStatus,
       },
-    ] as LabeledCard[],
-    closing: "Execution friction is structural — and it is paid in senior capacity.",
+      {
+        title: "Tribal knowledge concentration",
+        body: "Critical legacy logic lives in the heads of a few senior engineers. Onboarding new contributors onto these systems is slow and risk-laden.",
+        status: "hypothesis" as ObservationStatus,
+      },
+      {
+        title: "Release governance bottlenecks",
+        body: "Multi-stage approvals, manual evidence assembly, and change-advisory windows extend lead time on even low-risk modernization changes.",
+        status: "hypothesis" as ObservationStatus,
+      },
+      {
+        title: "Manual testing and documentation overhead",
+        body: "Test authoring, regression evidence, and audit-ready documentation are still substantially manual — eroding capacity that should sit on transformation backlog.",
+        status: "validated" as ObservationStatus,
+      },
+      {
+        title: "Modernization safety vs. velocity tension",
+        body: "The estate cannot trade safety for velocity, but the current operating model forces an implicit choice every quarter.",
+        status: "alignment" as ObservationStatus,
+      },
+      {
+        title: "Where modernization compounds first",
+        body: "Which workstreams unlock the most resilience-and-throughput when modernized first is an executive call — engineering can rank the candidates, the EB ranks the business priority.",
+        status: "alignment" as ObservationStatus,
+      },
+    ] as CurrentStateObservation[],
+    closing:
+      "This is a strategic assessment, not a technical audit. The next 20 minutes are how we test where it bends.",
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 4 — Executive Discovery Required
+  // PANEL 4 — Discovery Gaps to Validate (executive workshop)
+  //
+  // Lives in the main flow. Single-block, workshop-style: the EB-only
+  // questions that the Champion alone cannot answer. Distinguishes what is
+  // already known from the Champion vs. what still requires EB validation.
+  // The full Champion-level discovery framework (4 blocks × 4 questions) is
+  // moved into the appendix — not part of the main roleplay.
   // -------------------------------------------------------------------------
   panel4: {
-    eyebrow: "Executive discovery required",
+    eyebrow: "Discovery gaps to validate",
+    headline:
+      "What the Champion has framed —\nand what only the Executive Buyer can confirm.",
+    subhead:
+      "This is an executive discovery moment, not a sales pitch. The pilot only earns its place if the answers below come from the Executive Buyer's seat, not the team's.",
+    columns: {
+      knownLabel: "Already framed by the Champion",
+      knownItems: [
+        "Modernization scope and the systems most under pressure.",
+        "Engineering team shape and the estate where Devin would attach.",
+        "Initial security expectations for AI-assisted execution.",
+        "Indicative pilot footprint and timeline.",
+      ],
+      validateLabel: "Only the Executive Buyer can confirm",
+      validateItems: [
+        "Where modernization risk has the highest board visibility.",
+        "Which initiatives are most exposed to regression and resilience risk.",
+        "How operational risk gets priced into modernization decisions.",
+        "What success would have to look like for broader deployment.",
+      ],
+    },
+    questions: [
+      {
+        question: "Which modernization initiatives create the highest operational risk today?",
+        why: "Reframes the conversation from technical scope to enterprise risk posture.",
+      },
+      {
+        question: "Is the main bottleneck migration speed, or regression confidence?",
+        why: "Disambiguates whether the pilot should optimize throughput or safety — the answer is rarely both.",
+      },
+      {
+        question: "How much engineering capacity is spent on maintenance versus innovation today?",
+        why: "Anchors the economic case in a number the EB will defend in front of the board.",
+      },
+      {
+        question: "Which systems are currently considered too risky to modernize at the pace the roadmap demands?",
+        why: "Identifies where 'controlled modernization' would unlock board-visible programs that are stalled today.",
+      },
+      {
+        question: "How are release risks currently mitigated, and where is that envelope under strain?",
+        why: "Surfaces governance and resilience controls — the same envelope Devin must sit inside, not around.",
+      },
+      {
+        question: "What is the business impact of delayed releases on the digital banking roadmap?",
+        why: "Connects engineering execution capacity to revenue, customer experience, and regulatory commitment.",
+      },
+      {
+        question: "How is operational resilience measured during software changes, and what would 'safer modernization' mean to you?",
+        why: "Lets the EB define the success criteria in their own language, before the pilot KPIs are agreed.",
+      },
+    ] as DiscoveryGap[],
+    transition:
+      "The pilot earns its place only if these answers come from the EB's seat — not the team's. The full Champion-level discovery framework lives in the appendix.",
+    appendixCallout: "See appendix · Executive discovery framework — 4 blocks × 4 questions",
+  },
+
+  // -------------------------------------------------------------------------
+  // APPENDIX — Executive discovery framework (formerly Panel 4)
+  //
+  // The full Champion-level 4-block, 4-question framework. Reachable only via
+  // the appendix toggle. Used for Q&A and deep-dive, not for the main flow.
+  // -------------------------------------------------------------------------
+  appendixDiscoveryFramework: {
+    eyebrow: "Appendix · Executive discovery framework",
     headline:
       "To bulletproof the business case,\nthe first EB meeting must validate\nwhat the Champion alone cannot confirm.",
+    intro:
+      "This is the full discovery framework I would run to prepare an Intesa-grade engagement. It is intentionally outside the main flow — surfaced here only for Q&A or deep-dive moments.",
     transition:
       "The pilot should not be positioned as a sandbox experiment. It should be structured as a controlled entry point to broader engineering transformation.",
     blocks: [
@@ -309,41 +437,56 @@ export const intesa = {
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 5 — Devin Preview: Business Impact Walkthrough
+  // PANEL 5 — Devin Modernization Demo
+  //
+  // Anchored on a concrete reference repository (banking-modernization). Not
+  // a feature tour — a walkthrough of how a controlled modernization slice
+  // moves through analysis, scoping, regression protection, and validation,
+  // inside the bank's existing review envelope.
   // -------------------------------------------------------------------------
   panel5: {
-    eyebrow: "Devin preview",
-    headline: "Business impact walkthrough.",
+    eyebrow: "Devin modernization demo",
+    headline:
+      "Controlled modernization,\non a real banking repository.",
     useCase:
-      "Legacy modernization and test acceleration for a strategic banking application.",
+      "Reference repository: kushmirc/banking-modernization · representative legacy banking codebase used for the walkthrough.",
     subhead:
-      "Not a feature tour. A walkthrough of how scoped engineering work moves from intent to a reviewable, auditable outcome — inside an enterprise control envelope.",
+      "Not a feature tour. A walkthrough of how Devin acts as a modernization execution layer: analyze the legacy estate, identify a safe slice, add regression protection first, validate inside the bank's existing review envelope.",
     steps: [
       {
         index: 1,
-        title: "Understand the modernization scope",
-        body: "Devin analyzes the repository, dependencies, deprecated libraries, test coverage, and migration risks.",
+        title: "Analyze the legacy architecture",
+        body: "Devin reads the repository end-to-end — language and framework mix, dependency graph, deprecated libraries, test coverage, and high-blast-radius modules — and produces a modernization map of the estate.",
       },
       {
         index: 2,
-        title: "Plan the work autonomously",
-        body: "Devin creates an execution plan, identifies impacted files, and proposes a safe modernization path.",
+        title: "Identify a safe modernization slice",
+        body: "Devin proposes a scoped slice that maximizes business value while minimizing regression exposure. The Champion and engineering lead approve scope before any code change.",
       },
       {
         index: 3,
-        title: "Execute with governance",
-        body: "Devin refactors code, upgrades dependencies, adds or improves tests, and prepares a reviewable pull request.",
+        title: "Add regression protection first",
+        body: "Before refactoring, Devin strengthens the safety net: characterization tests on legacy behavior, missing unit / integration coverage, and contract tests across the legacy / modern boundary.",
       },
       {
         index: 4,
-        title: "Document for auditability",
-        body: "Devin produces clear change rationale, testing evidence, PR documentation, and traceability for engineering and governance stakeholders.",
+        title: "Execute the modernization slice",
+        body: "Devin refactors code, upgrades dependencies, and bridges legacy ↔ modern flows — every change captured as a reviewable pull request inside the bank's existing review tooling, never as an opaque action.",
+      },
+      {
+        index: 5,
+        title: "Validate safely and document for audit",
+        body: "Devin runs the strengthened test suite, captures change rationale, evidence, and traceability, and hands a controlled, auditable modernization slice to engineering and governance review.",
       },
     ] as WalkthroughStep[],
     valueStatements: [
-      "This is not about replacing engineers. It is about increasing execution capacity without linearly increasing headcount.",
-      "For Intesa, the value is not only faster code delivery. It is safer, more auditable modernization at enterprise scale.",
+      "Devin is not a code-generation toy. It is the execution layer that lets controlled modernization scale without overloading scarce senior engineers.",
+      "For Intesa, the value is operational resilience: safer modernization, lower regression risk, faster release confidence — at enterprise scale.",
     ],
+    repoLink: {
+      label: "github.com/kushmirc/banking-modernization",
+      url: "https://github.com/kushmirc/banking-modernization",
+    },
   },
 
   // -------------------------------------------------------------------------

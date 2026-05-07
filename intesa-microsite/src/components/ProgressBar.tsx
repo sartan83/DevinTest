@@ -19,7 +19,7 @@ export function ProgressBar({ active, onSelect, isMobile = false }: Props) {
         {intesa.nav[active]?.label ?? "—"}
       </span>
       <div className="flex items-center gap-1.5 sm:gap-2">
-        {intesa.nav.map((step) => {
+        {intesa.nav.filter((step) => !step.appendix).map((step) => {
           const isActive = step.index === active;
           const isPassed = step.index < active;
           const isHalf = step.label.includes(".");

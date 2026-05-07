@@ -17,10 +17,15 @@ import { Panel9CounterClimax } from "./panels/Panel9CounterClimax";
 import { Panel10Pilot } from "./panels/Panel10Pilot";
 import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
+import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-const TOTAL_PANELS = 12;
+// 12 main panels (index 0–11) + 1 appendix panel (index 12) reachable only
+// via the discrete "Appendix" toggle in the header.
+const MAIN_PANELS = 12;
+const APPENDIX_INDEX = 12;
+const TOTAL_PANELS = MAIN_PANELS + 1;
 // Render index of the counter climax panel ("Reclaimed capacity"), the 9th
-// tile in the 12-panel sequence (zero-indexed → 8).
+// tile in the main sequence (zero-indexed → 8).
 const CLIMAX_INDEX = 8;
 const MOBILE_MAX_WIDTH = 767;
 
@@ -40,10 +45,11 @@ export function MicrositeShell() {
   }, []);
 
   const goTo = useCallback(
-    (idx: number) => {
+    (idx: number, opts: { allowAppendix?: boolean } = {}) => {
       const el = scrollerRef.current;
       if (!el) return;
-      const clamped = Math.max(0, Math.min(TOTAL_PANELS - 1, idx));
+      const max = opts.allowAppendix ? TOTAL_PANELS - 1 : MAIN_PANELS - 1;
+      const clamped = Math.max(0, Math.min(max, idx));
       if (isMobile) {
         el.scrollTo({ top: el.clientHeight * clamped, behavior: "smooth" });
       } else {
@@ -125,18 +131,31 @@ export function MicrositeShell() {
         case "ArrowDown":
         case "PageDown":
           e.preventDefault();
-          goTo(active + 1);
+          if (active === APPENDIX_INDEX) {
+            // No forward nav from the appendix; bounce back to last main panel.
+            goTo(MAIN_PANELS - 1);
+          } else {
+            goTo(active + 1);
+          }
           break;
         case " ":
           if (isActivatable) return;
           e.preventDefault();
-          goTo(active + 1);
+          if (active === APPENDIX_INDEX) {
+            goTo(MAIN_PANELS - 1);
+          } else {
+            goTo(active + 1);
+          }
           break;
         case "ArrowLeft":
         case "ArrowUp":
         case "PageUp":
           e.preventDefault();
-          goTo(active - 1);
+          if (active === APPENDIX_INDEX) {
+            goTo(MAIN_PANELS - 1);
+          } else {
+            goTo(active - 1);
+          }
           break;
         case "Home":
           e.preventDefault();
@@ -144,7 +163,23 @@ export function MicrositeShell() {
           break;
         case "End":
           e.preventDefault();
-          goTo(TOTAL_PANELS - 1);
+          goTo(MAIN_PANELS - 1);
+          break;
+        case "Escape":
+          if (active === APPENDIX_INDEX) {
+            e.preventDefault();
+            goTo(MAIN_PANELS - 1);
+          }
+          break;
+        case "a":
+        case "A":
+          if (isActivatable) return;
+          e.preventDefault();
+          if (active === APPENDIX_INDEX) {
+            goTo(MAIN_PANELS - 1);
+          } else {
+            goTo(APPENDIX_INDEX, { allowAppendix: true });
+          }
           break;
       }
     };
@@ -243,6 +278,15 @@ export function MicrositeShell() {
   }, [visited]);
 
   const counterExpanded = active === CLIMAX_INDEX;
+  const isAppendix = active === APPENDIX_INDEX;
+
+  const toggleAppendix = useCallback(() => {
+    if (isAppendix) {
+      goTo(MAIN_PANELS - 1);
+    } else {
+      goTo(APPENDIX_INDEX, { allowAppendix: true });
+    }
+  }, [isAppendix, goTo]);
 
   return (
     <div className="relative h-[100svh] w-screen overflow-hidden bg-brand-green text-brand-ivory">
@@ -260,12 +304,32 @@ export function MicrositeShell() {
           </div>
         </div>
 
-        <ExecutiveCounter
-          min={counterValue.min}
-          max={counterValue.max}
-          expanded={counterExpanded}
-          revealed={active >= CLIMAX_INDEX || visited.has(CLIMAX_INDEX)}
-        />
+        <div className="pointer-events-auto flex items-start gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={toggleAppendix}
+            aria-pressed={isAppendix}
+            className={[
+              "hidden h-8 items-center gap-1.5 rounded-full border px-3 text-[10px] uppercase tracking-[0.24em] transition-colors sm:inline-flex sm:text-[11px]",
+              isAppendix
+                ? "border-brand-orange/45 bg-brand-orange/10 text-brand-ivory"
+                : "border-brand-ivory/15 bg-brand-green-deep/40 text-brand-ivory/55 hover:border-brand-ivory/30 hover:text-brand-ivory/85",
+            ].join(" ")}
+            title={isAppendix ? "Return to main flow (Esc)" : "Open appendix (A)"}
+          >
+            <span aria-hidden className={isAppendix ? "text-brand-orange" : "text-brand-ivory/40"}>
+              {isAppendix ? "←" : "¶"}
+            </span>
+            <span>{isAppendix ? "Back to flow" : "Appendix"}</span>
+          </button>
+
+          <ExecutiveCounter
+            min={counterValue.min}
+            max={counterValue.max}
+            expanded={counterExpanded}
+            revealed={active >= CLIMAX_INDEX || visited.has(CLIMAX_INDEX)}
+          />
+        </div>
       </header>
 
       {/* Snap scroller: horizontal on desktop, vertical on mobile */}
@@ -300,6 +364,7 @@ export function MicrositeShell() {
           <Panel10Pilot />
           <Panel11MutualCommitment />
           <Panel12FinalAsk onCta={(target) => goTo(target - 1)} />
+          <AppendixDiscoveryFramework />
         </div>
       </div>
 
