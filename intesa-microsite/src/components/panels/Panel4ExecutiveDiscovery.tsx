@@ -12,9 +12,11 @@ export function Panel4ExecutiveDiscovery() {
       <div className="flex flex-col gap-4 sm:gap-6">
         <div className="grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-8">
           <PanelHeadline text={p.headline} className="max-w-3xl" compact />
-          <p className="text-[12px] leading-relaxed text-brand-ivory/65 sm:text-[13px]">
-            {p.subhead}
-          </p>
+          {p.subhead ? (
+            <p className="text-[12px] leading-relaxed text-brand-ivory/65 sm:text-[13px]">
+              {p.subhead}
+            </p>
+          ) : null}
         </div>
 
         {/* 3 Executive Alignment Areas — primary, visually dominant. */}

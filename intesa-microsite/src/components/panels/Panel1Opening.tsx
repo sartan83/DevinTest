@@ -4,11 +4,7 @@ import { motion } from "framer-motion";
 import { intesa } from "../../data/intesa";
 import { PanelShell, PanelHeadline, PanelSubhead } from "../PanelShell";
 
-type Props = {
-  onCta: (targetPanel: number) => void;
-};
-
-export function Panel1Opening({ onCta }: Props) {
+export function Panel1Opening() {
   const p = intesa.panel1;
   return (
     <PanelShell eyebrow={p.eyebrow}>
@@ -24,28 +20,6 @@ export function Panel1Opening({ onCta }: Props) {
             </p>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            {p.ctas.map((cta) => (
-              <button
-                key={cta.label}
-                onClick={() => onCta(cta.target)}
-                className={[
-                  "group inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-all",
-                  cta.primary
-                    ? "bg-devin-gradient text-brand-ivory shadow-glow hover:brightness-110"
-                    : "border border-brand-ivory/20 text-brand-ivory/90 hover:border-brand-ivory/40 hover:bg-brand-ivory/5",
-                ].join(" ")}
-              >
-                <span>{cta.label}</span>
-                <span
-                  aria-hidden
-                  className="transition-transform group-hover:translate-x-0.5"
-                >
-                  →
-                </span>
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">

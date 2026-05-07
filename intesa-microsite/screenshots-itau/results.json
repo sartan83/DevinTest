@@ -6,7 +6,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 1.8500000805943273e-05,
+      "overflowsViewport": 0,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -343,7 +343,8 @@
     "passed": true,
     "checks": {
       "eyebrow 'Executive working session'": true,
-      "subhead '55-minute strategic discussion'": true,
+      "headline 'Five focus areas for the next 55 minutes'": true,
+      "no '55-minute strategic discussion' subhead": true,
       "block 1 Transformation Context": true,
       "block 2 Executive Alignment": true,
       "block 3 Live Workflow Preview": true,
@@ -725,7 +726,8 @@
     "passed": true,
     "checks": {
       "eyebrow 'Executive working session'": true,
-      "subhead '55-minute strategic discussion'": true,
+      "headline 'Five focus areas for the next 55 minutes'": true,
+      "no '55-minute strategic discussion' subhead": true,
       "block 1 Transformation Context": true,
       "block 2 Executive Alignment": true,
       "block 3 Live Workflow Preview": true,
@@ -1107,7 +1109,8 @@
     "passed": true,
     "checks": {
       "eyebrow 'Executive working session'": true,
-      "subhead '55-minute strategic discussion'": true,
+      "headline 'Five focus areas for the next 55 minutes'": true,
+      "no '55-minute strategic discussion' subhead": true,
       "block 1 Transformation Context": true,
       "block 2 Executive Alignment": true,
       "block 3 Live Workflow Preview": true,

@@ -358,7 +358,7 @@ export function MicrositeShell() {
               : { width: `${TOTAL_PANELS * 100}vw` }
           }
         >
-          <Panel1Opening onCta={(target) => goTo(target - 1)} />
+          <Panel1Opening />
           <Panel1bAgenda />
           <Panel2ExecutionGap />
           <Panel3CurrentState />

@@ -11,7 +11,7 @@ export function Panel1bAgenda() {
       <div className="flex flex-col gap-4 sm:gap-5">
         <div className="grid gap-3 lg:grid-cols-[1.15fr_1fr] lg:items-end lg:gap-8">
           <PanelHeadline text={p.headline} compact />
-          <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead>
+          {p.subhead ? <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead> : null}
         </div>
 
         {/* Executive timeline — 5 minimal blocks. Readable in <10s. */}

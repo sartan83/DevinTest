@@ -233,8 +233,7 @@ export const intesa = {
   panel1b: {
     eyebrow: "Executive working session",
     headline: "Five focus areas for the next 55 minutes.",
-    subhead:
-      "55-minute strategic discussion on modernization execution scalability.",
+    subhead: "",
     blocks: [
       {
         index: 1,
@@ -373,8 +372,7 @@ export const intesa = {
     eyebrow: "Executive alignment areas",
     headline:
       "What has been identified so far —\nand what still requires executive alignment.",
-    subhead:
-      "Three prompts for the executive seat.",
+    subhead: "",
     questions: [
       {
         category: "Capacity Constraints",

@@ -440,9 +440,10 @@ async def run_for_viewport(p, w: int, h: int):
     p1b_text = await get_section_text(page, 1)
     o_checks = {
         "eyebrow 'Executive working session'": "executive working session" in p1b_text.lower(),
-        "subhead '55-minute strategic discussion'":
-            "55-minute strategic discussion" in p1b_text
-            and "modernization execution scalability" in p1b_text.lower(),
+        "headline 'Five focus areas for the next 55 minutes'":
+            "Five focus areas for the next 55 minutes" in p1b_text,
+        "no '55-minute strategic discussion' subhead":
+            "55-minute strategic discussion" not in p1b_text.lower(),
         "block 1 Transformation Context": "Transformation Context" in p1b_text
             and "current execution constraints" in p1b_text.lower(),
         "block 2 Executive Alignment": "Executive Alignment" in p1b_text
