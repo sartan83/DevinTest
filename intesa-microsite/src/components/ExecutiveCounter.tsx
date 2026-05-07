@@ -24,29 +24,21 @@ function format(n: number) {
 }
 
 /**
- * Animates `value` toward `target` with a cubic-ease-out, then maintains a
- * subtle continuous drift so the counter never appears frozen during the
- * presentation. The drift is a low-amplitude sine around the resting target
- * (~±1.2% of target, ~6.5s period) — premium, breathing, not flashy.
+ * Eases `value` toward `target` with a cubic-ease-out (~700ms) on every change
+ * and then holds steady at the resting target. We do NOT continuously drift —
+ * a wobbling number in the header is distracting during a live presentation.
+ * The pulse-dot accent and the eased transition on panel change provide
+ * sufficient "live" signal without compromising executive readability.
  */
-function useLiveCounter(target: number, opts?: { driftAmplitude?: number; driftPeriodMs?: number }) {
-  const driftAmp = opts?.driftAmplitude ?? 0.012;
-  const driftPeriod = opts?.driftPeriodMs ?? 6500;
-
+function useEasedNumber(target: number) {
   const [value, setValue] = useState(target);
   const targetRef = useRef(target);
-  const baseRef = useRef(target);
-  const phaseRef = useRef(Math.random() * Math.PI * 2);
   const transitionStartRef = useRef<number | null>(null);
   const transitionFromRef = useRef(target);
 
   useEffect(() => {
-    // When the resting target changes (e.g. user navigates to a new panel),
-    // ease the displayed value from the current value to the new target,
-    // then resume the drift around the new target.
     transitionFromRef.current = value;
     targetRef.current = target;
-    baseRef.current = target;
     transitionStartRef.current = null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target]);
@@ -56,38 +48,28 @@ function useLiveCounter(target: number, opts?: { driftAmplitude?: number; driftP
     const TRANSITION_MS = 700;
 
     const tick = (t: number) => {
-      // Ease-out cubic transition to a new target if one is pending.
       if (transitionStartRef.current === null) transitionStartRef.current = t;
-      const transitionElapsed = t - transitionStartRef.current;
-      const transitionProgress = Math.min(1, transitionElapsed / TRANSITION_MS);
-      const eased = 1 - Math.pow(1 - transitionProgress, 3);
-      const transitioned =
+      const elapsed = t - transitionStartRef.current;
+      const progress = Math.min(1, elapsed / TRANSITION_MS);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const next =
         transitionFromRef.current +
         (targetRef.current - transitionFromRef.current) * eased;
-
-      // Once transition completes, drift gently around the resting target.
-      // While transitioning, drift is suppressed for cleanliness.
-      const driftActive = transitionProgress >= 1 && targetRef.current > 0;
-      const drift = driftActive
-        ? targetRef.current *
-          driftAmp *
-          Math.sin((t / driftPeriod) * Math.PI * 2 + phaseRef.current)
-        : 0;
-
-      setValue(transitioned + drift);
-      raf = requestAnimationFrame(tick);
+      setValue(next);
+      if (progress < 1) {
+        raf = requestAnimationFrame(tick);
+      }
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [driftAmp, driftPeriod]);
+  }, [target]);
 
   return value;
 }
 
 export function ExecutiveCounter({ min, max, expanded, revealed }: Props) {
-  // Slightly different drift phases so the two figures don't tick in lockstep.
-  const aMin = useLiveCounter(min, { driftAmplitude: 0.012, driftPeriodMs: 6500 });
-  const aMax = useLiveCounter(max, { driftAmplitude: 0.012, driftPeriodMs: 7300 });
+  const aMin = useEasedNumber(min);
+  const aMax = useEasedNumber(max);
 
   // Teaser mode: small pill with "?" + numeric hint, no label / unit / disclaimer.
   if (!revealed && !expanded) {

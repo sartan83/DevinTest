@@ -335,10 +335,8 @@ async def run_for_viewport(p, w: int, h: int):
         "sub-bullet Dependency mapping": "Dependency mapping" in p5b_text,
         "sub-bullet Reviewable PR creation": "Reviewable PR creation" in p5b_text,
         "sub-bullet Human approval workflow": "Human approval workflow" in p5b_text,
-        "governed PR review card": 'data-testid="workflow-review-card"' in p5b_html,
-        "review card title": "Modernize legacy reconciliation flow" in p5b_text,
-        "review tick Tests passing": "Tests passing" in p5b_text,
-        "review tick Audit trail": "Audit trail captured" in p5b_text,
+        "no mock review card": 'data-testid="workflow-review-card"' not in p5b_html,
+        "no PR-mock title leakage": "Modernize legacy reconciliation flow" not in p5b_text,
         "executive insight": "operating inside enterprise engineering controls" in p5b_text.lower(),
         "illustrative disclaimer": "illustrative workflow visualization" in p5b_text.lower(),
     }

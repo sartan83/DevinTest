@@ -6,7 +6,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.02371319942176342,
+      "overflowsViewport": 0.05258860066533089,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -20,7 +20,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 1.8500000805943273e-05,
+      "overflowsViewport": 0,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -90,7 +90,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 1.6973353922367096e-07,
+      "overflowsViewport": 0,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -118,7 +118,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 2.7300000510876998e-05,
+      "overflowsViewport": 0,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -157,7 +157,7 @@
     "viewport": "1440x900",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.0–15.1"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.0–14.9"
   },
   {
     "viewport": "1440x900",
@@ -279,10 +279,8 @@
       "sub-bullet Dependency mapping": true,
       "sub-bullet Reviewable PR creation": true,
       "sub-bullet Human approval workflow": true,
-      "governed PR review card": true,
-      "review card title": true,
-      "review tick Tests passing": true,
-      "review tick Audit trail": true,
+      "no mock review card": true,
+      "no PR-mock title leakage": true,
       "executive insight": true,
       "illustrative disclaimer": true
     }
@@ -314,7 +312,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.005856500007212162,
+      "overflowsViewport": 0.0007097999914549291,
       "innerScrollHeight": 800,
       "innerClientHeight": 800,
       "viewportH": 800
@@ -356,7 +354,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.000499800022225827,
+      "overflowsViewport": 0,
       "innerScrollHeight": 800,
       "innerClientHeight": 800,
       "viewportH": 800
@@ -465,13 +463,13 @@
     "viewport": "1280x800",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 6.9–15.1"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.0–14.9"
   },
   {
     "viewport": "1280x800",
     "test": "B2-reveal-at-idx-10",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–17.9\ndeveloper days\nIllustrative scenario based on modeled assumptions"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–18.0\ndeveloper days\nIllustrative scenario based on modeled assumptions"
   },
   {
     "viewport": "1280x800",
@@ -587,10 +585,8 @@
       "sub-bullet Dependency mapping": true,
       "sub-bullet Reviewable PR creation": true,
       "sub-bullet Human approval workflow": true,
-      "governed PR review card": true,
-      "review card title": true,
-      "review tick Tests passing": true,
-      "review tick Audit trail": true,
+      "no mock review card": true,
+      "no PR-mock title leakage": true,
       "executive insight": true,
       "illustrative disclaimer": true
     }
@@ -622,7 +618,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0,
+      "overflowsViewport": 0.0022499000187963247,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -650,7 +646,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.018641099333763123,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -664,7 +660,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.0017800000496208668,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -678,7 +674,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.001123799942433834,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -692,7 +688,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0,
+      "overflowsViewport": 7.986091077327728e-08,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -720,7 +716,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.00021240000205580145,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -734,7 +730,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.016641100868582726,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -748,7 +744,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.018901800736784935,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -762,7 +758,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.032926999032497406,
+      "overflowsViewport": 0,
       "innerScrollHeight": 768,
       "innerClientHeight": 768,
       "viewportH": 768
@@ -773,13 +769,13 @@
     "viewport": "1366x768",
     "test": "B1-teaser-at-idx-9",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.1–14.7"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\n?\n≈ 7.0–14.9"
   },
   {
     "viewport": "1366x768",
     "test": "B2-reveal-at-idx-10",
     "passed": true,
-    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 7.0–14.7\ndeveloper days\nIllustrative scenario based on modeled assumptions"
+    "header": "D\nDEVIN / COGNITION\nIntesa Sanpaolo · Executive briefing — 60 minutes\n¶\nAPPENDIX\nMODELED EXECUTION CAPACITY RECLAIMED DURING THIS SESSION\n≈ 8.0–18.0\ndeveloper days\nIllustrative scenario based on modeled assumptions"
   },
   {
     "viewport": "1366x768",
@@ -895,10 +891,8 @@
       "sub-bullet Dependency mapping": true,
       "sub-bullet Reviewable PR creation": true,
       "sub-bullet Human approval workflow": true,
-      "governed PR review card": true,
-      "review card title": true,
-      "review tick Tests passing": true,
-      "review tick Audit trail": true,
+      "no mock review card": true,
+      "no PR-mock title leakage": true,
       "executive insight": true,
       "illustrative disclaimer": true
     }
