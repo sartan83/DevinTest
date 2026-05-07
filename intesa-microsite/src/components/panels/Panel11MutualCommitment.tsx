@@ -22,7 +22,7 @@ function CommitmentColumn({
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className={[
-        "flex flex-col rounded-2xl border p-5 sm:p-6",
+        "flex flex-col rounded-xl border p-3.5 sm:p-4",
         accent === "partner"
           ? "border-brand-orange/30 bg-brand-orange/5"
           : "border-brand-ivory/15 bg-brand-green-mid/25",
@@ -36,15 +36,15 @@ function CommitmentColumn({
             accent === "partner" ? "bg-brand-orange" : "bg-brand-ivory/60",
           ].join(" ")}
         />
-        <h3 className="font-display text-base font-medium uppercase tracking-[0.22em] text-brand-ivory sm:text-[15px]">
+        <h3 className="font-display text-[13px] font-medium uppercase tracking-[0.22em] text-brand-ivory sm:text-[14px]">
           {col.title}
         </h3>
       </div>
-      <ul className="mt-4 space-y-2.5">
+      <ul className="mt-2.5 space-y-1.5">
         {col.items.map((it) => (
           <li
             key={it}
-            className="flex gap-3 rounded-xl border border-brand-ivory/8 bg-brand-green-deep/40 px-3 py-2.5 text-[13px] leading-relaxed text-brand-ivory/85 sm:text-sm"
+            className="flex gap-2 rounded-lg border border-brand-ivory/8 bg-brand-green-deep/40 px-2.5 py-1.5 text-[11px] leading-snug text-brand-ivory/85 sm:text-[12px]"
           >
             <span
               aria-hidden
@@ -64,24 +64,21 @@ function CommitmentColumn({
 export function Panel11MutualCommitment() {
   const p = intesa.panel12;
   return (
-    <PanelShell eyebrow={p.eyebrow}>
-      <div className="flex flex-col gap-6 sm:gap-8">
-        <div className="grid gap-3 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-8">
-          <PanelHeadline
-            text={p.headline}
-            className="max-w-3xl text-2xl sm:text-4xl lg:text-5xl"
-          />
-          <p className="rounded-2xl border border-brand-orange/30 bg-brand-orange/5 px-4 py-3 text-[13px] leading-relaxed text-brand-ivory/90 sm:px-5 sm:py-4 sm:text-[14px]">
+    <PanelShell eyebrow={p.eyebrow} compact>
+      <div className="flex flex-col gap-3 sm:gap-4">
+        <div className="grid gap-3 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-6">
+          <PanelHeadline text={p.headline} className="max-w-3xl" compact />
+          <p className="rounded-xl border border-brand-orange/30 bg-brand-orange/5 px-3.5 py-2.5 text-[12px] leading-relaxed text-brand-ivory/90 sm:px-4 sm:py-3 sm:text-[13px]">
             {p.partnership}
           </p>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
+        <div className="grid gap-2.5 sm:gap-3 lg:grid-cols-2">
           <CommitmentColumn col={p.intesa} accent="client" delay={0.05} />
           <CommitmentColumn col={p.cognition} accent="partner" delay={0.15} />
         </div>
 
-        <p className="rounded-2xl border border-brand-ivory/12 bg-brand-green-deep/40 px-4 py-3 text-[13px] leading-relaxed text-brand-ivory/80 sm:px-5 sm:py-4 sm:text-[14px]">
+        <p className="rounded-xl border border-brand-ivory/12 bg-brand-green-deep/40 px-3.5 py-2.5 text-[12px] leading-relaxed text-brand-ivory/80 sm:px-4 sm:py-3 sm:text-[13px]">
           {p.successDependsOn}
         </p>
       </div>
