@@ -578,7 +578,10 @@ async def run_for_viewport(p, w: int, h: int):
         """() => document.querySelectorAll('section')[0].innerHTML"""
     )
     r_checks = {
-        "Title 'Executive Working Session'": "Executive Working Session" in p0_text,
+        "Title 'Governed Modernization Execution at Enterprise Scale'":
+            "Governed Modernization Execution at Enterprise Scale" in p0_text,
+        "No legacy 'Executive Working Session' title in P0":
+            "executive working session" not in p0_text.lower(),
         "Subtitle 'Governance-Aware Modernization Discussion'":
             "Governance-Aware Modernization Discussion".lower() in p0_text.lower(),
         "Left wordmark 'Intesa Sanpaolo'": "Intesa Sanpaolo" in p0_text,

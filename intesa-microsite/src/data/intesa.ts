@@ -185,7 +185,7 @@ export const intesa = {
   panel0: {
     leftWordmark: "Intesa Sanpaolo",
     rightWordmark: "Cognition",
-    title: "Executive Working Session",
+    title: "Governed Modernization Execution at Enterprise Scale",
     subtitle: "Governance-Aware Modernization Discussion",
     footer: "Intesa Sanpaolo × Cognition",
     cta: "Begin session",
