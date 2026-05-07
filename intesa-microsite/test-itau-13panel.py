@@ -27,16 +27,20 @@ OUT.mkdir(exist_ok=True)
 
 # (panel_idx, slug, must-have substrings, must-NOT-have substrings)
 PANELS_TO_FIT = [
+    (1, "panel2-execution-gap"),
     (2, "panel3-current-state"),
     (3, "panel4-discovery"),
     (4, "panel5-demo"),
+    (5, "panel6-trust"),
     (6, "panel7-capacity"),
+    (7, "panel8-roi"),
     (8, "panel9-itau"),
     (10, "panel11-pilot"),
     (11, "panel12-mutual"),
 ]
 
-VIEWPORTS = [(1440, 900), (1280, 800)]
+# Includes typical laptop viewport (1366x768) and conference-screen at 90% zoom (~1422x800).
+VIEWPORTS = [(1440, 900), (1280, 800), (1366, 768)]
 
 
 async def goto_panel(page, idx: int):
