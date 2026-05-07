@@ -29,8 +29,11 @@ function formatFte(n: number) {
 export function Panel9CounterClimax({ min, max }: Props) {
   const p = intesa.panel10;
   const c = intesa.counter;
-  const finalMin = Math.max(min, c.finalRange.min);
-  const finalMax = Math.max(max, c.finalRange.max);
+  // Show the cumulative value reached AT THIS MOMENT in the live presentation,
+  // not the final headline envelope. The number grows panel-by-panel as the
+  // audience walks through the deck and only reaches 8.0–18.0 at the closing.
+  const finalMin = min;
+  const finalMax = max;
 
   // Translation layer: dev-days → engineering hours → annualized FTE-equivalent.
   // Annualized projection = (dev-days reclaimed per session × ~50 sessions/year)

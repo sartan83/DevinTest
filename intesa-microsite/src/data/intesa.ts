@@ -220,9 +220,9 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel1b: {
     eyebrow: "Executive working session",
-    headline: "Five focus areas for the next 30 minutes.",
+    headline: "Five focus areas for the next 55 minutes.",
     subhead:
-      "30-minute strategic discussion on modernization execution scalability.",
+      "55-minute strategic discussion on modernization execution scalability.",
     blocks: [
       {
         index: 1,

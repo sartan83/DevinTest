@@ -20,7 +20,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0,
+      "overflowsViewport": 6.38999990769662e-05,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -340,7 +340,7 @@
     "passed": true,
     "checks": {
       "eyebrow 'Executive working session'": true,
-      "subhead '30-minute strategic discussion'": true,
+      "subhead '55-minute strategic discussion'": true,
       "block 1 Transformation Context": true,
       "block 2 Executive Alignment": true,
       "block 3 Live Workflow Preview": true,
@@ -362,7 +362,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0.019430499523878098,
+      "overflowsViewport": 0,
       "innerScrollHeight": 800,
       "innerClientHeight": 800,
       "viewportH": 800
@@ -696,7 +696,7 @@
     "passed": true,
     "checks": {
       "eyebrow 'Executive working session'": true,
-      "subhead '30-minute strategic discussion'": true,
+      "subhead '55-minute strategic discussion'": true,
       "block 1 Transformation Context": true,
       "block 2 Executive Alignment": true,
       "block 3 Live Workflow Preview": true,
@@ -1052,7 +1052,7 @@
     "passed": true,
     "checks": {
       "eyebrow 'Executive working session'": true,
-      "subhead '30-minute strategic discussion'": true,
+      "subhead '55-minute strategic discussion'": true,
       "block 1 Transformation Context": true,
       "block 2 Executive Alignment": true,
       "block 3 Live Workflow Preview": true,
