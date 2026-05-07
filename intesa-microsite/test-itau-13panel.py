@@ -520,6 +520,69 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "P-narrative-refinement", "passed": p_passed, "checks": p_checks})
 
+    # === Test Q: visual rhythm & section contrast pass ===
+    # Panel-specific tonal background variants + cinematic closing statement
+    # on the merged P5 workflow + amplified P13 final-ask headline scale.
+    bg_classes = await page.evaluate(
+        """() => {
+            const sections = Array.from(document.querySelectorAll('section'));
+            return sections.map(s => {
+                const cls = s.className || '';
+                const variant = ['panel-bg-deep','panel-bg-cinematic','panel-bg-bright','panel-bg-clean','panel-bg-ivory','panel-bg']
+                    .find(v => cls.split(' ').includes(v)) || null;
+                return variant;
+            });
+        }"""
+    )
+    # Expected variant per panel idx (0..14):
+    # 0 hero → deep, 1 agenda → deep, 2 gap → default, 3 current → default,
+    # 4 discovery → default, 5 workflow → cinematic, 6 trust → default,
+    # 7 capacity → bright, 8 roi → bright, 9 itau → bright,
+    # 10 climax → cinematic, 11 pilot → clean, 12 op-readiness → clean,
+    # 13 final-ask → deep, 14 appendix → default
+    expected_bg = [
+        "panel-bg-deep", "panel-bg-deep", "panel-bg", "panel-bg",
+        "panel-bg", "panel-bg-cinematic", "panel-bg",
+        "panel-bg-bright", "panel-bg-bright", "panel-bg-bright",
+        "panel-bg-cinematic", "panel-bg-clean", "panel-bg-clean",
+        "panel-bg-deep", "panel-bg",
+    ]
+    await goto_panel(page, 5)
+    p5_text_r = await get_section_text(page, 5)
+    await goto_panel(page, 13)
+    p13_text_r = await get_section_text(page, 13)
+    p13_html = await page.evaluate(
+        """(idx) => {
+            const sections = document.querySelectorAll('section');
+            const h2 = sections[idx]?.querySelector('h2');
+            return h2 ? h2.className : '';
+        }""",
+        13,
+    )
+    q_checks = {
+        "Hero panel uses deep bg": bg_classes[0] == "panel-bg-deep",
+        "Workflow panel (idx 5) uses cinematic bg": bg_classes[5] == "panel-bg-cinematic",
+        "Capacity panel (idx 7) uses bright bg": bg_classes[7] == "panel-bg-bright",
+        "Itau benchmark panel (idx 9) uses bright bg": bg_classes[9] == "panel-bg-bright",
+        "Climax panel (idx 10) uses cinematic bg": bg_classes[10] == "panel-bg-cinematic",
+        "Pilot panel (idx 11) uses clean bg": bg_classes[11] == "panel-bg-clean",
+        "Op-readiness (idx 12) uses clean bg": bg_classes[12] == "panel-bg-clean",
+        "Final-ask (idx 13) uses deep bg": bg_classes[13] == "panel-bg-deep",
+        "All 15 panels render": len(bg_classes) == 15,
+        "Cinematic closing statement on P5":
+            "governed execution at enterprise scale" in p5_text_r.lower(),
+        "P13 amplified headline scale (text-7xl)":
+            "lg:text-7xl" in p13_html,
+        "P13 keeps strategic discussion prompt":
+            "strategic discussion prompt" in p13_text_r.lower(),
+    }
+    q_passed = all(q_checks.values())
+    print(f"[{label}] Q: visual rhythm & section contrast -> {'PASS' if q_passed else 'FAIL'}", flush=True)
+    for k, v in q_checks.items():
+        if not v:
+            print(f"          -> miss: {k}", flush=True)
+    results.append({"viewport": label, "test": "Q-visual-rhythm", "passed": q_passed, "checks": q_checks})
+
     # === Test J: wheel handler regression ===
     await goto_panel(page, 0)
     await page.wait_for_timeout(400)

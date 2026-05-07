@@ -12,9 +12,9 @@ type Props = {
 export function Panel12FinalAsk({ onCta }: Props) {
   const p = intesa.panel13;
   return (
-    <PanelShell eyebrow={p.eyebrow} className="items-center text-center">
+    <PanelShell eyebrow={p.eyebrow} className="items-center text-center" bg="deep">
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-        <PanelHeadline text={p.headline} />
+        <PanelHeadline text={p.headline} className="sm:text-6xl lg:text-7xl" />
 
         <motion.p
           initial={{ opacity: 0, y: 12 }}

@@ -7,7 +7,7 @@ import { PanelShell, PanelHeadline, PanelSubhead } from "../PanelShell";
 export function Panel1Opening() {
   const p = intesa.panel1;
   return (
-    <PanelShell eyebrow={p.eyebrow}>
+    <PanelShell eyebrow={p.eyebrow} bg="deep">
       <div className="grid items-center gap-6 sm:gap-9 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <PanelHeadline text={p.headline} />

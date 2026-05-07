@@ -540,6 +540,9 @@ export const intesa = {
       devEquivalentFootnote:
         "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
     },
+    // Oversized closing statement — visual breathing moment to anchor the
+    // workflow section and create a memorable cinematic peak.
+    closingStatement: "Governed execution at enterprise scale.",
     repoLink: {
       label: "github.com/kushmirc/banking-modernization",
       url: "https://github.com/kushmirc/banking-modernization",

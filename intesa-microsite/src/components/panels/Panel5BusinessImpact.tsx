@@ -21,7 +21,7 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
 export function Panel5BusinessImpact() {
   const p = intesa.panel5;
   return (
-    <PanelShell eyebrow={p.eyebrow} compact>
+    <PanelShell eyebrow={p.eyebrow} compact bg="cinematic">
       <div className="flex flex-col gap-2.5 sm:gap-3">
         {/* Cinematic executive transition statement — set above the
            headline as a quoted strapline. Uses orange accent border-left
@@ -115,6 +115,18 @@ export function Panel5BusinessImpact() {
           </div>
         </div>
 
+        {/* Oversized closing statement — visual breathing moment, cinematic peak.
+           Apple-keynote style: minimal, bold, anchors the workflow section. */}
+        <motion.p
+          initial={{ opacity: 0, y: 6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          className="font-display text-balance text-[15px] font-light leading-tight tracking-displaytight text-brand-ivory sm:text-[18px] lg:text-[22px]"
+        >
+          {p.closingStatement}
+        </motion.p>
+
         {/* Footnote row: repo link + condensed disclaimers. */}
         <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 text-[9px] leading-snug text-brand-ivory/45 sm:text-[10px]">
           <a
@@ -157,10 +169,10 @@ function WorkflowNode({
   return (
     <>
       <motion.li
-        initial={{ opacity: 0, x: -8 }}
+        initial={{ opacity: 0, x: -6 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.45, delay: 0.07 * index, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.42, delay: 0.06 * index, ease: [0.22, 1, 0.36, 1] }}
         className={[
           "flex items-center gap-2 rounded-lg border px-2.5 py-1 text-[11px] leading-snug sm:text-[12px]",
           toneClass,
@@ -174,8 +186,8 @@ function WorkflowNode({
       {!isLast && (
         <motion.span
           aria-hidden
-          animate={{ opacity: [0.25, 0.5, 0.25] }}
-          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 * index }}
+          animate={{ opacity: [0.22, 0.42, 0.22] }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut", delay: 0.5 * index }}
           className="ml-3 text-[10px] leading-none text-brand-ivory/30 sm:ml-4"
         >
           ↓

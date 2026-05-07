@@ -64,7 +64,7 @@ function CommitmentColumn({
 export function Panel11MutualCommitment() {
   const p = intesa.panel12;
   return (
-    <PanelShell eyebrow={p.eyebrow} compact>
+    <PanelShell eyebrow={p.eyebrow} compact bg="clean">
       <div className="flex flex-col gap-3 sm:gap-4">
         <div className="grid gap-3 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-6">
           <PanelHeadline text={p.headline} className="max-w-3xl" compact />

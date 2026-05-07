@@ -56,6 +56,34 @@ html {
       radial-gradient(ellipse at 100% 100%, rgba(31, 86, 80, 0.35), transparent 60%),
       linear-gradient(180deg, #0f2f2a 0%, #0a201d 100%);
   }
+  /* Hero / agenda / final close — deeper executive boardroom tone. */
+  .panel-bg-deep {
+    background:
+      radial-gradient(ellipse at 10% 0%, rgba(243, 111, 33, 0.08), transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(31, 86, 80, 0.4), transparent 65%),
+      linear-gradient(180deg, #0c2622 0%, #07181a 100%);
+  }
+  /* Workflow / climax — most cinematic, deepest contrast with subtle directional gradient. */
+  .panel-bg-cinematic {
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(243, 111, 33, 0.13), transparent 55%),
+      radial-gradient(ellipse at 0% 100%, rgba(31, 86, 80, 0.5), transparent 70%),
+      radial-gradient(ellipse at 100% 50%, rgba(243, 111, 33, 0.06), transparent 60%),
+      linear-gradient(160deg, #0a221f 0%, #061613 60%, #050f0e 100%);
+  }
+  /* Capacity / ROI / Itau benchmark — slightly brighter operational dashboard layer. */
+  .panel-bg-bright {
+    background:
+      radial-gradient(ellipse at 15% 0%, rgba(243, 111, 33, 0.12), transparent 55%),
+      radial-gradient(ellipse at 95% 95%, rgba(46, 110, 102, 0.45), transparent 60%),
+      linear-gradient(180deg, #133731 0%, #0d2723 100%);
+  }
+  /* Pilot / operational readiness — cleaner near-monochrome operational layer. */
+  .panel-bg-clean {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(247, 244, 239, 0.04), transparent 55%),
+      linear-gradient(180deg, #102d28 0%, #0a201d 100%);
+  }
   .panel-bg-ivory {
     background:
       radial-gradient(ellipse at 15% 0%, rgba(243, 111, 33, 0.08), transparent 55%),

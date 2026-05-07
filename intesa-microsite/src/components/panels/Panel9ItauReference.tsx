@@ -7,7 +7,7 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
 export function Panel9ItauReference() {
   const p = intesa.panel9;
   return (
-    <PanelShell eyebrow={p.eyebrow} compact>
+    <PanelShell eyebrow={p.eyebrow} compact bg="bright">
       <div className="flex flex-col gap-4 sm:gap-5">
         <div className="grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-8">
           <PanelHeadline text={p.headline} compact />

@@ -7,7 +7,7 @@ import { PanelShell, PanelHeadline, PanelSubhead } from "../PanelShell";
 export function Panel1bAgenda() {
   const p = intesa.panel1b;
   return (
-    <PanelShell eyebrow={p.eyebrow} compact>
+    <PanelShell eyebrow={p.eyebrow} compact bg="deep">
       <div className="flex flex-col gap-4 sm:gap-5">
         <div className="grid gap-3 lg:grid-cols-[1.15fr_1fr] lg:items-end lg:gap-8">
           <PanelHeadline text={p.headline} compact />

@@ -45,7 +45,7 @@ export function Panel9CounterClimax({ min, max }: Props) {
   const fteMax = (finalMax * sessionsPerYear) / c.annualizedFteProjectionFactor;
 
   return (
-    <PanelShell eyebrow={p.eyebrow} className="items-center justify-center text-center" compact>
+    <PanelShell eyebrow={p.eyebrow} className="items-center justify-center text-center" compact bg="cinematic">
       <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
         {/* Framing: scale of repetitive engineering execution. */}
         <motion.p

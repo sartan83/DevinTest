@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
+type BgVariant = "default" | "deep" | "cinematic" | "bright" | "clean";
+
 type Props = {
   eyebrow?: string;
   tone?: "dark" | "ivory";
@@ -13,14 +15,33 @@ type Props = {
    * (Current State / Discovery Gaps / Demo) fit in a 1280×800 viewport without
    * intra-panel scrolling. */
   compact?: boolean;
+  /** Subtle tonal variation per panel (visual rhythm). All variants stay
+   * within the Intesa green-graphite-ivory-orange brand palette — only
+   * gradient stops and opacity shift, no new hues. */
+  bg?: BgVariant;
 };
 
-export function PanelShell({ eyebrow, tone = "dark", children, className, compact = false }: Props) {
+const BG_CLASS: Record<BgVariant, string> = {
+  default: "panel-bg",
+  deep: "panel-bg-deep",
+  cinematic: "panel-bg-cinematic",
+  bright: "panel-bg-bright",
+  clean: "panel-bg-clean",
+};
+
+export function PanelShell({
+  eyebrow,
+  tone = "dark",
+  children,
+  className,
+  compact = false,
+  bg = "default",
+}: Props) {
   return (
     <section
       className={[
         "scroll-snap-start relative flex h-[100svh] w-screen shrink-0 items-stretch",
-        tone === "dark" ? "panel-bg text-brand-ivory" : "panel-bg-ivory text-brand-charcoal",
+        tone === "dark" ? `${BG_CLASS[bg]} text-brand-ivory` : "panel-bg-ivory text-brand-charcoal",
       ].join(" ")}
     >
       <motion.div
