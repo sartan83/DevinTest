@@ -263,7 +263,10 @@ async def run_for_viewport(p, w: int, h: int):
     await goto_panel(page, 14)
     p13_text = await get_section_text(page, 14)
     p13_checks = {
-        "Commercial alignment header": "Commercial alignment" in p13_text or "COMMERCIAL ALIGNMENT" in p13_text,
+        "Enterprise deployment path header": "enterprise deployment path" in p13_text.lower(),
+        "Strategic discussion prompt header": "strategic discussion prompt" in p13_text.lower(),
+        "no 'Closing question' label leakage": "closing question" not in p13_text.lower(),
+        "no 'Commercial alignment' label leakage": "commercial alignment" not in p13_text.lower(),
         "expanded deployment scope": "expanded deployment scope" in p13_text,
         "governance validation": "governance validation" in p13_text,
         "commercial go-live readiness": "commercial go-live readiness" in p13_text,
@@ -458,6 +461,43 @@ async def run_for_viewport(p, w: int, h: int):
         if not v:
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "O-executive-agenda", "passed": o_passed, "checks": o_checks})
+
+    # === Test P: narrative refinement pass — Why Intesa Matters + flow diagram +
+    # operational scale anchors (P10 Itaú) + dev-equivalent translation on P7 ===
+    await goto_panel(page, 0)
+    p1_text = await get_section_text(page, 0)
+    await goto_panel(page, 5)
+    p5_text_q = await get_section_text(page, 5)
+    await goto_panel(page, 8)
+    p7_text_q = await get_section_text(page, 8)
+    await goto_panel(page, 10)
+    p9_text_q = await get_section_text(page, 10)
+    p_checks = {
+        "Hero — Why Intesa matters block": "why intesa matters" in p1_text.lower(),
+        "Hero — '~14M Customers' anchor": "~14M" in p1_text and "Customers" in p1_text,
+        "Hero — 'Top European' anchor": "Top European" in p1_text,
+        "Hero — 'Highly regulated' anchor": "Highly regulated" in p1_text,
+        "P5 — Modernization flow diagram title": "modernization flow" in p5_text_q.lower(),
+        "P5 — flow node 'Devin bounded workflow'": "Devin bounded workflow" in p5_text_q,
+        "P5 — flow node 'Faster validated delivery'": "Faster validated delivery" in p5_text_q,
+        "P5 — flow insight 'Bounded execution under governance'":
+            "bounded execution under governance" in p5_text_q.lower(),
+        "P7 — dev-equivalent hours line": "210,000 engineering hours" in p7_text_q,
+        "P7 — dev-equivalent FTE line": "developer-equivalent capacity" in p7_text_q.lower(),
+        "P7 — dev-equivalent footnote": "illustrative operational capacity" in p7_text_q.lower(),
+        "P10 — Operational scale signals title": "operational scale signals" in p9_text_q.lower(),
+        "P10 — '800' DB anchor": "800" in p9_text_q and "Database objects migrated" in p9_text_q,
+        "P10 — '59 → 9' service anchor": "59 → 9" in p9_text_q or "59 \u2192 9" in p9_text_q,
+        "P10 — '70%' autonomous remediation": "70%" in p9_text_q
+            and "autonomous vulnerability remediation" in p9_text_q.lower(),
+        "P10 — '50% → 90%' coverage": ("50% → 90%" in p9_text_q) or ("50% \u2192 90%" in p9_text_q),
+    }
+    p_passed = all(p_checks.values())
+    print(f"[{label}] P: narrative refinement pass -> {'PASS' if p_passed else 'FAIL'}", flush=True)
+    for k, v in p_checks.items():
+        if not v:
+            print(f"          -> miss: {k}", flush=True)
+    results.append({"viewport": label, "test": "P-narrative-refinement", "passed": p_passed, "checks": p_checks})
 
     # === Test J: wheel handler regression ===
     await goto_panel(page, 0)

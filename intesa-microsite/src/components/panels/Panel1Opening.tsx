@@ -80,7 +80,37 @@ export function Panel1Opening({ onCta }: Props) {
         </div>
       </div>
 
-      <p className="mt-8 max-w-3xl text-[10px] leading-relaxed text-brand-ivory/40 sm:mt-12 sm:text-[11px]">
+      {/* Why Intesa matters — strategic anchors (scale / regulation / complexity).
+         Compact horizontal strip; distinct from the investor-KPI grid above. */}
+      <div className="mt-7 sm:mt-9">
+        <div className="mb-2 flex items-baseline gap-3">
+          <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
+            {p.whyMatters.title}
+          </span>
+          <span aria-hidden className="h-px flex-1 bg-brand-ivory/10" />
+        </div>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
+          {p.whyMatters.anchors.map((a, i) => (
+            <motion.div
+              key={a.label}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-lg border border-brand-ivory/10 bg-brand-green-mid/20 px-3 py-2 sm:px-3.5 sm:py-2.5"
+            >
+              <div className="font-display text-[15px] font-light leading-tight text-brand-ivory sm:text-base">
+                {a.value}
+              </div>
+              <div className="mt-1 text-[10px] leading-snug text-brand-ivory/65 sm:text-[11px]">
+                {a.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <p className="mt-6 max-w-3xl text-[10px] leading-relaxed text-brand-ivory/40 sm:mt-8 sm:text-[11px]">
         {p.sourcesLine}
       </p>
     </PanelShell>

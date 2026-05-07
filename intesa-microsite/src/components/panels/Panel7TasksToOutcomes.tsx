@@ -85,6 +85,16 @@ export function Panel7TasksToOutcomes() {
         <p className="max-w-4xl rounded-xl border border-brand-orange/30 bg-brand-orange/5 px-3.5 py-2.5 text-[12px] leading-relaxed text-brand-ivory/90 sm:px-4 sm:py-3 sm:text-[13px]">
           {p.leverageStatement}
         </p>
+
+        {/* Developer-equivalent translation — capacity redeployment, not headcount. */}
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[11px] text-brand-ivory/75 sm:text-[12px]">
+          <span className="tabular-nums font-medium text-brand-ivory">{p.devEquivalent.hours}</span>
+          <span aria-hidden className="text-brand-ivory/35">≈</span>
+          <span>{p.devEquivalent.fte}</span>
+        </div>
+        <p className="text-[10px] leading-snug text-brand-ivory/40 sm:text-[11px]">
+          {p.devEquivalent.footnote}
+        </p>
       </div>
     </PanelShell>
   );

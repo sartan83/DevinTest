@@ -1,9 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { intesa } from "../../data/intesa";
 import { PanelShell, PanelHeadline, PanelSubhead } from "../PanelShell";
+import { ModernizationFlowDiagram } from "../ModernizationFlowDiagram";
 
+/**
+ * Tab 5 — Devin modernization demo.
+ * Differentiated from Tab 4 (Executive alignment, conversational) by being
+ * deliberately operational/visual: a clean horizontal flow diagram replaces
+ * the prior 4-card step grid. Use case + repo link kept as concrete
+ * proof-of-execution context. Presenter narrates the workflow verbally.
+ */
 export function Panel5BusinessImpact() {
   const p = intesa.panel5;
   return (
@@ -31,49 +38,15 @@ export function Panel5BusinessImpact() {
           <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead>
         </div>
 
-        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
-          {p.steps.map((s, i) => (
-            <motion.div
-              key={s.index}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex flex-col overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 p-3.5 sm:p-4"
-            >
-              <div className="flex items-baseline gap-2">
-                <span className="text-[9px] uppercase tracking-[0.28em] text-brand-ivory/50 sm:text-[10px]">
-                  Step
-                </span>
-                <span className="font-display text-2xl font-light text-brand-orange-soft sm:text-3xl">
-                  {s.index}
-                </span>
-              </div>
-              <h3 className="mt-2 font-display text-[14px] font-medium leading-snug text-brand-ivory sm:text-[15px]">
-                {s.title}
-              </h3>
-              <p className="mt-1.5 text-[12px] leading-relaxed text-brand-ivory/65 sm:text-[13px]">
-                {s.body}
-              </p>
-              {i < p.steps.length - 1 && (
-                <span aria-hidden className="absolute right-3 top-3.5 hidden text-brand-ivory/25 lg:block">
-                  →
-                </span>
-              )}
-            </motion.div>
-          ))}
-        </div>
+        {/* Modernization flow diagram — clean enterprise schema in place of
+           the prior step-card grid. Visual differentiation vs Tab 4. */}
+        <ModernizationFlowDiagram />
 
-        <div className="grid gap-2.5 sm:gap-3 lg:grid-cols-2">
-          {p.valueStatements.map((v, i) => (
-            <div
-              key={i}
-              className="rounded-xl border border-brand-orange/25 bg-brand-orange/5 px-4 py-3 text-[13px] leading-relaxed text-brand-ivory/85 sm:text-[14px]"
-            >
-              {v}
-            </div>
-          ))}
-        </div>
+        {p.valueStatements[0] && (
+          <p className="rounded-xl border border-brand-orange/25 bg-brand-orange/5 px-4 py-3 text-[13px] leading-relaxed text-brand-ivory/85 sm:text-[14px]">
+            {p.valueStatements[0]}
+          </p>
+        )}
       </div>
     </PanelShell>
   );

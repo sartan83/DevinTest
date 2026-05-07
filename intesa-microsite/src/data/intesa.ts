@@ -113,8 +113,8 @@ export const intesa = {
     { index: 10, label: "11", full: "Enterprise reference", appendix: false },
     { index: 11, label: "12", full: "Reclaimed capacity", appendix: false },
     { index: 12, label: "13", full: "4-week pilot", appendix: false },
-    { index: 13, label: "14", full: "Mutual commitment", appendix: false },
-    { index: 14, label: "15", full: "Aligned to move", appendix: false },
+    { index: 13, label: "14", full: "Operational readiness", appendix: false },
+    { index: 14, label: "15", full: "Next-step alignment", appendix: false },
     { index: 15, label: "A", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
@@ -169,8 +169,8 @@ export const intesa = {
       { panel: 11, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
       { panel: 12, addMin: 0.40, addMax: 0.90, note: "Counter climax reveal (3')" },
       { panel: 13, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
-      { panel: 14, addMin: 0.53, addMax: 1.20, note: "Mutual commitment captured (4')" },
-      { panel: 15, addMin: 0.40, addMax: 0.90, note: "Final ask closing (3')" },
+      { panel: 14, addMin: 0.53, addMax: 1.20, note: "Operational readiness captured (4')" },
+      { panel: 15, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
     ] as CounterStep[],
   },
 
@@ -203,6 +203,18 @@ export const intesa = {
         estimated: true,
       },
     ] as KpiCard[],
+    // "Why Intesa Matters" — compact strategic anchors framing modernization
+    // complexity, scale, regulatory sensitivity. Distinct from investor-style
+    // KPIs above; positioned as the executive "why this account, why now".
+    whyMatters: {
+      title: "Why Intesa matters",
+      anchors: [
+        { value: "~14M", label: "Customers across Italy & Europe" },
+        { value: "Top European", label: "Banking group by total assets" },
+        { value: "Multi-country", label: "Engineering & delivery complexity" },
+        { value: "Highly regulated", label: "Banking governance environment" },
+      ],
+    },
     sourcesLine:
       "Sources: ISP investor materials & press (2022–2026) · Piano di Impresa 2026–2029 · Revelio Labs workforce data",
     ctas: [
@@ -473,6 +485,22 @@ export const intesa = {
   // analysis, scoping, regression protection, and validation, inside the
   // bank's existing review envelope.
   // -------------------------------------------------------------------------
+  // Modernization flow diagram — clean enterprise process schema used in P5
+  // to differentiate it visually from P5b (live workflow preview pipeline).
+  // 5 nodes, single horizontal flow, governance-aware framing.
+  modernizationFlow: {
+    title: "Modernization flow",
+    nodes: [
+      { label: "Legacy modernization backlog", tone: "muted" as const },
+      { label: "Devin bounded workflow", tone: "accent" as const },
+      { label: "Automated migration · testing · remediation", tone: "default" as const },
+      { label: "Human review & governance", tone: "default" as const },
+      { label: "Faster validated delivery", tone: "accent" as const },
+    ],
+    insight:
+      "Bounded execution under governance — not open-ended autonomous engineering.",
+  },
+
   panel5: {
     eyebrow: "Devin modernization demo",
     headline:
@@ -666,6 +694,15 @@ export const intesa = {
     ] as BusinessOutcomeRow[],
     leverageStatement:
       "Not replacing engineers — scaling modernization without proportionally scaling engineering capacity.",
+    // Developer-equivalent translation layer — converts the redeployment
+    // hypothesis into engineering-hours / FTE-year for executive readability.
+    // Illustrative operational capacity model, not headcount targets.
+    devEquivalent: {
+      hours: "~210,000 engineering hours",
+      fte: "~120 developer-equivalent capacity / year",
+      footnote:
+        "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
+    },
   },
 
   // -------------------------------------------------------------------------
@@ -789,6 +826,20 @@ export const intesa = {
     },
     governanceConstraint:
       "Gains achieved by applying the same review, quality, and security controls used for human-authored delivery.",
+    // Operational scale anchors — illustrative reference points from
+    // governance-aware enterprise modernization workflows. Not guaranteed
+    // outcomes. Each anchor maps to a real bounded workflow pattern.
+    operationalScaleAnchors: {
+      title: "Operational scale signals",
+      anchors: [
+        { value: "800", label: "Database objects migrated" },
+        { value: "59 → 9", label: "Service consolidation" },
+        { value: "70%", label: "Autonomous vulnerability remediation" },
+        { value: "50% → 90%", label: "Test coverage progression" },
+      ],
+      disclaimer:
+        "Illustrative enterprise reference points from bounded modernization workflows. Outcomes depend on scope, governance constraints, and deployment conditions.",
+    },
     sourceLabel: "Reference: Gartner Research · document 7778353",
     sourceUrl:
       "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
@@ -874,7 +925,7 @@ export const intesa = {
   // PANEL 12 — Mutual Commitment
   // -------------------------------------------------------------------------
   panel12: {
-    eyebrow: "Mutual commitment",
+    eyebrow: "Operational readiness",
     headline:
       "A successful pilot should not end\nwith another evaluation.\nIt should end with a go-live decision.",
     partnership:
@@ -907,7 +958,7 @@ export const intesa = {
   // PANEL 13 — Final Executive Ask
   // -------------------------------------------------------------------------
   panel13: {
-    eyebrow: "Final executive ask",
+    eyebrow: "Next-step alignment",
     headline: "If value is proven,\nare we aligned to move?",
     body: "After a successful pilot: a defined scale-out roadmap across priority modernization workstreams.",
     commercialAlignment:

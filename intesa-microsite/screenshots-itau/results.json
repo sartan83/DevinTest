@@ -6,7 +6,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 0,
+      "overflowsViewport": 1.8500000805943273e-05,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -20,7 +20,7 @@
     "passed": true,
     "measurement": {
       "overflowsInner": 0,
-      "overflowsViewport": 6.38999990769662e-05,
+      "overflowsViewport": 0,
       "innerScrollHeight": 900,
       "innerClientHeight": 900,
       "viewportH": 900
@@ -244,7 +244,10 @@
       "jointly governed validation initiative": true,
       "Success depends not only on technical execution": true,
       "go-live transition 'structured validation path'": true,
-      "Commercial alignment header": true,
+      "Enterprise deployment path header": true,
+      "Strategic discussion prompt header": true,
+      "no 'Closing question' label leakage": true,
+      "no 'Commercial alignment' label leakage": true,
       "expanded deployment scope": true,
       "governance validation": true,
       "commercial go-live readiness": true
@@ -347,6 +350,29 @@
       "block 4 Enterprise Impact": true,
       "block 5 Pilot & Go-Live Path": true,
       "exactly 5 numbered focus blocks": true
+    }
+  },
+  {
+    "viewport": "1440x900",
+    "test": "P-narrative-refinement",
+    "passed": true,
+    "checks": {
+      "Hero — Why Intesa matters block": true,
+      "Hero — '~14M Customers' anchor": true,
+      "Hero — 'Top European' anchor": true,
+      "Hero — 'Highly regulated' anchor": true,
+      "P5 — Modernization flow diagram title": true,
+      "P5 — flow node 'Devin bounded workflow'": true,
+      "P5 — flow node 'Faster validated delivery'": true,
+      "P5 — flow insight 'Bounded execution under governance'": true,
+      "P7 — dev-equivalent hours line": true,
+      "P7 — dev-equivalent FTE line": true,
+      "P7 — dev-equivalent footnote": true,
+      "P10 — Operational scale signals title": true,
+      "P10 — '800' DB anchor": true,
+      "P10 — '59 → 9' service anchor": true,
+      "P10 — '70%' autonomous remediation": true,
+      "P10 — '50% → 90%' coverage": true
     }
   },
   {
@@ -600,7 +626,10 @@
       "jointly governed validation initiative": true,
       "Success depends not only on technical execution": true,
       "go-live transition 'structured validation path'": true,
-      "Commercial alignment header": true,
+      "Enterprise deployment path header": true,
+      "Strategic discussion prompt header": true,
+      "no 'Closing question' label leakage": true,
+      "no 'Commercial alignment' label leakage": true,
       "expanded deployment scope": true,
       "governance validation": true,
       "commercial go-live readiness": true
@@ -703,6 +732,29 @@
       "block 4 Enterprise Impact": true,
       "block 5 Pilot & Go-Live Path": true,
       "exactly 5 numbered focus blocks": true
+    }
+  },
+  {
+    "viewport": "1280x800",
+    "test": "P-narrative-refinement",
+    "passed": true,
+    "checks": {
+      "Hero — Why Intesa matters block": true,
+      "Hero — '~14M Customers' anchor": true,
+      "Hero — 'Top European' anchor": true,
+      "Hero — 'Highly regulated' anchor": true,
+      "P5 — Modernization flow diagram title": true,
+      "P5 — flow node 'Devin bounded workflow'": true,
+      "P5 — flow node 'Faster validated delivery'": true,
+      "P5 — flow insight 'Bounded execution under governance'": true,
+      "P7 — dev-equivalent hours line": true,
+      "P7 — dev-equivalent FTE line": true,
+      "P7 — dev-equivalent footnote": true,
+      "P10 — Operational scale signals title": true,
+      "P10 — '800' DB anchor": true,
+      "P10 — '59 → 9' service anchor": true,
+      "P10 — '70%' autonomous remediation": true,
+      "P10 — '50% → 90%' coverage": true
     }
   },
   {
@@ -956,7 +1008,10 @@
       "jointly governed validation initiative": true,
       "Success depends not only on technical execution": true,
       "go-live transition 'structured validation path'": true,
-      "Commercial alignment header": true,
+      "Enterprise deployment path header": true,
+      "Strategic discussion prompt header": true,
+      "no 'Closing question' label leakage": true,
+      "no 'Commercial alignment' label leakage": true,
       "expanded deployment scope": true,
       "governance validation": true,
       "commercial go-live readiness": true
@@ -1059,6 +1114,29 @@
       "block 4 Enterprise Impact": true,
       "block 5 Pilot & Go-Live Path": true,
       "exactly 5 numbered focus blocks": true
+    }
+  },
+  {
+    "viewport": "1366x768",
+    "test": "P-narrative-refinement",
+    "passed": true,
+    "checks": {
+      "Hero — Why Intesa matters block": true,
+      "Hero — '~14M Customers' anchor": true,
+      "Hero — 'Top European' anchor": true,
+      "Hero — 'Highly regulated' anchor": true,
+      "P5 — Modernization flow diagram title": true,
+      "P5 — flow node 'Devin bounded workflow'": true,
+      "P5 — flow node 'Faster validated delivery'": true,
+      "P5 — flow insight 'Bounded execution under governance'": true,
+      "P7 — dev-equivalent hours line": true,
+      "P7 — dev-equivalent FTE line": true,
+      "P7 — dev-equivalent footnote": true,
+      "P10 — Operational scale signals title": true,
+      "P10 — '800' DB anchor": true,
+      "P10 — '59 → 9' service anchor": true,
+      "P10 — '70%' autonomous remediation": true,
+      "P10 — '50% → 90%' coverage": true
     }
   },
   {

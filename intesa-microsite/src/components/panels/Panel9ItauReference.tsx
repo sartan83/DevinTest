@@ -80,6 +80,26 @@ export function Panel9ItauReference() {
           </div>
         </div>
 
+        {/* Operational scale anchors — illustrative reference points,
+           shown as a compact tabular strip for visual contrast vs the KPI tiles. */}
+        <div className="rounded-xl border border-brand-ivory/12 bg-brand-green-mid/15 px-3.5 py-2.5 sm:px-4 sm:py-3">
+          <div className="mb-1.5 text-[10px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[11px]">
+            {p.operationalScaleAnchors.title}
+          </div>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-4 sm:gap-x-6">
+            {p.operationalScaleAnchors.anchors.map((a) => (
+              <div key={a.label} className="flex items-baseline gap-1.5">
+                <span className="font-display text-[15px] font-light tabular-nums text-brand-orange-soft sm:text-base">
+                  {a.value}
+                </span>
+                <span className="text-[10px] leading-snug text-brand-ivory/65 sm:text-[11px]">
+                  {a.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Footnote-style row: governance constraint + Gartner source + disclaimer. */}
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[10px] leading-relaxed text-brand-ivory/45 sm:text-[11px]">
           <span className="text-brand-ivory/65">{p.governanceConstraint}</span>

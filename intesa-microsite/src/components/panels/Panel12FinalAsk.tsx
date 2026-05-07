@@ -34,7 +34,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
           className="mt-6 max-w-3xl rounded-2xl border border-brand-ivory/15 bg-brand-green-deep/45 px-5 py-4 text-left sm:mt-8 sm:px-6 sm:py-5"
         >
           <div className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/55">
-            Commercial alignment
+            Enterprise deployment path
           </div>
           <p className="mt-2 text-[13px] leading-relaxed text-brand-ivory/85 sm:text-[14px]">
             {p.commercialAlignment}
@@ -49,7 +49,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
           className="mt-6 max-w-3xl rounded-2xl border border-brand-orange/35 bg-brand-orange/8 px-5 py-4 text-left sm:mt-8 sm:px-6 sm:py-5"
         >
           <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft/90">
-            Closing question
+            Strategic discussion prompt
           </div>
           <p className="mt-2 font-display text-lg font-light leading-snug text-brand-ivory sm:text-xl">
             {p.question}
@@ -78,7 +78,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
               <span>Back to opening</span>
             </button>
             <button
-              onClick={() => onCta(11)}
+              onClick={() => onCta(13)}
               className="group inline-flex items-center gap-2 rounded-full bg-devin-gradient px-5 py-3 text-sm font-medium text-brand-ivory shadow-glow transition-all hover:brightness-110"
             >
               <span>Re-open the 4-week pilot</span>
