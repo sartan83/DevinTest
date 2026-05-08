@@ -132,10 +132,9 @@ export const intesa = {
     // Expanded-state explanation bullets revealed on click. The default
     // collapsed state shows numbers only; the presenter narrates the rest.
     expandedBullets: [
-      "Counts capacity redeployed during this session",
-      "1 developer-equivalent = 220 dev-days / year",
-      "Illustrative model, not a headcount target",
-      "Based on representative modernization assumptions",
+      "Illustrative modernization model",
+      "1 developer-equivalent = 220 days / year",
+      "Capacity redeployment, not headcount reduction",
     ],
     // Tooltip content for the contextual "?" popover on the counter
     // widget. Replaces the deleted standalone climax panel.
@@ -251,20 +250,21 @@ export const intesa = {
     ] as KpiCard[],
     closingNarrative:
       "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
-    // "Why Intesa Matters" — compact strategic anchors framing modernization
-    // complexity, scale, regulatory sensitivity. Distinct from investor-style
-    // KPIs above; positioned as the executive "why this account, why now".
-    whyMatters: {
-      title: "Why Intesa matters",
-      anchors: [
-        { value: "~14M", label: "Customers across Italy & Europe" },
-        { value: "Top European", label: "Banking group by total assets" },
-        { value: "Multi-country", label: "Engineering & delivery complexity" },
-        { value: "Highly regulated", label: "Banking governance environment" },
+    // Cognition-style tension block — replaces the "Why Intesa matters"
+    // anchor strip. Operational pressure first, no scale narrative.
+    pressure: {
+      title: "Large-scale migration pressure",
+      bullets: [
+        "Legacy dependencies",
+        "Remediation",
+        "Testing",
+        "Repetitive migration work",
       ],
+      bottleneck:
+        "Execution bottleneck — current delivery capacity does not scale linearly.",
     },
     sourcesLine:
-      "Sources: ISP investor materials & press (2022–2026) · Piano di Impresa 2026–2029 · Revelio Labs workforce data",
+      "Sources: ISP Piano di Impresa 2026–2029 · investor materials.",
     ctas: [
       { label: "Open the agenda", target: 2, primary: true },
       { label: "Open 4-week pilot", target: 13, primary: false },
@@ -423,27 +423,27 @@ export const intesa = {
   panel4: {
     eyebrow: "EB Validation Needed",
     headline:
-      "To approve the pilot, we need to validate the assumptions\nthat determine business-case strength.",
+      "Pilot approval depends on validating\nthese assumptions.",
     subhead: "",
     questions: [
       {
-        category: "Migration Priority",
-        question: "Which application families must move first to protect the 2029 roadmap?",
+        category: "Migration priority",
+        question: "Which application families move first to protect the 2029 roadmap?",
         why: "",
       },
       {
-        category: "Capacity Baseline",
-        question: "How much engineering time is currently absorbed by repetitive modernization work?",
+        category: "Capacity baseline",
+        question: "How much engineering time is absorbed by repetitive modernization work today?",
         why: "",
       },
       {
-        category: "Decision Criteria",
-        question: "What pilot evidence would justify scale-out after 4 weeks?",
+        category: "Pilot success criteria",
+        question: "What evidence after 4 weeks justifies scale-out?",
         why: "",
       },
     ] as (DiscoveryGap & { category: string })[],
     executiveConfirmationLine:
-      "These are the assumptions that require executive confirmation.",
+      "Requires executive confirmation.",
     secondaryQuestions: [
       {
         question: "Which systems are currently considered too risky to modernize at the pace the roadmap demands?",

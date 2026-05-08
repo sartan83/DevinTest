@@ -211,7 +211,7 @@ async def run_for_viewport(p, w: int, h: int):
         "Itaú": "Itaú" in p9_text,
         "20–30% increase": "20–30% increase" in p9_text,
         "15% improvement": "15% improvement" in p9_text,
-        "25% reduction": "25% reduction" in p9_text,
+        "25% fewer (testing errors)": "25% fewer" in p9_text and "testing errors" in p9_text.lower(),
         "5–6× faster": "5–6× faster" in p9_text,
         "Factory workflow model": "Factory workflow model" in p9_text or "Factory workflow model".lower() in p9_text.lower(),
         "factory examples (>=4)": sum(1 for ex in ["Dependency upgrades", "Migration preparation", "Test generation", "Remediation", "Documentation"] if ex in p9_text) >= 4,
@@ -266,20 +266,18 @@ async def run_for_viewport(p, w: int, h: int):
     p4_checks = {
         "eyebrow 'EB Validation Needed'":
             "eb validation needed" in p4_text.lower(),
-        "headline 'validate the assumptions'":
-            "validate the assumptions" in p4_text.lower(),
-        "headline mentions 'business-case strength'":
-            "business-case strength" in p4_text.lower(),
+        "headline 'Pilot approval depends on validating these assumptions.'":
+            "pilot approval depends on validating" in p4_text.lower()
+            and "these assumptions" in p4_text.lower(),
         "exactly 3 validation cards": n_strategic == 3,
-        "Migration Priority category":
+        "Migration priority category":
             "migration priority" in p4_text.lower(),
-        "Capacity Baseline category":
+        "Capacity baseline category":
             "capacity baseline" in p4_text.lower(),
-        "Decision Criteria category":
-            "decision criteria" in p4_text.lower(),
-        "executive confirmation line":
-            "these are the assumptions that require executive confirmation"
-            in p4_text.lower(),
+        "Pilot success criteria category":
+            "pilot success criteria" in p4_text.lower(),
+        "executive confirmation line 'Requires executive confirmation.'":
+            "requires executive confirmation" in p4_text.lower(),
         "bridge line to Tab 5 (operational workflow)":
             "validated priorities translate into governed operational workflow"
             in p4_text.lower(),
@@ -289,6 +287,8 @@ async def run_for_viewport(p, w: int, h: int):
             "governance requirements" not in p4_text.lower(),
         "no legacy 'Success Criteria' label":
             "success criteria" not in p4_text.lower(),
+        "no legacy 'Decision Criteria' label":
+            "decision criteria" not in p4_text.lower(),
     }
     p4_passed = all(p4_checks.values())
     print(f"[{label}] E: Panel 4 EB validation -> {'PASS' if p4_passed else 'FAIL'} | validationCards={n_strategic}", flush=True)
@@ -377,7 +377,11 @@ async def run_for_viewport(p, w: int, h: int):
         "MEDDIC": "meddic" not in full_html.lower(),
         "MEDDPICC": "meddpicc" not in full_html.lower(),
         "Economic Buyer": "economic buyer" not in full_html.lower(),
-        "EB whole-word": not bool(re.search(r"\bEB\b", full_html)),
+        # EB Validation Needed (panel 4 eyebrow) is the only allowed standalone
+        # use of EB. Sweep guards against legacy methodology sales-language
+        # leakage anywhere else.
+        "EB whole-word usage limited to 'EB Validation Needed'":
+            len(re.findall(r"\bEB\b", full_html)) == len(re.findall(r"EB Validation Needed", full_html)),
         "Executive Sponsor (renamed -> ownership)": "executive sponsor" not in full_html.lower(),
         "Buy-in / Buy in": "buy-in" not in full_html.lower() and " buy in " not in full_html.lower(),
         "Closing Question label": "closing question" not in full_html.lower(),
@@ -563,10 +567,22 @@ async def run_for_viewport(p, w: int, h: int):
             and "technology & growth investment 2026–2029" in p1_text.lower(),
         "Hero — closing narrative 'closing the final migration gap by 2029'":
             "closing the final migration gap by 2029" in p1_text.lower(),
+        "Hero — pressure block 'Large-scale migration pressure'":
+            "large-scale migration pressure" in p1_text.lower(),
+        "Hero — pressure bullets (legacy / remediation / testing / repetitive)":
+            "legacy dependencies" in p1_text.lower()
+            and "remediation" in p1_text.lower()
+            and "testing" in p1_text.lower()
+            and "repetitive migration work" in p1_text.lower(),
+        "Hero — execution bottleneck line":
+            "execution bottleneck" in p1_text.lower()
+            and "does not scale linearly" in p1_text.lower(),
         "Hero — no legacy '€5.6B' history KPI":
             "€5.6b" not in p1_text.lower(),
         "Hero — no legacy '2,400+ IT specialists' KPI":
             "2,400+" not in p1_text,
+        "Hero — no legacy 'Why Intesa matters' anchor strip":
+            "why intesa matters" not in p1_text.lower(),
         "P5 demo — left-to-right flow node 'Repo scan'":
             "Repo scan" in p5_text_q,
         "P5 demo — flow node 'Human approval'":
