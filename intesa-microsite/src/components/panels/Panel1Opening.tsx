@@ -16,7 +16,7 @@ export function Panel1Opening() {
           <div className="mt-5 inline-flex max-w-2xl items-start gap-3 rounded-2xl border border-brand-orange/30 bg-brand-orange/5 px-4 py-2.5 sm:mt-6 sm:px-5 sm:py-3.5">
             <span aria-hidden className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
             <p className="text-[13px] font-medium leading-relaxed text-brand-ivory/90 sm:text-base">
-              {p.framingLine}
+              {p.closingNarrative}
             </p>
           </div>
 

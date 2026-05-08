@@ -66,6 +66,10 @@ export function Panel4ExecutiveDiscovery() {
           </ul>
         </details>
 
+        <p className="text-[12px] italic leading-snug text-brand-ivory/70 sm:text-[13px]">
+          {p.executiveConfirmationLine}
+        </p>
+
         <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-brand-ivory/10 pt-3 sm:gap-6 sm:pt-4">
           <p className="text-[10px] uppercase tracking-[0.24em] text-brand-ivory/35">
             {p.appendixCallout}

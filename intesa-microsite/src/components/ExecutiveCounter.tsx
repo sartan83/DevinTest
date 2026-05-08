@@ -16,6 +16,23 @@ function format(n: number) {
   });
 }
 
+function formatEquivalent(n: number) {
+  // Dev-equivalents are small fractions when computed against a session-scale
+  // dev-day envelope (1 dev-eq = 220 dev-days/year). Render with 2 sig figs
+  // so executives still read a meaningful CIO-translation number.
+  if (n === 0) return "0";
+  if (n >= 1) {
+    return n.toLocaleString("en-GB", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    });
+  }
+  return n.toLocaleString("en-GB", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 /**
  * Eases `value` toward `target` with a cubic-ease-out (~700ms) on every change
  * and then holds steady at the resting target. We do NOT continuously drift —
@@ -59,18 +76,23 @@ function useEasedNumber(target: number) {
 }
 
 /**
- * Counter pill — always revealed since the minimalism pass removed the
- * standalone climax page. A subtle "?" trigger surfaces a contextual
- * popover (Illustrative modernization signal · Migration pressure ·
- * Execution complexity · Governance constraints) on hover/click.
+ * Counter pill — collapsed-by-default after the EB-pivot pass. The default
+ * state shows numbers only (dev-days + dev-equivalents). Clicking the pill or
+ * the "?" trigger expands into an explanation panel: counts capacity
+ * redeployed during the session, 1 dev-equivalent = 220 dev-days/year,
+ * illustrative model, based on representative modernization assumptions.
  */
 export function ExecutiveCounter({ min, max }: Props) {
   const aMin = useEasedNumber(min);
   const aMax = useEasedNumber(max);
   const [open, setOpen] = useState(false);
-  const popover = intesa.counter.popover;
+  const c = intesa.counter;
+  const popover = c.popover;
 
-  // Close the popover when the user clicks outside of it.
+  const minEq = aMin / c.devDaysPerEquivalent;
+  const maxEq = aMax / c.devDaysPerEquivalent;
+
+  // Close the expansion when the user clicks outside of it.
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (!open) return;
@@ -91,19 +113,24 @@ export function ExecutiveCounter({ min, max }: Props) {
       transition={{ type: "spring", stiffness: 220, damping: 28 }}
       className="pointer-events-auto relative rounded-xl border border-brand-ivory/10 bg-brand-green-deep/70 px-3 py-2 shadow-elev backdrop-blur-md sm:px-4 sm:py-3"
       aria-live="polite"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
     >
-      <div className="flex items-center gap-2 sm:gap-3">
+      {/* Collapsed-by-default body. Clicking the body (not just the "?")
+         toggles the expanded explanation panel below. */}
+      <button
+        type="button"
+        aria-label="Toggle capacity redeployment details"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center gap-2 text-left focus:outline-none sm:gap-3"
+      >
         <motion.span
           animate={{ opacity: [0.55, 1, 0.55] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
           className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange"
         />
-        <div className="flex flex-col">
+        <div className="flex min-w-0 flex-col">
           <span className="text-[9px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px] sm:tracking-[0.28em]">
-            <span className="hidden sm:inline">{intesa.counter.label}</span>
-            <span className="sm:hidden">{intesa.counter.shortLabel}</span>
+            {c.label}
           </span>
           <div className="mt-1 flex items-baseline gap-1.5 sm:gap-2">
             <motion.span
@@ -113,34 +140,39 @@ export function ExecutiveCounter({ min, max }: Props) {
               ≈ {format(aMin)}–{format(aMax)}
             </motion.span>
             <span className="text-[10px] text-brand-ivory/65 sm:text-[11px]">
-              {intesa.counter.unit}
+              {c.unit}
+            </span>
+          </div>
+          <div className="mt-0.5 flex items-baseline gap-1.5 sm:gap-2">
+            <span className="font-display text-[12px] font-medium tabular-nums text-brand-ivory/85 sm:text-sm">
+              ≈ {formatEquivalent(minEq)}–{formatEquivalent(maxEq)}
+            </span>
+            <span className="text-[9px] text-brand-ivory/55 sm:text-[10px]">
+              {c.devEquivalentUnit}
             </span>
           </div>
         </div>
 
-        {/* Subtle "?" trigger — low contrast, opens contextual popover. */}
-        <button
-          type="button"
-          aria-label="What does this counter represent?"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="ml-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-brand-ivory/15 text-[10px] font-medium text-brand-ivory/40 transition-colors hover:border-brand-ivory/35 hover:text-brand-ivory/75 focus:outline-none focus-visible:border-brand-ivory/45 focus-visible:text-brand-ivory/85 sm:h-6 sm:w-6 sm:text-[11px]"
+        {/* Subtle "?" trigger — low contrast, retained for affordance. */}
+        <span
+          aria-hidden
+          className="ml-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-brand-ivory/15 text-[10px] font-medium text-brand-ivory/40 transition-colors hover:border-brand-ivory/35 hover:text-brand-ivory/75 sm:h-6 sm:w-6 sm:text-[11px]"
         >
           ?
-        </button>
-      </div>
+        </span>
+      </button>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            key="counter-popover"
+            key="counter-expanded"
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             role="dialog"
             aria-label={popover.title}
-            className="absolute right-0 top-full z-40 mt-2 w-[15rem] overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/95 p-4 shadow-elev backdrop-blur-md sm:w-[17rem]"
+            className="absolute right-0 top-full z-40 mt-2 w-[16rem] overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/95 p-4 shadow-elev backdrop-blur-md sm:w-[18rem]"
           >
             <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft">
               {popover.title}
@@ -159,8 +191,26 @@ export function ExecutiveCounter({ min, max }: Props) {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-3 border-t border-brand-ivory/10 pt-2.5">
+              <ul className="space-y-1.5">
+                {c.expandedBullets.map((b) => (
+                  <li
+                    key={b}
+                    className="flex items-start gap-2 text-[11px] leading-snug text-brand-ivory/75 sm:text-[12px]"
+                  >
+                    <span
+                      aria-hidden
+                      className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-brand-ivory/45"
+                    />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <p className="mt-3 text-[10px] leading-snug text-brand-ivory/45">
-              {intesa.counter.disclaimer}
+              {c.disclaimer}
             </p>
           </motion.div>
         )}

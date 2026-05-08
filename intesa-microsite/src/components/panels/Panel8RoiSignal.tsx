@@ -17,13 +17,21 @@ export function Panel8RoiSignal() {
               <div className="text-[9px] uppercase tracking-[0.24em] text-brand-orange-soft/90 sm:text-[10px]">
                 Headline range
               </div>
-              <div className="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-0.5">
-                <span className="font-display text-xl font-semibold text-brand-ivory sm:text-2xl">
-                  {p.headlineRange.eur}
-                </span>
-                <span className="text-[11px] tracking-wide text-brand-ivory/70 sm:text-xs">
-                  ≈ {p.headlineRange.devDays}
-                </span>
+              <div className="mt-1 flex flex-col gap-0.5">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-0.5">
+                  <span className="font-display text-xl font-semibold text-brand-ivory sm:text-2xl">
+                    {p.headlineRange.eur}
+                  </span>
+                  <span className="text-[11px] tracking-wide text-brand-ivory/70 sm:text-xs">
+                    ≈ {p.headlineRange.devDays}
+                  </span>
+                </div>
+                <div className="text-[11px] tracking-wide text-brand-ivory/70 sm:text-xs">
+                  {p.headlineRange.devEquivalents}
+                </div>
+                <div className="mt-1 text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+                  {p.eurFraming}
+                </div>
               </div>
             </div>
           </div>
@@ -76,7 +84,10 @@ export function Panel8RoiSignal() {
                 </span>
               </div>
               <div className="mt-0.5 text-[12px] text-brand-ivory/70 sm:text-[13px]">
-                ≈ {s.reclaimedDevDays} dev-days / year reclaimed
+                ≈ {s.reclaimedDevDays} dev-days / year redeployed
+              </div>
+              <div className="text-[12px] text-brand-ivory/70 sm:text-[13px]">
+                {s.reclaimedDevEquivalents}
               </div>
 
               <dl className="mt-2.5 grid grid-cols-3 gap-2 text-[9px] uppercase tracking-[0.2em] text-brand-ivory/50 sm:text-[10px]">

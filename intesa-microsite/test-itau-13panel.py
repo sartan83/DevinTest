@@ -227,15 +227,29 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "C-itau-content", "passed": p9_passed, "checks": itau_checks})
 
-    # === Test D: Panel 7 capacity formula at idx 8 ===
+    # === Test D: Panel 7 capacity redeployment big-number slide at idx 8 ===
     await goto_panel(page, 8)
     p7_text = await get_section_text(page, 8)
     p7_checks = {
-        "400 engineers": "400 engineers" in p7_text,
-        "30% repetitive": "30% repetitive" in p7_text.lower() or "× 30% repetitive" in p7_text,
-        "120 engineering-equivalent": "120 engineering-equivalent" in p7_text,
-        "From repetitive execution": "From repetitive execution" in p7_text,
-        "leverage statement (not replacing engineers)": "not replacing engineers" in p7_text.lower(),
+        "eyebrow 'Capacity redeployment'": "capacity redeployment" in p7_text.lower(),
+        "headline 'From repetitive execution'": "from repetitive execution" in p7_text.lower(),
+        "Conservative scenario tile": "conservative" in p7_text.lower(),
+        "Realistic scenario tile": "realistic" in p7_text.lower(),
+        "~13,600 dev-days": "~13,600 dev-days" in p7_text,
+        "~43,500 dev-days": "~43,500 dev-days" in p7_text,
+        "≈ 62 developer-equivalents": "62 developer-equivalents" in p7_text,
+        "≈ 198 developer-equivalents": "198 developer-equivalents" in p7_text,
+        "redeployment line": "capacity redeployed toward strategic modernization initiatives" in p7_text.lower(),
+        "calc note '1 developer-equivalent = 220'":
+            "1 developer-equivalent = 220" in p7_text,
+        "footnote 'illustrative model'":
+            "illustrative model based on discovery assumptions" in p7_text.lower(),
+        "footnote 'not a headcount target'":
+            "not a headcount target" in p7_text.lower(),
+        "no legacy '120 engineering-equivalent'":
+            "120 engineering-equivalent" not in p7_text,
+        "no legacy 'not replacing engineers' framing":
+            "not replacing engineers" not in p7_text.lower(),
     }
     p7_passed = all(p7_checks.values())
     print(f"[{label}] D: Panel 7 capacity formula -> {'PASS' if p7_passed else 'FAIL'}", flush=True)
@@ -244,76 +258,78 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "D-panel7-capacity", "passed": p7_passed, "checks": p7_checks})
 
-    # === Test E: Panel 4 discovery (idx 5) — 3 primary + 2 secondary + new headline ===
+    # === Test E: Panel 4 EB Validation Needed (idx 5) ===
     await goto_panel(page, 5)
     p4_text = await get_section_text(page, 5)
     p4_html = await page.evaluate("""(idx) => document.querySelectorAll('section')[idx].innerHTML""", 5)
     n_strategic = len(re.findall(r'data-strategic-q="\d"', p4_html))
-    n_detail = p4_html.count('data-category="detail-question"')
     p4_checks = {
-        "headline 'identified so far'": "What has been identified so far" in p4_text,
-        "eyebrow 'Executive validation areas'":
-            "executive validation areas" in p4_text.lower(),
+        "eyebrow 'EB Validation Needed'":
+            "eb validation needed" in p4_text.lower(),
+        "headline 'validate the assumptions'":
+            "validate the assumptions" in p4_text.lower(),
+        "headline mentions 'business-case strength'":
+            "business-case strength" in p4_text.lower(),
+        "exactly 3 validation cards": n_strategic == 3,
+        "Migration Priority category":
+            "migration priority" in p4_text.lower(),
+        "Capacity Baseline category":
+            "capacity baseline" in p4_text.lower(),
+        "Decision Criteria category":
+            "decision criteria" in p4_text.lower(),
+        "executive confirmation line":
+            "these are the assumptions that require executive confirmation"
+            in p4_text.lower(),
         "bridge line to Tab 5 (operational workflow)":
             "validated priorities translate into governed operational workflow"
             in p4_text.lower(),
-        "exactly 3 alignment-area cards": n_strategic == 3,
-        "exactly 2 detail questions in accordion": n_detail == 2,
-        "Capacity Constraints category": "capacity constraints" in p4_text.lower(),
-        "Governance Requirements category": "governance requirements" in p4_text.lower(),
-        "Success Criteria category": "success criteria" in p4_text.lower(),
-        "Q1 wording": "Where is engineering capacity currently constrained" in p4_text,
+        "no legacy 'Capacity Constraints' label":
+            "capacity constraints" not in p4_text.lower(),
+        "no legacy 'Governance Requirements' label":
+            "governance requirements" not in p4_text.lower(),
+        "no legacy 'Success Criteria' label":
+            "success criteria" not in p4_text.lower(),
     }
     p4_passed = all(p4_checks.values())
-    print(f"[{label}] E: Panel 4 discovery -> {'PASS' if p4_passed else 'FAIL'} | strategicQ={n_strategic} detailQ={n_detail}", flush=True)
+    print(f"[{label}] E: Panel 4 EB validation -> {'PASS' if p4_passed else 'FAIL'} | validationCards={n_strategic}", flush=True)
     for k, v in p4_checks.items():
         if not v:
             print(f"          -> miss: {k}", flush=True)
-    results.append({"viewport": label, "test": "E-panel4-discovery", "passed": p4_passed, "checks": p4_checks, "strategic_count": n_strategic, "detail_count": n_detail})
+    results.append({"viewport": label, "test": "E-panel4-discovery", "passed": p4_passed, "checks": p4_checks, "strategic_count": n_strategic})
 
-    # === Test F: Panel 5 merged workflow (idx 6) ===
+    # === Test F: Panel 5 Demo: Governed Modernization Workflow (idx 6) ===
     await goto_panel(page, 6)
     p5_text = await get_section_text(page, 6)
     p5_checks = {
-        "eyebrow 'Governed modernization workflow'":
-            "governed modernization workflow" in p5_text.lower(),
-        "no legacy 'Governance-aware modernization workflow' eyebrow":
-            "governance-aware modernization workflow" not in p5_text.lower(),
-        "headline 'How bounded autonomous execution'":
-            "How bounded autonomous execution" in p5_text
-            and "operational leverage" in p5_text.lower(),
-        "transition 'no longer whether AI can generate code'":
-            "no longer whether ai can generate code" in p5_text.lower(),
-        "transition 'enterprise governance constraints'":
-            "enterprise governance constraints" in p5_text.lower(),
-        "workflow node 'Repository analysis'": "Repository analysis" in p5_text,
-        "workflow node 'Migration planning'": "Migration planning" in p5_text,
-        "workflow node 'Automated refactoring'": "Automated refactoring" in p5_text,
+        "eyebrow 'Demo: Governed Modernization Workflow'":
+            "demo: governed modernization workflow" in p5_text.lower(),
+        "use-case 'Legacy modernization + test acceleration'":
+            "legacy modernization + test acceleration" in p5_text.lower(),
+        "workflow node 'Repo scan'": "Repo scan" in p5_text,
+        "workflow node 'Migration plan'": "Migration plan" in p5_text,
+        "workflow node 'Code changes'": "Code changes" in p5_text,
         "workflow node 'Test generation'": "Test generation" in p5_text,
-        "workflow node 'Governed pull request review'":
-            "Governed pull request review" in p5_text,
-        "workflow insight 'Bounded execution inside the bank's existing review envelope'":
-            "bounded execution inside the bank" in p5_text.lower(),
-        "business impact metric '20–30%'": "20–30%" in p5_text,
-        "business impact metric '12,000 engineering hours'":
-            "12,000 engineering hours" in p5_text,
-        "dev-equivalent translation '≈ 7 developer-equivalents redeployed'":
-            "developer-equivalents redeployed" in p5_text.lower()
-            and "strategic initiatives" in p5_text.lower(),
-        "reframed savings language (no 'developer-equivalent capacity' on P5 metric)":
-            "7 developer-equivalent capacity" not in p5_text.lower(),
-        "business impact metric '59 → 9'": "59 → 9" in p5_text,
-        "governance statement":
-            "governance-aware modernization execution" in p5_text.lower(),
-        "scalability statement (reinvestment vocabulary)":
-            "reinvest engineering bandwidth into modernization throughput"
-            in p5_text.lower(),
-        "dev-equivalent footnote":
-            "illustrative operational capacity" in p5_text.lower(),
+        "workflow node 'PR + evidence'": "PR + evidence" in p5_text,
+        "workflow node 'Human approval'": "Human approval" in p5_text,
+        "demo bullet 'Bounded task, not open-ended coding'":
+            "bounded task, not open-ended coding" in p5_text.lower(),
+        "demo bullet 'Existing engineering review preserved'":
+            "existing engineering review preserved" in p5_text.lower(),
+        "demo bullet 'Evidence generated for audit and governance'":
+            "evidence generated for audit and governance" in p5_text.lower(),
         "repo link 'kushmirc/banking-modernization'":
             "kushmirc/banking-modernization" in p5_text,
-        "repo disclaimer 'No Intesa Sanpaolo source code'":
-            "No Intesa Sanpaolo source code or internal systems are used" in p5_text,
+        "tiny disclaimer 'Representative repo. No Intesa source code used'":
+            "representative repo" in p5_text.lower()
+            and "no intesa source code used" in p5_text.lower(),
+        "no legacy 'Repository analysis' node":
+            "repository analysis" not in p5_text.lower(),
+        "no legacy 'Automated refactoring' node":
+            "automated refactoring" not in p5_text.lower(),
+        "no legacy 'Governed pull request review' node":
+            "governed pull request review" not in p5_text.lower(),
+        "no legacy '12,000 engineering hours' metric":
+            "12,000 engineering hours" not in p5_text.lower(),
         "no legacy P5b 'Live workflow preview' label":
             "live workflow preview" not in p5_text.lower(),
     }
@@ -501,12 +517,18 @@ async def run_for_viewport(p, w: int, h: int):
             "Context" in p1b_text and "Modernization pressure" in p1b_text,
         "block 2 Validation · Executive assumptions":
             "Validation" in p1b_text and "Executive assumptions" in p1b_text,
-        "block 3 Workflow · Governed execution":
-            "Workflow" in p1b_text and "Governed execution" in p1b_text,
-        "block 4 Impact · Operational leverage":
-            "Impact" in p1b_text and "Operational leverage" in p1b_text,
-        "block 5 Rollout · Pilot & scaling":
-            "Rollout" in p1b_text and "Pilot & scaling" in p1b_text,
+        "block 1 helper '2029 modernization pressure'":
+            "2029 modernization pressure" in p1b_text.lower(),
+        "block 2 helper 'EB assumptions'":
+            "eb assumptions" in p1b_text.lower(),
+        "block 3 Demo · Governed execution":
+            "Demo" in p1b_text and "Governed execution" in p1b_text,
+        "block 4 Impact · Capacity redeployment":
+            "Impact" in p1b_text and "Capacity redeployment" in p1b_text,
+        "block 5 Rollout · Pilot decision":
+            "Rollout" in p1b_text and "Pilot decision" in p1b_text,
+        "agenda no longer uses 'Workflow' label":
+            not re.search(r"\bWorkflow\b", p1b_text),
         "no legacy 'Transformation Context' label":
             "transformation context" not in p1b_text.lower(),
         "no legacy 'Live Workflow Preview' label":
@@ -532,23 +554,33 @@ async def run_for_viewport(p, w: int, h: int):
     await goto_panel(page, 10)
     p9_text_q = await get_section_text(page, 10)
     p_checks = {
-        "Hero — Why Intesa matters block": "why intesa matters" in p1_text.lower(),
-        "Hero — '~14M Customers' anchor": "~14M" in p1_text and "Customers" in p1_text,
-        "Hero — 'Top European' anchor": "Top European" in p1_text,
-        "Hero — 'Highly regulated' anchor": "Highly regulated" in p1_text,
-        "P5 merged — 'Bounded operational workflow' title":
-            "bounded operational workflow" in p5_text_q.lower(),
-        "P5 merged — workflow node 'Repository analysis'":
-            "Repository analysis" in p5_text_q,
-        "P5 merged — workflow node 'Governed pull request review'":
-            "Governed pull request review" in p5_text_q,
-        "P5 merged — 'Operational leverage' business title":
-            "operational leverage" in p5_text_q.lower(),
-        "P5 merged — dev-equivalents redeployed translation":
-            "developer-equivalents redeployed" in p5_text_q.lower(),
-        "P7 — dev-equivalent hours line": "210,000 engineering hours" in p7_text_q,
-        "P7 — dev-equivalent FTE line": "developer-equivalent capacity" in p7_text_q.lower(),
-        "P7 — dev-equivalent footnote": "illustrative operational capacity" in p7_text_q.lower(),
+        "Hero — EB-pivot anchor '64%'": "64%" in p1_text
+            and "cloud-based applications in 2025" in p1_text.lower(),
+        "Hero — '~100%' target by 2029": "~100%" in p1_text
+            and "target cloud-based applications by 2029" in p1_text.lower(),
+        "Hero — '€4.6B' technology & growth investment 2026–2029":
+            "€4.6B" in p1_text
+            and "technology & growth investment 2026–2029" in p1_text.lower(),
+        "Hero — closing narrative 'closing the final migration gap by 2029'":
+            "closing the final migration gap by 2029" in p1_text.lower(),
+        "Hero — no legacy '€5.6B' history KPI":
+            "€5.6b" not in p1_text.lower(),
+        "Hero — no legacy '2,400+ IT specialists' KPI":
+            "2,400+" not in p1_text,
+        "P5 demo — left-to-right flow node 'Repo scan'":
+            "Repo scan" in p5_text_q,
+        "P5 demo — flow node 'Human approval'":
+            "Human approval" in p5_text_q,
+        "P5 demo — use case 'Legacy modernization + test acceleration'":
+            "legacy modernization + test acceleration" in p5_text_q.lower(),
+        "P7 — conservative '~13,600 dev-days'":
+            "~13,600 dev-days" in p7_text_q,
+        "P7 — realistic '~43,500 dev-days'":
+            "~43,500 dev-days" in p7_text_q,
+        "P7 — '≈ 62 developer-equivalents'": "62 developer-equivalents" in p7_text_q,
+        "P7 — '≈ 198 developer-equivalents'": "198 developer-equivalents" in p7_text_q,
+        "P7 — footnote 'Illustrative model based on discovery assumptions'":
+            "illustrative model based on discovery assumptions" in p7_text_q.lower(),
         "P9 — Operational scale signals title": "operational scale signals" in p9_text_q.lower(),
         "P9 — '800' DB anchor": "800" in p9_text_q and "Database objects migrated" in p9_text_q,
         "P9 — '59 → 9' service anchor": "59 → 9" in p9_text_q or "59 \u2192 9" in p9_text_q,

@@ -120,11 +120,23 @@ export const intesa = {
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
-    label: "Modeled capacity redeployed during this session",
+    label: "Capacity redeployed",
     shortLabel: "Capacity redeployed",
     disclaimer: "Illustrative scenario based on modeled assumptions",
-    unit: "developer days",
+    unit: "dev-days",
+    devEquivalentUnit: "dev-equivalents",
+    // 1 developer-equivalent = 220 working dev-days / year. Used to
+    // translate the live counter into a CIO-readable second metric.
+    devDaysPerEquivalent: 220,
     finalRange: { min: 8, max: 18 },
+    // Expanded-state explanation bullets revealed on click. The default
+    // collapsed state shows numbers only; the presenter narrates the rest.
+    expandedBullets: [
+      "Counts capacity redeployed during this session",
+      "1 developer-equivalent = 220 dev-days / year",
+      "Illustrative model, not a headcount target",
+      "Based on representative modernization assumptions",
+    ],
     // Tooltip content for the contextual "?" popover on the counter
     // widget. Replaces the deleted standalone climax panel.
     popover: {
@@ -215,25 +227,30 @@ export const intesa = {
       "Modernization leverage at enterprise scale — without proportional headcount growth.",
     framingLine:
       "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
+    // Current-state → target-state framing. Historical €5.6B 2022–25 +
+    // 2,400+ IT specialists are no longer primary anchors — the EB pivot
+    // re-emphasizes the 2026–29 closure window.
     kpis: [
       {
-        value: "€5.6B",
-        label: "Invested in tech 2022–2025",
-      },
-      {
-        value: "2,400+",
-        label: "IT specialists hired 2022–2025",
-      },
-      {
         value: "64%",
-        label: "Applications cloud-based (end 2025)",
+        label: "Cloud-based applications in 2025",
+      },
+      {
+        value: "~100%",
+        label: "Target cloud-based applications by 2029",
+      },
+      {
+        value: "€4.6B",
+        label: "Technology & growth investment 2026–2029",
       },
       {
         value: "~3,300",
-        label: "Developers & IT engineers",
+        label: "Developers & IT engineers (est.)",
         estimated: true,
       },
     ] as KpiCard[],
+    closingNarrative:
+      "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
     // "Why Intesa Matters" — compact strategic anchors framing modernization
     // complexity, scale, regulatory sensitivity. Distinct from investor-style
     // KPIs above; positioned as the executive "why this account, why now".
@@ -269,27 +286,27 @@ export const intesa = {
       {
         index: 1,
         title: "Context",
-        helper: "Modernization pressure",
+        helper: "2029 modernization pressure",
       },
       {
         index: 2,
         title: "Validation",
-        helper: "Executive assumptions",
+        helper: "EB assumptions",
       },
       {
         index: 3,
-        title: "Workflow",
+        title: "Demo",
         helper: "Governed execution",
       },
       {
         index: 4,
         title: "Impact",
-        helper: "Operational leverage",
+        helper: "Capacity redeployment",
       },
       {
         index: 5,
         title: "Rollout",
-        helper: "Pilot & scaling",
+        helper: "Pilot decision",
       },
     ],
     closing: "",
@@ -330,12 +347,23 @@ export const intesa = {
   // and what needs alignment — never assumed.
   // -------------------------------------------------------------------------
   panel3: {
-    eyebrow: "Current state",
+    eyebrow: "Current state — discovery signals",
     headline:
-      "What has been observed so far\n— and what still requires executive alignment.",
+      "What we learned in discovery.",
     subhead: "",
     legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
+    // Numeric discovery-style bullets. Items flagged `assumption` are
+    // marked "working assumption to validate" inline; the rest are
+    // signals already validated in pre-meeting discovery.
+    discoverySignals: [
+      { value: "64%", label: "Cloud-based applications in 2025", assumption: false },
+      { value: "~36%", label: "Migration gap to close by 2029", assumption: false },
+      { value: "~3,300", label: "Developers / IT engineers estimated", assumption: true },
+      { value: "25–30%", label: "Engineering effort assumed in modernization, maintenance, remediation, testing", assumption: true },
+      { value: "High-risk", label: "Regression-sensitive systems require governed execution", assumption: false },
+      { value: "Constrained", label: "Senior engineering capacity absorbed by repetitive execution work", assumption: false },
+    ],
     legend: [
       {
         status: "validated" as ObservationStatus,
@@ -393,27 +421,29 @@ export const intesa = {
   // pre-meeting discovery framework is moved into the appendix.
   // -------------------------------------------------------------------------
   panel4: {
-    eyebrow: "Executive validation areas",
+    eyebrow: "EB Validation Needed",
     headline:
-      "What has been identified so far —\nand what still requires executive validation.",
+      "To approve the pilot, we need to validate the assumptions\nthat determine business-case strength.",
     subhead: "",
     questions: [
       {
-        category: "Capacity Constraints",
-        question: "Where is engineering capacity currently constrained by repetitive modernization or maintenance work?",
-        why: "Anchors the conversation in where scarce senior capacity is being spent today.",
+        category: "Migration Priority",
+        question: "Which application families must move first to protect the 2029 roadmap?",
+        why: "",
       },
       {
-        category: "Governance Requirements",
-        question: "Which transformation initiatives are most impacted by delivery bottlenecks today, and what controls would frame autonomous workflows?",
-        why: "Connects board-visible programs to the operating envelope any pilot must respect.",
+        category: "Capacity Baseline",
+        question: "How much engineering time is currently absorbed by repetitive modernization work?",
+        why: "",
       },
       {
-        category: "Success Criteria",
-        question: "How does Intesa currently balance migration speed with governance — and what outcomes would justify broader deployment?",
-        why: "Frames the path from pilot evidence to scale-out commitment.",
+        category: "Decision Criteria",
+        question: "What pilot evidence would justify scale-out after 4 weeks?",
+        why: "",
       },
     ] as (DiscoveryGap & { category: string })[],
+    executiveConfirmationLine:
+      "These are the assumptions that require executive confirmation.",
     secondaryQuestions: [
       {
         question: "Which systems are currently considered too risky to modernize at the pace the roadmap demands?",
@@ -520,7 +550,8 @@ export const intesa = {
   // governance constraints".
   // -------------------------------------------------------------------------
   panel5: {
-    eyebrow: "Governed modernization workflow",
+    eyebrow: "Demo: Governed Modernization Workflow",
+    useCase: "Legacy modernization + test acceleration",
     headline:
       "How bounded autonomous execution\ntranslates into operational leverage.",
     subhead: "",
@@ -528,18 +559,25 @@ export const intesa = {
       "What Devin actually does inside enterprise engineering controls — and what that unlocks operationally.",
     transitionStatement:
       "The challenge is no longer whether AI can generate code. The challenge is whether it can operate reliably inside enterprise governance constraints.",
-    // Left side: bounded operational flow — 5 nodes, what Devin actually does.
+    // Left side: bounded operational flow — 6-node demo flow.
     workflow: {
       title: "Bounded operational workflow",
       nodes: [
-        { label: "Repository analysis", tone: "muted" as const },
-        { label: "Migration planning", tone: "default" as const },
-        { label: "Automated refactoring", tone: "accent" as const },
+        { label: "Repo scan", tone: "muted" as const },
+        { label: "Migration plan", tone: "default" as const },
+        { label: "Code changes", tone: "accent" as const },
         { label: "Test generation", tone: "default" as const },
-        { label: "Governed pull request review", tone: "accent" as const },
+        { label: "PR + evidence", tone: "accent" as const },
+        { label: "Human approval", tone: "accent" as const },
       ],
       insight:
         "Bounded execution inside the bank's existing review envelope — not open-ended autonomous engineering.",
+      // 3 demo bullets only — presenter narrates the rest live.
+      demoBullets: [
+        "Bounded task, not open-ended coding",
+        "Existing engineering review preserved",
+        "Evidence generated for audit and governance",
+      ],
     },
     // Right side: business interpretation — why it matters operationally.
     businessImpact: {
@@ -573,7 +611,7 @@ export const intesa = {
       url: "https://github.com/kushmirc/banking-modernization",
     },
     repoDisclaimer:
-      "Representative demonstration repository simulating a large-scale banking modernization workflow. No Intesa Sanpaolo source code or internal systems are used.",
+      "Representative repo. No Intesa source code used.",
     disclaimer:
       "Illustrative enterprise reference points. Actual execution adapts to client repositories, security envelope, and governance configuration. Not guaranteed outcomes.",
   },
@@ -643,6 +681,28 @@ export const intesa = {
       explanation:
         "≈ 120 engineering-equivalents redeployed toward strategic initiatives — a reinvestment surface, not a replacement target.",
     },
+    // Big-number CIO slide. Two scenarios mapping dev-days/year to
+    // developer-equivalents (1 dev-eq = 220 working days/year). Anchors
+    // the EB conversation on capacity redeployment, not cost reduction.
+    capacityScenarios: [
+      {
+        key: "conservative",
+        title: "Conservative scenario",
+        devDays: "~13,600 dev-days / year",
+        devEquivalents: "≈ 62 developer-equivalents",
+      },
+      {
+        key: "realistic",
+        title: "Realistic scenario",
+        devDays: "~43,500 dev-days / year",
+        devEquivalents: "≈ 198 developer-equivalents",
+      },
+    ],
+    capacityCalcNote: "1 developer-equivalent = 220 working days / year.",
+    capacityRedeploymentLine:
+      "Capacity redeployed toward strategic modernization initiatives.",
+    capacityFootnote:
+      "Illustrative model based on discovery assumptions; not a headcount target.",
     rows: [
       {
         technical: "Dependency analysis",
@@ -701,6 +761,7 @@ export const intesa = {
         upliftPct: 15,
         adoptionPct: 50,
         reclaimedDevDays: "~13,600",
+        reclaimedDevEquivalents: "≈ 62 developer-equivalents",
         reclaimedEur: "~€5.9M",
         footnote:
           "Uplift cut from McKinsey 20–45% floor to 15%. Rollout limited to 50%.",
@@ -713,6 +774,7 @@ export const intesa = {
         upliftPct: 25,
         adoptionPct: 80,
         reclaimedDevDays: "~43,500",
+        reclaimedDevEquivalents: "≈ 198 developer-equivalents",
         reclaimedEur: "~€18.8M",
         footnote:
           "Uplift kept at the middle of McKinsey 20–45% band. Rollout at Gartner 2028 trajectory, discounted.",
@@ -720,8 +782,11 @@ export const intesa = {
     ],
     headlineRange: {
       eur: "~€6–19M / year",
-      devDays: "~14k–44k developer-days / year",
+      devDays: "~14k–44k dev-days / year redeployed",
+      devEquivalents: "≈ 62–198 developer-equivalents",
     },
+    eurFraming:
+      "Capacity equivalent to ~€6–19M / year redirected toward modernization priorities.",
     safetyMarginNote:
       "Safety margin applied across uplift, rollout, and applicable-work share.",
     sources: [
@@ -762,8 +827,8 @@ export const intesa = {
           "Reduction in software delivery lead time through autonomous execution support.",
       },
       {
-        title: "Testing quality",
-        metric: "25% reduction",
+        title: "Testing errors",
+        metric: "25% fewer",
         description:
           "Reduction in testing errors while maintaining governance and review controls.",
       },
