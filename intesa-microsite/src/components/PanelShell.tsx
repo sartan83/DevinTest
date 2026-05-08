@@ -122,6 +122,11 @@ export function PanelSubhead({
   tone?: "dark" | "ivory";
   className?: string;
 }) {
+  // Minimalism pass: many panels now ship with empty subheads. Render
+  // nothing rather than an empty paragraph to avoid stray margin.
+  if (children == null || children === "" || (Array.isArray(children) && children.length === 0)) {
+    return null;
+  }
   return (
     <p
       className={[

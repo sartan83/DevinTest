@@ -78,7 +78,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
               <span>Back to opening</span>
             </button>
             <button
-              onClick={() => onCta(13)}
+              onClick={() => onCta(12)}
               className="group inline-flex items-center gap-2 rounded-full bg-devin-gradient px-5 py-3 text-sm font-medium text-brand-ivory shadow-glow transition-all hover:brightness-110"
             >
               <span>Re-open the 4-week pilot</span>

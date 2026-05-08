@@ -38,9 +38,11 @@ export function Panel5BusinessImpact() {
 
         <div className="grid gap-2 lg:grid-cols-[1.05fr_1fr] lg:items-end lg:gap-8">
           <PanelHeadline text={p.headline} compact />
-          <p className="text-[11px] leading-relaxed text-brand-ivory/70 sm:text-[12px]">
-            {p.subhead}
-          </p>
+          {p.subhead ? (
+            <p className="text-[11px] leading-relaxed text-brand-ivory/70 sm:text-[12px]">
+              {p.subhead}
+            </p>
+          ) : null}
         </div>
 
         {/* Two-column layout — left: workflow flow / right: business impact.

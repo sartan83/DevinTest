@@ -1,46 +1,51 @@
 """
-Adversarial regression test for the 15-panel Intesa microsite
-(Executive Working Session opening + Hero + Agenda + Itaú reference +
-merged Governance-Aware Modernization Workflow + executive refinement).
+Adversarial regression test for the 14-panel Intesa microsite (post
+executive-minimalism pass: standalone counter climax page removed,
+Why Now · 2029 replaces former Execution Gap, contextual counter
+popover replaces standalone explanation page).
 
-Panel index map (15 main + 1 appendix):
-  0  Executive Working Session — opening / stage-presence screen
+Panel index map (14 main + 1 appendix):
+  0  Executive working session — opening / stage-presence screen
   1  Hero / opening
-  2  Executive working session (Agenda)
-  3  Execution gap
+  2  Agenda (5 minimal focus areas: Context / Validation / Workflow /
+     Impact / Rollout)
+  3  Why now · 2029 (replaces Execution gap)
   4  Current state
-  5  Discovery (executive alignment)
-  6  Governance-Aware Modernization Workflow (MERGED P5 + former P5b)
+  5  Discovery (executive validation)
+  6  Governed modernization workflow (MERGED P5 + former P5b)
   7  Enterprise trust
   8  Capacity redeployment
   9  ROI signal
-  10 Itaú enterprise reference  (counter teaser still visible here)
-  11 Counter climax (reveal panel)
-  12 4-week pilot
-  13 Operational readiness (was 'Mutual commitment')
-  14 Next-step alignment (was 'Final ask')
-  15 Appendix
+  10 Itaú enterprise reference
+  11 4-week pilot
+  12 Operational readiness (was 'Mutual commitment')
+  13 Next-step alignment (was 'Final ask')
+  14 Appendix
 
 Tests:
   A. Overflow on dense panels at 1440x900 + 1280x800 + 1366x768
-  B. Counter reveal moves from idx 10 -> idx 11
+  B. Counter widget always revealed (no teaser/reveal split) and "?"
+     popover surfaces 'Illustrative modernization signal' + 3 bullets
   C. Itaú panel content (idx 10): 4 KPI tiles, Factory workflow, Gartner source
   D. Panel 7 capacity formula (idx 8): 400 / 30% / 120
   E. Panel 4 discovery (idx 5): 3 Strategic Q + 2 Detail question + new headline
   F. Panel 5 merged workflow (idx 6): transition + workflow nodes +
      business impact + dev-equivalent footnote
-  G. Panel 12 + 13 (idx 13, 14): jointly governed + Enterprise deployment path
+  G. Panel 12 + 13 (idx 12, 13): jointly governed + Enterprise deployment path
   H. Sales-methodology sweep (full HTML): 0 occurrences
-  I. Appendix toggle moves to idx 15, Esc returns to idx 14
+  I. Appendix toggle moves to idx 14, Esc returns to idx 13
   J. Wheel handler regression: deltaY=200 from idx 0 -> active becomes 1
-  L. Counter climax (idx 11): framing line + dev-equivalent translation +
-     business interpretation
-  M. Enterprise alignment refinement statements (P2 / P3 / P5 merged / P11)
-  N. Counter pacing reaches 8–18 envelope at idx 14 (Next-step alignment)
-  O. Executive working session agenda (idx 2): 5 focus blocks
+  L. Standalone counter climax page removed; popover-driven minimalism
+     replaces the dedicated explanation panel.
+  M. Enterprise alignment refinement statements (P2/Why-Now / P3 / P5
+     merged / P11)
+  N. Counter pacing reaches 8–18 envelope at idx 13 (Next-step alignment)
+  O. Minimal executive agenda (idx 2): 5 focus blocks Context /
+     Validation / Workflow / Impact / Rollout
   P. Hero anchors + merged P5 workflow nodes + scale anchors + dev-eq
   Q. Visual rhythm & section contrast pass (tonal panel-bg variants per idx)
   R. Executive opening screen (idx 0): wordmarks + title + footer + CTA
+  S. Why now · 2029 (idx 3) + savings-language reframe sweep across HTML
 """
 import asyncio
 import json
@@ -54,14 +59,11 @@ URL = "https://intesa-microsite.vercel.app/"
 OUT = Path(__file__).parent / "screenshots-itau"
 OUT.mkdir(exist_ok=True)
 
-# (panel_idx, slug)
-# NOTE: idx 11 (counter climax) is intentionally excluded — visiting it would
-# set `visited[CLIMAX_INDEX]` and unlock the counter reveal, breaking the
-# B1 "teaser still hidden at idx 10" assertion. The climax panel is centered
-# text and not at risk of overflow anyway. Test L covers its content.
+# (panel_idx, slug). Standalone counter-climax page is removed; pilot
+# now sits at idx 11 and op-readiness at idx 12.
 PANELS_TO_FIT = [
     (2, "panel1b-agenda"),
-    (3, "panel2-execution-gap"),
+    (3, "panel2-why-now-2029"),
     (4, "panel3-current-state"),
     (5, "panel4-discovery"),
     (6, "panel5-modernization-workflow"),
@@ -69,8 +71,8 @@ PANELS_TO_FIT = [
     (8, "panel7-capacity"),
     (9, "panel8-roi"),
     (10, "panel9-itau"),
-    (12, "panel11-pilot"),
-    (13, "panel12-mutual"),
+    (11, "panel10-pilot"),
+    (12, "panel11-op-readiness"),
 ]
 
 # Includes typical laptop viewport (1366x768) and conference-screen at 90% zoom (~1422x800).
@@ -159,18 +161,47 @@ async def run_for_viewport(p, w: int, h: int):
         print(f"[{label}] A: panel-{idx} ({name}) overflowsInner={m['overflowsInner']:.1f} overflowsViewport={m['overflowsViewport']:.1f} -> {'PASS' if passed else 'FAIL'}", flush=True)
         results.append({"viewport": label, "test": f"A-overflow-{name}", "panel_idx": idx, "passed": passed, "measurement": {k: m.get(k) for k in ("overflowsInner", "overflowsViewport", "innerScrollHeight", "innerClientHeight", "viewportH")}, "screenshot": str(screenshot_path)})
 
-    # === Test B: counter teaser at idx 10 (Itaú) / reveal at idx 11 (climax) ===
-    await goto_panel(page, 10)
-    header_at_teaser = await get_header_text(page)
-    teaser_visible = "?" in header_at_teaser and "modeled execution capacity reclaimed" not in header_at_teaser.lower()
-    print(f"[{label}] B1: counter teaser at idx 10 -> {'PASS' if teaser_visible else 'FAIL'} | header={header_at_teaser!r}", flush=True)
-    results.append({"viewport": label, "test": "B1-teaser-at-idx-10", "passed": teaser_visible, "header": header_at_teaser})
+    # === Test B: counter widget always revealed + popover content ===
+    # The standalone climax page is gone; the counter widget itself now
+    # carries an "Illustrative modernization signal" popover.
+    await goto_panel(page, 1)
+    header_early = await get_header_text(page)
+    revealed_label_early = (
+        "modeled capacity redeployed" in header_early.lower()
+        or "capacity redeployed" in header_early.lower()
+    )
+    print(f"[{label}] B1: counter visible from idx 1 -> {'PASS' if revealed_label_early else 'FAIL'} | header={header_early!r}", flush=True)
+    results.append({"viewport": label, "test": "B1-counter-visible-early", "passed": revealed_label_early, "header": header_early})
 
-    await goto_panel(page, 11)
-    header_at_reveal = await get_header_text(page)
-    revealed = "modeled execution capacity reclaimed" in header_at_reveal.lower()
-    print(f"[{label}] B2: counter reveal at idx 11 -> {'PASS' if revealed else 'FAIL'} | header={header_at_reveal!r}", flush=True)
-    results.append({"viewport": label, "test": "B2-reveal-at-idx-11", "passed": revealed, "header": header_at_reveal})
+    # Popover content (open via aria-expanded toggle on the "?" button).
+    await page.evaluate(
+        """() => {
+            const btn = document.querySelector(
+                "header button[aria-label='What does this counter represent?']"
+            );
+            if (btn) btn.click();
+        }"""
+    )
+    await page.wait_for_timeout(450)
+    popover_text = await page.evaluate(
+        """() => {
+            const dialog = document.querySelector(
+                "header [role='dialog']"
+            );
+            return dialog ? dialog.innerText : '';
+        }"""
+    )
+    popover_ok = bool(popover_text) and (
+        "illustrative modernization signal" in popover_text.lower()
+        and "migration pressure" in popover_text.lower()
+        and "execution complexity" in popover_text.lower()
+        and "governance constraints" in popover_text.lower()
+    )
+    print(f"[{label}] B2: counter '?' popover content -> {'PASS' if popover_ok else 'FAIL'} | popover={popover_text!r}", flush=True)
+    results.append({"viewport": label, "test": "B2-counter-popover", "passed": popover_ok, "popover_excerpt": (popover_text or "")[:300]})
+    # Close the popover so subsequent tests are not affected.
+    await page.evaluate("() => document.body.click()")
+    await page.wait_for_timeout(150)
 
     # === Test C: Itaú panel content at idx 10 ===
     await goto_panel(page, 10)
@@ -266,13 +297,17 @@ async def run_for_viewport(p, w: int, h: int):
         "business impact metric '20–30%'": "20–30%" in p5_text,
         "business impact metric '12,000 engineering hours'":
             "12,000 engineering hours" in p5_text,
-        "dev-equivalent translation '≈ 7 developer-equivalent capacity'":
-            "developer-equivalent capacity" in p5_text.lower(),
+        "dev-equivalent translation '≈ 7 developer-equivalents redeployed'":
+            "developer-equivalents redeployed" in p5_text.lower()
+            and "strategic initiatives" in p5_text.lower(),
+        "reframed savings language (no 'developer-equivalent capacity' on P5 metric)":
+            "7 developer-equivalent capacity" not in p5_text.lower(),
         "business impact metric '59 → 9'": "59 → 9" in p5_text,
         "governance statement":
             "governance-aware modernization execution" in p5_text.lower(),
-        "scalability statement":
-            "operational scalability without proportional delivery scaling" in p5_text.lower(),
+        "scalability statement (reinvestment vocabulary)":
+            "reinvest engineering bandwidth into modernization throughput"
+            in p5_text.lower(),
         "dev-equivalent footnote":
             "illustrative operational capacity" in p5_text.lower(),
         "repo link 'kushmirc/banking-modernization'":
@@ -289,17 +324,17 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "F-panel5-merged-workflow", "passed": p5_passed, "checks": p5_checks})
 
-    # === Test G: Panel 12 (idx 13) Op readiness + Panel 13 (idx 14) Next-step alignment ===
-    await goto_panel(page, 13)
-    p12_text = await get_section_text(page, 13)
+    # === Test G: Panel 12 (idx 12) Op readiness + Panel 13 (idx 13) Next-step alignment ===
+    await goto_panel(page, 12)
+    p12_text = await get_section_text(page, 12)
     p12_checks = {
         "jointly governed validation initiative": "jointly governed validation initiative" in p12_text,
         "Success depends not only on technical execution": "Success depends not only on technical execution" in p12_text,
         "go-live transition 'structured validation path'":
             "structured validation path toward broader enterprise deployment" in p12_text.lower(),
     }
-    await goto_panel(page, 14)
-    p13_text = await get_section_text(page, 14)
+    await goto_panel(page, 13)
+    p13_text = await get_section_text(page, 13)
     p13_checks = {
         "Enterprise deployment path header": "enterprise deployment path" in p13_text.lower(),
         "Strategic discussion prompt header": "strategic discussion prompt" in p13_text.lower(),
@@ -339,7 +374,7 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k} (still present)", flush=True)
     results.append({"viewport": label, "test": "H-methodology-sweep", "passed": sweep_passed, "checks": sweep_checks})
 
-    # === Test I: appendix toggle moves to idx 15 (15 main + 1 appendix) ===
+    # === Test I: appendix toggle moves to idx 14 (14 main + 1 appendix) ===
     await goto_panel(page, 0)
     await page.click("header button[title*='appendix' i]")
     await page.wait_for_timeout(900)
@@ -353,17 +388,17 @@ async def run_for_viewport(p, w: int, h: int):
             return { idx, left, cw, sectionText: sec ? sec.innerText.slice(0, 600) : '' };
         }"""
     )
-    appendix_idx_pass = appendix_state["idx"] == 15
+    appendix_idx_pass = appendix_state["idx"] == 14
     appendix_text_pass = (
         "discovery framework" in appendix_state["sectionText"].lower()
         and "bulletproof" in appendix_state["sectionText"].lower()
     )
-    print(f"[{label}] I1: appendix click -> idx {appendix_state['idx']} (expect 15) -> {'PASS' if appendix_idx_pass else 'FAIL'}", flush=True)
+    print(f"[{label}] I1: appendix click -> idx {appendix_state['idx']} (expect 14) -> {'PASS' if appendix_idx_pass else 'FAIL'}", flush=True)
     print(f"[{label}] I2: appendix section text contains discovery framework + bulletproof -> {'PASS' if appendix_text_pass else 'FAIL'}", flush=True)
     results.append({"viewport": label, "test": "I1-appendix-idx", "passed": appendix_idx_pass, "actual_idx": appendix_state["idx"]})
     results.append({"viewport": label, "test": "I2-appendix-text", "passed": appendix_text_pass, "section_text_excerpt": appendix_state["sectionText"][:200]})
 
-    # Esc -> back to last main panel (idx 14)
+    # Esc -> back to last main panel (idx 13)
     await page.keyboard.press("Escape")
     await page.wait_for_timeout(800)
     after_esc = await page.evaluate(
@@ -372,42 +407,42 @@ async def run_for_viewport(p, w: int, h: int):
             return Math.round(scroller.scrollLeft / scroller.clientWidth);
         }"""
     )
-    esc_pass = after_esc == 14
-    print(f"[{label}] I3: Esc from appendix -> idx {after_esc} (expect 14) -> {'PASS' if esc_pass else 'FAIL'}", flush=True)
+    esc_pass = after_esc == 13
+    print(f"[{label}] I3: Esc from appendix -> idx {after_esc} (expect 13) -> {'PASS' if esc_pass else 'FAIL'}", flush=True)
     results.append({"viewport": label, "test": "I3-esc-from-appendix", "passed": esc_pass, "actual_idx": after_esc})
 
-    # === Test L: Counter climax storytelling at idx 11 ===
-    await goto_panel(page, 11)
-    p10_text = await get_section_text(page, 11)
-    p10_checks = {
-        "framing 'large-scale modernization'": "large-scale modernization programs often consume" in p10_text.lower(),
-        "developer-equivalent translation": "developer-equivalent capacity / year" in p10_text.lower(),
-        "engineering hours translation": "engineering hours" in p10_text.lower(),
-        "business interpretation 'strategic value'": "strategic value is not reducing engineering teams" in p10_text.lower(),
-        "interpretation 'transformation throughput'": "transformation throughput" in p10_text.lower(),
-        "dev-equivalent footnote": "developer-equivalent figures are illustrative" in p10_text.lower(),
-        "NOT headcount-reduction language": "headcount reduction" not in p10_text.lower() and "workforce replacement" not in p10_text.lower(),
+    # === Test L: standalone counter climax page is removed ===
+    # The minimalism pass deleted the dedicated climax explanation
+    # panel; its narrative now lives in the counter widget popover.
+    # We verify by counting <section> elements: 14 main + 1 appendix.
+    section_count = await page.evaluate(
+        """() => document.querySelectorAll('section').length"""
+    )
+    full_html_lower = (await page.content()).lower()
+    l_checks = {
+        "exactly 15 sections (14 main + 1 appendix)": section_count == 15,
+        "no legacy climax 'large-scale modernization programs often consume' prose":
+            "large-scale modernization programs often consume" not in full_html_lower,
+        "no legacy climax 'transformation throughput' interpretation prose":
+            "strategic value is not reducing engineering teams" not in full_html_lower,
+        "no legacy climax 'engineering hours per year' rendered":
+            "approximately 8 hours per developer-day" not in full_html_lower,
     }
-    p10_passed = all(p10_checks.values())
-    print(f"[{label}] L: Counter climax storytelling -> {'PASS' if p10_passed else 'FAIL'}", flush=True)
-    for k, v in p10_checks.items():
+    l_passed = all(l_checks.values())
+    print(f"[{label}] L: counter climax page removed -> {'PASS' if l_passed else 'FAIL'} | sections={section_count}", flush=True)
+    for k, v in l_checks.items():
         if not v:
             print(f"          -> miss: {k}", flush=True)
-    results.append({"viewport": label, "test": "L-counter-climax", "passed": p10_passed, "checks": p10_checks})
+    results.append({"viewport": label, "test": "L-climax-removed", "passed": l_passed, "section_count": section_count})
 
-    # === Test M: alignment refinement (P2 idx 3 / P3 idx 4 / P5 merged idx 6 / P11 idx 12) ===
-    await goto_panel(page, 3)
-    p2_text = await get_section_text(page, 3)
+    # === Test M: alignment refinement (P2 idx 3 / P3 idx 4 / P5 merged idx 6 / P11 idx 11) ===
     await goto_panel(page, 4)
     p3_text = await get_section_text(page, 4)
     await goto_panel(page, 6)
     p5_text_m = await get_section_text(page, 6)
-    await goto_panel(page, 12)
-    p11_text = await get_section_text(page, 12)
+    await goto_panel(page, 11)
+    p11_text = await get_section_text(page, 11)
     m_checks = {
-        "P2 'Beyond engineering efficiency'":
-            "beyond engineering efficiency" in p2_text.lower()
-            and "scaling strategic transformation execution" in p2_text.lower(),
         "P3 'transformation constraints are often operational'":
             "transformation constraints are often operational before they are technological"
             in p3_text.lower(),
@@ -425,9 +460,9 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "M-enterprise-alignment-refinement", "passed": m_passed, "checks": m_checks})
 
-    # === Test N: counter pacing — value at idx 14 must reach the headline 8–18 envelope ===
+    # === Test N: counter pacing — value at idx 13 must reach the headline 8–18 envelope ===
     # Visit every main panel in order so cumulative add fires for each.
-    for idx in range(0, 15):
+    for idx in range(0, 14):
         await goto_panel(page, idx)
         await page.wait_for_timeout(120)
     header_at_final = await get_header_text(page)
@@ -435,8 +470,8 @@ async def run_for_viewport(p, w: int, h: int):
     counter_min = float(m.group(1)) if m else 0.0
     counter_max = float(m.group(2)) if m else 0.0
     n_checks = {
-        "counter min reaches >= 7.5 at idx 14": counter_min >= 7.5,
-        "counter max reaches >= 17.5 at idx 14": counter_max >= 17.5,
+        "counter min reaches >= 7.5 at idx 13": counter_min >= 7.5,
+        "counter max reaches >= 17.5 at idx 13": counter_max >= 17.5,
         "counter max never exceeds final envelope (<= 18.0)": counter_max <= 18.0,
     }
     n_passed = all(n_checks.values())
@@ -450,26 +485,34 @@ async def run_for_viewport(p, w: int, h: int):
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "N-counter-pacing", "passed": n_passed, "min": counter_min, "max": counter_max})
 
-    # === Test O: Executive working session agenda at idx 2 ===
+    # === Test O: minimal executive agenda at idx 2 ===
+    # Aggressive minimalism pass: 5 single-word focus areas with brief
+    # micro-subtitles only — no explanatory paragraphs.
     await goto_panel(page, 2)
     p1b_text = await get_section_text(page, 2)
     o_checks = {
-        "eyebrow 'Executive working session'": "executive working session" in p1b_text.lower(),
-        "headline 'Five focus areas for the next 55 minutes'":
-            "Five focus areas for the next 55 minutes" in p1b_text,
-        "no '55-minute strategic discussion' subhead":
+        "eyebrow 'Agenda'": "agenda" in p1b_text.lower(),
+        "minimal headline 'Five focus areas.'": "Five focus areas." in p1b_text,
+        "no legacy '55-minute strategic discussion' subhead":
             "55-minute strategic discussion" not in p1b_text.lower(),
-        "block 1 Transformation Context": "Transformation Context" in p1b_text
-            and "current execution constraints" in p1b_text.lower(),
-        "block 2 Executive Alignment": "Executive Alignment" in p1b_text
-            and "still requires validation" in p1b_text.lower(),
-        "block 3 Live Workflow Preview": "Live Workflow Preview" in p1b_text
-            and "governance-aware modernization" in p1b_text.lower(),
-        "block 4 Enterprise Impact": "Enterprise Impact" in p1b_text
-            and "operational leverage" in p1b_text.lower(),
-        "block 5 Pilot & Go-Live Path": "Pilot & Go-Live Path" in p1b_text
-            and "deployment alignment" in p1b_text.lower(),
-        "exactly 5 numbered focus blocks": p1b_text.lower().count("focus") >= 5,
+        "no legacy 'next 55 minutes' headline":
+            "for the next 55 minutes" not in p1b_text.lower(),
+        "block 1 Context · Modernization pressure":
+            "Context" in p1b_text and "Modernization pressure" in p1b_text,
+        "block 2 Validation · Executive assumptions":
+            "Validation" in p1b_text and "Executive assumptions" in p1b_text,
+        "block 3 Workflow · Governed execution":
+            "Workflow" in p1b_text and "Governed execution" in p1b_text,
+        "block 4 Impact · Operational leverage":
+            "Impact" in p1b_text and "Operational leverage" in p1b_text,
+        "block 5 Rollout · Pilot & scaling":
+            "Rollout" in p1b_text and "Pilot & scaling" in p1b_text,
+        "no legacy 'Transformation Context' label":
+            "transformation context" not in p1b_text.lower(),
+        "no legacy 'Live Workflow Preview' label":
+            "live workflow preview" not in p1b_text.lower(),
+        "no legacy 'Pilot & Go-Live Path' label":
+            "pilot & go-live path" not in p1b_text.lower(),
     }
     o_passed = all(o_checks.values())
     print(f"[{label}] O: Executive agenda panel -> {'PASS' if o_passed else 'FAIL'}", flush=True)
@@ -501,8 +544,8 @@ async def run_for_viewport(p, w: int, h: int):
             "Governed pull request review" in p5_text_q,
         "P5 merged — 'Operational leverage' business title":
             "operational leverage" in p5_text_q.lower(),
-        "P5 merged — dev-equivalent translation":
-            "developer-equivalent capacity" in p5_text_q.lower(),
+        "P5 merged — dev-equivalents redeployed translation":
+            "developer-equivalents redeployed" in p5_text_q.lower(),
         "P7 — dev-equivalent hours line": "210,000 engineering hours" in p7_text_q,
         "P7 — dev-equivalent FTE line": "developer-equivalent capacity" in p7_text_q.lower(),
         "P7 — dev-equivalent footnote": "illustrative operational capacity" in p7_text_q.lower(),
@@ -532,35 +575,35 @@ async def run_for_viewport(p, w: int, h: int):
             });
         }"""
     )
-    # Expected variant per panel idx (0..15) after welcome screen at idx 0:
-    # 0 welcome → deep, 1 hero → deep, 2 agenda → deep, 3 gap → default,
+    # Expected variant per panel idx (0..14) after climax-page removal:
+    # 0 welcome → deep, 1 hero → deep, 2 agenda → deep, 3 why-now → deep,
     # 4 current → default, 5 discovery → default, 6 workflow → cinematic,
     # 7 trust → default, 8 capacity → bright, 9 roi → bright,
-    # 10 itau → bright, 11 climax → cinematic, 12 pilot → clean,
-    # 13 op-readiness → clean, 14 final-ask → deep, 15 appendix → default
+    # 10 itau → bright, 11 pilot → clean, 12 op-readiness → clean,
+    # 13 final-ask → deep, 14 appendix → default
     await goto_panel(page, 6)
     p5_text_r = await get_section_text(page, 6)
-    await goto_panel(page, 14)
-    p13_text_r = await get_section_text(page, 14)
+    await goto_panel(page, 13)
+    p13_text_r = await get_section_text(page, 13)
     p13_html = await page.evaluate(
         """(idx) => {
             const sections = document.querySelectorAll('section');
             const h2 = sections[idx]?.querySelector('h2');
             return h2 ? h2.className : '';
         }""",
-        14,
+        13,
     )
     q_checks = {
         "Welcome panel (idx 0) uses deep bg": bg_classes[0] == "panel-bg-deep",
         "Hero (idx 1) uses deep bg": bg_classes[1] == "panel-bg-deep",
+        "Why now · 2029 (idx 3) uses deep bg": bg_classes[3] == "panel-bg-deep",
         "Workflow panel (idx 6) uses cinematic bg": bg_classes[6] == "panel-bg-cinematic",
         "Capacity panel (idx 8) uses bright bg": bg_classes[8] == "panel-bg-bright",
         "Itau benchmark panel (idx 10) uses bright bg": bg_classes[10] == "panel-bg-bright",
-        "Climax panel (idx 11) uses cinematic bg": bg_classes[11] == "panel-bg-cinematic",
-        "Pilot panel (idx 12) uses clean bg": bg_classes[12] == "panel-bg-clean",
-        "Op-readiness (idx 13) uses clean bg": bg_classes[13] == "panel-bg-clean",
-        "Final-ask (idx 14) uses deep bg": bg_classes[14] == "panel-bg-deep",
-        "All 16 panels render": len(bg_classes) == 16,
+        "Pilot panel (idx 11) uses clean bg": bg_classes[11] == "panel-bg-clean",
+        "Op-readiness (idx 12) uses clean bg": bg_classes[12] == "panel-bg-clean",
+        "Final-ask (idx 13) uses deep bg": bg_classes[13] == "panel-bg-deep",
+        "All 15 panels render (14 main + 1 appendix)": len(bg_classes) == 15,
         "Cinematic closing statement on P5":
             "governed execution at enterprise scale" in p5_text_r.lower(),
         "P13 amplified headline scale (text-7xl)":
@@ -608,6 +651,54 @@ async def run_for_viewport(p, w: int, h: int):
         if not v:
             print(f"          -> miss: {k}", flush=True)
     results.append({"viewport": label, "test": "R-executive-opening", "passed": r_passed, "checks": r_checks})
+
+    # === Test S: Why Now · 2029 (idx 3) + savings-language reframe sweep ===
+    # Confirms the executive minimalism pass: oversized 2029 anchor, 3
+    # operational statements, no legacy "Strategic ambition" prose, and
+    # all "savings / cost reduction / reducing engineers" language has
+    # been reframed to reinvestment / redeployment / throughput across
+    # the full HTML.
+    await goto_panel(page, 3)
+    p2_text = await get_section_text(page, 3)
+    full_html_lower = (await page.content()).lower()
+    s_checks = {
+        "Why Now eyebrow": "why now" in p2_text.lower(),
+        "2029 oversized anchor": "2029" in p2_text,
+        "Current-state anchor '64%'": "64%" in p2_text,
+        "'Cloud-based applications today' caption":
+            "cloud-based applications today" in p2_text.lower(),
+        "Target-state anchor '100%'": "100%" in p2_text,
+        "'Target by 2029' caption": "target by 2029" in p2_text.lower(),
+        "Closing tension 'Final migration wave requires scalable execution capacity'":
+            "final migration wave requires scalable execution capacity" in p2_text.lower(),
+        "Modernization deadline caption":
+            "modernization deadline" in p2_text.lower(),
+        "no legacy 'Strategic ambition is clear' headline":
+            "strategic ambition is clear" not in p2_text.lower(),
+        "no legacy 'current execution reality' table copy":
+            "current execution reality" not in p2_text.lower(),
+        # Savings-language reframe sweep across the full document.
+        "no 'cost reduction' framing in HTML":
+            "cost reduction" not in full_html_lower,
+        "no 'reducing engineers' framing in HTML":
+            "reducing engineers" not in full_html_lower,
+        "no 'reduce engineering costs' framing in HTML":
+            "reduce engineering costs" not in full_html_lower,
+        "no 'savings' framing in HTML":
+            "savings" not in full_html_lower,
+        "no 'eliminating work' framing in HTML":
+            "eliminating work" not in full_html_lower,
+        "reinvestment vocabulary present":
+            "redeployed" in full_html_lower
+            or "reinvest" in full_html_lower
+            or "modernization throughput" in full_html_lower,
+    }
+    s_passed = all(s_checks.values())
+    print(f"[{label}] S: Why Now · 2029 + savings reframe -> {'PASS' if s_passed else 'FAIL'}", flush=True)
+    for k, v in s_checks.items():
+        if not v:
+            print(f"          -> miss: {k}", flush=True)
+    results.append({"viewport": label, "test": "S-why-now-2029", "passed": s_passed, "checks": s_checks})
 
     # === Test J: wheel handler regression ===
     await goto_panel(page, 0)

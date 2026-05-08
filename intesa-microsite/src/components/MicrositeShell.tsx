@@ -16,26 +16,20 @@ import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
 import { Panel7TasksToOutcomes } from "./panels/Panel7TasksToOutcomes";
 import { Panel8RoiSignal } from "./panels/Panel8RoiSignal";
 import { Panel9ItauReference } from "./panels/Panel9ItauReference";
-import { Panel9CounterClimax } from "./panels/Panel9CounterClimax";
 import { Panel10Pilot } from "./panels/Panel10Pilot";
 import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 15 main panels (index 0–14) + 1 appendix panel (index 15) reachable only
+// 14 main panels (index 0–13) + 1 appendix panel (index 14) reachable only
 // via the discrete "Appendix" toggle in the header. Idx 0 is the
-// pre-session executive opening screen ("Executive Working Session").
-// Hero sits at idx 1, agenda at idx 2, governance-aware modernization
-// workflow (P5 merged) at idx 6; counter teaser at idx 10 (Itaú) and
-// reveal at idx 11 (climax).
-const MAIN_PANELS = 15;
-const APPENDIX_INDEX = 15;
+// pre-session executive opening screen. Hero idx 1, agenda idx 2, Why
+// Now · 2029 idx 3, governed modernization workflow idx 6. The
+// standalone counter-climax page is removed in the minimalism pass —
+// its narrative now lives in the counter widget popover.
+const MAIN_PANELS = 14;
+const APPENDIX_INDEX = 14;
 const TOTAL_PANELS = MAIN_PANELS + 1;
-// Render index of the counter climax panel ("Reclaimed capacity"). After
-// adding the executive opening screen at idx 0, every previous idx shifts
-// +1 → climax now at idx 11. Counter teaser shows on idx 10 (Itaú
-// reference) and reveals on idx 11 (climax).
-const CLIMAX_INDEX = 11;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -276,17 +270,15 @@ export function MicrositeShell() {
         max += step.addMax;
       }
     }
-    // Per-panel additions are time-weighted to a 60-minute presentation cadence
-    // (see counter.steps comments in intesa.ts). The counter must continue to
-    // advance past the climax (idx 10) and only reach the headline 8–18 dev-day
-    // envelope at the last main panel (idx 13, Final ask). We therefore only
-    // clamp the upper bound — never pin the value at the climax.
+    // Per-panel additions are time-weighted to the 60-minute role-play
+    // cadence (see counter.steps comments in intesa.ts). The counter
+    // accumulates as the executive walks the panels and clamps at the
+    // headline envelope.
     const finalMax = intesa.counter.finalRange.max;
     if (max > finalMax) max = finalMax;
     return { min, max };
   }, [visited]);
 
-  const counterExpanded = active === CLIMAX_INDEX;
   const isAppendix = active === APPENDIX_INDEX;
 
   const toggleAppendix = useCallback(() => {
@@ -335,8 +327,6 @@ export function MicrositeShell() {
           <ExecutiveCounter
             min={counterValue.min}
             max={counterValue.max}
-            expanded={counterExpanded}
-            revealed={active >= CLIMAX_INDEX || visited.has(CLIMAX_INDEX)}
           />
         </div>
       </header>
@@ -372,7 +362,6 @@ export function MicrositeShell() {
           <Panel7TasksToOutcomes />
           <Panel8RoiSignal />
           <Panel9ItauReference />
-          <Panel9CounterClimax min={counterValue.min} max={counterValue.max} />
           <Panel10Pilot />
           <Panel11MutualCommitment />
           <Panel12FinalAsk onCta={(target) => goTo(target - 1)} />

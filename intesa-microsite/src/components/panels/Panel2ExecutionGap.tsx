@@ -2,58 +2,98 @@
 
 import { motion } from "framer-motion";
 import { intesa } from "../../data/intesa";
-import { PanelShell, PanelHeadline, PanelSubhead, PanelClosing } from "../PanelShell";
+import { PanelShell } from "../PanelShell";
 
+/**
+ * Panel 2 — Why Now · 2029.
+ *
+ * Replaces the former "Strategic Ambition / Execution Gap" panel.
+ * Brutal executive minimalism: current-state → target-state anchors,
+ * a single closing tension line, no explanatory paragraphs. The
+ * presenter narrates the urgency live.
+ */
 export function Panel2ExecutionGap() {
   const p = intesa.panel2;
+  const [today, target] = p.states;
   return (
-    <PanelShell eyebrow={p.eyebrow} compact>
-      <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="grid gap-2.5 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-8">
-          <PanelHeadline text={p.headline} compact />
-          <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead>
+    <PanelShell eyebrow={p.eyebrow} bg="deep">
+      <div className="flex h-full flex-col justify-center gap-12 sm:gap-16">
+        {/* 2029 oversized anchor */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-3"
+        >
+          <div className="font-display text-[6rem] font-light leading-[0.9] tracking-displaytight text-brand-ivory sm:text-[8.5rem] lg:text-[11rem]">
+            {p.bigYear}
+          </div>
+          <div className="text-[12px] uppercase tracking-[0.32em] text-brand-orange-soft sm:text-[13px]">
+            {p.yearCaption}
+          </div>
+        </motion.div>
+
+        {/* Current → target progression */}
+        <div className="grid items-end gap-8 sm:gap-12 lg:grid-cols-[1fr_auto_1fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-2 border-l border-brand-ivory/15 pl-5 sm:pl-7"
+          >
+            <div className="font-display text-[3.25rem] font-light leading-none text-brand-ivory sm:text-[4.5rem] lg:text-[5.5rem]">
+              {today.value}
+            </div>
+            <div className="text-[12px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[13px]">
+              {today.label}
+            </div>
+          </motion.div>
+
+          {/* Subtle directional arrow */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
+            aria-hidden
+            className="hidden self-center text-3xl font-light text-brand-orange-soft/70 lg:block"
+          >
+            →
+          </motion.div>
+          <div aria-hidden className="block text-2xl text-brand-orange-soft/60 lg:hidden">
+            ↓
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-2 border-l border-brand-orange/40 pl-5 sm:pl-7"
+          >
+            <div className="font-display text-[3.25rem] font-light leading-none text-brand-ivory sm:text-[4.5rem] lg:text-[5.5rem]">
+              {target.value}
+            </div>
+            <div className="text-[12px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[13px]">
+              {target.label}
+            </div>
+          </motion.div>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25">
-          <div className="grid grid-cols-[1fr_1fr] border-b border-brand-ivory/10 px-3.5 py-1.5 text-[9px] uppercase tracking-[0.24em] text-brand-ivory/55 sm:px-5 sm:py-2 sm:text-[10px]">
-            <span>Strategic ambition</span>
-            <span>Current execution reality</span>
-          </div>
-          <div>
-            {p.rows.map((r, i) => (
-              <motion.div
-                key={r.ambition}
-                initial={{ opacity: 0, x: -8 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
-                className={[
-                  "grid grid-cols-[1fr_1fr] items-center gap-3 px-3.5 py-2 sm:px-5 sm:py-2.5",
-                  i < p.rows.length - 1 ? "border-b border-brand-ivory/5" : "",
-                ].join(" ")}
-              >
-                <div className="flex items-center gap-2">
-                  <span aria-hidden className="hidden h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange/70 sm:inline-block" />
-                  <span className="text-[12px] font-medium leading-snug text-brand-ivory sm:text-[13px]">
-                    {r.ambition}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span aria-hidden className="hidden text-brand-orange/70 sm:inline-block">→</span>
-                  <span className="text-[12px] leading-snug text-brand-ivory/75 sm:text-[13px]">
-                    {r.reality}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        <PanelClosing>{p.closing}</PanelClosing>
-
-        <p className="rounded-xl border border-brand-orange/25 bg-brand-orange/5 px-3 py-2 text-[12px] leading-relaxed text-brand-ivory/85 sm:text-[13px]">
-          {p.executiveInsight}
-        </p>
+        {/* Closing tension line */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="border-l-2 border-brand-orange/60 pl-4 sm:pl-5"
+        >
+          <p className="font-display text-xl font-light leading-snug text-brand-ivory sm:text-2xl lg:text-[1.75rem]">
+            {p.closing}
+          </p>
+        </motion.div>
       </div>
     </PanelShell>
   );

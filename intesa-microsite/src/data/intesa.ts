@@ -92,39 +92,49 @@ export const intesa = {
       "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
   },
 
-  // 15 sequential main panels (after adding the executive opening screen at
-  // idx 0). The narrative arc is: stage-presence opener, position the
-  // problem, validate discovery, show the work, frame trust, bridge to
-  // value, quantify, anchor on a credible enterprise reference, climax,
-  // commit to a 4-week pilot, and close on an executive ask.
-  // Index 0–14 are the main executive flow. Index 15 is the appendix
-  // ("Discovery framework") — reachable only via the discrete appendix
-  // toggle, hidden from the progress dots.
+  // 14 sequential main panels (after the minimalism pass removed the
+  // standalone counter-climax page; the counter widget now carries the
+  // "?" popover that previously lived as a full panel). Stage-presence
+  // opener, position the problem (Why Now / 2029), validate, show the
+  // governed workflow, frame trust, quantify, anchor on a credible
+  // enterprise reference, commit to a 4-week pilot, and close on an
+  // executive ask. Index 0–13 are the main executive flow. Index 14 is
+  // the appendix ("Discovery framework") — reachable only via the
+  // discrete appendix toggle, hidden from the progress dots.
   nav: [
     { index: 0, label: "·", full: "Executive working session", appendix: false },
     { index: 1, label: "1", full: "Opening", appendix: false },
-    { index: 2, label: "2", full: "Executive working session", appendix: false },
-    { index: 3, label: "3", full: "Execution gap", appendix: false },
-    { index: 4, label: "4", full: "Current state assessment", appendix: false },
-    { index: 5, label: "5", full: "Executive validation areas", appendix: false },
+    { index: 2, label: "2", full: "Agenda", appendix: false },
+    { index: 3, label: "3", full: "Why now · 2029", appendix: false },
+    { index: 4, label: "4", full: "Current state", appendix: false },
+    { index: 5, label: "5", full: "Executive validation", appendix: false },
     { index: 6, label: "6", full: "Governed modernization workflow", appendix: false },
     { index: 7, label: "7", full: "Enterprise trust", appendix: false },
     { index: 8, label: "8", full: "Capacity redeployment", appendix: false },
     { index: 9, label: "9", full: "ROI signal", appendix: false },
     { index: 10, label: "10", full: "Enterprise reference", appendix: false },
-    { index: 11, label: "11", full: "Reclaimed capacity", appendix: false },
-    { index: 12, label: "12", full: "4-week pilot", appendix: false },
-    { index: 13, label: "13", full: "Operational readiness", appendix: false },
-    { index: 14, label: "14", full: "Next-step alignment", appendix: false },
-    { index: 15, label: "A", full: "Discovery framework (appendix)", appendix: true },
+    { index: 11, label: "11", full: "4-week pilot", appendix: false },
+    { index: 12, label: "12", full: "Operational readiness", appendix: false },
+    { index: 13, label: "13", full: "Next-step alignment", appendix: false },
+    { index: 14, label: "A", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
-    label: "Modeled execution capacity reclaimed during this session",
-    shortLabel: "Capacity reclaimed",
+    label: "Modeled capacity redeployed during this session",
+    shortLabel: "Capacity redeployed",
     disclaimer: "Illustrative scenario based on modeled assumptions",
     unit: "developer days",
     finalRange: { min: 8, max: 18 },
+    // Tooltip content for the contextual "?" popover on the counter
+    // widget. Replaces the deleted standalone climax panel.
+    popover: {
+      title: "Illustrative modernization signal",
+      bullets: [
+        "Migration pressure",
+        "Execution complexity",
+        "Governance constraints",
+      ],
+    },
     // Hours-per-developer-day used to translate the dev-day counter into
     // "engineering hours" for the executive-translation layer on the
     // climax panel. 8h/day is the standard banking baseline used by P8 too.
@@ -141,30 +151,34 @@ export const intesa = {
     framing:
       "Large-scale modernization programs often consume thousands of hours of repetitive engineering execution.",
     interpretation:
-      "The strategic value is not reducing engineering teams. It is increasing transformation throughput without proportionally increasing delivery capacity.",
+      "The strategic value is reinvesting engineering bandwidth into modernization throughput — not reducing teams.",
     devEquivalentFootnote:
       "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
     // Steps accumulate per visited panel (1-indexed → maps to render index panel-1).
-    // Calibrated to a 60-minute live presentation cadence: per-panel additions
-    // are time-weighted such that cumulative across all 15 main panels reaches
-    // exactly the headline 8–18 dev-days envelope at idx 14 (Next-step alignment).
+    // Calibrated to a 60-minute interactive role-play cadence: per-panel
+    // additions are time-weighted such that cumulative across all 14 main
+    // panels reaches exactly the headline 8–18 dev-days envelope at idx 13
+    // (Next-step alignment). The standalone counter-climax page is removed
+    // (its narrative now lives in the counter widget popover); the 4'
+    // budget redistributes into op-readiness as the natural anchor.
     //
     // Idx 0 is the executive opening screen — pre-session stage presence.
     // It contributes 0 to the counter so the working envelope still maps
-    // exactly to the 60-minute presentation budget across panels 1–14.
+    // exactly to the 60-minute presentation budget across panels 1–13.
     //
     // Time budget per panel (sums to 60 min):
-    //   P0 Welcome 0'  P1 Hero 3'   P2 Agenda 2'   P3 Gap 4'   P4 Current 5'
-    //   P5 Discovery 6'   P6 Workflow MERGED 7'   P7 Trust 3'
-    //   P8 Capacity 4'   P9 ROI 4'   P10 Itaú 5'   P11 Climax 4'
-    //   P12 Pilot 5'   P13 Operational readiness 5'   P14 Next-step 3'
+    //   P0 Welcome 0'   P1 Hero 3'   P2 Agenda 2'   P3 Why-now 4'   P4 Current 5'
+    //   P5 Validation 6'   P6 Workflow MERGED 7'   P7 Trust 3'
+    //   P8 Capacity 4'   P9 ROI 4'   P10 Itaú 5'
+    //   P11 Pilot 5'   P12 Op readiness 9' (5' + redistributed climax 4')
+    //   P13 Next-step 3'
     //
     // Per-minute increment: 8/60 ≈ 0.133 (min) and 18/60 = 0.3 (max).
     steps: [
       { panel: 1,  addMin: 0.00, addMax: 0.00, note: "Executive opening screen (0' — pre-session)" },
       { panel: 2,  addMin: 0.40, addMax: 0.90, note: "Hero framing (3')" },
-      { panel: 3,  addMin: 0.27, addMax: 0.60, note: "Executive working session agenda (2')" },
-      { panel: 4,  addMin: 0.53, addMax: 1.20, note: "Execution gap named (4')" },
+      { panel: 3,  addMin: 0.27, addMax: 0.60, note: "Agenda (2')" },
+      { panel: 4,  addMin: 0.53, addMax: 1.20, note: "Why now · 2029 (4')" },
       { panel: 5,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
       { panel: 6,  addMin: 0.80, addMax: 1.80, note: "Executive validation areas (6')" },
       { panel: 7,  addMin: 0.93, addMax: 2.10, note: "Governed modernization workflow + impact (7')" },
@@ -172,10 +186,9 @@ export const intesa = {
       { panel: 9,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
       { panel: 10, addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
       { panel: 11, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
-      { panel: 12, addMin: 0.53, addMax: 1.20, note: "Counter climax reveal (4')" },
-      { panel: 13, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
-      { panel: 14, addMin: 0.67, addMax: 1.50, note: "Operational readiness captured (5')" },
-      { panel: 15, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
+      { panel: 12, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
+      { panel: 13, addMin: 1.20, addMax: 2.70, note: "Operational readiness + reclaimed-capacity anchor (9')" },
+      { panel: 14, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
     ] as CounterStep[],
   },
 
@@ -197,7 +210,8 @@ export const intesa = {
   panel1: {
     eyebrow: "Opening",
     headline: "Scaling Engineering Execution\nfor Intesa Sanpaolo.",
-    subhead:
+    subhead: "",
+    legacySubheadDeprecated:
       "Modernization leverage at enterprise scale — without proportional headcount growth.",
     framingLine:
       "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
@@ -248,71 +262,63 @@ export const intesa = {
   // in under 10 seconds.
   // -------------------------------------------------------------------------
   panel1b: {
-    eyebrow: "Executive working session",
-    headline: "Five focus areas for the next 55 minutes.",
+    eyebrow: "Agenda",
+    headline: "Five focus areas.",
     subhead: "",
     blocks: [
       {
         index: 1,
-        title: "Transformation Context",
-        helper: "Current execution constraints and modernization pressure.",
+        title: "Context",
+        helper: "Modernization pressure",
       },
       {
         index: 2,
-        title: "Executive Alignment",
-        helper: "What is known and what still requires validation.",
+        title: "Validation",
+        helper: "Executive assumptions",
       },
       {
         index: 3,
-        title: "Live Workflow Preview",
-        helper: "Governance-aware modernization with Devin.",
+        title: "Workflow",
+        helper: "Governed execution",
       },
       {
         index: 4,
-        title: "Enterprise Impact",
-        helper: "Operational leverage, benchmark signals, and business outcomes.",
+        title: "Impact",
+        helper: "Operational leverage",
       },
       {
         index: 5,
-        title: "Pilot & Go-Live Path",
-        helper: "Success metrics, governance, and deployment alignment.",
+        title: "Rollout",
+        helper: "Pilot & scaling",
       },
     ],
-    closing:
-      "Working session — not a deck walkthrough.",
+    closing: "",
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 2 — The Execution Gap
+  // PANEL 2 — Why Now · 2029
+  //
+  // Replaces the former "Strategic Ambition / Execution Gap" with an
+  // operational-urgency frame. Brutal executive minimalism: oversized
+  // typography, three statements, no explanatory paragraphs. The
+  // presenter narrates the urgency live.
   // -------------------------------------------------------------------------
   panel2: {
-    eyebrow: "The execution gap",
-    headline:
-      "Strategic ambition is clear.\nThe constraint is scalable engineering execution.",
-    subhead:
-      "Where published direction meets day-to-day delivery inside a regulated change envelope.",
-    rows: [
+    eyebrow: "Why now",
+    bigYear: "2029",
+    yearCaption: "Modernization deadline.",
+    // Current-state vs target-state anchors. No historical timeline.
+    states: [
       {
-        ambition: "Cloud and core modernization",
-        reality: "Limited senior engineering bandwidth",
+        value: "64%",
+        label: "Cloud-based applications today",
       },
       {
-        ambition: "Faster digital delivery",
-        reality: "Governance and release bottlenecks",
+        value: "100%",
+        label: "Target by 2029",
       },
-      {
-        ambition: "AI-assisted execution",
-        reality: "Fragmented engineering workflows",
-      },
-      {
-        ambition: "Resilient banking platforms",
-        reality: "Legacy dependency burden",
-      },
-    ] as ExecutionGapRow[],
-    closing:
-      "Delayed execution of board-visible transformation priorities.",
-    executiveInsight:
-      "Beyond engineering efficiency, the broader challenge is scaling strategic transformation execution without proportionally increasing operational complexity and delivery capacity.",
+    ],
+    closing: "Final migration wave requires scalable execution capacity.",
   },
 
   // -------------------------------------------------------------------------
@@ -324,10 +330,11 @@ export const intesa = {
   // and what needs alignment — never assumed.
   // -------------------------------------------------------------------------
   panel3: {
-    eyebrow: "Current state assessment",
+    eyebrow: "Current state",
     headline:
       "What has been observed so far\n— and what still requires executive alignment.",
-    subhead:
+    subhead: "",
+    legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
     legend: [
       {
@@ -516,7 +523,8 @@ export const intesa = {
     eyebrow: "Governed modernization workflow",
     headline:
       "How bounded autonomous execution\ntranslates into operational leverage.",
-    subhead:
+    subhead: "",
+    legacySubheadDeprecated:
       "What Devin actually does inside enterprise engineering controls — and what that unlocks operationally.",
     transitionStatement:
       "The challenge is no longer whether AI can generate code. The challenge is whether it can operate reliably inside enterprise governance constraints.",
@@ -543,7 +551,7 @@ export const intesa = {
         },
         {
           value: "12,000 engineering hours",
-          label: "≈ 7 developer-equivalent capacity (illustrative)",
+          label: "≈ 7 developer-equivalents redeployed toward strategic initiatives (illustrative)",
         },
         {
           value: "59 → 9",
@@ -552,7 +560,7 @@ export const intesa = {
       ],
       statements: [
         "Governance-aware modernization execution.",
-        "Operational scalability without proportional delivery scaling.",
+        "Reinvest engineering bandwidth into modernization throughput.",
       ],
       devEquivalentFootnote:
         "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
@@ -577,7 +585,8 @@ export const intesa = {
     eyebrow: "Built for enterprise trust",
     headline:
       "Execution scalability that survives\nbanking governance and security review.",
-    subhead:
+    subhead: "",
+    legacySubheadDeprecated:
       "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
     pillars: [
       {
@@ -618,10 +627,11 @@ export const intesa = {
   // "leverage, not replacement" statement.
   // -------------------------------------------------------------------------
   panel7: {
-    eyebrow: "Engineering capacity redeployment model",
+    eyebrow: "Capacity redeployment",
     headline:
       "From repetitive execution\nto strategic transformation.",
-    subhead:
+    subhead: "",
+    legacySubheadDeprecated:
       "A significant share of senior engineering capacity is consumed by repetitive modernization work. Partial leverage shifts the throughput curve.",
     modelHypothesis: {
       label: "Illustrative hypothesis",
@@ -631,7 +641,7 @@ export const intesa = {
         "≈ 120 engineering-equivalent capacity",
       ],
       explanation:
-        "approximately 120 engineering-equivalents tied to repetitive execution work — a redeployment surface, not a replacement target.",
+        "≈ 120 engineering-equivalents redeployed toward strategic initiatives — a reinvestment surface, not a replacement target.",
     },
     rows: [
       {
@@ -644,7 +654,7 @@ export const intesa = {
       },
       {
         technical: "Refactoring support",
-        outcome: "Reduced manual engineering effort",
+        outcome: "Strategic bandwidth reinvested",
       },
       {
         technical: "PR documentation",
@@ -652,7 +662,7 @@ export const intesa = {
       },
     ] as BusinessOutcomeRow[],
     leverageStatement:
-      "Not replacing engineers — scaling modernization without proportionally scaling engineering capacity.",
+      "Not replacing engineers — scaling modernization throughput without proportionally scaling delivery capacity.",
     // Developer-equivalent translation layer — converts the redeployment
     // hypothesis into engineering-hours / FTE-year for executive readability.
     // Illustrative operational capacity model, not headcount targets.
@@ -668,9 +678,10 @@ export const intesa = {
   // PANEL 8 — ROI Signal (€€€ math, separated from the leverage panel)
   // -------------------------------------------------------------------------
   panel8: {
-    eyebrow: "ROI signal — directional, at Intesa scale",
+    eyebrow: "ROI signal",
     headline: "Even with a safety margin,\nthe math is disruptive.",
-    subhead:
+    subhead: "",
+    legacySubheadDeprecated:
       "~1 in 3 engineering hours is modernization-shaped — compounded across a ~3,300-developer estate.",
     formula:
       "Developers × Applicable work share × Productivity uplift × Adoption factor = Reclaimed capacity / year",
@@ -730,12 +741,12 @@ export const intesa = {
   // demonstrates measurable gains under governance-aware factory workflows.
   // -------------------------------------------------------------------------
   panel9: {
-    eyebrow: "Illustrative enterprise reference pattern",
+    eyebrow: "Enterprise reference",
     headline:
       "Measurable enterprise outcomes\nunder governance-aware execution.",
-    subtitle:
-      "Itaú Bank — measurable gains under governance-aware factory workflows.",
-    intro:
+    subtitle: "Itaú Bank.",
+    intro: "",
+    legacyIntroDeprecated:
       "Autonomous engineering agents integrated into bounded, governance-controlled delivery workflows.",
     kpis: [
       {
@@ -824,7 +835,8 @@ export const intesa = {
     eyebrow: "4-week pilot",
     headline:
       "From controlled validation\nto a go-live decision.",
-    subhead:
+    subhead: "",
+    legacySubheadDeprecated:
       "A bounded entry point engineered to end with a decision — not another evaluation cycle.",
     executiveFraming:
       "Before the pilot begins, success should be aligned around measurable operational outcomes jointly agreed by engineering, governance, and executive stakeholders.",
@@ -868,7 +880,7 @@ export const intesa = {
     kpisTitle: "Pilot success metrics",
     kpis: [
       "Modernization cycle time",
-      "Engineering hours redeployed",
+      "Engineering bandwidth reinvested",
       "Executive decision on scale-out",
     ],
     kpisDetailToggleLabel: "Additional pilot KPIs",

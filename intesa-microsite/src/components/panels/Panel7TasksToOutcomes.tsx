@@ -11,7 +11,9 @@ export function Panel7TasksToOutcomes() {
       <div className="flex flex-col gap-3 sm:gap-4">
         <div className="grid gap-2.5 lg:grid-cols-[1.05fr_1fr] lg:items-end lg:gap-6">
           <PanelHeadline text={p.headline} compact />
-          <p className="text-[12px] leading-relaxed text-brand-ivory/70 sm:text-[13px]">{p.subhead}</p>
+          {p.subhead ? (
+            <p className="text-[12px] leading-relaxed text-brand-ivory/70 sm:text-[13px]">{p.subhead}</p>
+          ) : null}
         </div>
 
         {/* Capacity redeployment hypothesis — premium block. */}

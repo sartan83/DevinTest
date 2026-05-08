@@ -15,9 +15,11 @@ export function Panel9ItauReference() {
             <p className="text-[13px] leading-relaxed text-brand-ivory/80 sm:text-[14px]">
               {p.subtitle}
             </p>
-            <p className="text-[11px] leading-relaxed text-brand-ivory/55 sm:text-[12px]">
-              {p.intro}
-            </p>
+            {p.intro ? (
+              <p className="text-[11px] leading-relaxed text-brand-ivory/55 sm:text-[12px]">
+                {p.intro}
+              </p>
+            ) : null}
           </div>
         </div>
 

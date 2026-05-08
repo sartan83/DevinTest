@@ -7,13 +7,6 @@ import { intesa } from "../data/intesa";
 type Props = {
   min: number;
   max: number;
-  /** True on the climax panel → show centered, largest form with full label. */
-  expanded?: boolean;
-  /**
-   * True once the user has reached the reveal panel (Panel 7+) → show label and
-   * unit. While false, the pill stays as a mysterious "?" teaser in the corner.
-   */
-  revealed?: boolean;
 };
 
 function format(n: number) {
@@ -27,8 +20,6 @@ function format(n: number) {
  * Eases `value` toward `target` with a cubic-ease-out (~700ms) on every change
  * and then holds steady at the resting target. We do NOT continuously drift —
  * a wobbling number in the header is distracting during a live presentation.
- * The pulse-dot accent and the eased transition on panel change provide
- * sufficient "live" signal without compromising executive readability.
  */
 function useEasedNumber(target: number) {
   const [value, setValue] = useState(target);
@@ -67,45 +58,41 @@ function useEasedNumber(target: number) {
   return value;
 }
 
-export function ExecutiveCounter({ min, max, expanded, revealed }: Props) {
+/**
+ * Counter pill — always revealed since the minimalism pass removed the
+ * standalone climax page. A subtle "?" trigger surfaces a contextual
+ * popover (Illustrative modernization signal · Migration pressure ·
+ * Execution complexity · Governance constraints) on hover/click.
+ */
+export function ExecutiveCounter({ min, max }: Props) {
   const aMin = useEasedNumber(min);
   const aMax = useEasedNumber(max);
+  const [open, setOpen] = useState(false);
+  const popover = intesa.counter.popover;
 
-  // Teaser mode: small pill with "?" + numeric hint, no label / unit / disclaimer.
-  if (!revealed && !expanded) {
-    return (
-      <motion.div
-        layout
-        transition={{ type: "spring", stiffness: 220, damping: 28 }}
-        className="pointer-events-auto relative flex items-center gap-2.5 rounded-full border border-brand-ivory/15 bg-brand-green-deep/70 px-4 py-2 shadow-elev backdrop-blur-md sm:gap-3 sm:px-5 sm:py-2.5"
-        aria-label="Session counter — revealed later"
-      >
-        <motion.span
-          aria-hidden
-          animate={{ opacity: [0.55, 1, 0.55] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-          className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-brand-orange/50 text-sm font-semibold text-brand-orange-soft sm:h-7 sm:w-7 sm:text-base"
-        >
-          ?
-        </motion.span>
-        <span className="font-display text-base font-semibold tabular-nums text-brand-ivory sm:text-lg">
-          ≈ {format(aMin)}–{format(aMax)}
-        </span>
-      </motion.div>
-    );
-  }
+  // Close the popover when the user clicks outside of it.
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (!wrapperRef.current) return;
+      if (!wrapperRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
 
-  // Revealed (compact on most panels from 7 onward, expanded on climax itself).
   return (
     <motion.div
+      ref={wrapperRef}
       layout
       transition={{ type: "spring", stiffness: 220, damping: 28 }}
-      className={[
-        "pointer-events-auto relative rounded-xl border border-brand-ivory/10 bg-brand-green-deep/70 backdrop-blur-md",
-        "shadow-elev",
-        expanded ? "px-4 py-3 sm:px-6 sm:py-5" : "px-3 py-2 sm:px-4 sm:py-3",
-      ].join(" ")}
+      className="pointer-events-auto relative rounded-xl border border-brand-ivory/10 bg-brand-green-deep/70 px-3 py-2 shadow-elev backdrop-blur-md sm:px-4 sm:py-3"
       aria-live="polite"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
     >
       <div className="flex items-center gap-2 sm:gap-3">
         <motion.span
@@ -114,50 +101,70 @@ export function ExecutiveCounter({ min, max, expanded, revealed }: Props) {
           className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange"
         />
         <div className="flex flex-col">
-          <span
-            className={[
-              "uppercase tracking-[0.22em] text-brand-ivory/55 sm:tracking-[0.28em]",
-              expanded ? "text-[10px] sm:text-[11px]" : "text-[9px] sm:text-[10px]",
-            ].join(" ")}
-          >
+          <span className="text-[9px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px] sm:tracking-[0.28em]">
             <span className="hidden sm:inline">{intesa.counter.label}</span>
             <span className="sm:hidden">{intesa.counter.shortLabel}</span>
           </span>
           <div className="mt-1 flex items-baseline gap-1.5 sm:gap-2">
             <motion.span
               layout
-              className={[
-                "font-display font-semibold tabular-nums text-brand-ivory",
-                expanded ? "text-2xl sm:text-3xl" : "text-sm sm:text-lg",
-              ].join(" ")}
+              className="font-display text-sm font-semibold tabular-nums text-brand-ivory sm:text-lg"
             >
               ≈ {format(aMin)}–{format(aMax)}
             </motion.span>
-            <span
-              className={[
-                "text-brand-ivory/65",
-                expanded ? "text-[11px] sm:text-sm" : "text-[10px] sm:text-[11px]",
-              ].join(" ")}
-            >
+            <span className="text-[10px] text-brand-ivory/65 sm:text-[11px]">
               {intesa.counter.unit}
             </span>
           </div>
-          <AnimatePresence>
-            {expanded && (
-              <motion.span
-                key="disclaimer"
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="mt-1 hidden text-[11px] text-brand-ivory/40 sm:inline"
-              >
-                {intesa.counter.disclaimer}
-              </motion.span>
-            )}
-          </AnimatePresence>
         </div>
+
+        {/* Subtle "?" trigger — low contrast, opens contextual popover. */}
+        <button
+          type="button"
+          aria-label="What does this counter represent?"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className="ml-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-brand-ivory/15 text-[10px] font-medium text-brand-ivory/40 transition-colors hover:border-brand-ivory/35 hover:text-brand-ivory/75 focus:outline-none focus-visible:border-brand-ivory/45 focus-visible:text-brand-ivory/85 sm:h-6 sm:w-6 sm:text-[11px]"
+        >
+          ?
+        </button>
       </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="counter-popover"
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            role="dialog"
+            aria-label={popover.title}
+            className="absolute right-0 top-full z-40 mt-2 w-[15rem] overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/95 p-4 shadow-elev backdrop-blur-md sm:w-[17rem]"
+          >
+            <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft">
+              {popover.title}
+            </div>
+            <ul className="mt-2.5 space-y-1.5">
+              {popover.bullets.map((b) => (
+                <li
+                  key={b}
+                  className="flex items-start gap-2 text-[12px] leading-snug text-brand-ivory/85 sm:text-[13px]"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-brand-orange/70"
+                  />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-[10px] leading-snug text-brand-ivory/45">
+              {intesa.counter.disclaimer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
