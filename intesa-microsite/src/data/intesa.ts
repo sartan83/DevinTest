@@ -346,9 +346,8 @@ export const intesa = {
   // and what needs alignment — never assumed.
   // -------------------------------------------------------------------------
   panel3: {
-    eyebrow: "Current state — discovery signals",
-    headline:
-      "What we learned in discovery.",
+    eyebrow: "Discovery Signals",
+    headline: "What we heard in discovery.",
     subhead: "",
     legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
@@ -356,12 +355,12 @@ export const intesa = {
     // marked "working assumption to validate" inline; the rest are
     // signals already validated in pre-meeting discovery.
     discoverySignals: [
-      { value: "64%", label: "Cloud-based applications in 2026", assumption: false },
-      { value: "~36%", label: "Migration gap to close by 2029", assumption: false },
-      { value: "~3,300", label: "Developers / IT engineers estimated", assumption: true },
-      { value: "25–30%", label: "Engineering effort assumed in modernization, maintenance, remediation, testing", assumption: true },
-      { value: "High-risk", label: "Regression-sensitive systems require governed execution", assumption: false },
-      { value: "Constrained", label: "Senior engineering capacity absorbed by repetitive execution work", assumption: false },
+      { value: "~36%", label: "Migration gap remaining before 2029 target", assumption: false },
+      { value: "Final wave", label: "Concentrated in repetitive modernization work", assumption: false },
+      { value: "Throughput", label: "Remediation & testing slowing modernization throughput", assumption: false },
+      { value: "Non-linear", label: "Existing delivery capacity not scaling against modernization targets", assumption: false },
+      { value: "Review-heavy", label: "High-governance environments increasing review overhead", assumption: false },
+      { value: "25–30%", label: "Engineering effort tied to modernization / remediation", assumption: true },
     ],
     legend: [
       {
@@ -872,117 +871,95 @@ export const intesa = {
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 11 — 4-Week Pilot + Success Metrics
+  // PANEL 11 — 4-Week Pilot
+  //
+  // Cognition reset: 3 blocks only (Scope / Validation / Decision).
+  // No weekly timeline, no roadmap graphics, no swimlanes. The
+  // presenter narrates pacing live.
   // -------------------------------------------------------------------------
   panel11: {
     eyebrow: "4-week pilot",
-    headline:
-      "From controlled validation\nto a go-live decision.",
-    subhead: "",
-    legacySubheadDeprecated:
-      "A bounded entry point engineered to end with a decision — not another evaluation cycle.",
-    executiveFraming:
-      "Before the pilot begins, success should be aligned around measurable operational outcomes jointly agreed by engineering, governance, and executive stakeholders.",
-    validationMaturity:
-      "A successful pilot should validate not only technical capability, but also operational fit, governance readiness, and scalability across enterprise delivery workflows.",
-    weeks: [
+    headline: "Bounded validation, executive decision.",
+    blocks: [
       {
-        week: 1,
-        title: "Alignment & setup",
+        title: "Scope",
         items: [
-          "Scope one modernization use case",
-          "Confirm access and security envelope",
-          "Align executive ownership and engineering lead",
+          "3–4 repeatable modernization workflows",
+          "1–2 engineering teams",
+          "Governed PR-based execution",
         ],
       },
       {
-        week: 2,
-        title: "Controlled execution",
+        title: "Validation",
         items: [
-          "Repository analysis and scoped execution",
-          "Track effort, quality, and review cycle metrics",
+          "Throughput increase",
+          "Lead-time reduction",
+          "Testing acceleration",
+          "Capacity redeployment",
         ],
       },
       {
-        week: 3,
-        title: "Validation & governance review",
+        title: "Decision",
         items: [
-          "Increase task complexity and validate repeatability",
-          "Review governance, auditability, developer acceptance",
-        ],
-      },
-      {
-        week: 4,
-        title: "Executive go-live decision",
-        items: [
-          "Compare pilot KPIs against baseline",
-          "Agree go-live roadmap and enterprise scaling path",
+          "Scale-out discussion based on agreed metrics",
+          "Accelerate the final migration wave toward 2029 targets",
         ],
       },
     ],
-    kpisTitle: "Pilot success metrics",
-    kpis: [
-      "Modernization cycle time",
-      "Engineering bandwidth reinvested",
-      "Executive decision on scale-out",
-    ],
-    kpisDetailToggleLabel: "Additional pilot KPIs",
-    kpisDetail: [
-      "Reviewable PRs completed",
-      "Test coverage improvement",
-      "Developer acceptance rate",
-    ],
-    kpiNote: "Decision-grade evidence — not vanity metrics.",
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 12 — Mutual Commitment
+  // PANEL 12 — Enterprise-Ready Execution
+  //
+  // Cognition reset: 3 reassurance signals only (Governed / Secure /
+  // Observable). No mutual-commitment commitments, no framework
+  // diagrams, no enablement copy. The slide answers a single
+  // question: "Can this realistically run inside enterprise
+  // governance?"
   // -------------------------------------------------------------------------
   panel12: {
-    eyebrow: "Operational readiness",
-    headline:
-      "A successful pilot should not end\nwith another evaluation.\nIt should end with a go-live decision.",
-    partnership:
-      "This pilot is designed as a jointly governed validation initiative between Intesa Sanpaolo and Cognition.",
-    intesa: {
-      title: "Intesa Sanpaolo commitment",
-      items: [
-        "Scoped repository access",
-        "Executive ownership and engineering lead",
-        "Confirmed success metrics",
-        "Defined go-live decision process",
-      ],
-    },
-    cognition: {
-      title: "Cognition commitment",
-      items: [
-        "Secure pilot setup and onboarding",
-        "Tracked KPIs and weekly reviews",
-        "Executive pilot readout",
-        "Scale-out roadmap recommendation",
-      ],
-    },
-    successDependsOn:
-      "Success depends not only on technical execution, but also on executive alignment, governance participation, and measurable operational outcomes.",
-    goLiveTransition:
-      "The objective of the pilot is not isolated experimentation, but a structured validation path toward broader enterprise deployment.",
+    eyebrow: "Enterprise-ready execution",
+    headline: "Built for enterprise governance.",
+    signals: [
+      {
+        title: "Governed",
+        body: "PR-based review preserved",
+      },
+      {
+        title: "Secure",
+        body: "Bounded execution environments",
+      },
+      {
+        title: "Observable",
+        body: "Evidence generated for audit & review",
+      },
+    ],
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 13 — Final Executive Ask
+  // PANEL 13 — Proposed Next Step
+  //
+  // Cognition reset: 3 fields only (Pilot scope / Pilot duration /
+  // Success outcome). No sponsor models, no commercial alignment,
+  // no roadmap visuals.
   // -------------------------------------------------------------------------
   panel13: {
-    eyebrow: "Next-step alignment",
-    headline: "If value is proven,\nare we aligned to move?",
-    body: "After a successful pilot: a defined scale-out roadmap across priority modernization workstreams.",
-    commercialAlignment:
-      "Before launching the pilot, alignment should exist on what a successful outcome would operationally trigger: expanded deployment scope, stakeholder approval path, governance validation, and commercial go-live readiness.",
-    question:
-      "Assuming we jointly validate measurable impact during the pilot, what would need to happen internally at Intesa Sanpaolo to support broader deployment?",
-    nextSteps: [
-      "Confirm executive ownership",
-      "Agree pilot success metrics",
-      "Define post-pilot go-live timeline",
+    eyebrow: "Proposed next step",
+    headline: "A small, realistic next step.",
+    fields: [
+      {
+        label: "Pilot scope",
+        value: "3–4 repeatable modernization workflows",
+      },
+      {
+        label: "Pilot duration",
+        value: "4-week governed validation",
+      },
+      {
+        label: "Success outcome",
+        value: "Scale-out discussion based on agreed metrics",
+      },
     ],
+    closingLine: "Accelerate the final migration wave toward 2029 goals.",
   },
 };
