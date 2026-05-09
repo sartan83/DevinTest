@@ -24,6 +24,32 @@ export function Panel1Opening() {
           <p className="mt-5 max-w-xl text-[13px] font-medium leading-relaxed text-brand-ivory/85 sm:text-[15px]">
             {p.closingNarrative}
           </p>
+
+          {/* 2029 deadline anchor — sharp visual reminder of the
+             modernization milestone. Sits inline under the headline as
+             an executive pressure cue. */}
+          <motion.div
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mt-5 inline-flex max-w-xs items-stretch overflow-hidden rounded-xl border border-brand-orange/30 bg-brand-green-deep/60 backdrop-blur-sm"
+            data-deadline-anchor
+          >
+            <div aria-hidden className="w-1 bg-brand-orange" />
+            <div className="flex flex-col gap-0.5 px-4 py-3 sm:px-5 sm:py-3.5">
+              <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
+                {p.deadline.caption}
+              </span>
+              <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl">
+                {p.deadline.year}
+              </span>
+              <span className="mt-0.5 text-[11px] leading-snug text-brand-ivory/65 sm:text-[12px]">
+                {p.deadline.sub}
+              </span>
+            </div>
+            <div aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full bg-brand-orange/15 blur-2xl" />
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">

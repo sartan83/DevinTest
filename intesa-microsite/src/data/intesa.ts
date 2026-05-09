@@ -250,6 +250,13 @@ export const intesa = {
     ] as KpiCard[],
     closingNarrative:
       "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
+    // Hero deadline anchor — oversized year box framing the modernization
+    // milestone. Sits alongside the headline as a sharp visual reminder.
+    deadline: {
+      year: "2029",
+      caption: "Modernization deadline",
+      sub: "Final migration milestone",
+    },
     // Cognition-style tension block — replaces the "Why Intesa matters"
     // anchor strip. Operational pressure first, no scale narrative.
     pressure: {
