@@ -21,18 +21,16 @@ export function Panel9ItauReference() {
   const p = intesa.panel9;
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="bright">
-      {/* Subtle Itaú palette wash — only in this section. Keeps the
-          dark premium base; introduces deep-blue + orange accents
-          via a low-opacity radial. */}
+      {/* Subtle Itaú palette wash painted directly on the content
+          wrapper (avoids z-index/stacking issues vs the section
+          background). Keeps the dark premium base; introduces
+          deep-blue + orange accents via a low-opacity radial. */}
       <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
+        className="relative flex flex-col gap-5 rounded-2xl px-4 py-5 sm:gap-6 sm:px-6 sm:py-6"
         style={{
-          background: `radial-gradient(circle at 85% 18%, ${ITAU_ORANGE}1f 0%, transparent 45%), radial-gradient(circle at 15% 85%, ${ITAU_BLUE}33 0%, transparent 55%)`,
+          background: `radial-gradient(circle at 85% 18%, ${ITAU_ORANGE}26 0%, transparent 45%), radial-gradient(circle at 15% 85%, ${ITAU_BLUE}3d 0%, transparent 55%)`,
         }}
-      />
-
-      <div className="relative flex flex-col gap-5 sm:gap-6">
+      >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
           <PanelHeadline text={p.headline} compact />
           {p.logoSrc ? (
@@ -55,7 +53,7 @@ export function Panel9ItauReference() {
               <img
                 src={p.logoSrc}
                 alt={p.logoAlt}
-                className="h-9 w-auto sm:h-11 lg:h-12"
+                className="h-14 w-auto sm:h-16 lg:h-20"
               />
             </div>
           ) : null}
