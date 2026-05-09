@@ -44,9 +44,13 @@ export function Panel8RoiSignal() {
             {p.baseline.devsLabel} · {p.baseline.workingDaysPerYear} working days / year ·{" "}
             {p.baseline.fullyLoadedCostLabel}
           </span>
+          <span className="block pt-0.5 text-brand-ivory/45">
+            <span className="uppercase tracking-[0.22em] text-brand-ivory/40">Uplift · </span>
+            {p.upliftHint}
+          </span>
         </div>
 
-        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
+        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
           {p.scenarios.map((s, i) => (
             <motion.div
               key={s.key}
@@ -71,6 +75,11 @@ export function Panel8RoiSignal() {
                 {s.key === "realistic" && (
                   <span className="rounded-full border border-brand-orange/50 bg-brand-orange/10 px-2 py-0.5 text-[9px] uppercase tracking-[0.22em] text-brand-orange-soft">
                     Focus
+                  </span>
+                )}
+                {s.key === "best" && (
+                  <span className="rounded-full border border-brand-ivory/20 bg-brand-ivory/5 px-2 py-0.5 text-[9px] uppercase tracking-[0.22em] text-brand-ivory/60">
+                    Ceiling
                   </span>
                 )}
               </div>

@@ -786,14 +786,32 @@ export const intesa = {
         footnote:
           "Uplift kept at the middle of McKinsey 20–45% band. Rollout at Gartner 2028 trajectory, discounted.",
       },
+      {
+        key: "best",
+        title: "Best",
+        subtitle: "McKinsey upper-band, scaled adoption",
+        applicableWorkPct: 35,
+        upliftPct: 40,
+        adoptionPct: 90,
+        reclaimedDevDays: "~91,500",
+        reclaimedDevEquivalents: "≈ 416 developer-equivalents",
+        reclaimedEur: "~€39.5M",
+        footnote:
+          "McKinsey upper-band reference. Illustrative ceiling, not a target.",
+      },
     ],
+    // Inline contextual hint surfaced next to the "Uplift" label inside
+    // each scenario tile. Demystifies what the percentage represents
+    // without adding a paragraph of explanatory copy.
+    upliftHint:
+      "% productivity gain on applicable work — McKinsey 20–45% reference band.",
     headlineRange: {
-      eur: "~€6–19M / year",
-      devDays: "~14k–44k dev-days / year redeployed",
-      devEquivalents: "≈ 62–198 developer-equivalents",
+      eur: "~€6–40M / year",
+      devDays: "~14k–92k dev-days / year redeployed",
+      devEquivalents: "≈ 62–416 developer-equivalents",
     },
     eurFraming:
-      "Capacity equivalent to ~€6–19M / year redirected toward modernization priorities.",
+      "Capacity equivalent to ~€6–40M / year redirected toward modernization priorities.",
     safetyMarginNote:
       "Safety margin applied across uplift, rollout, and applicable-work share.",
     sources: [
