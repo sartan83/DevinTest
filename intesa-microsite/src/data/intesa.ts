@@ -232,7 +232,7 @@ export const intesa = {
     kpis: [
       {
         value: "64%",
-        label: "Cloud-based applications in 2025",
+        label: "Cloud-based applications in 2026",
       },
       {
         value: "~100%",
@@ -357,7 +357,7 @@ export const intesa = {
     // marked "working assumption to validate" inline; the rest are
     // signals already validated in pre-meeting discovery.
     discoverySignals: [
-      { value: "64%", label: "Cloud-based applications in 2025", assumption: false },
+      { value: "64%", label: "Cloud-based applications in 2026", assumption: false },
       { value: "~36%", label: "Migration gap to close by 2029", assumption: false },
       { value: "~3,300", label: "Developers / IT engineers estimated", assumption: true },
       { value: "25–30%", label: "Engineering effort assumed in modernization, maintenance, remediation, testing", assumption: true },

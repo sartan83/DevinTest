@@ -559,7 +559,7 @@ async def run_for_viewport(p, w: int, h: int):
     p9_text_q = await get_section_text(page, 10)
     p_checks = {
         "Hero — EB-pivot anchor '64%'": "64%" in p1_text
-            and "cloud-based applications in 2025" in p1_text.lower(),
+            and "cloud-based applications in 2026" in p1_text.lower(),
         "Hero — '~100%' target by 2029": "~100%" in p1_text
             and "target cloud-based applications by 2029" in p1_text.lower(),
         "Hero — '€4.6B' technology & growth investment 2026–2029":
