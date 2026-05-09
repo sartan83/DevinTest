@@ -192,14 +192,13 @@ export const intesa = {
       { panel: 4,  addMin: 0.53, addMax: 1.20, note: "Why now · 2029 (4')" },
       { panel: 5,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
       { panel: 6,  addMin: 0.80, addMax: 1.80, note: "Executive validation areas (6')" },
-      { panel: 7,  addMin: 0.93, addMax: 2.10, note: "Governed modernization workflow + impact (7')" },
+      { panel: 7,  addMin: 1.32, addMax: 3.00, note: "Governed modernization workflow + capacity narrated inline (9')" },
       { panel: 8,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
-      { panel: 9,  addMin: 0.53, addMax: 1.20, note: "Capacity redeployment framed (4')" },
-      { panel: 10, addMin: 0.53, addMax: 1.20, note: "ROI signal (4')" },
-      { panel: 11, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
-      { panel: 12, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
-      { panel: 13, addMin: 1.20, addMax: 2.70, note: "Operational readiness + reclaimed-capacity anchor (9')" },
-      { panel: 14, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
+      { panel: 9,  addMin: 0.67, addMax: 1.50, note: "ROI signal (5')" },
+      { panel: 10, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
+      { panel: 11, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
+      { panel: 12, addMin: 1.20, addMax: 2.70, note: "Operational readiness anchor (9')" },
+      { panel: 13, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
     ] as CounterStep[],
   },
 
@@ -242,11 +241,6 @@ export const intesa = {
         value: "€4.6B",
         label: "Technology & growth investment 2026–2029",
       },
-      {
-        value: "~3,300",
-        label: "Developers & IT engineers (est.)",
-        estimated: true,
-      },
     ] as KpiCard[],
     closingNarrative:
       "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
@@ -262,13 +256,11 @@ export const intesa = {
     pressure: {
       title: "Large-scale migration pressure",
       bullets: [
-        "Legacy dependencies",
-        "Remediation",
-        "Testing",
-        "Repetitive migration work",
+        "Final migration wave concentrated in legacy modernization",
+        "Repetitive remediation & testing workload",
+        "Current delivery capacity does not scale linearly",
       ],
-      bottleneck:
-        "Execution bottleneck — current delivery capacity does not scale linearly.",
+      bottleneck: "",
     },
     sourcesLine:
       "Sources: ISP Piano di Impresa 2026–2029 · investor materials.",
@@ -298,7 +290,7 @@ export const intesa = {
       {
         index: 2,
         title: "Validation",
-        helper: "EB assumptions",
+        helper: "Executive assumptions",
       },
       {
         index: 3,
@@ -428,7 +420,7 @@ export const intesa = {
   // pre-meeting discovery framework is moved into the appendix.
   // -------------------------------------------------------------------------
   panel4: {
-    eyebrow: "EB Validation Needed",
+    eyebrow: "Executive validation needed",
     headline:
       "Pilot approval depends on validating\nthese assumptions.",
     subhead: "",
@@ -831,80 +823,41 @@ export const intesa = {
   // demonstrates measurable gains under governance-aware factory workflows.
   // -------------------------------------------------------------------------
   panel9: {
-    eyebrow: "Enterprise reference",
-    headline:
-      "Measurable enterprise outcomes\nunder governance-aware execution.",
-    subtitle: "Itaú Bank.",
+    eyebrow: "Enterprise reference — Itaú",
+    headline: "Proven at banking scale.",
+    subtitle: "",
     intro: "",
-    legacyIntroDeprecated:
-      "Autonomous engineering agents integrated into bounded, governance-controlled delivery workflows.",
+    logoSrc: "logos/itau.svg",
+    logoAlt: "Itaú",
+    // 4 metric tiles only — no description prose. Headline number first.
     kpis: [
       {
-        title: "Delivery throughput",
-        metric: "20–30% increase",
-        description:
-          "Measured improvement in delivery throughput across bounded engineering workflows.",
+        title: "Faster modernization delivery",
+        metric: "6×",
+        description: "",
       },
       {
-        title: "Lead time",
-        metric: "15% improvement",
-        description:
-          "Reduction in software delivery lead time through autonomous execution support.",
+        title: "Throughput increase",
+        metric: "20–30%",
+        description: "",
       },
       {
-        title: "Testing errors",
-        metric: "25% fewer",
-        description:
-          "Reduction in testing errors while maintaining governance and review controls.",
+        title: "Lead-time improvement",
+        metric: "15%",
+        description: "",
       },
       {
-        title: "Modernization acceleration",
-        metric: "5–6× faster",
-        description:
-          "Observed acceleration in selected migration and modernization workflows under controlled factory conditions.",
+        title: "Fewer testing errors",
+        metric: "25%",
+        description: "",
       },
     ] as ItauKpi[],
-    governanceSignal: {
-      title: "The signal is governance-aware execution",
-      bullets: [
-        "Governance-constrained workflows",
-        "Human oversight maintained",
-        "Repeatable execution standards",
-        "Auditability preserved",
-      ],
-    },
-    factoryWorkflow: {
-      title: "Factory workflow model",
-      body: "Bounded, repetitive engineering tasks under standardized governance — not open-ended autonomous development.",
-      examples: [
-        "Dependency upgrades",
-        "Migration preparation",
-        "Test generation",
-        "Remediation",
-        "Documentation",
-      ],
-    },
-    governanceConstraint:
-      "Gains achieved by applying the same review, quality, and security controls used for human-authored delivery.",
-    // Operational scale anchors — illustrative reference points from
-    // governance-aware enterprise modernization workflows. Not guaranteed
-    // outcomes. Each anchor maps to a real bounded workflow pattern.
-    operationalScaleAnchors: {
-      title: "Operational scale signals",
-      anchors: [
-        { value: "800", label: "Database objects migrated" },
-        { value: "59 → 9", label: "Service consolidation" },
-        { value: "70%", label: "Autonomous vulnerability remediation" },
-        { value: "50% → 90%", label: "Test coverage progression" },
-      ],
-      disclaimer:
-        "Illustrative enterprise reference points from bounded modernization workflows. Outcomes depend on scope, governance constraints, and deployment conditions.",
-    },
-    sourceLabel: "Reference: Gartner Research · document 7778353",
+    footnote: "Governed AI workflows deployed at Itaú scale.",
+    sourceLabel: "Source: Gartner Research · doc 7778353",
     sourceUrl:
       "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
     disclaimer:
-      "Illustrative reference metrics from a separate enterprise banking environment. Actual outcomes depend on selected use cases, governance controls, and deployment conditions.",
+      "Illustrative reference metrics from a separate enterprise banking environment.",
   },
 
   // -------------------------------------------------------------------------

@@ -13,7 +13,6 @@ import { Panel3CurrentState } from "./panels/Panel3CurrentState";
 import { Panel4ExecutiveDiscovery } from "./panels/Panel4ExecutiveDiscovery";
 import { Panel5BusinessImpact } from "./panels/Panel5BusinessImpact";
 import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
-import { Panel7TasksToOutcomes } from "./panels/Panel7TasksToOutcomes";
 import { Panel8RoiSignal } from "./panels/Panel8RoiSignal";
 import { Panel9ItauReference } from "./panels/Panel9ItauReference";
 import { Panel10Pilot } from "./panels/Panel10Pilot";
@@ -21,14 +20,15 @@ import { Panel11MutualCommitment } from "./panels/Panel11MutualCommitment";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 14 main panels (index 0–13) + 1 appendix panel (index 14) reachable only
+// 13 main panels (index 0–12) + 1 appendix panel (index 13) reachable only
 // via the discrete "Appendix" toggle in the header. Idx 0 is the
 // pre-session executive opening screen. Hero idx 1, agenda idx 2, Why
 // Now · 2029 idx 3, governed modernization workflow idx 6. The
-// standalone counter-climax page is removed in the minimalism pass —
-// its narrative now lives in the counter widget popover.
-const MAIN_PANELS = 14;
-const APPENDIX_INDEX = 14;
+// standalone Capacity Redeployment panel was removed in the Cognition-
+// style further reduction pass — its content lives in the ROI signal
+// panel which already shows dev-days + dev-equivalents + €.
+const MAIN_PANELS = 13;
+const APPENDIX_INDEX = 13;
 const TOTAL_PANELS = MAIN_PANELS + 1;
 const MOBILE_MAX_WIDTH = 767;
 
@@ -359,7 +359,6 @@ export function MicrositeShell() {
           <Panel4ExecutiveDiscovery />
           <Panel5BusinessImpact />
           <Panel6EnterpriseTrust />
-          <Panel7TasksToOutcomes />
           <Panel8RoiSignal />
           <Panel9ItauReference />
           <Panel10Pilot />

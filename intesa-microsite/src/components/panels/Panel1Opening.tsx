@@ -52,7 +52,7 @@ export function Panel1Opening() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
           {p.kpis.map((k, i) => (
             <motion.div
               key={k.label}
@@ -106,9 +106,11 @@ export function Panel1Opening() {
             </motion.li>
           ))}
         </ul>
-        <p className="mt-2.5 text-[12px] italic leading-snug text-brand-ivory/70 sm:text-[13px]">
-          {p.pressure.bottleneck}
-        </p>
+        {p.pressure.bottleneck ? (
+          <p className="mt-2.5 text-[12px] italic leading-snug text-brand-ivory/70 sm:text-[13px]">
+            {p.pressure.bottleneck}
+          </p>
+        ) : null}
       </div>
 
       <p className="mt-5 text-[10px] leading-snug text-brand-ivory/35 sm:mt-6 sm:text-[11px]">
