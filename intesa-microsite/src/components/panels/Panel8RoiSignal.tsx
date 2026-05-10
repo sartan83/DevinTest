@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { intesa } from "../../data/intesa";
-import { PanelShell, PanelHeadline, PanelSubhead } from "../PanelShell";
+import { PanelShell, PanelHeadline } from "../PanelShell";
 
 /**
  * Panel 8 — ROI Signal · Capacity Redeployment.
@@ -20,33 +20,7 @@ export function Panel8RoiSignal() {
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="bright">
       <div className="flex flex-col gap-4 sm:gap-5">
-        <div className="grid gap-3 lg:grid-cols-[1.05fr_1fr] lg:items-end lg:gap-8">
-          <PanelHeadline text={p.headline} compact />
-          <div className="flex flex-col gap-2">
-            <PanelSubhead className="mt-0">{p.subhead}</PanelSubhead>
-            <div className="rounded-lg border border-brand-orange/30 bg-brand-green-mid/30 px-3 py-2.5">
-              <div className="text-[9px] uppercase tracking-[0.24em] text-brand-orange-soft/90 sm:text-[10px]">
-                Headline range
-              </div>
-              <div className="mt-0.5 flex items-baseline gap-2">
-                <span className="font-display text-4xl font-semibold leading-none text-brand-ivory sm:text-5xl lg:text-[56px]">
-                  {p.headlineRange.eur}
-                </span>
-              </div>
-              <div className="mt-2 flex flex-wrap items-baseline gap-x-2">
-                <span className="font-display text-3xl font-semibold leading-none text-brand-ivory/90 sm:text-4xl lg:text-[40px]">
-                  {p.headlineRange.devEqLarge}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[11px]">
-                  {p.headlineRange.devEqLargeLabel}
-                </span>
-              </div>
-              <div className="mt-1.5 text-[10px] tracking-wide text-brand-ivory/45 sm:text-[11px]">
-                {p.headlineRange.devDays}
-              </div>
-            </div>
-          </div>
-        </div>
+        <PanelHeadline text={p.headline} compact />
 
         {/* 3 scenario tiles — only big numbers visible. Per-tile
             assumptions (Applicable/Uplift/Adoption) collapse into a
