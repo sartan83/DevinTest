@@ -5,19 +5,36 @@ import { intesa } from "../../data/intesa";
 import { PanelShell, PanelHeadline } from "../PanelShell";
 
 /**
- * Panel 3 — Current State · Discovery Signals.
+ * Panel 3 — Discovery Signals · convergence pressure.
  *
- * EB-pivot rebuild: replaces the previous validated/hypothesis/alignment
- * observation grid with a bullet-point numeric list anchored on what
- * pre-meeting discovery surfaced. Assumption-flagged items carry an
- * inline "working assumption to validate" tag.
+ * The slide frames the strategic-priorities convergence: modernization,
+ * scalability, AI adoption, governance, and delivery velocity all
+ * landing on the same constrained execution capacity. A high-impact
+ * tension signal (~36% migration gap before 2029) anchors the slide
+ * before the hero statement and the four supporting bullets.
  */
 export function Panel3CurrentState() {
   const p = intesa.panel3;
   return (
     <PanelShell eyebrow={p.eyebrow} compact>
-      <div className="flex flex-col gap-5 sm:gap-7">
-        <PanelHeadline text={p.headline} compact />
+      <div className="flex flex-col gap-5 sm:gap-6">
+        <div className="grid gap-4 sm:gap-5 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10">
+          <PanelHeadline text={p.headline} compact />
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-start gap-1 lg:items-end lg:text-right"
+          >
+            <span className="font-display text-[72px] font-semibold leading-[0.92] tracking-tight text-brand-orange-soft sm:text-[96px] lg:text-[112px]">
+              {p.tensionSignal.value}
+            </span>
+            <span className="max-w-xs text-[11px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[12px]">
+              {p.tensionSignal.label}
+            </span>
+          </motion.div>
+        </div>
 
         <ul className="grid gap-3 sm:gap-3.5 sm:grid-cols-2">
           {p.discoverySignals.map((sig, i) => (

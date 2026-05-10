@@ -346,17 +346,28 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel3: {
     eyebrow: "Discovery Signals",
-    headline: "Modernization pressure is concentrating\nin repetitive work.",
+    headline:
+      "Multiple strategic priorities now converge\non the same execution bottleneck.",
+    // High-impact numeric tension signal anchored at the top of the
+    // slide. The 36% gap between today's cloud-based estate and the
+    // 2029 target frames the urgency before the bullets land.
+    tensionSignal: {
+      value: "~36%",
+      label: "Migration gap remaining before 2029 target",
+    },
     subhead: "",
     legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
     // Numeric discovery-style bullets. Items flagged `assumption` are
     // marked "working assumption to validate" inline; the rest are
     // signals already validated in pre-meeting discovery.
+    // Convergence pressure bullets — modernization, scalability, AI
+    // governance, and delivery velocity all landing on the same
+    // execution capacity.
     discoverySignals: [
-      { value: "Final wave", label: "Concentrated in repetitive modernization work", assumption: false },
-      { value: "Throughput", label: "Remediation & testing slowing throughput", assumption: false },
-      { value: "Bandwidth", label: "Engineering capacity constrained by upgrade activity", assumption: false },
+      { value: "Legacy", label: "Legacy systems slowing scalability & time-to-market", assumption: false },
+      { value: "Final wave", label: "Final migration wave concentrated in repetitive modernization work", assumption: false },
+      { value: "190+", label: "AI use cases increasing governance & delivery complexity", assumption: false },
       { value: "Non-linear", label: "Existing delivery capacity not scaling linearly against 2029 targets", assumption: false },
     ],
     legend: [
