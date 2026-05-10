@@ -52,7 +52,7 @@ export function Panel1Opening() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_1fr_0.85fr] sm:gap-4">
           {p.kpis.map((k, i) => (
             <motion.div
               key={k.label}
@@ -60,10 +60,20 @@ export function Panel1Opening() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="relative overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/40 p-4 backdrop-blur-sm sm:p-5"
+              className={[
+                "relative overflow-hidden rounded-xl border backdrop-blur-sm",
+                k.secondary
+                  ? "border-brand-ivory/8 bg-brand-green-mid/20 p-3 sm:p-3.5"
+                  : "border-brand-ivory/10 bg-brand-green-mid/40 p-4 sm:p-5",
+              ].join(" ")}
             >
               <div className="flex items-baseline gap-2">
-                <div className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-3xl">
+                <div
+                  className={[
+                    "font-display font-light leading-none text-brand-ivory",
+                    k.secondary ? "text-lg sm:text-xl" : "text-2xl sm:text-3xl",
+                  ].join(" ")}
+                >
                   {k.value}
                 </div>
                 {k.estimated && (
@@ -72,10 +82,19 @@ export function Panel1Opening() {
                   </span>
                 )}
               </div>
-              <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-brand-ivory/60 sm:text-xs">
+              <div
+                className={[
+                  "uppercase tracking-[0.2em]",
+                  k.secondary
+                    ? "mt-1.5 text-[10px] text-brand-ivory/45 sm:text-[11px]"
+                    : "mt-2 text-[11px] text-brand-ivory/60 sm:text-xs",
+                ].join(" ")}
+              >
                 {k.label}
               </div>
-              <div className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full bg-brand-orange/10 blur-2xl" />
+              {!k.secondary && (
+                <div className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full bg-brand-orange/10 blur-2xl" />
+              )}
             </motion.div>
           ))}
         </div>

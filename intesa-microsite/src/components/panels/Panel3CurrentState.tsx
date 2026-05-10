@@ -19,7 +19,12 @@ export function Panel3CurrentState() {
     <PanelShell eyebrow={p.eyebrow} compact>
       <div className="flex flex-col gap-5 sm:gap-6">
         <div className="grid gap-4 sm:gap-5 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10">
-          <PanelHeadline text={p.headline} compact />
+          <div className="flex flex-col gap-2 sm:gap-2.5">
+            <span className="text-[12px] italic leading-snug text-brand-ivory/55 sm:text-[13px]">
+              {p.discoveryIntro}
+            </span>
+            <PanelHeadline text={p.headline} compact />
+          </div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}

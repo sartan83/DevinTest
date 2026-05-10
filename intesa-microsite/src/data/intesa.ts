@@ -17,6 +17,9 @@ export type KpiCard = {
   caption?: string;
   /** Marks figures that are estimates rather than officially published. */
   estimated?: boolean;
+  /** When true the card renders in a smaller, supporting tier rather
+   * than as a primary tension anchor. */
+  secondary?: boolean;
 };
 
 export type LabeledCard = {
@@ -239,6 +242,7 @@ export const intesa = {
       {
         value: "€4.6B",
         label: "Technology & growth investment 2026–2029",
+        secondary: true,
       },
     ] as KpiCard[],
     closingNarrative:
@@ -346,8 +350,12 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel3: {
     eyebrow: "Discovery Signals",
+    // Conversational intro that softens the hero statement so the slide
+    // reads as a synthesis of real conversations rather than a polished
+    // keynote insight.
+    discoveryIntro: "One thing we consistently heard in discovery…",
     headline:
-      "Multiple strategic priorities now converge\non the same execution bottleneck.",
+      "Multiple strategic priorities are converging\non the same execution bottleneck.",
     // High-impact numeric tension signal anchored at the top of the
     // slide. The 36% gap between today's cloud-based estate and the
     // 2029 target frames the urgency before the bullets land.
@@ -558,8 +566,11 @@ export const intesa = {
   panel5: {
     eyebrow: "Java Modernization Demo",
     useCase: "Legacy modernization + test acceleration",
+    // Concrete, tangible hero anchor: the audience instantly understands
+    // what real engineering work is being demonstrated, before the
+    // governance framing lands.
     headline:
-      "Governed execution —\nnot autonomous chaos.",
+      "Java modernization +\nautomated test generation.",
     subhead: "",
     legacySubheadDeprecated:
       "What Devin actually does inside enterprise engineering controls — and what that unlocks operationally.",
@@ -902,6 +913,7 @@ export const intesa = {
     blocks: [
       {
         title: "Scope",
+        caption: "Bounded, repeatable",
         items: [
           "3–4 repeatable modernization workflows",
           "1–2 engineering teams",
@@ -910,6 +922,7 @@ export const intesa = {
       },
       {
         title: "Validation",
+        caption: "What we'll measure",
         items: [
           "Throughput increase",
           "Lead-time reduction",
@@ -919,6 +932,7 @@ export const intesa = {
       },
       {
         title: "Enterprise safeguards",
+        caption: "Existing controls preserved",
         items: [
           "Existing review process preserved",
           "Human approval remains in workflow",
@@ -939,7 +953,8 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel12: {
     eyebrow: "Decision point",
-    headline: "The question is no longer if —\nbut where to scale first.",
+    headline:
+      "The question is whether measurable acceleration\ncan be proven safely.",
     blocks: [
       {
         title: "Pilot validates",

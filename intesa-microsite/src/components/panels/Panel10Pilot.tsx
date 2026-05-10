@@ -25,6 +25,11 @@ export function Panel10Pilot() {
               <div className="text-[10px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11px]">
                 {b.title}
               </div>
+              {"caption" in b && b.caption ? (
+                <div className="mt-1 text-[11px] italic leading-snug text-brand-ivory/50 sm:text-[12px]">
+                  {b.caption}
+                </div>
+              ) : null}
               <ul className="mt-3 space-y-2">
                 {b.items.map((it) => (
                   <li

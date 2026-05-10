@@ -20,7 +20,13 @@ export function Panel8RoiSignal() {
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="bright">
       <div className="flex flex-col gap-4 sm:gap-5">
-        <PanelHeadline text={p.headline} compact />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+          <PanelHeadline text={p.headline} compact />
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-orange/35 bg-brand-orange/5 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[11px]">
+            <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-brand-orange-soft" />
+            Modeled conservatively
+          </span>
+        </div>
 
         {/* 3 scenario tiles — only big numbers visible. Per-tile
             assumptions (Applicable/Uplift/Adoption) collapse into a

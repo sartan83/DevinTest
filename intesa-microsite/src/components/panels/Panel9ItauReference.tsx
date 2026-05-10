@@ -28,7 +28,7 @@ export function Panel9ItauReference() {
       <div
         className="relative flex flex-col gap-5 rounded-2xl px-4 py-5 sm:gap-6 sm:px-6 sm:py-6"
         style={{
-          background: `radial-gradient(circle at 85% 18%, ${ITAU_ORANGE}26 0%, transparent 45%), radial-gradient(circle at 15% 85%, ${ITAU_BLUE}3d 0%, transparent 55%)`,
+          background: `radial-gradient(circle at 85% 18%, ${ITAU_ORANGE}1c 0%, transparent 45%), radial-gradient(circle at 15% 85%, ${ITAU_BLUE}30 0%, transparent 55%)`,
         }}
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
@@ -36,18 +36,18 @@ export function Panel9ItauReference() {
           {p.logoSrc ? (
             <div
               className="flex items-center gap-3 self-start rounded-xl border bg-brand-green-deep/35 px-3.5 py-2.5 sm:self-center sm:px-4 sm:py-3"
-              style={{ borderColor: `${ITAU_ORANGE}55` }}
+              style={{ borderColor: `${ITAU_ORANGE}42` }}
             >
               <span
                 className="text-[9px] uppercase tracking-[0.28em] sm:text-[10px]"
-                style={{ color: `${ITAU_ORANGE}cc` }}
+                style={{ color: `${ITAU_ORANGE}b3` }}
               >
                 Reference
               </span>
               <span
                 aria-hidden
                 className="block h-6 w-px"
-                style={{ background: `${ITAU_ORANGE}55` }}
+                style={{ background: `${ITAU_ORANGE}42` }}
               />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -71,13 +71,13 @@ export function Panel9ItauReference() {
               transition={{ duration: 0.55, delay: 0.06 * i, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex flex-col overflow-hidden rounded-2xl border p-4 sm:p-5"
               style={{
-                borderColor: `${ITAU_ORANGE}33`,
-                background: `linear-gradient(180deg, ${ITAU_BLUE}1a 0%, rgba(8, 36, 28, 0.55) 100%)`,
+                borderColor: `${ITAU_ORANGE}26`,
+                background: `linear-gradient(180deg, ${ITAU_BLUE}12 0%, rgba(8, 36, 28, 0.55) 100%)`,
               }}
             >
               <span
                 className="font-display text-3xl font-light leading-tight sm:text-4xl lg:text-[2.5rem]"
-                style={{ color: ITAU_ORANGE }}
+                style={{ color: `${ITAU_ORANGE}e6` }}
               >
                 {k.metric}
               </span>
@@ -87,7 +87,7 @@ export function Panel9ItauReference() {
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full blur-2xl"
-                style={{ background: `${ITAU_ORANGE}26` }}
+                style={{ background: `${ITAU_ORANGE}1c` }}
               />
             </motion.div>
           ))}
@@ -96,7 +96,7 @@ export function Panel9ItauReference() {
         {/* Footnote-style row: governed-AI framing + Gartner source. */}
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[10px] leading-relaxed text-brand-ivory/45 sm:text-[11px]">
           <span className="text-brand-ivory/70">{p.footnote}</span>
-          <span style={{ color: `${ITAU_ORANGE}66` }}>·</span>
+          <span style={{ color: `${ITAU_ORANGE}52` }}>·</span>
           <a
             href={p.sourceUrl}
             target="_blank"
@@ -106,7 +106,7 @@ export function Panel9ItauReference() {
             <span aria-hidden>↗</span>
             <span>{p.sourceLabel}</span>
           </a>
-          <span style={{ color: `${ITAU_ORANGE}66` }}>·</span>
+          <span style={{ color: `${ITAU_ORANGE}52` }}>·</span>
           <span>{p.disclaimer}</span>
         </div>
       </div>
