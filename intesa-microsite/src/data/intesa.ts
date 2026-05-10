@@ -354,12 +354,10 @@ export const intesa = {
     // marked "working assumption to validate" inline; the rest are
     // signals already validated in pre-meeting discovery.
     discoverySignals: [
-      { value: "~36%", label: "Migration gap remaining before 2029 target", assumption: false },
       { value: "Final wave", label: "Concentrated in repetitive modernization work", assumption: false },
-      { value: "Throughput", label: "Remediation & testing slowing modernization throughput", assumption: false },
-      { value: "Non-linear", label: "Existing delivery capacity not scaling against modernization targets", assumption: false },
-      { value: "Review-heavy", label: "High-governance environments increasing review overhead", assumption: false },
-      { value: "25–30%", label: "Engineering effort tied to modernization / remediation", assumption: true },
+      { value: "Throughput", label: "Remediation & testing slowing throughput", assumption: false },
+      { value: "Bandwidth", label: "Engineering capacity constrained by upgrade activity", assumption: false },
+      { value: "Non-linear", label: "Existing delivery capacity not scaling linearly against 2029 targets", assumption: false },
     ],
     legend: [
       {
@@ -547,7 +545,7 @@ export const intesa = {
   // governance constraints".
   // -------------------------------------------------------------------------
   panel5: {
-    eyebrow: "Demo: Governed Modernization Workflow",
+    eyebrow: "Java Modernization Demo",
     useCase: "Legacy modernization + test acceleration",
     headline:
       "Governed execution —\nnot autonomous chaos.",
@@ -759,6 +757,8 @@ export const intesa = {
         adoptionPct: 50,
         reclaimedDevDays: "~13,600",
         reclaimedDevEquivalents: "≈ 62 developer-equivalents",
+        devEqLarge: "62",
+        devEqLargeLabel: "developer-equivalents",
         reclaimedEur: "~€5.9M",
         footnote:
           "Uplift cut from McKinsey 20–45% floor to 15%. Rollout limited to 50%.",
@@ -772,6 +772,8 @@ export const intesa = {
         adoptionPct: 80,
         reclaimedDevDays: "~43,500",
         reclaimedDevEquivalents: "≈ 198 developer-equivalents",
+        devEqLarge: "198",
+        devEqLargeLabel: "developer-equivalents",
         reclaimedEur: "~€18.8M",
         footnote:
           "Uplift kept at the middle of McKinsey 20–45% band. Rollout at Gartner 2028 trajectory, discounted.",
@@ -785,6 +787,8 @@ export const intesa = {
         adoptionPct: 90,
         reclaimedDevDays: "~91,500",
         reclaimedDevEquivalents: "≈ 416 developer-equivalents",
+        devEqLarge: "416",
+        devEqLargeLabel: "developer-equivalents",
         reclaimedEur: "~€39.5M",
         footnote:
           "McKinsey upper-band reference. Illustrative ceiling, not a target.",
@@ -799,6 +803,8 @@ export const intesa = {
       eur: "~€6–40M / year",
       devDays: "~14k–92k dev-days / year redeployed",
       devEquivalents: "≈ 62–416 developer-equivalents",
+      devEqLarge: "62–416",
+      devEqLargeLabel: "developer-equivalents / year",
     },
     eurFraming:
       "Capacity equivalent to ~€6–40M / year redirected toward modernization priorities.",

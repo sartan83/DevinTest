@@ -28,18 +28,16 @@ export function Panel8RoiSignal() {
               <div className="text-[9px] uppercase tracking-[0.24em] text-brand-orange-soft/90 sm:text-[10px]">
                 Headline range
               </div>
-              <div className="mt-1.5 flex flex-col gap-0.5">
-                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-0.5">
-                  <span className="font-display text-xl font-semibold text-brand-ivory sm:text-2xl">
-                    {p.headlineRange.eur}
-                  </span>
-                  <span className="text-[11px] tracking-wide text-brand-ivory/70 sm:text-xs">
-                    ≈ {p.headlineRange.devDays}
-                  </span>
-                </div>
-                <div className="text-[11px] tracking-wide text-brand-ivory/70 sm:text-xs">
-                  {p.headlineRange.devEquivalents}
-                </div>
+              <div className="mt-0.5 flex items-baseline gap-2">
+                <span className="font-display text-4xl font-semibold leading-none text-brand-ivory sm:text-5xl">
+                  {p.headlineRange.devEqLarge}
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[11px]">
+                  {p.headlineRange.devEqLargeLabel}
+                </span>
+              </div>
+              <div className="mt-1 text-[11px] tracking-wide text-brand-ivory/55 sm:text-xs">
+                {p.headlineRange.eur} · {p.headlineRange.devDays}
               </div>
             </div>
           </div>
@@ -80,19 +78,18 @@ export function Panel8RoiSignal() {
                 )}
               </div>
 
-              <div className="mt-3 flex items-baseline gap-2">
-                <span className="font-display text-3xl font-semibold text-brand-ivory sm:text-[2rem]">
-                  {s.reclaimedEur}
+              <div className="mt-3 flex items-baseline gap-2 sm:mt-4">
+                <span className="font-display text-[64px] font-semibold leading-[0.95] tracking-tight text-brand-ivory sm:text-[88px] lg:text-[104px]">
+                  {s.devEqLarge}
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-brand-ivory/55">
-                  / year
+                <span className="text-[10px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[11px]">
+                  {s.devEqLargeLabel}
                 </span>
               </div>
-              <div className="mt-1 text-[12px] text-brand-ivory/75 sm:text-[13px]">
-                ≈ {s.reclaimedDevDays} dev-days redeployed
-              </div>
-              <div className="text-[12px] text-brand-ivory/75 sm:text-[13px]">
-                {s.reclaimedDevEquivalents}
+              <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-[11px] text-brand-ivory/55 sm:text-[12px]">
+                <span>{s.reclaimedEur} / year</span>
+                <span aria-hidden className="opacity-50">·</span>
+                <span>≈ {s.reclaimedDevDays} dev-days redeployed</span>
               </div>
 
               <details className="group mt-3 border-t border-brand-ivory/10 pt-2.5">
