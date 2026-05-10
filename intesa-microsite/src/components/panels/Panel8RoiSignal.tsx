@@ -28,10 +28,9 @@ export function Panel8RoiSignal() {
           </span>
         </div>
 
-        {/* 3 scenario tiles — only big numbers visible. Per-tile
-            assumptions (Applicable/Uplift/Adoption) collapse into a
-            tiny "Assumptions" toggle so the default view stays a
-            5-second scan. */}
+        {/* 3 scenario tiles. Per-tile assumptions (Applicable / Uplift
+            / Adoption) stay visible inline so the executive can read
+            the model without expanding anything. */}
         <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
           {p.scenarios.map((s, i) => (
             <motion.div
@@ -83,11 +82,10 @@ export function Panel8RoiSignal() {
                 ≈ {s.reclaimedDevDays} dev-days redeployed
               </div>
 
-              <details className="group mt-3 border-t border-brand-ivory/10 pt-2.5">
-                <summary className="cursor-pointer list-none text-[9px] uppercase tracking-[0.24em] text-brand-ivory/40 hover:text-brand-ivory/65 sm:text-[10px]">
+              <div className="mt-3 border-t border-brand-ivory/10 pt-2.5">
+                <div className="text-[9px] uppercase tracking-[0.24em] text-brand-ivory/40 sm:text-[10px]">
                   Assumptions
-                  <span aria-hidden className="ml-1 inline-block transition-transform group-open:rotate-180">↓</span>
-                </summary>
+                </div>
                 <dl className="mt-2 grid grid-cols-3 gap-2 text-[9px] uppercase tracking-[0.2em] text-brand-ivory/50 sm:text-[10px]">
                   <div>
                     <dt>Applicable</dt>
@@ -111,7 +109,7 @@ export function Panel8RoiSignal() {
                 <p className="mt-2 text-[10px] leading-snug text-brand-ivory/55 sm:text-[11px]">
                   {s.footnote}
                 </p>
-              </details>
+              </div>
             </motion.div>
           ))}
         </div>

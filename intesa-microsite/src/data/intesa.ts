@@ -337,7 +337,8 @@ export const intesa = {
         label: "Target by 2029",
       },
     ],
-    closing: "Final migration wave requires scalable execution capacity.",
+    closing:
+      "Final migration wave is the hardest one and requires scalable execution capacity.",
   },
 
   // -------------------------------------------------------------------------
