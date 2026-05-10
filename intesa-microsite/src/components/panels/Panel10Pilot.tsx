@@ -11,7 +11,7 @@ export function Panel10Pilot() {
       <div className="flex flex-col gap-5 sm:gap-6">
         <PanelHeadline text={p.headline} compact />
 
-        {/* 3 blocks only — Scope / Validation / Decision. No timeline. */}
+        {/* 3 blocks — Scope / Validation / Enterprise safeguards. */}
         <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
           {p.blocks.map((b, i) => (
             <motion.div

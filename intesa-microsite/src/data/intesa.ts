@@ -196,9 +196,8 @@ export const intesa = {
       { panel: 8,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
       { panel: 9,  addMin: 0.67, addMax: 1.50, note: "ROI signal (5')" },
       { panel: 10, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
-      { panel: 11, addMin: 0.67, addMax: 1.50, note: "Pilot structure walked (5')" },
-      { panel: 12, addMin: 1.20, addMax: 2.70, note: "Operational readiness anchor (9')" },
-      { panel: 13, addMin: 0.40, addMax: 0.90, note: "Next-step alignment closing (3')" },
+      { panel: 11, addMin: 1.33, addMax: 3.00, note: "Pilot + enterprise safeguards (10')" },
+      { panel: 12, addMin: 0.94, addMax: 2.10, note: "Decision point — scale-out criteria (7')" },
     ] as CounterStep[],
   },
 
@@ -219,7 +218,7 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel1: {
     eyebrow: "Opening",
-    headline: "Scaling Engineering Execution\nfor Intesa Sanpaolo.",
+    headline: "The final migration wave\nis the hardest one.",
     subhead: "",
     legacySubheadDeprecated:
       "Modernization leverage at enterprise scale — without proportional headcount growth.",
@@ -266,7 +265,7 @@ export const intesa = {
       "Sources: ISP Piano di Impresa 2026–2029 · investor materials.",
     ctas: [
       { label: "Open the agenda", target: 2, primary: true },
-      { label: "Open 4-week pilot", target: 13, primary: false },
+      { label: "Open 4-week pilot", target: 11, primary: false },
     ],
   },
 
@@ -347,7 +346,7 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel3: {
     eyebrow: "Discovery Signals",
-    headline: "What we heard in discovery.",
+    headline: "Modernization pressure is concentrating\nin repetitive work.",
     subhead: "",
     legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
@@ -551,7 +550,7 @@ export const intesa = {
     eyebrow: "Demo: Governed Modernization Workflow",
     useCase: "Legacy modernization + test acceleration",
     headline:
-      "How bounded autonomous execution\ntranslates into operational leverage.",
+      "Governed execution —\nnot autonomous chaos.",
     subhead: "",
     legacySubheadDeprecated:
       "What Devin actually does inside enterprise engineering controls — and what that unlocks operationally.",
@@ -737,7 +736,7 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel8: {
     eyebrow: "ROI signal",
-    headline: "Even with a safety margin,\nthe math is disruptive.",
+    headline: "Modernization capacity already exists —\nit’s trapped.",
     subhead: "",
     legacySubheadDeprecated:
       "~1 in 3 engineering hours is modernization-shaped — compounded across a ~3,300-developer estate.",
@@ -823,7 +822,7 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel9: {
     eyebrow: "Enterprise reference — Itaú",
-    headline: "Proven at banking scale.",
+    headline: "This already worked\nat banking scale.",
     subtitle: "",
     intro: "",
     logoSrc: "logos/itau.svg",
@@ -871,15 +870,18 @@ export const intesa = {
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 11 — 4-Week Pilot
+  // PANEL 11 — 4-Week Pilot (Scope · Validation · Enterprise safeguards)
   //
-  // Cognition reset: 3 blocks only (Scope / Validation / Decision).
-  // No weekly timeline, no roadmap graphics, no swimlanes. The
-  // presenter narrates pacing live.
+  // Cognition reset: 3 blocks. The standalone Enterprise-Ready
+  // Execution panel has been merged in here as the third block —
+  // the governance/reassurance signals support the pilot directly
+  // rather than living on a separate slide. No weekly timeline, no
+  // roadmap graphics, no swimlanes. The presenter narrates pacing
+  // live.
   // -------------------------------------------------------------------------
   panel11: {
     eyebrow: "4-week pilot",
-    headline: "Bounded validation, executive decision.",
+    headline: "Validate before scaling.",
     blocks: [
       {
         title: "Scope",
@@ -899,67 +901,50 @@ export const intesa = {
         ],
       },
       {
-        title: "Decision",
+        title: "Enterprise safeguards",
         items: [
-          "Scale-out discussion based on agreed metrics",
-          "Accelerate the final migration wave toward 2029 targets",
+          "Existing review process preserved",
+          "Human approval remains in workflow",
+          "Audit evidence generated automatically",
         ],
       },
     ],
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 12 — Enterprise-Ready Execution
+  // PANEL 12 — Decision Point (final scale-out logic)
   //
-  // Cognition reset: 3 reassurance signals only (Governed / Secure /
-  // Observable). No mutual-commitment commitments, no framework
-  // diagrams, no enablement copy. The slide answers a single
-  // question: "Can this realistically run inside enterprise
-  // governance?"
+  // Replaces the earlier "Proposed Next Step" panel which repeated
+  // pilot logistics. The closing slide now defines the scale-out
+  // decision logic: what the pilot validates, what scale-out
+  // requires, and the strategic objective. No fluff, no
+  // repetition, no consulting energy.
   // -------------------------------------------------------------------------
   panel12: {
-    eyebrow: "Enterprise-ready execution",
-    headline: "Built for enterprise governance.",
-    signals: [
+    eyebrow: "Decision point",
+    headline: "The question is no longer if —\nbut where to scale first.",
+    blocks: [
       {
-        title: "Governed",
-        body: "PR-based review preserved",
+        title: "Pilot validates",
+        items: [
+          "Throughput increase",
+          "Testing acceleration",
+          "Governance fit",
+          "Capacity redeployment",
+        ],
       },
       {
-        title: "Secure",
-        body: "Bounded execution environments",
-      },
-      {
-        title: "Observable",
-        body: "Evidence generated for audit & review",
-      },
-    ],
-  },
-
-  // -------------------------------------------------------------------------
-  // PANEL 13 — Proposed Next Step
-  //
-  // Cognition reset: 3 fields only (Pilot scope / Pilot duration /
-  // Success outcome). No sponsor models, no commercial alignment,
-  // no roadmap visuals.
-  // -------------------------------------------------------------------------
-  panel13: {
-    eyebrow: "Proposed next step",
-    headline: "A small, realistic next step.",
-    fields: [
-      {
-        label: "Pilot scope",
-        value: "3–4 repeatable modernization workflows",
-      },
-      {
-        label: "Pilot duration",
-        value: "4-week governed validation",
-      },
-      {
-        label: "Success outcome",
-        value: "Scale-out discussion based on agreed metrics",
+        title: "Scale-out requires",
+        items: [
+          "Repeatable workflow success",
+          "Engineering adoption",
+          "Measurable modernization acceleration",
+        ],
       },
     ],
-    closingLine: "Accelerate the final migration wave toward 2029 goals.",
+    strategicObjective: {
+      label: "Strategic objective",
+      value: "Accelerate the remaining migration wave toward 2029 targets.",
+    },
   },
 };
