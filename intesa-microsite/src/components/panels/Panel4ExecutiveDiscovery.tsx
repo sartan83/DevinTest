@@ -31,7 +31,18 @@ export function Panel4ExecutiveDiscovery() {
   return (
     <PanelShell eyebrow={p.eyebrow} compact>
       <div className="flex flex-col gap-4 sm:gap-6">
-        <PanelHeadline text={p.headline} className="max-w-4xl" compact />
+        <div className="flex flex-col gap-2 sm:gap-3">
+          <PanelHeadline text={p.headline} className="max-w-4xl" compact />
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl text-[12.5px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
+          >
+            {p.subhead}
+          </motion.p>
+        </div>
 
         {/* Operating-model transformation
             ──────────────────────────────────────────────────────────────
@@ -219,6 +230,58 @@ export function Panel4ExecutiveDiscovery() {
                 ))}
               </ul>
 
+              {/* Embedded operational chips — sit inline between the
+                  parallel modernization streams and the 6× anchor.
+                  Read as the validation checkpoints inside the
+                  future-state flow (PR-ready, reviewable diffs, tests,
+                  CI, human approval, traceable history). The
+                  "Human approval" chip is the controlled gate —
+                  rendered with stronger orange contrast and a small
+                  lock-style marker so it does NOT read as an
+                  afterthought. */}
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.55, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-wrap items-center gap-1.5 border-t border-brand-ivory/10 pt-3 sm:gap-2 sm:pt-3.5"
+              >
+                {p.flowMetrics.map((chip, i) => {
+                  const isGate = chip.gate;
+                  return (
+                    <motion.span
+                      key={chip.label}
+                      initial={{ opacity: 0, y: 4 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{
+                        duration: 0.45,
+                        delay: 0.5 + i * 0.05,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className={
+                        isGate
+                          ? "inline-flex items-center gap-1.5 rounded-full border border-brand-orange/55 bg-brand-orange/12 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-brand-ivory sm:text-[11px]"
+                          : "inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-brand-ivory/70 sm:text-[11px]"
+                      }
+                    >
+                      {isGate ? (
+                        <span
+                          aria-hidden
+                          className="inline-block h-1.5 w-1.5 rounded-[1px] bg-brand-orange"
+                        />
+                      ) : (
+                        <span
+                          aria-hidden
+                          className="inline-block h-1 w-1 rounded-full bg-brand-ivory/45"
+                        />
+                      )}
+                      {chip.label}
+                    </motion.span>
+                  );
+                })}
+              </motion.div>
+
               {/* Cinematic acceleration anchor — emerges from the
                   parallel streams above. Premium scale, soft radial
                   halo, no border. Reads as an operational signal
@@ -289,6 +352,27 @@ export function Panel4ExecutiveDiscovery() {
         >
           {p.closing}
         </motion.p>
+
+        {/* Subtle authority footer — anchors the governance
+            message: AI scales execution throughput, decision
+            authority stays with Intesa. Rendered as a thin
+            uppercase rail, not as a sentence — reads as a
+            governance principle, not as marketing copy. */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center gap-3 border-t border-brand-ivory/10 pt-3 sm:pt-3.5"
+        >
+          <span
+            aria-hidden
+            className="h-px w-6 bg-brand-orange/55 sm:w-8"
+          />
+          <span className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/70 sm:text-[11px]">
+            {p.authorityLine}
+          </span>
+        </motion.div>
       </div>
     </PanelShell>
   );

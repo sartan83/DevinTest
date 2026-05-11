@@ -41,10 +41,10 @@ export function Panel3CurrentState() {
           </motion.div>
         </div>
 
-        <ul className="grid gap-3 sm:gap-3.5 sm:grid-cols-2">
+        <ul className="grid gap-3.5 sm:gap-4 sm:grid-cols-2">
           {p.discoverySignals.map((sig, i) => (
             <motion.li
-              key={sig.label}
+              key={sig.value}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -53,26 +53,29 @@ export function Panel3CurrentState() {
                 delay: 0.04 * i,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex gap-4 rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 px-4 py-3 sm:px-5 sm:py-3.5"
+              className="flex flex-col gap-2 rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 px-4 py-3.5 sm:px-5 sm:py-4"
             >
-              <span
-                aria-hidden
-                className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange"
-              />
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[13px] leading-snug text-brand-ivory/90 sm:text-[15px] lg:text-[16px]">
-                  {sig.label}
+              <div className="flex items-center gap-2.5">
+                <span
+                  aria-hidden
+                  className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange"
+                />
+                <span className="font-display text-[15px] font-medium leading-tight text-brand-ivory sm:text-[17px] lg:text-[18px]">
+                  {sig.value}
                 </span>
-                {sig.assumption && (
-                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-brand-ivory/20 bg-brand-ivory/5 px-2 py-0.5 text-[9px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[10px]">
-                    <span
-                      aria-hidden
-                      className="inline-block h-1 w-1 rounded-full bg-brand-ivory/55"
-                    />
-                    Working assumption to validate
-                  </span>
-                )}
               </div>
+              <p className="text-[12px] leading-relaxed text-brand-ivory/70 sm:text-[13.5px] lg:text-[14.5px]">
+                {sig.label}
+              </p>
+              {sig.assumption && (
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-brand-ivory/20 bg-brand-ivory/5 px-2 py-0.5 text-[9px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[10px]">
+                  <span
+                    aria-hidden
+                    className="inline-block h-1 w-1 rounded-full bg-brand-ivory/55"
+                  />
+                  Working assumption to validate
+                </span>
+              )}
             </motion.li>
           ))}
         </ul>

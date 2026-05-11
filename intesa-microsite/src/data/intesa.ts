@@ -408,7 +408,7 @@ export const intesa = {
     // keynote insight.
     discoveryIntro: "One thing we consistently heard in discovery…",
     headline:
-      "Multiple strategic priorities are converging\non the same execution bottleneck.",
+      "Modernization pressure is becoming\nan execution-capacity issue.",
     // High-impact numeric tension signal anchored at the top of the
     // slide. The 36% gap between today's cloud-based estate and the
     // 2029 target frames the urgency before the bullets land.
@@ -425,16 +425,46 @@ export const intesa = {
     // Convergence pressure bullets — modernization, scalability, AI
     // governance, and delivery velocity all landing on the same
     // execution capacity.
+    // Operationally specific discovery synthesis. Each signal pairs
+    // a short conceptual title with a one-line operational reading
+    // — frames modernization pressure as a real execution-capacity
+    // issue, not as web research. The 4 themes converge on the same
+    // operating constraint:  remaining migration is harder, legacy /
+    // cloud coexistence is longer, AI-assisted execution needs
+    // review throughput to scale with it, and the opportunity is
+    // capacity redeployment rather than headcount reduction.
     discoverySignals: [
-      { value: "Legacy", label: "Legacy systems slowing scalability & time-to-market", assumption: false },
-      { value: "Final wave", label: "Final migration wave concentrated in repetitive modernization work", assumption: false },
-      { value: "AI adoption", label: "AI adoption increasing governance & delivery complexity", assumption: false },
-      { value: "Coexistence", label: "Prolonged migration timelines increase dual-operating pressure", assumption: false },
+      {
+        value: "Final migration wave",
+        label:
+          "The remaining 36% is likely more remediation-heavy, test-heavy and governance-heavy.",
+        assumption: false,
+      },
+      {
+        value: "Dual-operating pressure",
+        label:
+          "Longer coexistence between legacy and cloud environments increases operational complexity.",
+        assumption: false,
+      },
+      {
+        value: "Review bottlenecks",
+        label:
+          "AI-assisted execution only creates value if review, governance and approval workflows scale with it.",
+        assumption: false,
+      },
+      {
+        value: "Capacity redeployment",
+        label:
+          "The opportunity is not replacing engineers — it is redeploying scarce capacity toward strategic engineering work.",
+        assumption: false,
+      },
     ],
-    // Subtle, italic, discovery-oriented footer. Introduces executive
-    // economic tension without speculative financial modelling.
+    // Subtle, italic, discovery-oriented footer. Anchors the
+    // working assumption to be validated by the pilot — governed
+    // AI execution can lift modernization throughput without
+    // weakening control.
     workingAssumption:
-      "Working assumption to validate: execution scalability becomes critical as cloud and legacy environments coexist.",
+      "Working assumption to validate: governed AI execution can increase modernization throughput without weakening control.",
     legend: [
       {
         status: "validated" as ObservationStatus,
@@ -496,6 +526,30 @@ export const intesa = {
   panel4: {
     eyebrow: "Future-State Engineering Flow",
     headline: "Modernization execution\nbecomes scalable.",
+    // Subline under the hero. Frames the future-state as
+    // governed scaling of repetitive execution — explicitly
+    // not autonomous AI, explicitly not weakened governance.
+    subhead:
+      "Devin scales repetitive execution while existing governance remains intact.",
+    // Embedded operational chips that sit inline between the
+    // parallel modernization streams and the 6× acceleration
+    // anchor. Reads as the validation checkpoints inside the
+    // future-state flow, not as a separate KPI block. The
+    // "Human approval" chip is flagged `gate: true` so the
+    // component renders it as the controlled approval gate
+    // — stronger contrast, orange tint, no afterthought.
+    flowMetrics: [
+      { label: "PR-ready delivery" },
+      { label: "Reviewable diffs" },
+      { label: "Tests generated" },
+      { label: "CI validation" },
+      { label: "Human approval", gate: true },
+      { label: "Traceable execution history" },
+    ],
+    // Small italic footer rendered under the closing line.
+    // Anchors the governance message: AI scales execution
+    // throughput; decision authority stays with Intesa.
+    authorityLine: "AI scales execution — not decision authority.",
     // Left column — current-state pain signals. Short, operational,
     // not abstract. Visually muted/constrained on the page.
     current: {
@@ -675,6 +729,22 @@ export const intesa = {
     },
     // Single executive closing — preserved from prior revision.
     closingStatement: "Governed execution at enterprise scale.",
+    // "What we are validating" — operational lens for the demo.
+    // Frames the walkthrough as a measurement exercise (lead time,
+    // review effort, regression risk, repeatability) rather than
+    // a feature tour. Rendered as a thin chip row under the demo
+    // body, not as a KPI tile block.
+    validating: {
+      label: "What we are validating",
+      items: [
+        "Time to PR-ready",
+        "Review effort",
+        "Tests passing",
+        "Regression risk",
+        "PR acceptance",
+        "Repeatability across similar workflows",
+      ],
+    },
     repoLink: {
       label: "github.com/sartan83/aws-mainframe-modernization-carddemo",
       url: "https://github.com/sartan83/aws-mainframe-modernization-carddemo",

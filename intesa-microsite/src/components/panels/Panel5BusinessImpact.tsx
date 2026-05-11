@@ -36,6 +36,7 @@ export function Panel5BusinessImpact() {
 
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="cinematic" eyebrowSize="lg">
+      <div className="flex flex-col gap-5 sm:gap-6">
       <div className="grid gap-6 sm:gap-7 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-10">
         {/* LEFT — Strategic narrative
             ─────────────────────────────────────────────────────────
@@ -174,6 +175,47 @@ export function Panel5BusinessImpact() {
             })}
           </motion.ol>
         </div>
+      </div>
+
+      {/* "What we are validating" — operational lens for the demo.
+          Reads as the measurement frame for the walkthrough above
+          (lead time, review effort, regression risk, repeatability),
+          not as a KPI tile block. Thin uppercase label on the left,
+          chip row on the right; sits at the very bottom of the
+          panel and closes the demo on a measurement note. */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        className="flex flex-col gap-2.5 border-t border-brand-ivory/10 pt-4 sm:flex-row sm:items-center sm:gap-5 sm:pt-5"
+      >
+        <span className="shrink-0 text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
+          {p.validating.label}
+        </span>
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          {p.validating.items.map((item, i) => (
+            <motion.span
+              key={item}
+              initial={{ opacity: 0, y: 4 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.45,
+                delay: 0.35 + i * 0.04,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-brand-ivory/75 sm:text-[11px]"
+            >
+              <span
+                aria-hidden
+                className="inline-block h-1 w-1 rounded-full bg-brand-orange/70"
+              />
+              {item}
+            </motion.span>
+          ))}
+        </div>
+      </motion.div>
       </div>
     </PanelShell>
   );
