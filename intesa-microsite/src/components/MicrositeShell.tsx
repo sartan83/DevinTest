@@ -297,15 +297,9 @@ export function MicrositeShell() {
       {/* Top bar */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-3 px-4 pt-3 sm:gap-6 sm:px-8 sm:pt-6 md:px-12">
         <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
-          <LogoMark />
-          <div className="flex flex-col leading-tight">
-            <span className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/60 sm:text-[11px]">
-              {intesa.brand.partner}
-            </span>
-            <span className="text-xs font-medium text-brand-ivory sm:text-sm">
-              {intesa.brand.client} · {intesa.brand.sessionLabel}
-            </span>
-          </div>
+          <span className="text-xs font-medium text-brand-ivory sm:text-sm">
+            {intesa.brand.client} · {intesa.brand.sessionLabel}
+          </span>
         </div>
 
         <div className="pointer-events-auto flex items-start gap-2 sm:gap-3">
@@ -402,14 +396,6 @@ export function MicrositeShell() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
-  );
-}
-
-function LogoMark() {
-  return (
-    <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-devin-gradient shadow-glow sm:h-9 sm:w-9">
-      <span className="font-display text-sm font-semibold text-brand-ivory sm:text-base">D</span>
     </div>
   );
 }
