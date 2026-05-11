@@ -432,49 +432,57 @@ export const intesa = {
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 4 — Discovery Alignment (executive-level)
+  // PANEL 4 — Future-State Engineering Flow
   //
-  // Lives in the main flow. Single block, executive-level: the 3 primary
-  // strategic questions only. Two secondary questions are kept visible but
-  // de-emphasized so they don't crowd the live conversation. The full
-  // pre-meeting discovery framework is moved into the appendix.
+  // Operating-model transformation visual: left column (Traditional
+  // execution, muted/constrained), center bridge (Devin execution
+  // layer — soft animated flow, NOT an architecture diagram), and
+  // right column (Governed AI execution, brighter, layered cards with
+  // subtle glow). The section is meant to be one of the most visually
+  // memorable moments in the microsite — premium, cinematic, asymmetric.
   // -------------------------------------------------------------------------
   panel4: {
-    eyebrow: "Executive validation needed",
-    headline:
-      "Pilot approval depends on validating\nthese assumptions.",
-    subhead: "",
-    questions: [
-      {
-        category: "Migration priority",
-        question: "Which application families move first to protect the 2029 roadmap?",
-        why: "",
-      },
-      {
-        category: "Capacity baseline",
-        question: "How much engineering time is absorbed by repetitive modernization work today?",
-        why: "",
-      },
-      {
-        category: "Pilot success criteria",
-        question: "What evidence after 4 weeks justifies scale-out?",
-        why: "",
-      },
-    ] as (DiscoveryGap & { category: string })[],
-    executiveConfirmationLine:
-      "Requires executive confirmation.",
-    secondaryQuestions: [
-      {
-        question: "Which systems are currently considered too risky to modernize at the pace the roadmap demands?",
-        why: "Identifies where a controlled approach unlocks programs that are stalled today.",
-      },
-      {
-        question: "What would the business impact of delayed releases look like across the digital banking roadmap?",
-        why: "Connects execution capacity to revenue, customer experience, and regulatory commitment.",
-      },
-    ] as DiscoveryGap[],
-    secondaryToggleLabel: "More executive prompts",
-    appendixCallout: "Full discovery framework · Appendix",
+    eyebrow: "Future-State Engineering Flow",
+    headline: "Modernization execution\nbecomes scalable.",
+    // Left column — current-state pain signals. Short, operational,
+    // not abstract. Visually muted/constrained on the page.
+    current: {
+      label: "Traditional execution",
+      caption: "Today",
+      items: [
+        "Manual remediation",
+        "Linear review overhead",
+        "Repetitive upgrade activity",
+        "Fragmented documentation",
+        "Slow modernization throughput",
+      ],
+    },
+    // Center bridge — Devin execution layer. Reads as an execution
+    // capability layer, not as a system architecture. Sublabel keeps
+    // the framing operational ("orchestrated", not "AI agent").
+    bridge: {
+      label: "Devin execution layer",
+      sublabel: "Governed orchestration",
+    },
+    // Right column — future-state operating signals. Brighter, more
+    // energy, slightly elevated. Same parallel structure as the left
+    // column so the BEFORE / AFTER comparison reads instantly.
+    future: {
+      label: "Governed AI execution",
+      caption: "With Devin",
+      items: [
+        "Parallel modernization workflows",
+        "Automated remediation & testing",
+        "Governed PR-based execution",
+        "Continuously updated documentation",
+        "Higher modernization throughput",
+      ],
+    },
+    // Closing line — single sentence, executive tone. Anchors the
+    // transformation back into the pilot narrative without becoming
+    // a roadmap or a vendor claim.
+    closing:
+      "Execution capacity stops being the constraint — governance and review remain in place.",
   },
 
   // -------------------------------------------------------------------------

@@ -376,9 +376,9 @@ export function MicrositeShell() {
         <div className="pointer-events-auto hidden flex-col items-end gap-2 md:flex">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="logos/cognition.svg"
+            src="logos/cognition-wordmark.svg"
             alt="Cognition"
-            className="h-5 w-auto opacity-55 transition-opacity hover:opacity-90 sm:h-6"
+            className="h-7 w-auto text-brand-ivory opacity-65 transition-opacity hover:opacity-90 sm:h-8 lg:h-9"
           />
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-brand-ivory/50">
             <KeyHint k="←" />
