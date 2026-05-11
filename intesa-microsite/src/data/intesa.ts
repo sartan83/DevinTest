@@ -597,10 +597,11 @@ export const intesa = {
     // framed as an execution-model question, not a feature walkthrough.
     headline:
       "The remaining 36% requires\na different execution model.",
-    // Subtle supporting context line. Tangible and operational; no
-    // marketing language.
+    // Subtle supporting context line. Sharper, executive, operational
+    // — frames the workflow as governed and repeatable at scale rather
+    // than describing the technical work itself.
     support:
-      "Java modernization workflow built for repeatable governed execution.",
+      "Governed modernization workflow for repeatable execution at scale.",
     // Understated operational proof, NOT a KPI tile. Reads as a
     // credibility chip beneath the narrative.
     referenceDeployment: {
