@@ -798,6 +798,17 @@ export const intesa = {
         ],
       },
     ] as LabeledCard[],
+    // Subtle reference-deployment proof signal. Rendered as a
+    // single low-noise line above the closing — confirms that
+    // the governance model has already produced measurable
+    // operational outcomes in a comparable banking environment.
+    // Intentionally understated: NOT a KPI tile, NOT a security
+    // checklist.
+    proofMetric: {
+      value: "70%",
+      label: "Vulnerability remediation automated",
+      caption: "Reference deployment",
+    },
     closing: "Trust is not added at the end. It is the operating envelope.",
   },
 
@@ -1000,9 +1011,14 @@ export const intesa = {
         { metric: "25%", label: "Fewer testing errors" },
         { metric: "70%", label: "Vulnerability remediation automated" },
       ],
-      // Tier 2 — Adoption + organisational scale signals (secondary).
+      // Tier 2 — Adoption signal. Reduced to a single anchor
+      // (engineering team adoption) so the secondary tier reads
+      // as a fifth supporting metric rather than a second KPI
+      // sub-block. The "17,000+ technology staff" tile was
+      // removed because the canonical metric set anchors the
+      // proof on operational outcomes, not on organisational
+      // headcount.
       adoptionMetrics: [
-        { metric: "17,000+", label: "Technology staff" },
         { metric: "75%", label: "Engineering team adoption" },
       ],
       sourceLabel: "Source: Gartner Research · doc 7778353",

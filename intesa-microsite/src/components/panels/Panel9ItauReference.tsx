@@ -174,7 +174,13 @@ export function Panel9ItauReference() {
             >
               Adoption & scale
             </div>
-            <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3">
+            <div
+              className={
+                itau.adoptionMetrics.length > 1
+                  ? "grid gap-2.5 sm:grid-cols-2 sm:gap-3"
+                  : "grid gap-2.5 sm:max-w-md sm:gap-3"
+              }
+            >
               {itau.adoptionMetrics.map((m, i) => (
                 <AdoptionTile key={m.label} m={m} i={i} />
               ))}

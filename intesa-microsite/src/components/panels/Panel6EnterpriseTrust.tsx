@@ -126,6 +126,31 @@ export function Panel6EnterpriseTrust() {
           })}
         </div>
 
+        {/* Subtle reference-deployment proof signal — single low-noise
+            line above the closing. Confirms the governance model has
+            already produced measurable operational outcomes in a
+            comparable banking environment. Premium, understated; NOT
+            a KPI tile, NOT a security checklist. */}
+        {p.proofMetric && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-brand-ivory/10 pt-4 sm:pt-5"
+          >
+            <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
+              {p.proofMetric.caption}
+            </span>
+            <span className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-[26px] lg:text-[30px]">
+              {p.proofMetric.value}
+            </span>
+            <span className="text-[12px] leading-snug text-brand-ivory/70 sm:text-[13px]">
+              {p.proofMetric.label}
+            </span>
+          </motion.div>
+        )}
+
         <PanelClosing>{p.closing}</PanelClosing>
       </div>
     </PanelShell>
