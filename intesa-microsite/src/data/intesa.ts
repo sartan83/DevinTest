@@ -667,16 +667,16 @@ export const intesa = {
       "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
     pillars: [
       {
-        title: "Governed execution",
-        body: "Human approvals remain embedded in delivery.",
+        title: "Human-in-the-loop execution",
+        body: "PR-based workflows with human approvals embedded in delivery.",
       },
       {
-        title: "Isolated execution",
-        body: "Dedicated secure execution environments.",
+        title: "Isolated execution environments",
+        body: "Dedicated execution environments separated from production systems.",
       },
       {
-        title: "Enterprise controls",
-        body: "Auditability, access control and PR-based governance.",
+        title: "Governed enterprise controls",
+        body: "Auditability, access control and traceable execution history.",
       },
     ] as LabeledCard[],
     closing: "Trust is not added at the end. It is the operating envelope.",
