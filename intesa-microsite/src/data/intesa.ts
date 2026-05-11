@@ -911,33 +911,44 @@ export const intesa = {
   panel11: {
     eyebrow: "4-week pilot",
     headline: "Validate before scaling.",
+    // Week-by-week operational validation plan. Four equally weighted
+    // blocks with a clear timeline progression — small, controlled,
+    // operational; not a transformation programme.
     blocks: [
       {
-        title: "Scope",
-        caption: "Bounded, repeatable",
+        week: "Week 1",
+        title: "Baseline & workflow selection",
         items: [
-          "3–4 repeatable modernization workflows",
-          "1–2 engineering teams",
-          "Governed PR-based execution",
+          "Select 3–4 modernization workflows",
+          "Define success metrics",
+          "Establish governance boundaries",
         ],
       },
       {
-        title: "Validation",
-        caption: "What we'll measure",
+        week: "Week 2",
+        title: "Controlled execution",
         items: [
-          "Throughput increase",
-          "Lead-time reduction",
-          "Testing acceleration",
-          "Capacity redeployment",
+          "Run governed modernization workflows",
+          "Generate PRs, tests, remediation evidence",
+          "Measure throughput & review overhead",
         ],
       },
       {
-        title: "Enterprise safeguards",
-        caption: "Existing controls preserved",
+        week: "Week 3",
+        title: "Validation & adoption",
         items: [
-          "Existing review process preserved",
-          "Human approval remains in workflow",
-          "Audit evidence generated automatically",
+          "Compare against baseline",
+          "Validate engineering fit",
+          "Identify repeatable workflow patterns",
+        ],
+      },
+      {
+        week: "Week 4",
+        title: "Executive decision",
+        items: [
+          "Present measurable acceleration signals",
+          "Validate scale-out feasibility",
+          "Align on broader deployment criteria",
         ],
       },
     ],
