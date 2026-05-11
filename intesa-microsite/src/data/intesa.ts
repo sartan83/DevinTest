@@ -259,13 +259,16 @@ export const intesa = {
     ] as KpiCard[],
     closingNarrative:
       "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
-    // Strategic execution-tension anchor — reframed from descriptive
-    // milestone to a gap-to-close statement. The dominant number
-    // (gap) carries the urgency; the year remains attached as a
-    // small inline caption so the 2029 framing is preserved.
+    // Strategic execution-tension anchor. The phrase reads as
+    // '36% to 2029' — gap + preposition rendered as a small
+    // uppercase caption, year rendered as the dominant display
+    // number. The caption above ('Why now') frames the urgency;
+    // the sub line below ('Migration gap to close') clarifies
+    // what the percentage represents.
     deadline: {
       gap: "36%",
-      yearCaption: "to 2029",
+      preposition: "to",
+      year: "2029",
       caption: "Why now",
       sub: "Migration gap to close",
     },

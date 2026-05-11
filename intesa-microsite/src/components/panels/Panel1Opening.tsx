@@ -57,11 +57,11 @@ export function Panel1Opening() {
                 {p.deadline.caption}
               </span>
               <span className="flex items-baseline gap-2">
-                <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl">
-                  2029
-                </span>
                 <span className="text-[11px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[12px]">
-                  {p.deadline.gap} remaining
+                  {p.deadline.gap} {p.deadline.preposition}
+                </span>
+                <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl">
+                  {p.deadline.year}
                 </span>
               </span>
               <span className="mt-0.5 text-[11px] leading-snug text-brand-ivory/65 sm:text-[12px]">
