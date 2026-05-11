@@ -895,8 +895,21 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel8: {
     eyebrow: "ROI signal",
-    headline: "Modernization capacity already exists —\nit’s trapped.",
-    subhead: "",
+    headline: "Modernization acceleration\nconverts into capacity redeployment.",
+    // Subline + isytech bridge + governance note.
+    //   subhead       short executive line, sits under the hero
+    //   bridge        anchors capacity redeployment back to Intesa's
+    //                 own structural efficiency programme, so the
+    //                 pilot reads as validating the execution layer
+    //                 — not as proposing a parallel value stream
+    //   redeploymentNote
+    //                 explicit governance reassurance — capacity
+    //                 redeployment, NOT headcount reduction
+    subhead:
+      "Even modest throughput improvements become material at Intesa scale.",
+    bridge:
+      "Cloud / isytech execution is tied to structural efficiency gains; the pilot should validate whether governed AI can accelerate the execution layer.",
+    redeploymentNote: "Capacity redeployment, not headcount reduction.",
     legacySubheadDeprecated:
       "~1 in 3 engineering hours is modernization-shaped — compounded across a ~3,300-developer estate.",
     formula:
@@ -1055,47 +1068,90 @@ export const intesa = {
   panel11: {
     eyebrow: "4-week pilot",
     headline: "Validate before scaling.",
+    // Supporting subline. Frames the pilot as a bounded validation
+    // sprint with explicit safety constraints — not a transformation
+    // programme, not a sandbox experiment, not a roadmap.
+    subhead:
+      "A 4-week controlled validation sprint to prove whether governed modernization execution can scale safely.",
+    // Measured KPIs row — explicit operational measurement frame
+    // that the pilot will baseline in Week 1 and report against in
+    // Week 4. Rendered as a thin uppercase chip row at the top of
+    // the pilot, so each week below reads against an actual KPI
+    // set rather than against generic "success metrics".
+    measuredKpis: {
+      label: "Measured KPIs",
+      items: [
+        "Lead time to PR-ready",
+        "PR acceptance rate",
+        "Review overhead",
+        "Tests passing",
+        "Vulnerabilities remediated",
+        "Migration blockers cleared / week",
+        "Engineering hours redeployed",
+      ],
+    },
     // Week-by-week operational validation plan. Four equally weighted
     // blocks with a clear timeline progression — small, controlled,
-    // operational; not a transformation programme.
+    // operational; not a transformation programme. Activities reworked
+    // to map directly onto the Measured KPIs row above (baseline →
+    // controlled execution → validation → executive decision).
     blocks: [
       {
         week: "Week 1",
         title: "Baseline & workflow selection",
         items: [
-          "Select 3–4 modernization workflows",
-          "Define success metrics",
-          "Establish governance boundaries",
+          "Select 3–4 bounded modernization workflows",
+          "Establish baseline lead time and review effort",
+          "Define governance boundaries",
+          "Confirm success metrics",
         ],
       },
       {
         week: "Week 2",
         title: "Controlled execution",
         items: [
-          "Run governed modernization workflows",
-          "Generate PRs, tests, remediation evidence",
-          "Measure throughput & review overhead",
+          "Run Devin on selected modernization workflows",
+          "Generate PRs, tests and remediation evidence",
+          "Measure time to PR-ready",
+          "Track review effort and issues",
         ],
       },
       {
         week: "Week 3",
         title: "Validation & adoption",
         items: [
-          "Compare against baseline",
-          "Validate engineering fit",
-          "Identify repeatable workflow patterns",
+          "Compare results against baseline",
+          "Measure PR acceptance and test quality",
+          "Identify review bottlenecks",
+          "Validate team confidence and repeatability",
         ],
       },
       {
         week: "Week 4",
         title: "Executive decision",
         items: [
-          "Present measurable acceleration signals",
-          "Validate scale-out feasibility",
-          "Align on broader deployment criteria",
+          "Present acceleration signals",
+          "Validate governance fit",
+          "Quantify capacity redeployment",
+          "Align on scale-out criteria and next meeting",
         ],
       },
     ],
+    // Decision criteria module — what the executive review at the
+    // end of Week 4 will validate before scale-out. Rendered as a
+    // small uppercase-titled list below the weekly blocks; reads as
+    // the executive gate, not as additional pilot activities.
+    decisionCriteria: {
+      label: "Decision criteria",
+      caption: "Validated at the end of Week 4",
+      items: [
+        "Throughput improvement",
+        "Review overhead acceptable",
+        "PR quality accepted by engineering",
+        "Governance model validated",
+        "Repeatable workflow patterns identified",
+      ],
+    },
   },
 
   // -------------------------------------------------------------------------
@@ -1109,27 +1165,38 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel12: {
     eyebrow: "Decision point",
-    headline:
-      "The question is whether measurable acceleration\ncan be proven safely.",
-    blocks: [
+    headline: "The decision is not whether AI\ncan write code.",
+    // Subline anchors the actual decision being asked of the room
+    // — whether governed AI execution can safely accelerate the
+    // remaining modernization wave.
+    subhead:
+      "The decision is whether governed AI execution can safely accelerate Intesa’s remaining modernization wave.",
+    // Two-block commitment ask. Reads as the explicit next step
+    // and the follow-up checkpoint — not as additional pilot
+    // mechanics. Premium executive minimalism: thin top-rule,
+    // small uppercase label, single short sentence per block.
+    commitment: [
       {
-        title: "Pilot validates",
-        items: [
-          "Throughput increase",
-          "Testing acceleration",
-          "Governance fit",
-          "Capacity redeployment",
-        ],
+        label: "Recommended next step",
+        value: "Launch a 4-week controlled modernization validation sprint.",
       },
       {
-        title: "Scale-out requires",
-        items: [
-          "Repeatable workflow success",
-          "Engineering adoption",
-          "Measurable modernization acceleration",
-        ],
+        label: "Follow-up decision meeting",
+        value:
+          "Review measured outcomes, confirm scale-out criteria, and align on broader deployment path.",
       },
     ],
+    // Three final action bullets that crystallise what advancing
+    // looks like before leaving the room. Compact, executive,
+    // checkbox-style — NOT a project plan.
+    actionBullets: {
+      label: "To advance",
+      items: [
+        "Select 3–4 modernization workflows",
+        "Confirm engineering and governance owners",
+        "Schedule executive review at the end of week 4",
+      ],
+    },
     strategicObjective: {
       label: "Strategic objective",
       value: "Accelerate the remaining migration wave toward 2029 targets.",

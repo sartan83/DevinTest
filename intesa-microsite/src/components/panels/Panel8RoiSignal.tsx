@@ -21,12 +21,50 @@ export function Panel8RoiSignal() {
     <PanelShell eyebrow={p.eyebrow} compact bg="bright">
       <div className="flex flex-col gap-4 sm:gap-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-          <PanelHeadline text={p.headline} compact />
+          <div className="flex flex-col gap-2 sm:gap-2.5">
+            <PanelHeadline text={p.headline} compact />
+            {p.subhead && (
+              <motion.p
+                initial={{ opacity: 0, y: 6 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="max-w-2xl text-[12.5px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
+              >
+                {p.subhead}
+              </motion.p>
+            )}
+          </div>
           <span className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-orange/35 bg-brand-orange/5 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[11px]">
             <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-brand-orange-soft" />
             Modeled conservatively
           </span>
         </div>
+
+        {/* isytech / cloud bridge.
+            ─────────────────────────────────────────────────────────
+            Anchors the capacity redeployment narrative to Intesa's
+            own structural efficiency programme. The pilot reads as
+            validating the execution layer rather than proposing a
+            parallel value stream. Rendered as a thin uppercase rail
+            above the scenarios, not as a card. */}
+        {p.bridge && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-start gap-3 border-t border-brand-ivory/10 pt-3 sm:pt-3.5"
+          >
+            <span
+              aria-hidden
+              className="mt-1 inline-block h-px w-6 shrink-0 bg-brand-orange/50 sm:w-8"
+            />
+            <span className="text-[11.5px] italic leading-relaxed text-brand-ivory/65 sm:text-[12.5px]">
+              {p.bridge}
+            </span>
+          </motion.div>
+        )}
 
         {/* 3 scenario tiles. Per-tile assumptions (Applicable / Uplift
             / Adoption) stay visible inline so the executive can read
@@ -113,6 +151,28 @@ export function Panel8RoiSignal() {
             </motion.div>
           ))}
         </div>
+
+        {/* Explicit governance line — capacity redeployment, NOT
+            headcount reduction. Sits under the scenarios so the
+            executive reads the model through the right framing
+            before opening methodology. */}
+        {p.redeploymentNote && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-center gap-3"
+          >
+            <span
+              aria-hidden
+              className="h-px w-6 bg-brand-orange/55 sm:w-8"
+            />
+            <span className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/75 sm:text-[11px]">
+              {p.redeploymentNote}
+            </span>
+          </motion.div>
+        )}
 
         {/* Single global Methodology & sources expandable. Default
             collapsed so the slide is dominated by big numbers. */}

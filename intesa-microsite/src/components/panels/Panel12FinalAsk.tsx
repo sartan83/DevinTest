@@ -10,12 +10,15 @@ type Props = {
 };
 
 /**
- * Decision Point — final scale-out logic.
+ * Decision Point — final commercial ask.
  *
- * Replaces the earlier "Proposed Next Step" recap. The closer no
- * longer repeats pilot logistics; it defines the scale-out
- * decision logic: what the pilot validates, what scale-out
- * requires, and the strategic objective.
+ * The closer reframes the decision from "can AI write code?" to
+ * "can governed AI execution safely accelerate the remaining
+ * modernization wave?". Below the hero, two commitment blocks
+ * make the next step explicit (4-week sprint + follow-up review)
+ * and a short action-bullet row crystallises what advancing looks
+ * like before leaving the room. The strategic objective stays as
+ * the final anchor under the ask.
  */
 export function Panel12FinalAsk({ onCta }: Props) {
   const p = intesa.panel12;
@@ -24,38 +27,115 @@ export function Panel12FinalAsk({ onCta }: Props) {
       <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
         <PanelHeadline text={p.headline} className="sm:text-5xl lg:text-6xl" />
 
+        {/* Subline — anchors the actual decision being asked of the
+            room, not the pilot mechanics. */}
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-5 max-w-3xl text-[14px] leading-relaxed text-brand-ivory/80 sm:mt-6 sm:text-[16px] lg:text-[17px]"
+        >
+          {p.subhead}
+        </motion.p>
+
+        {/* Commitment ask — two explicit blocks: recommended next
+            step + follow-up decision meeting. Premium executive
+            minimalism: thin top-rule, small uppercase label, single
+            short sentence per block. No bullet lists, no card chrome. */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, delay: 0.18 }}
-          className="mt-10 grid w-full gap-4 text-left sm:mt-12 sm:gap-5 lg:grid-cols-2"
+          transition={{ duration: 0.65, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-10 grid w-full gap-5 text-left sm:mt-12 sm:gap-6 lg:grid-cols-2 lg:gap-8"
         >
-          {p.blocks.map((b) => (
-            <div
-              key={b.title}
-              className="rounded-2xl border border-brand-ivory/12 bg-brand-green-deep/40 px-6 py-5 sm:px-7 sm:py-6"
-            >
-              <div className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/55 sm:text-[11px]">
-                {b.title}
-              </div>
-              <ul className="mt-3 space-y-1.5 text-[14px] leading-snug text-brand-ivory/90 sm:mt-4 sm:space-y-2 sm:text-[15px]">
-                {b.items.map((it) => (
-                  <li key={it} className="flex items-start gap-2">
-                    <span aria-hidden className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-brand-ivory/40" />
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {p.commitment.map((c, i) => {
+            const isPrimary = i === 0;
+            return (
+              <motion.div
+                key={c.label}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.55,
+                  delay: 0.3 + i * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className={
+                  isPrimary
+                    ? "flex flex-col border-t-[1.5px] border-brand-orange/55 pt-5 sm:pt-6"
+                    : "flex flex-col border-t border-brand-ivory/15 pt-5 sm:pt-6"
+                }
+              >
+                <span
+                  className={
+                    isPrimary
+                      ? "text-[10px] uppercase tracking-[0.32em] text-brand-orange sm:text-[11px]"
+                      : "text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]"
+                  }
+                >
+                  {c.label}
+                </span>
+                <p
+                  className={
+                    isPrimary
+                      ? "mt-3 font-display text-lg font-medium leading-snug text-brand-ivory sm:text-xl lg:text-[22px]"
+                      : "mt-3 text-[14px] leading-relaxed text-brand-ivory/85 sm:text-[15px] lg:text-[16px]"
+                  }
+                >
+                  {c.value}
+                </p>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
+        {/* Action bullets — 3 concrete pre-flight items that make
+            advancing tangible. Compact, executive, checkbox-style —
+            NOT a project plan. Centered label on the left, chip row
+            on the right; sits at the bottom of the ask. */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, delay: 0.28 }}
+          transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 flex w-full flex-col items-start gap-3 border-t border-brand-ivory/10 pt-5 text-left sm:mt-10 sm:flex-row sm:items-center sm:gap-5"
+        >
+          <span className="shrink-0 text-[10px] uppercase tracking-[0.32em] text-brand-orange-soft sm:text-[11px]">
+            {p.actionBullets.label}
+          </span>
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            {p.actionBullets.items.map((item, i) => (
+              <motion.span
+                key={item}
+                initial={{ opacity: 0, y: 4 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.45,
+                  delay: 0.5 + i * 0.06,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[11px] leading-tight text-brand-ivory/85 sm:text-[12px]"
+              >
+                <span
+                  aria-hidden
+                  className="inline-block h-1.5 w-1.5 rounded-[1px] bg-brand-orange/80"
+                />
+                {item}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Strategic objective — final anchor under the ask. */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="mt-8 w-full max-w-3xl rounded-2xl border border-devin-mid/40 bg-devin-mid/8 px-6 py-5 text-left sm:mt-10 sm:px-7 sm:py-6"
         >
           <div className="text-[10px] uppercase tracking-[0.28em] text-devin-light sm:text-[11px]">
