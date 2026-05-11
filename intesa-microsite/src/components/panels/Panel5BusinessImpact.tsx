@@ -191,16 +191,16 @@ function StreamStep({
   index: number;
   isLast: boolean;
   /** 0 at the top of the lane, 1 at the bottom. Drives subtle
-   * progressive intensity/pacing changes for the rail dot and the
-   * descending animated dot. */
+   * progressive pacing changes for the descender animation only.
+   * All rail dots themselves render identically — the governed
+   * execution flow communicates that every step matters equally;
+   * we never use color to elevate individual steps. */
   momentum: number;
 }) {
-  const isAccent = tone === "accent";
+  // Governance is the only tone that still affects rendering, and
+  // only at the card level (frame + lock chip). The rail dot is
+  // intentionally identical for every row.
   const isGovernance = tone === "governance";
-
-  // Progressive dot opacity for default rows: subtle ramp from
-  // ivory/55 at the top to ivory/85 near the bottom.
-  const defaultDotOpacity = 0.55 + 0.3 * momentum;
 
   // Descender pacing accelerates with momentum: top descenders are
   // slower and softer, lower descenders are quicker and sharper.
@@ -218,40 +218,28 @@ function StreamStep({
       }}
       className="relative flex items-stretch gap-3 sm:gap-4"
     >
-      {/* Rail dot column ── 28px wide, holds the dot for this row */}
+      {/* Rail dot column ── 28px wide, holds the dot for this row.
+          Every step renders an identical ivory dot. We never tint
+          individual steps with orange — the audience should read
+          the entire governed execution flow as equally important. */}
       <div className="relative flex w-7 shrink-0 flex-col items-center">
-        {/* Step dot. Governance gets a thicker ring + outer halo;
-            accent rows are solid orange; default rows ramp ivory
-            opacity as the lane progresses downward. */}
         <span
           aria-hidden
-          className={[
-            "relative z-10 mt-3 inline-flex items-center justify-center rounded-full",
-            isGovernance
-              ? "h-3 w-3 bg-brand-orange ring-[5px] ring-brand-orange/25"
-              : isAccent
-                ? "h-2.5 w-2.5 bg-brand-orange"
-                : "h-2.5 w-2.5",
-          ].join(" ")}
-          style={
-            isGovernance
-              ? { boxShadow: "0 0 16px 0 rgba(243,111,33,0.45)" }
-              : !isAccent
-                ? { backgroundColor: `rgba(247,244,239,${defaultDotOpacity})` }
-                : undefined
-          }
+          className="relative z-10 mt-3 inline-flex h-2.5 w-2.5 items-center justify-center rounded-full bg-brand-ivory/75"
         />
 
         {/* Animated descender — small ivory dot continuously moving
             top → bottom along the rail between this step and the
             next. Hidden on the last step. Pacing accelerates with
-            momentum (bottom rows feel faster than top rows). */}
+            momentum (bottom rows feel faster than top rows). Color
+            stays neutral ivory — momentum is communicated through
+            motion and pacing, not through color. */}
         {!isLast && (
           <motion.span
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-3 -z-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full"
             style={{
-              backgroundColor: `rgba(247,244,239,${0.45 + 0.35 * momentum})`,
+              backgroundColor: `rgba(247,244,239,${0.5 + 0.3 * momentum})`,
             }}
             initial={{ y: 8, opacity: 0 }}
             animate={{ y: [8, 56], opacity: [0, 0.8, 0] }}
@@ -265,15 +253,15 @@ function StreamStep({
         )}
       </div>
 
-      {/* Step label — premium card row.
-          - Default / accent rows: borderless, lightweight type.
-          - Governance row: stronger frame, ivory label, lock chip.
-            Reads as the trusted gated completion step. */}
+      {/* Step label — every row uses the same typographic weight
+          and color. The governance row only differs through a
+          neutral ivory frame + lock chip; it never uses orange to
+          elevate itself above the other steps. */}
       <div
         className={[
           "flex flex-1 items-center justify-between gap-3 px-3 py-2.5 sm:px-4 sm:py-3",
           isGovernance
-            ? "mt-2 rounded-xl border border-brand-orange/45 bg-brand-orange/[0.12]"
+            ? "mt-2 rounded-xl border border-brand-ivory/15 bg-brand-ivory/[0.04]"
             : "",
           !isLast ? "mb-1.5 sm:mb-2" : "",
         ].join(" ")}
@@ -281,26 +269,17 @@ function StreamStep({
           isGovernance
             ? {
                 boxShadow:
-                  "inset 0 1px 0 rgba(247,244,239,0.1), 0 8px 28px -18px rgba(243,111,33,0.55)",
+                  "inset 0 1px 0 rgba(247,244,239,0.08), 0 6px 22px -16px rgba(247,244,239,0.18)",
               }
             : undefined
         }
       >
-        <span
-          className={[
-            "font-display leading-none tracking-tight",
-            isGovernance
-              ? "text-[16px] font-semibold text-brand-ivory sm:text-[17px] lg:text-[18px]"
-              : isAccent
-                ? "text-[14px] font-medium text-brand-ivory sm:text-[15px] lg:text-[16px]"
-                : "text-[13px] font-medium text-brand-ivory/85 sm:text-[14px] lg:text-[15px]",
-          ].join(" ")}
-        >
+        <span className="font-display text-[14px] font-medium leading-none tracking-tight text-brand-ivory/90 sm:text-[15px] lg:text-[16px]">
           {label}
         </span>
 
         {isGovernance && (
-          <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.24em] text-brand-ivory/85 sm:text-[11px]">
+          <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.24em] text-brand-ivory/80 sm:text-[11px]">
             <LockGlyph />
             <span>Required</span>
           </span>
@@ -318,7 +297,7 @@ function LockGlyph() {
       width="13"
       height="15"
       fill="none"
-      className="text-brand-orange-soft"
+      className="text-brand-ivory/75"
     >
       <rect
         x="1.5"
