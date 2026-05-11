@@ -81,6 +81,22 @@ export function Panel3CurrentState() {
             </motion.li>
           ))}
         </ul>
+
+        {p.workingAssumption && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-start gap-2 text-[11px] italic leading-relaxed text-brand-ivory/55 sm:text-[12px]"
+          >
+            <span
+              aria-hidden
+              className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-brand-ivory/35"
+            />
+            <span>{p.workingAssumption}</span>
+          </motion.div>
+        )}
       </div>
     </PanelShell>
   );

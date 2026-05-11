@@ -376,9 +376,13 @@ export const intesa = {
     discoverySignals: [
       { value: "Legacy", label: "Legacy systems slowing scalability & time-to-market", assumption: false },
       { value: "Final wave", label: "Final migration wave concentrated in repetitive modernization work", assumption: false },
-      { value: "190+", label: "AI use cases increasing governance & delivery complexity", assumption: false },
-      { value: "Non-linear", label: "Existing delivery capacity not scaling linearly against 2029 targets", assumption: false },
+      { value: "AI adoption", label: "AI adoption increasing governance & delivery complexity", assumption: false },
+      { value: "Coexistence", label: "Prolonged migration timelines increase dual-operating pressure", assumption: false },
     ],
+    // Subtle, italic, discovery-oriented footer. Introduces executive
+    // economic tension without speculative financial modelling.
+    workingAssumption:
+      "Working assumption to validate: execution scalability becomes critical as cloud and legacy environments coexist.",
     legend: [
       {
         status: "validated" as ObservationStatus,
