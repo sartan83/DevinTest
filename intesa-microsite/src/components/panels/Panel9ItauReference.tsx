@@ -129,6 +129,36 @@ export function Panel9ItauReference() {
             ) : null}
           </div>
 
+          {/* Hero anchor — single dominant modernization multiplier */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="relative overflow-hidden rounded-2xl border px-5 py-6 sm:px-8 sm:py-7"
+            style={{
+              borderColor: `${ITAU_ORANGE}33`,
+              background: `radial-gradient(circle at 18% 50%, ${ITAU_ORANGE}26 0%, transparent 55%), linear-gradient(180deg, ${ITAU_BLUE}1f 0%, rgba(8, 36, 28, 0.6) 100%)`,
+            }}
+          >
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-baseline sm:gap-8">
+              <span
+                className="font-display font-semibold leading-[0.88] tracking-tight text-[88px] sm:text-[128px] lg:text-[168px]"
+                style={{ color: `${ITAU_ORANGE}f2` }}
+              >
+                {itau.heroMetric.metric}
+              </span>
+              <span className="max-w-xs text-[14px] uppercase tracking-[0.22em] text-brand-ivory/85 sm:text-[15px] lg:text-[16px]">
+                {itau.heroMetric.label}
+              </span>
+            </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full blur-3xl"
+              style={{ background: `${ITAU_ORANGE}26` }}
+            />
+          </motion.div>
+
           {/* Tier 1 — Gartner outcomes (4 dominant tiles) */}
           <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
             {itau.outcomeMetrics.map((m, i) => (

@@ -859,6 +859,13 @@ export const intesa = {
     itau: {
       logoSrc: "logos/itau.svg",
       logoAlt: "Itaú",
+      // Hero anchor — the single dominant modernization acceleration
+      // multiplier. Apple-keynote scale; carries the emotional impact
+      // of the slide.
+      heroMetric: {
+        metric: "6×",
+        label: "Faster modernization delivery",
+      },
       // Tier 1 — Gartner-validated operational outcomes (primary).
       outcomeMetrics: [
         { metric: "20–30%", label: "Throughput increase" },
