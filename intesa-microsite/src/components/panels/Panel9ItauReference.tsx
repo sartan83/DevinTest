@@ -143,7 +143,7 @@ export function Panel9ItauReference() {
           >
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-baseline sm:gap-8">
               <span
-                className="font-display font-semibold leading-[0.88] tracking-tight text-[88px] sm:text-[128px] lg:text-[168px]"
+                className="max-w-full font-display font-semibold leading-[0.88] tracking-tight text-[64px] sm:text-[96px] lg:text-[120px]"
                 style={{ color: `${ITAU_ORANGE}f2` }}
               >
                 {itau.heroMetric.metric}
