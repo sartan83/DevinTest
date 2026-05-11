@@ -23,6 +23,10 @@ type Props = {
    * panels where the eyebrow is part of the narrative anchor (e.g. the
    * Demo panel). Default keeps the compact mode used everywhere else. */
   eyebrowSize?: "default" | "lg";
+  /** Optional content rendered at the right end of the eyebrow row
+   * (e.g. a client logo on the Opening panel). Reserves space inline
+   * with the eyebrow so the logo balances the eyebrow on the left. */
+  headerRight?: ReactNode;
 };
 
 const BG_CLASS: Record<BgVariant, string> = {
@@ -41,8 +45,10 @@ export function PanelShell({
   compact = false,
   bg = "default",
   eyebrowSize = "default",
+  headerRight,
 }: Props) {
   const isLgEyebrow = eyebrowSize === "lg";
+  const showHeaderRow = Boolean(eyebrow) || Boolean(headerRight);
   return (
     <section
       className={[
@@ -63,38 +69,53 @@ export function PanelShell({
           className ?? "",
         ].join(" ")}
       >
-        {eyebrow && (
+        {showHeaderRow && (
           <div
             className={[
-              "flex items-center",
-              isLgEyebrow ? "gap-4" : "gap-3",
+              "flex items-center justify-between gap-4",
               compact ? "mb-3" : "mb-6",
             ].join(" ")}
           >
-            <span
-              className={[
-                "h-px",
-                isLgEyebrow ? "w-12" : "w-8",
-                tone === "dark" ? "bg-brand-orange/70" : "bg-brand-orange/80",
-              ].join(" ")}
-            />
-            <span
-              className={[
-                "uppercase",
-                isLgEyebrow
-                  ? "font-display font-medium text-[15px] tracking-[0.28em] sm:text-[17px] lg:text-[19px]"
-                  : "text-[11px] tracking-[0.32em]",
-                tone === "dark"
-                  ? isLgEyebrow
-                    ? "text-brand-ivory/90"
-                    : "text-brand-ivory/60"
-                  : isLgEyebrow
-                    ? "text-brand-charcoal/90"
-                    : "text-brand-charcoal/60",
-              ].join(" ")}
-            >
-              {eyebrow}
-            </span>
+            {eyebrow ? (
+              <div
+                className={[
+                  "flex items-center",
+                  isLgEyebrow ? "gap-4" : "gap-3",
+                ].join(" ")}
+              >
+                <span
+                  className={[
+                    "h-px",
+                    isLgEyebrow ? "w-12" : "w-8",
+                    tone === "dark"
+                      ? "bg-brand-orange/70"
+                      : "bg-brand-orange/80",
+                  ].join(" ")}
+                />
+                <span
+                  className={[
+                    "uppercase",
+                    isLgEyebrow
+                      ? "font-display font-medium text-[15px] tracking-[0.28em] sm:text-[17px] lg:text-[19px]"
+                      : "text-[11px] tracking-[0.32em]",
+                    tone === "dark"
+                      ? isLgEyebrow
+                        ? "text-brand-ivory/90"
+                        : "text-brand-ivory/60"
+                      : isLgEyebrow
+                        ? "text-brand-charcoal/90"
+                        : "text-brand-charcoal/60",
+                  ].join(" ")}
+                >
+                  {eyebrow}
+                </span>
+              </div>
+            ) : (
+              <span />
+            )}
+            {headerRight && (
+              <div className="flex shrink-0 items-center">{headerRight}</div>
+            )}
           </div>
         )}
         {children}

@@ -16,7 +16,20 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
 export function Panel1Opening() {
   const p = intesa.panel1;
   return (
-    <PanelShell eyebrow={p.eyebrow} bg="deep">
+    <PanelShell
+      eyebrow={p.eyebrow}
+      bg="deep"
+      headerRight={
+        <motion.img
+          src="logos/intesa-sanpaolo.svg"
+          alt="Intesa Sanpaolo"
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 0.85, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="h-5 w-auto sm:h-6 lg:h-7"
+        />
+      }
+    >
       <div className="grid items-center gap-6 sm:gap-9 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <PanelHeadline text={p.headline} />
