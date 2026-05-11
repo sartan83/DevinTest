@@ -855,39 +855,27 @@ export const intesa = {
     // Itaú as the primary governance-heavy enterprise proof, Nubank as
     // the secondary hyperscale modernization proof. Not a customer-logo
     // wall — focused banking credibility only.
-    headline:
-      "Modernization execution is already scaling\ninside banking.",
-    // ----- Primary reference: Itaú (traditional banking + governance).
+    headline: "This is already operating\nat banking scale.",
+    // ----- Primary reference: Itaú (industrial enterprise banking
+    // scale + execution outcomes). Two tiers:
+    //   1. Banking scale signals (org size + adoption).
+    //   2. Execution acceleration outcomes.
     itau: {
-      positioning: "Governed enterprise modernization · traditional banking",
       logoSrc: "logos/itau.svg",
       logoAlt: "Itaú",
-      kpis: [
-        {
-          title: "Faster modernization delivery",
-          metric: "6×",
-          description: "",
-        },
-        {
-          title: "Throughput increase",
-          metric: "20–30%",
-          description: "",
-        },
-        {
-          title: "Lead-time improvement",
-          metric: "15%",
-          description: "",
-        },
-        {
-          title: "Fewer testing errors",
-          metric: "25%",
-          description: "",
-        },
-      ] as ItauKpi[],
-      footnote: "Governed AI workflows deployed at Itaú scale.",
-      sourceLabel: "Source: Gartner Research · doc 7778353",
-      sourceUrl:
-        "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
+      scaleMetrics: [
+        { metric: "17,000+", label: "Technology staff" },
+        { metric: "300,000+", label: "Repos documented" },
+        { metric: "75%", label: "Team adoption" },
+        { metric: "70%", label: "Vulnerabilities auto-remediated" },
+      ],
+      outcomeMetrics: [
+        { metric: "6×", label: "Faster .NET → Java modernization" },
+        { metric: "5×", label: "Faster SQL migration" },
+        { metric: "2×", label: "Test coverage increase" },
+      ],
+      sourceLabel: "Source: Cognition × Itaú case study",
+      sourceUrl: "https://cognition.ai/customers/itau",
     },
     // ----- Secondary reference: Nubank (hyperscale digital banking +
     // massive-scale modernization throughput). Compact card, single
