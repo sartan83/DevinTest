@@ -650,40 +650,33 @@ export const intesa = {
   },
 
   // -------------------------------------------------------------------------
-  // PANEL 6 — Built for Enterprise Trust
+  // PANEL 6 — Governed Acceleration
+  //
+  // Reframed from a generic "Built for Enterprise" feature page to a
+  // governance-acceleration narrative aligned with the rest of the
+  // microsite. The panel communicates that modernization acceleration
+  // can operate inside banking governance — not that the product has
+  // enterprise features. Three pillars instead of five feature cards,
+  // larger typography, more breathing room, no compliance badges.
   // -------------------------------------------------------------------------
   panel6: {
-    eyebrow: "Built for enterprise trust",
-    headline:
-      "Execution scalability that survives\nbanking governance and security review.",
-    subhead: "",
+    eyebrow: "Governed acceleration",
+    headline: "Scaling modernization\nwithout scaling risk.",
+    subhead: "Built for regulated engineering environments.",
     legacySubheadDeprecated:
       "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
     pillars: [
       {
-        title: "Isolated VM per session",
-        body: "Single-tenant environment per session. No cross-tenant exposure.",
-        tag: "Isolation",
+        title: "Governed execution",
+        body: "Human approvals remain embedded in delivery.",
       },
       {
-        title: "Human approval workflow",
-        body: "AI proposes; engineering and governance approve.",
-        tag: "Human-in-the-loop",
+        title: "Isolated execution",
+        body: "Dedicated secure execution environments.",
       },
       {
-        title: "Reviewable pull requests",
-        body: "Every output a PR inside your existing review tooling.",
-        tag: "Reviewable",
-      },
-      {
-        title: "Audit-friendly evidence",
-        body: "Rationale, tests, decision trail captured per task — DORA-aligned.",
-        tag: "Auditability",
-      },
-      {
-        title: "VPC / private deployment",
-        body: "PrivateLink / IPSec connectivity; VPC-style deployment review.",
-        tag: "Deployment",
+        title: "Enterprise controls",
+        body: "Auditability, access control and PR-based governance.",
       },
     ] as LabeledCard[],
     closing: "Trust is not added at the end. It is the operating envelope.",
