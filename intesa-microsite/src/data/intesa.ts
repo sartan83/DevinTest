@@ -227,31 +227,34 @@ export const intesa = {
       "Modernization leverage at enterprise scale — without proportional headcount growth.",
     framingLine:
       "Intesa is not facing a technology problem. It is facing an execution scalability problem.",
-    // Current-state → target-state framing. Historical €5.6B 2022–25 +
-    // 2,400+ IT specialists are no longer primary anchors — the EB pivot
-    // re-emphasizes the 2026–29 closure window.
+    // Institutional scale signals — explain why Intesa is the target
+    // environment for this engagement. Rendered as premium, minimal,
+    // letterhead-style markers (no KPI tile, no card, no halo). The
+    // visual treatment lives in Panel1Opening.tsx.
+    scaleContext: "One of Europe’s largest modernization environments.",
     kpis: [
       {
-        value: "64%",
-        label: "Cloud-based applications in 2026",
+        value: "€1.2B+",
+        label: "Annual technology investment",
+      },
+      {
+        value: "12,000+",
+        label: "Technology professionals",
       },
       {
         value: "~100%",
-        label: "Target cloud-based applications by 2029",
-      },
-      {
-        value: "€4.6B",
-        label: "Technology & growth investment 2026–2029",
-        secondary: true,
+        label: "Cloud migration target by 2029",
       },
     ] as KpiCard[],
     closingNarrative:
       "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
-    // Hero deadline anchor — oversized year box framing the modernization
-    // milestone. Sits alongside the headline as a sharp visual reminder.
+    // Strategic execution-tension anchor — reframed from descriptive
+    // milestone to 'why now' urgency cue. The 2029 narrative + sub
+    // text are preserved; only the caption shifts from timeline
+    // language to strategic framing.
     deadline: {
       year: "2029",
-      caption: "Modernization deadline",
+      caption: "Why now",
       sub: "Final migration milestone",
     },
     // Cognition-style tension block — replaces the "Why Intesa matters"

@@ -65,51 +65,47 @@ export function Panel1Opening() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_1fr_0.85fr] sm:gap-4">
-          {p.kpis.map((k, i) => (
-            <motion.div
-              key={k.label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className={[
-                "relative overflow-hidden rounded-xl border backdrop-blur-sm",
-                k.secondary
-                  ? "border-brand-ivory/8 bg-brand-green-mid/20 p-3 sm:p-3.5"
-                  : "border-brand-ivory/10 bg-brand-green-mid/40 p-4 sm:p-5",
-              ].join(" ")}
-            >
-              <div className="flex items-baseline gap-2">
-                <div
-                  className={[
-                    "font-display font-light leading-none text-brand-ivory",
-                    k.secondary ? "text-lg sm:text-xl" : "text-2xl sm:text-3xl",
-                  ].join(" ")}
-                >
-                  {k.value}
-                </div>
-                {k.estimated && (
-                  <span className="rounded-full border border-brand-ivory/20 px-1.5 py-0.5 text-[9px] uppercase tracking-[0.18em] text-brand-ivory/55">
-                    est.
-                  </span>
-                )}
-              </div>
-              <div
-                className={[
-                  "uppercase tracking-[0.2em]",
-                  k.secondary
-                    ? "mt-1.5 text-[10px] text-brand-ivory/45 sm:text-[11px]"
-                    : "mt-2 text-[11px] text-brand-ivory/60 sm:text-xs",
-                ].join(" ")}
+        {/* Institutional scale signals.
+            ─────────────────────────────────────────────────────────
+            Premium, minimal, letterhead-style. No card framing, no
+            border, no halo, no blur — the signals read as inline
+            institutional anchors that explain the scale of the
+            modernization environment, not as KPI dashboard tiles.
+            Each row: large display number + small uppercase label,
+            separated by a thin ivory divider. */}
+        <div className="flex flex-col gap-3 sm:gap-4">
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[11px] italic leading-snug text-brand-ivory/60 sm:text-[12px] lg:text-[13px]"
+          >
+            {p.scaleContext}
+          </motion.p>
+          <div className="flex flex-col border-t border-brand-ivory/10">
+            {p.kpis.map((k, i) => (
+              <motion.div
+                key={k.label}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.12 + i * 0.07,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="flex items-baseline justify-between gap-4 border-b border-brand-ivory/10 py-3 sm:py-3.5"
               >
-                {k.label}
-              </div>
-              {!k.secondary && (
-                <div className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full bg-brand-orange/10 blur-2xl" />
-              )}
-            </motion.div>
-          ))}
+                <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl lg:text-[44px]">
+                  {k.value}
+                </span>
+                <span className="max-w-[60%] text-right text-[10px] uppercase leading-snug tracking-[0.2em] text-brand-ivory/60 sm:text-[11px] lg:text-[12px]">
+                  {k.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
 
