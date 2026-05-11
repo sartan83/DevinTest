@@ -60,14 +60,9 @@ export function Panel3CurrentState() {
                 className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange"
               />
               <div className="flex flex-col gap-1.5">
-                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <span className="font-display text-lg font-light leading-none text-brand-ivory sm:text-xl">
-                    {sig.value}
-                  </span>
-                  <span className="text-[12px] leading-snug text-brand-ivory/80 sm:text-[13px]">
-                    {sig.label}
-                  </span>
-                </div>
+                <span className="text-[13px] leading-snug text-brand-ivory/90 sm:text-[15px] lg:text-[16px]">
+                  {sig.label}
+                </span>
                 {sig.assumption && (
                   <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-brand-ivory/20 bg-brand-ivory/5 px-2 py-0.5 text-[9px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[10px]">
                     <span
