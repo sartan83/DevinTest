@@ -5,7 +5,7 @@ import { intesa } from "../../data/intesa";
 import { PanelShell, PanelHeadline } from "../PanelShell";
 
 /**
- * Panel 5 — Java Modernization Demo.
+ * Panel 5 — Mainframe Modernization Demo.
  *
  * Strategic-narrative + execution-stream layout. Two reading regions:
  *

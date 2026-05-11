@@ -613,7 +613,7 @@ export const intesa = {
   // governance constraints".
   // -------------------------------------------------------------------------
   panel5: {
-    eyebrow: "Java Modernization Demo",
+    eyebrow: "Mainframe Modernization Demo",
     // Strategic anchor — tied directly to the 2029 migration gap and
     // framed as an execution-model question, not a feature walkthrough.
     headline:
@@ -645,8 +645,8 @@ export const intesa = {
     // Single executive closing — preserved from prior revision.
     closingStatement: "Governed execution at enterprise scale.",
     repoLink: {
-      label: "github.com/kushmirc/banking-modernization",
-      url: "https://github.com/kushmirc/banking-modernization",
+      label: "github.com/sartan83/aws-mainframe-modernization-carddemo",
+      url: "https://github.com/sartan83/aws-mainframe-modernization-carddemo",
     },
     repoDisclaimer:
       "Representative repo. No Intesa source code used.",
