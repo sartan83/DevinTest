@@ -26,6 +26,9 @@ export type LabeledCard = {
   title: string;
   body: string;
   tag?: string;
+  /** Optional short supporting bullets rendered under the body. Kept
+   * small and understated — operational hints, not feature lists. */
+  bullets?: string[];
 };
 
 export type ExecutionGapRow = {
@@ -669,14 +672,29 @@ export const intesa = {
       {
         title: "Human-in-the-loop execution",
         body: "PR-based workflows with human approvals embedded in delivery.",
+        bullets: [
+          "Review gates",
+          "Approval ownership",
+          "Existing SDLC preserved",
+        ],
       },
       {
         title: "Isolated execution environments",
         body: "Dedicated execution environments separated from production systems.",
+        bullets: [
+          "VPC-compatible deployment",
+          "Repo-scoped execution",
+          "Environment isolation",
+        ],
       },
       {
         title: "Governed enterprise controls",
         body: "Auditability, access control and traceable execution history.",
+        bullets: [
+          "Execution traceability",
+          "Permission boundaries",
+          "Full PR audit history",
+        ],
       },
     ] as LabeledCard[],
     closing: "Trust is not added at the end. It is the operating envelope.",

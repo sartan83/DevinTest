@@ -57,6 +57,25 @@ export function Panel6EnterpriseTrust() {
               <p className="mt-2.5 max-w-[34ch] text-[13px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]">
                 {c.body}
               </p>
+              {c.bullets && c.bullets.length > 0 && (
+                /* Subtle operational hints. Rendered as a tight list
+                   of short phrases with a thin ivory micro-dot.
+                   Premium and understated — no card, no chip, no
+                   border. The bullets give engineering stakeholders
+                   credible infra/operational signals without
+                   turning the panel into a feature grid. */
+                <ul className="mt-4 flex flex-col gap-1.5 text-[11px] uppercase tracking-[0.18em] text-brand-ivory/55 sm:mt-5 sm:text-[12px]">
+                  {c.bullets.map((b) => (
+                    <li key={b} className="flex items-center gap-2">
+                      <span
+                        aria-hidden
+                        className="h-[3px] w-[3px] rounded-full bg-brand-ivory/40"
+                      />
+                      <span className="leading-snug">{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </motion.div>
           ))}
         </div>
