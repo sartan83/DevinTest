@@ -33,7 +33,7 @@ export function Panel5BusinessImpact() {
   const p = intesa.panel5;
 
   return (
-    <PanelShell eyebrow={p.eyebrow} compact bg="cinematic">
+    <PanelShell eyebrow={p.eyebrow} compact bg="cinematic" eyebrowSize="lg">
       <div className="grid gap-6 sm:gap-7 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-10">
         {/* LEFT — Strategic narrative
             ─────────────────────────────────────────────────────────

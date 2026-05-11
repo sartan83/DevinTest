@@ -19,6 +19,10 @@ type Props = {
    * within the Intesa green-graphite-ivory-orange brand palette — only
    * gradient stops and opacity shift, no new hues. */
   bg?: BgVariant;
+  /** Eyebrow size. `lg` bumps the eyebrow type scale + accent rule for
+   * panels where the eyebrow is part of the narrative anchor (e.g. the
+   * Demo panel). Default keeps the compact mode used everywhere else. */
+  eyebrowSize?: "default" | "lg";
 };
 
 const BG_CLASS: Record<BgVariant, string> = {
@@ -36,7 +40,9 @@ export function PanelShell({
   className,
   compact = false,
   bg = "default",
+  eyebrowSize = "default",
 }: Props) {
+  const isLgEyebrow = eyebrowSize === "lg";
   return (
     <section
       className={[
@@ -58,17 +64,33 @@ export function PanelShell({
         ].join(" ")}
       >
         {eyebrow && (
-          <div className={["flex items-center gap-3", compact ? "mb-3" : "mb-6"].join(" ")}>
+          <div
+            className={[
+              "flex items-center",
+              isLgEyebrow ? "gap-4" : "gap-3",
+              compact ? "mb-3" : "mb-6",
+            ].join(" ")}
+          >
             <span
               className={[
-                "h-px w-8",
+                "h-px",
+                isLgEyebrow ? "w-12" : "w-8",
                 tone === "dark" ? "bg-brand-orange/70" : "bg-brand-orange/80",
               ].join(" ")}
             />
             <span
               className={[
-                "text-[11px] uppercase tracking-[0.32em]",
-                tone === "dark" ? "text-brand-ivory/60" : "text-brand-charcoal/60",
+                "uppercase",
+                isLgEyebrow
+                  ? "font-display font-medium text-[15px] tracking-[0.28em] sm:text-[17px] lg:text-[19px]"
+                  : "text-[11px] tracking-[0.32em]",
+                tone === "dark"
+                  ? isLgEyebrow
+                    ? "text-brand-ivory/90"
+                    : "text-brand-ivory/60"
+                  : isLgEyebrow
+                    ? "text-brand-charcoal/90"
+                    : "text-brand-charcoal/60",
               ].join(" ")}
             >
               {eyebrow}
