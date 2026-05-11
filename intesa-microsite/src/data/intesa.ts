@@ -224,8 +224,14 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel1: {
     eyebrow: "Opening",
-    headline: "The final migration wave\nis the hardest one.",
+    headline: "Governed modernization execution\nat enterprise scale.",
     subhead: "",
+    // Subtle supporting subline under the hero. Frames the next
+    // modernization wave as an execution scalability problem rather
+    // than a technology strategy debate — sets up the rest of the
+    // microsite without revealing the 36% gap yet.
+    opener:
+      "Intesa’s next modernization wave is no longer only a technology strategy — it is an execution scalability challenge.",
     legacySubheadDeprecated:
       "Modernization leverage at enterprise scale — without proportional headcount growth.",
     framingLine:
@@ -261,7 +267,7 @@ export const intesa = {
       },
     ] as KpiCard[],
     closingNarrative:
-      "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
+      "Intesa’s next modernization wave is no longer only a technology strategy — it is an execution scalability challenge.",
     // Strategic execution-tension anchor. The phrase reads as
     // '36% to 2029' — gap + preposition rendered as a small
     // uppercase caption, year rendered as the dominant display
@@ -345,21 +351,46 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel2: {
     eyebrow: "Why now",
-    bigYear: "2029",
-    yearCaption: "Modernization deadline.",
-    // Current-state vs target-state anchors. No historical timeline.
+    // Strategic execution-tension hero. Frames the remaining gap
+    // as the operational hard part of the migration, not as a
+    // descriptive milestone.
+    headline: "The remaining 36% is the hard part.",
+    // Subtle supporting line under the hero. Links cloud migration
+    // to structural efficiency gains so the urgency reads as value
+    // capture risk, not as a generic deadline statement.
+    support:
+      "Cloud migration is directly linked to structural efficiency gains. Delayed execution risks delaying value capture.",
+    // Current-state → target-state anchors flanking a tension zone.
+    // The component renders 64% on the left and ~100% by 2029 on
+    // the right, with the remaining 36% gap visualised between
+    // them as the operational tension being closed.
     states: [
       {
         value: "64%",
         label: "Cloud-based applications today",
       },
       {
-        value: "100%",
+        value: "~100%",
         label: "Target by 2029",
       },
     ],
+    // The tension zone between the two states. Reads as the gap
+    // being closed, not as a separate KPI tile.
+    gap: {
+      value: "36%",
+      label: "Remaining migration",
+    },
+    // Economic consequence marker. Frames the run-rate efficiency
+    // gain as value capture tied to Intesa’s own cloud / isytech
+    // execution — NOT as a Devin outcome. Understated chip, not
+    // a KPI tile.
+    economicMarker: {
+      caption: "Linked value capture",
+      value: "~€380M",
+      label: "Run-rate savings by 2030 from isytech / cloud extension",
+    },
     closing:
-      "Final migration wave is the hardest one and requires scalable execution capacity.",
+      "The question is not whether modernization continues. The question is whether execution capacity scales fast enough.",
   },
 
   // -------------------------------------------------------------------------
