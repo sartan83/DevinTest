@@ -373,10 +373,18 @@ export function MicrositeShell() {
       {/* Bottom progress + nav */}
       <footer className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex items-end justify-between gap-3 px-4 pb-3 sm:gap-6 sm:px-8 sm:pb-6 md:px-12">
         <ProgressBar active={active} onSelect={goTo} isMobile={isMobile} />
-        <div className="pointer-events-auto hidden items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-brand-ivory/50 md:flex">
-          <KeyHint k="←" />
-          <KeyHint k="→" />
-          <span>navigate</span>
+        <div className="pointer-events-auto hidden flex-col items-end gap-2 md:flex">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="logos/cognition.svg"
+            alt="Cognition"
+            className="h-5 w-auto opacity-55 transition-opacity hover:opacity-90 sm:h-6"
+          />
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-brand-ivory/50">
+            <KeyHint k="←" />
+            <KeyHint k="→" />
+            <span>navigate</span>
+          </div>
         </div>
       </footer>
 
