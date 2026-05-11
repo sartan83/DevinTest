@@ -477,6 +477,21 @@ export const intesa = {
         "Continuously updated documentation",
         "Higher modernization throughput",
       ],
+      // Cinematic acceleration anchor that emerges from inside the
+      // future-state area. Reads as an operational signal coming out
+      // of the new execution model — not as a marketing KPI tile.
+      anchor: {
+        metric: "6×",
+        label: "Modernization acceleration",
+        caption: "Reference deployment",
+      },
+      // Secondary operational validation signals. Small, scannable,
+      // sit under the 6× anchor without competing with it.
+      signals: [
+        { value: "20–30%", label: "Throughput increase" },
+        { value: "15%", label: "Lead-time improvement" },
+        { value: "70%", label: "Vulnerability remediation automated" },
+      ],
     },
     // Closing line — single sentence, executive tone. Anchors the
     // transformation back into the pilot narrative without becoming
