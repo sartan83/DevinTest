@@ -38,9 +38,11 @@ export function Panel1Opening() {
             {p.closingNarrative}
           </p>
 
-          {/* 2029 deadline anchor — sharp visual reminder of the
-             modernization milestone. Sits inline under the headline as
-             an executive pressure cue. */}
+          {/* Why-now anchor — gap-to-close framing. The dominant
+             number is the remaining migration gap (36%), with the
+             '2029' year preserved as a small inline caption so the
+             deadline framing is still visible. Sits inline under
+             the headline as an executive pressure cue. */}
           <motion.div
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -54,8 +56,13 @@ export function Panel1Opening() {
               <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
                 {p.deadline.caption}
               </span>
-              <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl">
-                {p.deadline.year}
+              <span className="flex items-baseline gap-2">
+                <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl">
+                  {p.deadline.gap}
+                </span>
+                <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[12px]">
+                  {p.deadline.yearCaption}
+                </span>
               </span>
               <span className="mt-0.5 text-[11px] leading-snug text-brand-ivory/65 sm:text-[12px]">
                 {p.deadline.sub}
@@ -95,12 +102,12 @@ export function Panel1Opening() {
                   delay: 0.12 + i * 0.07,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="flex items-baseline justify-between gap-4 border-b border-brand-ivory/10 py-3 sm:py-3.5"
+                className="flex items-baseline justify-between gap-4 border-b border-brand-ivory/10 py-2 sm:py-2.5"
               >
-                <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl lg:text-[44px]">
+                <span className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-3xl lg:text-[34px]">
                   {k.value}
                 </span>
-                <span className="max-w-[60%] text-right text-[10px] uppercase leading-snug tracking-[0.2em] text-brand-ivory/60 sm:text-[11px] lg:text-[12px]">
+                <span className="max-w-[62%] text-right text-[10px] uppercase leading-snug tracking-[0.2em] text-brand-ivory/60 sm:text-[11px] lg:text-[12px]">
                   {k.label}
                 </span>
               </motion.div>

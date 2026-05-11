@@ -230,12 +230,19 @@ export const intesa = {
     // Institutional scale signals — explain why Intesa is the target
     // environment for this engagement. Rendered as premium, minimal,
     // letterhead-style markers (no KPI tile, no card, no halo). The
-    // visual treatment lives in Panel1Opening.tsx.
+    // visual treatment lives in Panel1Opening.tsx. Five rows: two
+    // investment anchors (annual + 2026–2029 triennium), one people
+    // anchor, and the current-vs-target migration pairing (~100%
+    // target with 64% migrated today).
     scaleContext: "One of Europe’s largest modernization environments.",
     kpis: [
       {
         value: "€1.2B+",
         label: "Annual technology investment",
+      },
+      {
+        value: "€4.6B",
+        label: "Technology & growth investment 2026–2029",
       },
       {
         value: "12,000+",
@@ -245,17 +252,22 @@ export const intesa = {
         value: "~100%",
         label: "Cloud migration target by 2029",
       },
+      {
+        value: "64%",
+        label: "Migrated up to now",
+      },
     ] as KpiCard[],
     closingNarrative:
       "Intesa has already transformed significantly. The challenge now is closing the final migration gap by 2029.",
     // Strategic execution-tension anchor — reframed from descriptive
-    // milestone to 'why now' urgency cue. The 2029 narrative + sub
-    // text are preserved; only the caption shifts from timeline
-    // language to strategic framing.
+    // milestone to a gap-to-close statement. The dominant number
+    // (gap) carries the urgency; the year remains attached as a
+    // small inline caption so the 2029 framing is preserved.
     deadline: {
-      year: "2029",
+      gap: "36%",
+      yearCaption: "to 2029",
       caption: "Why now",
-      sub: "Final migration milestone",
+      sub: "Migration gap to close",
     },
     // Cognition-style tension block — replaces the "Why Intesa matters"
     // anchor strip. Operational pressure first, no scale narrative.
