@@ -851,50 +851,34 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel9: {
     eyebrow: "Banking proof at scale",
-    // Two complementary banking references coexist on the same slide:
-    // Itaú as the primary governance-heavy enterprise proof, Nubank as
-    // the secondary hyperscale modernization proof. Not a customer-logo
-    // wall — focused banking credibility only.
-    headline: "This is already operating\nat banking scale.",
-    // ----- Primary reference: Itaú (industrial enterprise banking
-    // scale + execution outcomes). Two tiers:
-    //   1. Banking scale signals (org size + adoption).
-    //   2. Execution acceleration outcomes.
+    // Single enterprise banking proof point (Itaú). The section is
+    // intentionally focused: Gartner-validated operational outcomes
+    // on top, adoption + scale signals below, one small interpretive
+    // footer. No vendor wall, no second customer card.
+    headline: "This is already producing\nmeasurable banking outcomes.",
     itau: {
       logoSrc: "logos/itau.svg",
       logoAlt: "Itaú",
-      scaleMetrics: [
-        { metric: "17,000+", label: "Technology staff" },
-        { metric: "300,000+", label: "Repos documented" },
-        { metric: "75%", label: "Team adoption" },
-        { metric: "70%", label: "Vulnerabilities auto-remediated" },
-      ],
+      // Tier 1 — Gartner-validated operational outcomes (primary).
       outcomeMetrics: [
-        { metric: "6×", label: "Faster .NET → Java modernization" },
-        { metric: "5×", label: "Faster SQL migration" },
-        { metric: "2×", label: "Test coverage increase" },
+        { metric: "20–30%", label: "Throughput increase" },
+        { metric: "15%", label: "Lead-time improvement" },
+        { metric: "25%", label: "Fewer testing errors" },
+        { metric: "70%", label: "Vulnerability remediation automated" },
       ],
-      sourceLabel: "Source: Cognition × Itaú case study",
-      sourceUrl: "https://cognition.ai/customers/itau",
-    },
-    // ----- Secondary reference: Nubank (hyperscale digital banking +
-    // massive-scale modernization throughput). Compact card, single
-    // hero metric + supporting metric + small footer line.
-    nubank: {
-      positioning: "Massive-scale modernization acceleration · hyperscale digital banking",
-      logoAlt: "Nubank",
-      hero: {
-        value: "100,000+",
-        label: "modernization tasks",
-      },
-      supporting: {
-        value: "4×",
-        label: "improvement in migration task speed",
-      },
-      footer: "6M+ LOC ETL modernization",
+      // Tier 2 — Adoption + organisational scale signals (secondary).
+      adoptionMetrics: [
+        { metric: "17,000+", label: "Technology staff" },
+        { metric: "75%", label: "Engineering team adoption" },
+      ],
+      sourceLabel: "Source: Gartner Research · doc 7778353",
+      sourceUrl:
+        "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
+      interpretiveFooter:
+        "Governed AI workflows already operating inside large-scale banking engineering environments.",
     },
     disclaimer:
-      "Illustrative reference metrics from separate enterprise banking environments.",
+      "Illustrative reference metrics from a separate enterprise banking environment.",
   },
 
   // -------------------------------------------------------------------------
