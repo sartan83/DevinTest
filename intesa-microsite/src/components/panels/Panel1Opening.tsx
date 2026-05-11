@@ -58,10 +58,10 @@ export function Panel1Opening() {
               </span>
               <span className="flex items-baseline gap-2">
                 <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl">
-                  {p.deadline.gap}
+                  2029
                 </span>
-                <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[12px]">
-                  {p.deadline.yearCaption}
+                <span className="text-[11px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[12px]">
+                  {p.deadline.gap} remaining
                 </span>
               </span>
               <span className="mt-0.5 text-[11px] leading-snug text-brand-ivory/65 sm:text-[12px]">
