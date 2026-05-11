@@ -850,41 +850,63 @@ export const intesa = {
   // demonstrates measurable gains under governance-aware factory workflows.
   // -------------------------------------------------------------------------
   panel9: {
-    eyebrow: "Enterprise reference — Itaú",
-    headline: "This already worked\nat banking scale.",
-    subtitle: "",
-    intro: "",
-    logoSrc: "logos/itau.svg",
-    logoAlt: "Itaú",
-    // 4 metric tiles only — no description prose. Headline number first.
-    kpis: [
-      {
-        title: "Faster modernization delivery",
-        metric: "6×",
-        description: "",
+    eyebrow: "Banking proof at scale",
+    // Two complementary banking references coexist on the same slide:
+    // Itaú as the primary governance-heavy enterprise proof, Nubank as
+    // the secondary hyperscale modernization proof. Not a customer-logo
+    // wall — focused banking credibility only.
+    headline:
+      "Modernization execution is already scaling\ninside banking.",
+    // ----- Primary reference: Itaú (traditional banking + governance).
+    itau: {
+      positioning: "Governed enterprise modernization · traditional banking",
+      logoSrc: "logos/itau.svg",
+      logoAlt: "Itaú",
+      kpis: [
+        {
+          title: "Faster modernization delivery",
+          metric: "6×",
+          description: "",
+        },
+        {
+          title: "Throughput increase",
+          metric: "20–30%",
+          description: "",
+        },
+        {
+          title: "Lead-time improvement",
+          metric: "15%",
+          description: "",
+        },
+        {
+          title: "Fewer testing errors",
+          metric: "25%",
+          description: "",
+        },
+      ] as ItauKpi[],
+      footnote: "Governed AI workflows deployed at Itaú scale.",
+      sourceLabel: "Source: Gartner Research · doc 7778353",
+      sourceUrl:
+        "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
+    },
+    // ----- Secondary reference: Nubank (hyperscale digital banking +
+    // massive-scale modernization throughput). Compact card, single
+    // hero metric + supporting metric + small footer line.
+    nubank: {
+      positioning: "Massive-scale modernization acceleration · hyperscale digital banking",
+      logoAlt: "Nubank",
+      hero: {
+        value: "100,000+",
+        label: "modernization tasks",
       },
-      {
-        title: "Throughput increase",
-        metric: "20–30%",
-        description: "",
+      supporting: {
+        value: "4×",
+        label: "improvement in migration task speed",
       },
-      {
-        title: "Lead-time improvement",
-        metric: "15%",
-        description: "",
-      },
-      {
-        title: "Fewer testing errors",
-        metric: "25%",
-        description: "",
-      },
-    ] as ItauKpi[],
-    footnote: "Governed AI workflows deployed at Itaú scale.",
-    sourceLabel: "Source: Gartner Research · doc 7778353",
-    sourceUrl:
-      "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
+      footer: "6M+ LOC ETL modernization",
+    },
     disclaimer:
-      "Illustrative reference metrics from a separate enterprise banking environment.",
+      "Illustrative reference metrics from separate enterprise banking environments.",
   },
 
   // -------------------------------------------------------------------------
