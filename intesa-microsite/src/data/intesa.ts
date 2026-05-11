@@ -593,63 +593,34 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel5: {
     eyebrow: "Java Modernization Demo",
-    useCase: "Legacy modernization + test acceleration",
-    // Concrete, tangible hero anchor: the audience instantly understands
-    // what real engineering work is being demonstrated, before the
-    // governance framing lands.
+    // Strategic anchor — tied directly to the 2029 migration gap and
+    // framed as an execution-model question, not a feature walkthrough.
     headline:
-      "Java modernization +\nautomated test generation.",
-    subhead: "",
-    legacySubheadDeprecated:
-      "What Devin actually does inside enterprise engineering controls — and what that unlocks operationally.",
-    transitionStatement:
-      "The challenge is no longer whether AI can generate code. The challenge is whether it can operate reliably inside enterprise governance constraints.",
-    // Left side: bounded operational flow — 6-node demo flow.
+      "The remaining 36% requires\na different execution model.",
+    // Subtle supporting context line. Tangible and operational; no
+    // marketing language.
+    support:
+      "Java modernization workflow built for repeatable governed execution.",
+    // Understated operational proof, NOT a KPI tile. Reads as a
+    // credibility chip beneath the narrative.
+    referenceDeployment: {
+      caption: "Reference deployment",
+      metric: "6×",
+      label: "modernization acceleration",
+    },
+    // Right column — vertical execution stream. Six bounded steps,
+    // last one ("Human approval") is the governance enforcement point.
     workflow: {
-      title: "Bounded operational workflow",
-      nodes: [
-        { label: "Repo scan", tone: "muted" as const },
+      steps: [
+        { label: "Repo scan", tone: "default" as const },
         { label: "Migration plan", tone: "default" as const },
-        { label: "Code changes", tone: "accent" as const },
+        { label: "Code transformation", tone: "accent" as const },
         { label: "Test generation", tone: "default" as const },
-        { label: "PR + evidence", tone: "accent" as const },
-        { label: "Human approval", tone: "accent" as const },
-      ],
-      insight:
-        "Bounded execution inside the bank's existing review envelope — not open-ended autonomous engineering.",
-      // 3 demo bullets only — presenter narrates the rest live.
-      demoBullets: [
-        "Bounded task, not open-ended coding",
-        "Existing engineering review preserved",
-        "Evidence generated for audit and governance",
+        { label: "Governed PR", tone: "accent" as const },
+        { label: "Human approval", tone: "governance" as const },
       ],
     },
-    // Right side: business interpretation — why it matters operationally.
-    businessImpact: {
-      title: "Operational leverage",
-      metrics: [
-        {
-          value: "20–30%",
-          label: "Throughput increase (illustrative reference)",
-        },
-        {
-          value: "12,000 engineering hours",
-          label: "≈ 7 developer-equivalents redeployed toward strategic initiatives (illustrative)",
-        },
-        {
-          value: "59 → 9",
-          label: "Service consolidation (illustrative)",
-        },
-      ],
-      statements: [
-        "Governance-aware modernization execution.",
-        "Reinvest engineering bandwidth into modernization throughput.",
-      ],
-      devEquivalentFootnote:
-        "Developer-equivalent figures are illustrative operational capacity models based on representative engineering allocation assumptions — not headcount targets.",
-    },
-    // Oversized closing statement — visual breathing moment to anchor the
-    // workflow section and create a memorable cinematic peak.
+    // Single executive closing — preserved from prior revision.
     closingStatement: "Governed execution at enterprise scale.",
     repoLink: {
       label: "github.com/kushmirc/banking-modernization",
@@ -657,8 +628,6 @@ export const intesa = {
     },
     repoDisclaimer:
       "Representative repo. No Intesa source code used.",
-    disclaimer:
-      "Illustrative enterprise reference points. Actual execution adapts to client repositories, security envelope, and governance configuration. Not guaranteed outcomes.",
   },
 
   // -------------------------------------------------------------------------
