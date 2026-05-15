@@ -151,6 +151,22 @@ export function Panel6EnterpriseTrust() {
           </motion.div>
         )}
 
+        {/* Review-layer reframe — Devin does not remove the review
+            layer, it makes it more efficient, structured, and
+            measurable. Sits between the reference-deployment proof
+            signal and the closing line as a thin italic anchor. */}
+        {p.reviewReframe && (
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl text-[12px] italic leading-relaxed text-brand-ivory/65 sm:text-[13px] lg:text-[14px]"
+          >
+            {p.reviewReframe}
+          </motion.p>
+        )}
+
         <PanelClosing>{p.closing}</PanelClosing>
       </div>
     </PanelShell>

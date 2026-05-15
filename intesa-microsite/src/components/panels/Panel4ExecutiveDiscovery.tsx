@@ -342,6 +342,42 @@ export function Panel4ExecutiveDiscovery() {
           </div>
         </div>
 
+        {/* SDLC effort anchors — subtle chip row that maps the
+            future-state flow onto Intesa's own SDLC effort
+            distribution (43% coding + 27% testing/release = 70%
+            execution zone). Reads as a contextual anchor, not as
+            a competing KPI block. */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-wrap items-center gap-2 border-t border-brand-ivory/10 pt-3 sm:gap-2.5 sm:pt-3.5"
+        >
+          <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
+            SDLC effort anchors
+          </span>
+          {p.sdlcAnchors.map((a) => {
+            const isZone = a.label === "Execution zone";
+            return (
+              <span
+                key={a.label}
+                className={[
+                  "inline-flex items-baseline gap-1.5 rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] sm:text-[11px]",
+                  isZone
+                    ? "border-brand-orange/55 bg-brand-orange/10 text-brand-orange-soft"
+                    : "border-brand-ivory/15 bg-brand-green-deep/40 text-brand-ivory/75",
+                ].join(" ")}
+              >
+                <span className="font-display text-[13px] font-semibold tracking-tight text-brand-ivory sm:text-[14px]">
+                  {a.value}
+                </span>
+                <span>{a.label}</span>
+              </span>
+            );
+          })}
+        </motion.div>
+
         {/* Closing — single executive line, low-noise, no arrows. */}
         <motion.p
           initial={{ opacity: 0, y: 8 }}

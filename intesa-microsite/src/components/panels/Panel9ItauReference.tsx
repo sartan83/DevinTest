@@ -191,7 +191,12 @@ export function Panel9ItauReference() {
           <div className="flex flex-col gap-1.5 border-t pt-3 sm:gap-2"
             style={{ borderColor: `${ITAU_ORANGE}1c` }}
           >
-            <div className="text-[11px] leading-relaxed text-brand-ivory/75 sm:text-[12px]">
+            {p.sdlcInterpretation && (
+              <div className="text-[12px] italic leading-relaxed text-brand-ivory/80 sm:text-[13px] lg:text-[14px]">
+                {p.sdlcInterpretation}
+              </div>
+            )}
+            <div className="text-[11px] leading-relaxed text-brand-ivory/65 sm:text-[12px]">
               {itau.interpretiveFooter}
             </div>
             <a

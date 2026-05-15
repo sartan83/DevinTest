@@ -56,12 +56,44 @@ export function Panel5BusinessImpact() {
             {p.support}
           </motion.p>
 
+          {/* SDLC focus chip — subtle anchor that names the specific
+              SDLC execution zones this demo targets (43% coding +
+              27% testing/release). Reads as a contextual tag, not
+              as a competing KPI tile. */}
+          {p.sdlcFocus && (
+            <motion.span
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-orange/40 bg-brand-orange/5 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[11px]"
+            >
+              <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-brand-orange-soft" />
+              {p.sdlcFocus}
+            </motion.span>
+          )}
+
+          {/* Talk-track support line — frames the demo as a controlled
+              SDLC compression example, not a feature tour. Italic,
+              low-noise. */}
+          {p.talkTrack && (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-xl text-[12px] italic leading-relaxed text-brand-ivory/55 sm:text-[13px]"
+            >
+              {p.talkTrack}
+            </motion.p>
+          )}
+
           {/* Closing executive line — small, italic. */}
           <motion.p
             initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
             className="text-[12px] italic leading-relaxed text-brand-ivory/55 sm:text-[13px]"
           >
             {p.closingStatement}

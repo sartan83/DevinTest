@@ -117,25 +117,69 @@ export function Panel2ExecutionGap() {
           </motion.div>
         </div>
 
-        {/* Economic consequence marker — value capture linked to
-            Intesa's own cloud / isytech execution, NOT a Devin
-            outcome. Understated chip, not a KPI tile. */}
+        {/* Dual-track pressure band.
+            ─────────────────────────────────────────────────────────
+            Two simultaneous value-capture vectors converging on the
+            same execution capacity: cloud migration (~100% by 2029)
+            and SDLC efficiency (15% / ~€70M by 2028). Rendered as
+            two horizontal rails — minimal, premium, NOT a KPI tile
+            block. Reads as the operational pressure landscape, not
+            as a dashboard. */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-brand-ivory/10 pt-4 sm:pt-5"
+          transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-3 border-t border-brand-ivory/10 pt-4 sm:gap-4 sm:pt-5"
         >
-          <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
-            {p.economicMarker.caption}
+          <span className="text-[9px] uppercase tracking-[0.3em] text-brand-orange-soft sm:text-[10px]">
+            {p.dualTrack.label}
           </span>
-          <span className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-[28px] lg:text-[32px]">
-            {p.economicMarker.value}
-          </span>
-          <span className="text-[12px] leading-snug text-brand-ivory/70 sm:text-[13px]">
-            {p.economicMarker.label}
-          </span>
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
+            {p.dualTrack.tracks.map((t, i) => (
+              <motion.div
+                key={t.key}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.55, delay: 0.65 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-start gap-3"
+              >
+                <span
+                  aria-hidden
+                  className={[
+                    "mt-1.5 inline-block h-3 w-3 shrink-0 rounded-full",
+                    t.key === "sdlc"
+                      ? "bg-brand-orange/85 ring-2 ring-brand-orange/30"
+                      : "border border-brand-ivory/40 bg-transparent",
+                  ].join(" ")}
+                />
+                <div className="flex flex-col gap-1">
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[11px]">
+                    {t.title}
+                  </span>
+                  <span className="font-display text-xl font-light leading-tight text-brand-ivory sm:text-[26px] lg:text-[30px]">
+                    {t.target}
+                  </span>
+                  <span className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px]">
+                    {t.gap}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-center gap-3"
+          >
+            <span aria-hidden className="h-px w-6 bg-brand-orange/55 sm:w-8" />
+            <span className="text-[10px] uppercase tracking-[0.26em] text-brand-ivory/70 sm:text-[11px]">
+              {p.dualTrack.callout}
+            </span>
+          </motion.div>
         </motion.div>
 
         {/* Closing line — reframes the executive discussion from

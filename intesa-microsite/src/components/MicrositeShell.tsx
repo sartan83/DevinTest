@@ -10,6 +10,7 @@ import { Panel1Opening } from "./panels/Panel1Opening";
 import { Panel1bAgenda } from "./panels/Panel1bAgenda";
 import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
 import { Panel3CurrentState } from "./panels/Panel3CurrentState";
+import { Panel35SdlcMap } from "./panels/Panel35SdlcMap";
 import { Panel4ExecutiveDiscovery } from "./panels/Panel4ExecutiveDiscovery";
 import { Panel5BusinessImpact } from "./panels/Panel5BusinessImpact";
 import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
@@ -30,8 +31,8 @@ import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework"
 // block of the 4-week pilot. Final panel (idx 11) is the Decision
 // Point closer (scale-out criteria), replacing the earlier
 // "Proposed next step" recap.
-const MAIN_PANELS = 12;
-const APPENDIX_INDEX = 12;
+const MAIN_PANELS = 13;
+const APPENDIX_INDEX = 13;
 const TOTAL_PANELS = MAIN_PANELS + 1;
 const MOBILE_MAX_WIDTH = 767;
 
@@ -353,6 +354,7 @@ export function MicrositeShell() {
           <Panel1bAgenda />
           <Panel2ExecutionGap />
           <Panel3CurrentState />
+          <Panel35SdlcMap />
           <Panel4ExecutiveDiscovery />
           <Panel5BusinessImpact />
           <Panel6EnterpriseTrust />

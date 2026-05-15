@@ -173,6 +173,25 @@ export function Panel10Pilot() {
             ))}
           </div>
         </motion.div>
+
+        {/* Key executive question — anchors the pilot intent without
+            overpromising. Reads as a thin italic line under the
+            decision criteria module: "How do we prove near-term ROI
+            without overpromising the full €70M?". Premium executive
+            framing, not a callout box. */}
+        {p.keyQuestion && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-start gap-3 border-l-2 border-brand-orange/55 pl-4 sm:pl-5"
+          >
+            <p className="max-w-3xl text-[13px] italic leading-snug text-brand-ivory/80 sm:text-[14px] lg:text-[15px]">
+              “{p.keyQuestion}”
+            </p>
+          </motion.div>
+        )}
       </div>
     </PanelShell>
   );
