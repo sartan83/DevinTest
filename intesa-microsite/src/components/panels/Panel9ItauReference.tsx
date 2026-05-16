@@ -7,203 +7,104 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
 /**
  * Panel 9 — Banking Proof at Scale (Itaú, Gartner-validated).
  *
- * Single enterprise banking proof point. The section is intentionally
- * focused: Gartner-validated operational outcomes on top, adoption +
- * scale signals below, one small interpretive footer. No vendor logo
- * wall, no second customer card — reads as third-party validated
- * banking credibility, not a sales asset.
- *
- * Visual hierarchy:
- *   1. Hero statement
- *   2. Gartner outcome metrics (primary)
- *   3. Adoption + scale signals (secondary)
- *   4. Interpretive footer + source link
+ * Compact proof slide. One primary metric (6×), five secondary
+ * metrics as chips, one interpretation line, one small source
+ * link. Reduced ~45% in height vs. the prior layout — no
+ * letterhead logo block, no adoption section header, no large
+ * tile grid.
  */
 const ITAU_ORANGE = "#EC7000";
 const ITAU_BLUE = "#002779";
 
-type MetricEntry = { metric: string; label: string };
-
-function OutcomeTile({ m, i }: { m: MetricEntry; i: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.55, delay: 0.06 * i, ease: [0.22, 1, 0.36, 1] }}
-      className="relative flex flex-col overflow-hidden rounded-2xl border p-4 sm:p-5"
-      style={{
-        borderColor: `${ITAU_ORANGE}26`,
-        background: `linear-gradient(180deg, ${ITAU_BLUE}14 0%, rgba(8, 36, 28, 0.55) 100%)`,
-      }}
-    >
-      <span
-        className="font-display text-4xl font-light leading-[1.02] sm:text-5xl lg:text-[3.25rem]"
-        style={{ color: `${ITAU_ORANGE}e6` }}
-      >
-        {m.metric}
-      </span>
-      <span className="mt-2 text-[10px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[11px]">
-        {m.label}
-      </span>
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full blur-2xl"
-        style={{ background: `${ITAU_ORANGE}1c` }}
-      />
-    </motion.div>
-  );
-}
-
-function AdoptionTile({ m, i }: { m: MetricEntry; i: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.5, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col rounded-xl border px-4 py-3 sm:px-5 sm:py-4"
-      style={{
-        borderColor: `${ITAU_ORANGE}1c`,
-        background: `${ITAU_BLUE}0d`,
-      }}
-    >
-      <span
-        className="font-display text-2xl font-light leading-none sm:text-3xl"
-        style={{ color: `${ITAU_ORANGE}cc` }}
-      >
-        {m.metric}
-      </span>
-      <span className="mt-1.5 text-[10px] uppercase tracking-[0.22em] text-brand-ivory/65 sm:text-[11px]">
-        {m.label}
-      </span>
-    </motion.div>
-  );
-}
-
 export function Panel9ItauReference() {
   const p = intesa.panel9;
   const itau = p.itau;
+  // Fold the 75% engineering-adoption signal into the secondary
+  // chip row so the section reads as one tier, not two.
+  const chips = [...itau.outcomeMetrics, ...itau.adoptionMetrics];
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="bright">
       <div className="flex flex-col gap-4 sm:gap-5">
         <PanelHeadline text={p.headline} compact />
 
         <div
-          className="relative flex flex-col gap-4 rounded-2xl px-4 py-5 sm:gap-5 sm:px-6 sm:py-6"
+          className="relative flex flex-col gap-3.5 overflow-hidden rounded-2xl border px-4 py-4 sm:gap-4 sm:px-5 sm:py-5"
           style={{
-            background: `radial-gradient(circle at 85% 18%, ${ITAU_ORANGE}1c 0%, transparent 45%), radial-gradient(circle at 15% 85%, ${ITAU_BLUE}30 0%, transparent 55%)`,
+            borderColor: `${ITAU_ORANGE}26`,
+            background: `radial-gradient(circle at 85% 18%, ${ITAU_ORANGE}1c 0%, transparent 45%), radial-gradient(circle at 15% 85%, ${ITAU_BLUE}26 0%, transparent 55%)`,
           }}
         >
-          {/* Header: Itaú label + logo badge */}
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
-            <span
-              className="text-[10px] uppercase tracking-[0.28em] sm:text-[11px]"
-              style={{ color: `${ITAU_ORANGE}b3` }}
-            >
-              Itaú · Gartner-validated banking outcomes
-            </span>
-            {itau.logoSrc ? (
-              <div
-                className="flex items-center gap-3 self-start rounded-xl border bg-brand-green-deep/35 px-3.5 py-2.5 sm:self-center sm:px-4 sm:py-3"
-                style={{ borderColor: `${ITAU_ORANGE}42` }}
-              >
-                <span
-                  className="text-[9px] uppercase tracking-[0.28em] sm:text-[10px]"
-                  style={{ color: `${ITAU_ORANGE}b3` }}
-                >
-                  Reference
-                </span>
-                <span
-                  aria-hidden
-                  className="block h-6 w-px"
-                  style={{ background: `${ITAU_ORANGE}42` }}
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={itau.logoSrc}
-                  alt={itau.logoAlt}
-                  className="h-12 w-auto sm:h-14 lg:h-16"
-                />
-              </div>
-            ) : null}
-          </div>
+          {/* Header — small Itaú · Gartner caption only. No logo
+              block, no Reference badge — keeps the panel compact. */}
+          <span
+            className="text-[10px] uppercase tracking-[0.28em] sm:text-[10.5px]"
+            style={{ color: `${ITAU_ORANGE}b3` }}
+          >
+            Itaú · Gartner-validated banking outcomes
+          </span>
 
-          {/* Hero anchor — single dominant modernization multiplier */}
+          {/* Hero anchor — 6× modernization acceleration. Inline
+              row, reduced typography vs. prior version. */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative overflow-hidden rounded-2xl border px-5 py-6 sm:px-8 sm:py-7"
-            style={{
-              borderColor: `${ITAU_ORANGE}33`,
-              background: `radial-gradient(circle at 18% 50%, ${ITAU_ORANGE}26 0%, transparent 55%), linear-gradient(180deg, ${ITAU_BLUE}1f 0%, rgba(8, 36, 28, 0.6) 100%)`,
-            }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap items-baseline gap-x-4 gap-y-1"
           >
-            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-baseline sm:gap-8">
-              <span
-                className="max-w-full font-display font-semibold leading-[0.88] tracking-tight text-[64px] sm:text-[96px] lg:text-[120px]"
-                style={{ color: `${ITAU_ORANGE}f2` }}
-              >
-                {itau.heroMetric.metric}
-              </span>
-              <span className="max-w-xs text-[14px] uppercase tracking-[0.22em] text-brand-ivory/85 sm:text-[15px] lg:text-[16px]">
-                {itau.heroMetric.label}
-              </span>
-            </div>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full blur-3xl"
-              style={{ background: `${ITAU_ORANGE}26` }}
-            />
+            <span
+              className="font-display font-semibold leading-[0.9] tracking-tight text-[56px] sm:text-[72px] lg:text-[88px]"
+              style={{ color: `${ITAU_ORANGE}f0` }}
+            >
+              {itau.heroMetric.metric}
+            </span>
+            <span className="text-[13px] uppercase tracking-[0.2em] text-brand-ivory/85 sm:text-[14px] lg:text-[15px]">
+              {itau.heroMetric.label}
+            </span>
           </motion.div>
 
-          {/* Tier 1 — Gartner outcomes (4 dominant tiles) */}
-          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-            {itau.outcomeMetrics.map((m, i) => (
-              <OutcomeTile key={m.label} m={m} i={i} />
+          {/* Secondary metrics — five compact chips on a single
+              wrapping row. Replaces the prior 4-tile grid + 1-tile
+              adoption row. */}
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            {chips.map((m, i) => (
+              <motion.span
+                key={m.label}
+                initial={{ opacity: 0, y: 4 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.42, delay: 0.05 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-flex items-baseline gap-1.5 rounded-full border bg-brand-green-mid/30 px-3 py-1 sm:gap-2 sm:px-3.5"
+                style={{ borderColor: `${ITAU_ORANGE}33` }}
+              >
+                <span
+                  className="font-display text-[13px] font-semibold leading-none tracking-tight sm:text-[14px]"
+                  style={{ color: `${ITAU_ORANGE}e0` }}
+                >
+                  {m.metric}
+                </span>
+                <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-ivory/75 sm:text-[11px]">
+                  {m.label}
+                </span>
+              </motion.span>
             ))}
           </div>
 
-          {/* Tier 2 — Adoption + scale signals (2 compact tiles) */}
-          <div className="flex flex-col gap-2.5">
-            <div
-              className="text-[10px] uppercase tracking-[0.28em] sm:text-[11px]"
-              style={{ color: `${ITAU_ORANGE}99` }}
-            >
-              Adoption & scale
-            </div>
-            <div
-              className={
-                itau.adoptionMetrics.length > 1
-                  ? "grid gap-2.5 sm:grid-cols-2 sm:gap-3"
-                  : "grid gap-2.5 sm:max-w-md sm:gap-3"
-              }
-            >
-              {itau.adoptionMetrics.map((m, i) => (
-                <AdoptionTile key={m.label} m={m} i={i} />
-              ))}
-            </div>
-          </div>
-
-          {/* Interpretive footer + source link */}
-          <div className="flex flex-col gap-1.5 border-t pt-3 sm:gap-2"
+          {/* Interpretation + source — single tight row. */}
+          <div
+            className="flex flex-col gap-1.5 border-t pt-2.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:pt-3"
             style={{ borderColor: `${ITAU_ORANGE}1c` }}
           >
             {p.sdlcInterpretation && (
-              <div className="text-[12px] italic leading-relaxed text-brand-ivory/80 sm:text-[13px] lg:text-[14px]">
+              <div className="text-[12px] italic leading-snug text-brand-ivory/80 sm:text-[12.5px]">
                 {p.sdlcInterpretation}
               </div>
             )}
-            <div className="text-[11px] leading-relaxed text-brand-ivory/65 sm:text-[12px]">
-              {itau.interpretiveFooter}
-            </div>
             <a
               href={itau.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[10px] leading-relaxed text-brand-ivory/50 underline decoration-brand-ivory/25 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60 sm:text-[11px]"
+              className="inline-flex shrink-0 items-center gap-1 text-[10px] leading-relaxed text-brand-ivory/50 underline decoration-brand-ivory/20 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60 sm:text-[10.5px]"
             >
               <span aria-hidden>↗</span>
               <span>{itau.sourceLabel}</span>
@@ -211,7 +112,7 @@ export function Panel9ItauReference() {
           </div>
         </div>
 
-        <div className="text-[10px] leading-relaxed text-brand-ivory/40 sm:text-[11px]">
+        <div className="text-[10px] leading-relaxed text-brand-ivory/40 sm:text-[10.5px]">
           {p.disclaimer}
         </div>
       </div>

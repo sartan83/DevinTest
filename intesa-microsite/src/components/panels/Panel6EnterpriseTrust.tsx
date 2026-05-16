@@ -2,172 +2,111 @@
 
 import { motion } from "framer-motion";
 import { intesa } from "../../data/intesa";
-import { PanelShell, PanelHeadline, PanelSubhead, PanelClosing } from "../PanelShell";
+import { PanelShell, PanelHeadline } from "../PanelShell";
 
 /**
  * Panel 6 — Governed Acceleration.
  *
- * Reframed from a "Built for Enterprise" feature grid into a governance
- * narrative. Three pillars (not five feature cards), large typography,
- * thin top-rule dividers instead of card framing, generous whitespace.
- * The panel communicates that modernization acceleration can operate
- * inside banking governance — not that the product has enterprise
- * features.
+ * Compact governance slide: three pillars, max 3 bullets each, one
+ * small proof metric, one review-reframe line. Reduced ~40% in
+ * height vs. the previous layout — no large card padding, no body
+ * paragraph between title and bullets, no closing footer.
  */
 export function Panel6EnterpriseTrust() {
   const p = intesa.panel6;
   return (
-    <PanelShell eyebrow={p.eyebrow} bg="deep">
-      <div className="flex flex-col gap-8 sm:gap-10 lg:gap-12">
-        <div className="flex flex-col gap-4 sm:gap-5">
-          <PanelHeadline text={p.headline} />
+    <PanelShell eyebrow={p.eyebrow} compact bg="deep">
+      <div className="flex flex-col gap-4 sm:gap-5">
+        {/* Header — headline + tight subline. */}
+        <div className="flex flex-col gap-2 sm:gap-2.5">
+          <PanelHeadline text={p.headline} compact />
           {p.subhead && (
-            <PanelSubhead className="mt-0 max-w-xl text-brand-ivory/65">
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-2xl text-[12px] leading-relaxed text-brand-ivory/65 sm:text-[13.5px] lg:text-[14.5px]"
+            >
               {p.subhead}
-            </PanelSubhead>
+            </motion.p>
           )}
         </div>
 
-        {/* Three governance pillars.
-            ─────────────────────────────────────────────────────────
-            No card framing, no tag chips. Each pillar sits under a
-            thin ivory top-rule so the three columns read as a single
-            governance system, not as three separate feature tiles.
-            Numbered (01 / 02 / 03) for executive rhythm.
-
-            Pillar 1 (Human-in-the-loop execution) is subtly elevated
-            as the primary governance anchor: wider column, brighter
-            top-rule, slightly larger title, slightly brighter body
-            and bullets. The other two remain at the supporting
-            tier so the trio still reads as a single system, not as
-            a hero card plus two footnotes. */}
-        <div className="grid gap-8 sm:gap-10 lg:grid-cols-[1.35fr_1fr_1fr] lg:gap-14">
-          {p.pillars.map((c, i) => {
-            const isPrimary = i === 0;
-            return (
-              <motion.div
-                key={c.title}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.1 + 0.09 * i,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={
-                  isPrimary
-                    ? "flex flex-col border-t-[1.5px] border-brand-ivory/30 pt-6 sm:pt-7"
-                    : "flex flex-col border-t border-brand-ivory/15 pt-5 sm:pt-6"
-                }
-              >
-                <span
-                  className={
-                    isPrimary
-                      ? "text-[10px] uppercase tracking-[0.36em] text-brand-orange sm:text-[11px]"
-                      : "text-[10px] uppercase tracking-[0.32em] text-brand-orange-soft sm:text-[11px]"
-                  }
-                >
+        {/* Three governance pillars on a single row. Compact cards
+            with a thin top-rule, 3 bullets max, no body paragraph.
+            Each pillar reads in under 4 seconds. */}
+        <div className="grid gap-2.5 sm:gap-3 lg:grid-cols-3">
+          {p.pillars.map((c, i) => (
+            <motion.div
+              key={c.title}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: 0.08 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col gap-2.5 rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 px-3.5 py-3.5 sm:px-4 sm:py-4"
+            >
+              <div className="flex items-baseline justify-between gap-2 border-b border-brand-ivory/10 pb-2">
+                <span className="text-[9.5px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3
-                  className={
-                    isPrimary
-                      ? "mt-4 font-display text-xl font-semibold leading-snug text-brand-ivory sm:text-[22px] lg:text-[26px]"
-                      : "mt-4 font-display text-lg font-medium leading-snug text-brand-ivory sm:text-xl lg:text-[22px]"
-                  }
-                >
-                  {c.title}
-                </h3>
-                <p
-                  className={
-                    isPrimary
-                      ? "mt-3 max-w-[36ch] text-[14px] leading-relaxed text-brand-ivory/85 sm:text-[15px] lg:text-[16px]"
-                      : "mt-2.5 max-w-[34ch] text-[13px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
-                  }
-                >
-                  {c.body}
-                </p>
-                {c.bullets && c.bullets.length > 0 && (
-                  /* Subtle operational hints. Rendered as a tight list
-                     of short phrases with a thin ivory micro-dot.
-                     Premium and understated — no card, no chip, no
-                     border. The bullets give engineering stakeholders
-                     credible infra/operational signals without
-                     turning the panel into a feature grid.
-
-                     On the primary pillar the bullet ink and the
-                     micro-dot are slightly brighter so the governance
-                     anchor remains the most resolved column. */
-                  <ul
-                    className={
-                      isPrimary
-                        ? "mt-5 flex flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-brand-ivory/70 sm:mt-6 sm:text-[12px]"
-                        : "mt-4 flex flex-col gap-1.5 text-[11px] uppercase tracking-[0.18em] text-brand-ivory/55 sm:mt-5 sm:text-[12px]"
-                    }
-                  >
-                    {c.bullets.map((b) => (
-                      <li key={b} className="flex items-center gap-2">
-                        <span
-                          aria-hidden
-                          className={
-                            isPrimary
-                              ? "h-[4px] w-[4px] rounded-full bg-brand-ivory/55"
-                              : "h-[3px] w-[3px] rounded-full bg-brand-ivory/40"
-                          }
-                        />
-                        <span className="leading-snug">{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </motion.div>
-            );
-          })}
+                <span className="font-display text-[10px] uppercase tracking-[0.2em] text-brand-ivory/45 sm:text-[10.5px]">
+                  Pillar
+                </span>
+              </div>
+              <h3 className="font-display text-[14.5px] font-semibold leading-tight text-brand-ivory sm:text-[16px] lg:text-[17px]">
+                {c.title}
+              </h3>
+              {c.bullets && c.bullets.length > 0 && (
+                <ul className="flex flex-col gap-1 text-[11px] uppercase tracking-[0.18em] text-brand-ivory/70 sm:text-[11.5px]">
+                  {c.bullets.slice(0, 3).map((b) => (
+                    <li key={b} className="flex items-center gap-2">
+                      <span
+                        aria-hidden
+                        className="inline-block h-1 w-1 shrink-0 rounded-full bg-brand-orange-soft/85"
+                      />
+                      <span className="leading-snug">{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </motion.div>
+          ))}
         </div>
 
-        {/* Subtle reference-deployment proof signal — single low-noise
-            line above the closing. Confirms the governance model has
-            already produced measurable operational outcomes in a
-            comparable banking environment. Premium, understated; NOT
-            a KPI tile, NOT a security checklist. */}
-        {p.proofMetric && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-brand-ivory/10 pt-4 sm:pt-5"
-          >
-            <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
-              {p.proofMetric.caption}
-            </span>
-            <span className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-[26px] lg:text-[30px]">
-              {p.proofMetric.value}
-            </span>
-            <span className="text-[12px] leading-snug text-brand-ivory/70 sm:text-[13px]">
-              {p.proofMetric.label}
-            </span>
-          </motion.div>
-        )}
-
-        {/* Review-layer reframe — Devin does not remove the review
-            layer, it makes it more efficient, structured, and
-            measurable. Sits between the reference-deployment proof
-            signal and the closing line as a thin italic anchor. */}
-        {p.reviewReframe && (
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl text-[12px] italic leading-relaxed text-brand-ivory/65 sm:text-[13px] lg:text-[14px]"
-          >
-            {p.reviewReframe}
-          </motion.p>
-        )}
-
-        <PanelClosing>{p.closing}</PanelClosing>
+        {/* Proof metric + review reframe — one tight row. */}
+        <div className="flex flex-col gap-2 border-t border-brand-ivory/10 pt-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-5">
+          {p.proofMetric && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5"
+            >
+              <span className="text-[9.5px] uppercase tracking-[0.26em] text-brand-orange-soft sm:text-[10px]">
+                {p.proofMetric.caption}
+              </span>
+              <span className="font-display text-[20px] font-light leading-none text-brand-ivory sm:text-[22px]">
+                {p.proofMetric.value}
+              </span>
+              <span className="text-[11px] leading-snug text-brand-ivory/70 sm:text-[12px]">
+                {p.proofMetric.label}
+              </span>
+            </motion.div>
+          )}
+          {p.reviewReframe && (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-2xl text-[11.5px] italic leading-snug text-brand-ivory/65 sm:text-[12.5px] lg:text-right"
+            >
+              {p.reviewReframe}
+            </motion.p>
+          )}
+        </div>
       </div>
     </PanelShell>
   );

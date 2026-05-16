@@ -598,12 +598,12 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel4: {
     eyebrow: "Future-State Engineering Flow",
-    headline: "SDLC execution\nbecomes scalable and reviewable.",
+    headline: "Modernization execution\nbecomes scalable.",
     // Subline under the hero. Frames the future-state as
-    // governed scaling of the 70% execution zone — explicitly
-    // not autonomous AI, explicitly not weakened governance.
+    // governed scaling — Devin scales execution and reviewability,
+    // not decision authority.
     subhead:
-      "Devin scales the 70% SDLC execution zone — coding, testing, and release — while existing governance remains intact.",
+      "Devin scales execution and reviewability — not decision authority.",
     // SDLC phase anchors rendered as subtle labels under the
     // future-state flow. Maps Devin's execution layer onto
     // Intesa's own SDLC effort distribution (43% coding +
@@ -637,14 +637,12 @@ export const intesa = {
     // Left column — current-state pain signals. Short, operational,
     // not abstract. Visually muted/constrained on the page.
     current: {
-      label: "Traditional SDLC execution",
-      caption: "Today",
+      label: "Traditional execution",
+      caption: "Before",
       items: [
-        "Manual remediation & coding",
-        "Repetitive test authoring",
-        "Linear review overhead",
-        "Fragmented documentation",
-        "Slow execution-zone throughput",
+        "Manual remediation",
+        "Fragmented testing",
+        "Review reconstruction",
       ],
     },
     // Center bridge — Devin execution layer. Reads as an execution
@@ -660,29 +658,39 @@ export const intesa = {
     // map directly onto the SDLC phases Devin executes inside the
     // 70% execution zone: coding, testing, and PR-ready delivery.
     future: {
-      label: "Governed SDLC execution",
-      caption: "With Devin",
+      label: "Devin execution layer",
+      caption: "Devin",
       items: [
-        "Bounded coding & remediation",
-        "Generated & updated tests",
-        "CI validation & PR-ready delivery",
-        "Continuously updated documentation",
-        "Reviewable, test-backed throughput",
+        "Code transformation",
+        "Test generation",
+        "Remediation",
+        "CI validation",
       ],
-      // Cinematic acceleration anchor that emerges from inside the
-      // future-state area. Reads as an operational signal coming out
-      // of the new execution model — not as a marketing KPI tile.
+      // Cinematic acceleration anchor — premium scale signal,
+      // sits at the bottom of the right column. Reduced from a
+      // full anchor block to a single inline metric.
       anchor: {
         metric: "6×",
         label: "Modernization acceleration",
         caption: "Reference deployment",
       },
-      // Secondary operational validation signals. Small, scannable,
-      // sit under the 6× anchor without competing with it.
+      // Reduced to a single secondary signal per the compaction
+      // pass — only 6× and 20–30% are visible on this slide.
       signals: [
         { value: "20–30%", label: "Throughput increase" },
-        { value: "15%", label: "Lead-time improvement" },
-        { value: "70%", label: "Vulnerability remediation automated" },
+      ],
+    },
+    // Reviewable PR-ready output — third column. Reads as the
+    // deliverable that comes out of the Devin execution layer:
+    // structured review package + human approval gate.
+    reviewable: {
+      label: "Reviewable output",
+      caption: "After",
+      items: [
+        "Structured diffs",
+        "PR summary",
+        "Test evidence",
+        "Human approval",
       ],
     },
     // Closing line — single sentence, executive tone. Anchors the
@@ -863,41 +871,35 @@ export const intesa = {
     eyebrow: "Governed acceleration",
     headline: "Scaling SDLC execution\nwithout weakening control.",
     subhead:
-      "Built for regulated engineering environments where final approval remains human, but the review package becomes faster, more structured, and more measurable.",
+      "Final approval remains human. Devin makes the review package faster, clearer and more measurable.",
     legacySubheadDeprecated:
       "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
     pillars: [
       {
         title: "Reviewable PR-ready execution",
-        body: "Every change ships with a structured review package — diffs, summary, tests, CI evidence, execution trace, and documentation context.",
+        body: "",
         bullets: [
-          "Structured diffs",
-          "PR summary",
+          "Diffs",
           "Test evidence",
-          "CI status",
           "Execution trace",
-          "Documentation context",
         ],
       },
       {
         title: "Human approval remains",
-        body: "Final decision authority stays with Intesa engineering. The SDLC envelope is preserved, not replaced.",
+        body: "",
         bullets: [
           "PR-based delivery",
-          "Human approval gates",
-          "Existing SDLC preserved",
-          "Engineering accountability stays with Intesa",
+          "Approval gates",
+          "SDLC preserved",
         ],
       },
       {
-        title: "Enterprise isolation & controls",
-        body: "Dedicated VM per Devin session, repo-scoped execution, and full auditability — VPC-compatible from day one.",
+        title: "Enterprise isolation",
+        body: "",
         bullets: [
-          "Dedicated VM per session",
+          "Dedicated VM",
           "Repo-scoped execution",
-          "Environment isolation",
-          "VPC-compatible deployment",
-          "Auditability",
+          "VPC-compatible",
         ],
       },
     ] as LabeledCard[],
