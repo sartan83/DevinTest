@@ -224,14 +224,14 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel1: {
     eyebrow: "Opening",
-    headline: "Governed SDLC execution\nat enterprise scale.",
+    headline:
+      "Intesa is not evaluating AI productivity —\nit is racing two quantified execution clocks.",
     subhead: "",
-    // Subtle supporting subline under the hero. Frames the next
-    // modernization wave as an SDLC execution scalability problem
-    // — anchored on Intesa's own 15% / ~€70M efficiency ambition —
-    // rather than a generic technology strategy debate.
+    // Subtle supporting subline under the hero. Frames the two
+    // simultaneous economic pressures both depend on whether SDLC
+    // execution capacity scales.
     opener:
-      "Intesa’s next modernization wave is not only a cloud migration challenge — it is an SDLC execution scalability challenge.",
+      "Cloud / isytech value capture and a 15% SDLC efficiency ambition both depend on whether execution capacity scales.",
     legacySubheadDeprecated:
       "Modernization leverage at enterprise scale — without proportional headcount growth.",
     framingLine:
@@ -243,7 +243,7 @@ export const intesa = {
     // markers lead (15% / ~€70M / ~6,900 dev capacity), followed by
     // the migration anchor and the structural investment anchor.
     scaleContext:
-      "One of Europe’s largest modernization environments — with quantified efficiency pressure already attached.",
+      "Mainframe-to-cloud modernization and isytech extension are tied to structural efficiency gains.",
     kpis: [
       {
         value: "15%",
@@ -358,13 +358,14 @@ export const intesa = {
     // Strategic execution-tension hero. Frames the remaining gap
     // as the operational hard part of the migration, not as a
     // descriptive milestone.
-    headline: "The remaining 36% is the hard part.",
+    headline:
+      "The remaining 36% is where\nexecution risk concentrates.",
     // Supporting line — anchors the dual-track pressure: cloud
     // migration is one vector, SDLC efficiency is the other. The
     // 15% / ~€70M is Intesa's own quantified ambition, not a
     // Devin claim.
     support:
-      "The issue is no longer whether Intesa has a modernization strategy. It is whether execution capacity scales fast enough to capture the economic benefits on time.",
+      "The question is no longer whether Intesa has a modernization strategy. It is whether SDLC execution capacity scales fast enough to capture value on time.",
     // Current-state → target-state anchors flanking a tension zone.
     // The component renders 64% on the left and ~100% by 2029 on
     // the right, with the remaining 36% gap visualised between
@@ -438,8 +439,9 @@ export const intesa = {
     // ownership). It is an executive alignment checkpoint, not a
     // discovery slide.
     discoveryIntro:
-      "Before defining the pilot, I would validate whether the 70% execution zone is the right place to start.",
-    headline: "Aligning on the right\nstarting point.",
+      "Based on the SDLC data, the hypothesis is to start where effort concentrates most: coding, testing and release.",
+    headline:
+      "Before proposing a pilot,\nvalidate the starting point.",
     // Four open executive validation questions. Each card has a
     // short title, the question itself, and a quiet supporting
     // note describing what the answer would unlock. Cards are
@@ -598,12 +600,14 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel4: {
     eyebrow: "Future-State Engineering Flow",
-    headline: "Modernization execution\nbecomes scalable.",
-    // Subline under the hero. Frames the future-state as
-    // governed scaling — Devin scales execution and reviewability,
-    // not decision authority.
+    headline:
+      "Execution becomes parallel\nbefore governance becomes the bottleneck.",
+    // Subline under the hero. Anchors the section on the
+    // OPERATING-MODEL shift (linear → parallel workstream),
+    // not on governance or review controls — those live in
+    // Panel 6 (Governed Acceleration).
     subhead:
-      "Devin scales execution and reviewability — not decision authority.",
+      "Devin turns repetitive SDLC work into parallel, reviewable work units across coding, testing and release.",
     // SDLC phase anchors rendered as subtle labels under the
     // future-state flow. Maps Devin's execution layer onto
     // Intesa's own SDLC effort distribution (43% coding +
@@ -637,12 +641,13 @@ export const intesa = {
     // Left column — current-state pain signals. Short, operational,
     // not abstract. Visually muted/constrained on the page.
     current: {
-      label: "Traditional execution",
-      caption: "Before",
+      label: "Today — linear execution",
+      caption: "Today",
       items: [
-        "Manual remediation",
-        "Fragmented testing",
-        "Review reconstruction",
+        "Sequential remediation",
+        "Manual test creation",
+        "Documentation reconstruction",
+        "Slow PR readiness",
       ],
     },
     // Center bridge — Devin execution layer. Reads as an execution
@@ -661,10 +666,12 @@ export const intesa = {
       label: "Devin execution layer",
       caption: "Devin",
       items: [
+        "Parallel sessions",
+        "Repo understanding",
         "Code transformation",
         "Test generation",
         "Remediation",
-        "CI validation",
+        "PR preparation",
       ],
       // Cinematic acceleration anchor — premium scale signal,
       // sits at the bottom of the right column. Reduced from a
@@ -680,17 +687,17 @@ export const intesa = {
         { value: "20–30%", label: "Throughput increase" },
       ],
     },
-    // Reviewable PR-ready output — third column. Reads as the
-    // deliverable that comes out of the Devin execution layer:
-    // structured review package + human approval gate.
+    // Future-state PR-ready workstream — third column. Reads as
+    // the operating-model destination: multiple parallel reviewable
+    // PRs flowing into the existing SDLC, not a governance overlay.
     reviewable: {
-      label: "Reviewable output",
-      caption: "After",
+      label: "Future state — PR-ready workstream",
+      caption: "Future state",
       items: [
-        "Structured diffs",
-        "PR summary",
-        "Test evidence",
-        "Human approval",
+        "Multiple reviewable PRs",
+        "Test-backed output",
+        "Faster throughput",
+        "Measurable review effort",
       ],
     },
     // Closing line — single sentence, executive tone. Anchors the
@@ -698,7 +705,7 @@ export const intesa = {
     // a roadmap or a vendor claim. Frames review as accelerated by
     // a better starting package, not removed.
     closing:
-      "Human approval remains. Review effort becomes more structured, measurable, and scalable.",
+      "Devin scales repetitive execution into PR-ready workstreams — not just individual coding tasks.",
   },
 
   // -------------------------------------------------------------------------
@@ -869,37 +876,40 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel6: {
     eyebrow: "Governed acceleration",
-    headline: "Scaling SDLC execution\nwithout weakening control.",
+    headline:
+      "Control is not added after acceleration —\nit is built into the execution envelope.",
     subhead:
-      "Final approval remains human. Devin makes the review package faster, clearer and more measurable.",
+      "Final approval remains human, while Devin makes the review package more structured, traceable and measurable.",
     legacySubheadDeprecated:
       "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
     pillars: [
       {
-        title: "Reviewable PR-ready execution",
+        title: "Review package",
         body: "",
         bullets: [
-          "Diffs",
+          "Structured diffs",
+          "PR summary",
           "Test evidence",
           "Execution trace",
         ],
       },
       {
-        title: "Human approval remains",
+        title: "Control model",
         body: "",
         bullets: [
-          "PR-based delivery",
-          "Approval gates",
-          "SDLC preserved",
+          "Human approval gates",
+          "Existing SDLC preserved",
+          "Engineering accountability remains",
         ],
       },
       {
-        title: "Enterprise isolation",
+        title: "Enterprise envelope",
         body: "",
         bullets: [
-          "Dedicated VM",
+          "Dedicated VM per session",
           "Repo-scoped execution",
           "VPC-compatible",
+          "Auditability",
         ],
       },
     ] as LabeledCard[],
@@ -907,7 +917,7 @@ export const intesa = {
     // reframe line — review is not removed, it is made faster
     // and more measurable.
     reviewReframe:
-      "Devin does not remove the review layer. It makes the review layer more efficient, structured, and measurable.",
+      "Devin does not remove review. It makes review faster to perform, easier to evidence and safer to govern.",
     // Subtle reference-deployment proof signal. Rendered as a
     // single low-noise line above the closing — confirms that
     // the governance model has already produced measurable
@@ -1004,13 +1014,14 @@ export const intesa = {
   // PANEL 8 — ROI Signal (€€€ math, separated from the leverage panel)
   // -------------------------------------------------------------------------
   panel8: {
-    eyebrow: "From SDLC ambition to upside potential",
-    headline: "A measured path to — and beyond —\nthe €70M SDLC ambition.",
+    eyebrow: "ROI / Upside Potential",
+    headline:
+      "The €70M target is the ambition —\nnot the ceiling.",
     // Subline — frames the ROI question as net efficiency across
     // the full execution path (coding, testing, release, PR-ready
     // packaging, review). NOT a coding-speed-only story.
     subhead:
-      "Intesa’s official target is 15% SDLC efficiency, equivalent to ~€70M by 2028. The question is whether governed AI execution can create enough net efficiency across coding, testing, release and reviewable PR preparation to meet — and potentially exceed — that ambition.",
+      "If governed AI improves net efficiency across the 70% execution zone, the path to target becomes measurable and upside becomes visible.",
     // Hero — four executive numbers. The fourth (~21%) makes the
     // ROI math visible: to reach €70M on a €327M execution-effort
     // zone, the pilot must demonstrate ~21% net efficiency after
@@ -1194,20 +1205,27 @@ export const intesa = {
   // demonstrates measurable gains under governance-aware factory workflows.
   // -------------------------------------------------------------------------
   panel9: {
-    eyebrow: "Banking proof at scale",
-    // Single enterprise banking proof point (Itaú). The section is
-    // intentionally focused: Gartner-validated operational outcomes
-    // on top, adoption + scale signals below, one small interpretive
-    // footer. No vendor wall, no second customer card.
-    headline: "Measured outcomes\nin large-scale banking environments.",
+    eyebrow: "Banking Proof at Scale",
+    // Single enterprise banking proof point (Itaú). Case-study
+    // layout: left = Itaú wordmark + reference caption; right =
+    // 6× hero metric + secondary chip cluster + qualitative PR
+    // line. The Itaú anchor restores the section's credibility —
+    // without it, the page reads as a generic metrics list.
+    headline:
+      "Banking-scale outcomes\nalready show the curve can move.",
     // SDLC interpretation line — anchors why these metrics matter
     // specifically for Intesa: they sit on top of Intesa's own
     // largest SDLC effort concentration (coding + testing/release).
     sdlcInterpretation:
-      "These metrics matter because Intesa’s largest SDLC effort concentration sits in coding, testing, and release.",
+      "These metrics matter because Intesa’s highest-effort SDLC zones are coding, testing and release.",
     itau: {
       logoSrc: "logos/itau.svg",
       logoAlt: "Itaú",
+      // Wordmark caption rendered next to (or under) the logo.
+      // Two-line letterhead-style anchor: reference label + small
+      // context line. NOT a logo wall — single proof anchor.
+      anchorCaption: "Reference banking deployment",
+      anchorContext: "Large-scale banking engineering environment",
       // Hero anchor — the single dominant modernization acceleration
       // multiplier. Apple-keynote scale; carries the emotional impact
       // of the slide.
@@ -1215,6 +1233,11 @@ export const intesa = {
         metric: "6×",
         label: "Faster modernization delivery",
       },
+      // Qualitative PR-review proof line. Rendered alongside the
+      // chip row as a non-numeric proof point. Source material does
+      // not give an exact PR-acceptance metric, so this stays
+      // qualitative — no invented number.
+      qualitativePr: "Faster path to reviewable PRs",
       // Tier 1 — Gartner-validated operational outcomes (primary).
       outcomeMetrics: [
         { metric: "20–30%", label: "Throughput increase" },
@@ -1236,7 +1259,7 @@ export const intesa = {
       sourceUrl:
         "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
       interpretiveFooter:
-        "Governed AI workflows already operating inside large-scale banking engineering environments.",
+        "Proof point: governed AI workflows already operating inside banking-scale engineering environments.",
     },
     disclaimer:
       "Illustrative reference metrics from a separate enterprise banking environment.",
@@ -1265,7 +1288,10 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel11: {
     eyebrow: "4-week pilot",
-    headline: "Validate contribution to the\n15% SDLC efficiency ambition.",
+    headline:
+      "Prove the curve\nbefore scaling the rollout.",
+    pilotSupport:
+      "The pilot validates whether workflow-level improvements make the €70M trajectory credible.",
     // Supporting subline. Frames the pilot as a bounded validation
     // sprint focused on the highest-effort SDLC zones (coding,
     // testing, release) — not a transformation programme, not a
@@ -1415,9 +1441,10 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panelSdlcMap: {
     eyebrow: "SDLC execution map",
-    headline: "Where the SDLC effort\nconcentrates.",
+    headline:
+      "The biggest lever is not abstract productivity —\nit is the 70% execution zone.",
     subhead:
-      "Intesa’s SDLC effort distribution — the largest addressable execution zone is not abstract productivity. It is the work required to move from technical intent to tested, reviewable, release-ready change.",
+      "43% coding + 27% testing/release represents the largest concentration of SDLC effort. This is the zone where Devin should be validated first: code transformation, testing, remediation and PR-ready delivery.",
     // Hero metric — the 70% execution zone. Sits as the dominant
     // anchor above the stacked-bar visual.
     heroMetric: {

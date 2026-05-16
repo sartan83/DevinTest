@@ -5,43 +5,40 @@ import { intesa } from "../../data/intesa";
 import { PanelShell, PanelHeadline } from "../PanelShell";
 
 /**
- * Panel 8 — From SDLC ambition to upside potential.
+ * Panel 8 — ROI / Upside Potential.
  *
- * Compact executive ROI slide. Reduced ~55% in height vs. the prior
- * layout. Structure, top to bottom:
- *   1. Header — headline + subline.
- *   2. Hero — four large numbers (15% / ~€70M / 70% / ~21%) on one row.
- *   3. Calculation strip — one single line (€70M / 15% → €467M; ×70% → €327M; €70M / €327M → ~21%).
- *   4. Scenario ladder — horizontal row of four points across €327M.
- *   5. Tiny inline leverage path — code → testing → remediation → PR-ready → review acceleration.
- *   6. Pilot evidence — compact chip row.
- *   7. Closing line + small model-notes drawer.
+ * Restored calculation spine. Structure, top to bottom:
+ *   1. Header — hero statement + supporting line.
+ *   2. Hero numbers — 15% / ~€70M / 70% / ~21%.
+ *   3. Calculation spine — 3 explicit derivation steps, visible.
+ *   4. Formula — ROI contribution = … × net efficiency after review and rework.
+ *   5. Scenario ladder — 4 horizontal points (~€33M / ~€70M / ~€82M / ~€98M).
+ *   6. Leverage path — tiny inline phrase.
+ *   7. Pilot evidence chips.
+ *   8. Closing message + small disclaimer drawer.
  *
- * "Where Devin creates SDLC leverage" is no longer a large row — it
- * collapses into a single inline phrase to save vertical space.
+ * The math is NOT hidden in a drawer — calculation spine and formula
+ * are both visible. The page reads as ambitious + defensible.
  */
 export function Panel8RoiSignal() {
   const p = intesa.panel8;
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="bright">
       <div className="flex flex-col gap-3.5 sm:gap-4">
-        {/* Header — headline + tight subline. */}
         <div className="flex flex-col gap-1.5 sm:gap-2">
           <PanelHeadline text={p.headline} compact />
-          {p.subhead && (
-            <motion.p
-              initial={{ opacity: 0, y: 4 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-3xl text-[11.5px] leading-snug text-brand-ivory/65 sm:text-[12.5px]"
-            >
-              Intesa’s €70M target is the official ambition, not the ceiling.
-            </motion.p>
-          )}
+          <motion.p
+            initial={{ opacity: 0, y: 4 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl text-[12px] leading-snug text-brand-ivory/70 sm:text-[13px]"
+          >
+            If governed AI improves net efficiency across the 70% execution zone, the path to target becomes measurable and upside becomes visible.
+          </motion.p>
         </div>
 
-        {/* Hero — four numbers on one row. Compact, no large halo. */}
+        {/* Hero — four numbers on one row. */}
         <div className="grid grid-cols-2 gap-x-3 gap-y-3 rounded-xl border border-brand-ivory/12 bg-brand-green-mid/25 px-3.5 py-3 sm:px-4 sm:py-3.5 lg:grid-cols-4 lg:gap-x-5">
           {p.hero.numbers.map((n, i) => {
             const isZone = n.key === "zone";
@@ -97,48 +94,94 @@ export function Panel8RoiSignal() {
           })}
         </div>
 
-        {/* Calculation strip — one single horizontal line showing
-            the derivation. Replaces the prior two derived cards. */}
+        {/* Calculation spine — three explicit derivation rows.
+            Each row reads as left = expression, right = result. */}
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-2 rounded-xl border border-brand-orange/25 bg-brand-orange/[0.04] px-3.5 py-2.5 sm:px-4 sm:py-3"
+          className="flex flex-col gap-1.5 rounded-xl border border-brand-orange/25 bg-brand-orange/[0.04] px-3.5 py-3 sm:px-4 sm:py-3.5"
         >
           <span className="text-[9.5px] uppercase tracking-[0.26em] text-brand-orange-soft sm:text-[10.5px]">
-            {p.valueStrip.label}
+            Calculation spine · implied model
           </span>
-          <div className="flex flex-col gap-1.5 text-[11.5px] leading-snug text-brand-ivory/85 sm:text-[12.5px] lg:flex-row lg:items-center lg:gap-4">
-            <CalcStep>
-              <em className="not-italic font-semibold text-brand-ivory">€70M</em> /{" "}
-              <em className="not-italic font-semibold text-brand-ivory">15%</em> ={" "}
-              <em className="not-italic font-semibold text-brand-orange-soft">~€467M</em>
-              <span className="text-brand-ivory/55"> implied SDLC baseline</span>
-            </CalcStep>
-            <CalcDot />
-            <CalcStep>
-              <em className="not-italic font-semibold text-brand-ivory">~€467M</em> ×{" "}
-              <em className="not-italic font-semibold text-brand-ivory">70%</em> ={" "}
-              <em className="not-italic font-semibold text-brand-orange-soft">~€327M</em>
-              <span className="text-brand-ivory/55"> execution zone</span>
-            </CalcStep>
-            <CalcDot />
-            <CalcStep>
-              <em className="not-italic font-semibold text-brand-ivory">€70M</em> /{" "}
-              <em className="not-italic font-semibold text-brand-ivory">~€327M</em> ={" "}
-              <em className="not-italic font-semibold text-brand-orange">~21%</em>
-              <span className="text-brand-ivory/55"> net efficiency required</span>
-            </CalcStep>
+          <div className="flex flex-col gap-1 text-[11.5px] leading-snug sm:text-[12.5px]">
+            <CalcRow
+              expression={
+                <>
+                  <em className="not-italic font-semibold text-brand-ivory">€70M</em>{" "}
+                  /{" "}
+                  <em className="not-italic font-semibold text-brand-ivory">15%</em>
+                </>
+              }
+              result={
+                <>
+                  <em className="not-italic font-semibold text-brand-orange-soft">~€467M</em>{" "}
+                  <span className="text-brand-ivory/55">implied SDLC baseline</span>
+                </>
+              }
+            />
+            <CalcRow
+              expression={
+                <>
+                  <em className="not-italic font-semibold text-brand-ivory">~€467M</em>{" "}
+                  ×{" "}
+                  <em className="not-italic font-semibold text-brand-ivory">70%</em>
+                </>
+              }
+              result={
+                <>
+                  <em className="not-italic font-semibold text-brand-orange-soft">~€327M</em>{" "}
+                  <span className="text-brand-ivory/55">execution zone</span>
+                </>
+              }
+            />
+            <CalcRow
+              expression={
+                <>
+                  <em className="not-italic font-semibold text-brand-ivory">€70M</em>{" "}
+                  /{" "}
+                  <em className="not-italic font-semibold text-brand-ivory">~€327M</em>
+                </>
+              }
+              result={
+                <>
+                  <em className="not-italic font-semibold text-brand-orange">~21%</em>{" "}
+                  <span className="text-brand-ivory/55">net efficiency to reach target</span>
+                </>
+              }
+              highlight
+            />
           </div>
         </motion.div>
 
-        {/* Scenario ladder — horizontal row of four points across
-            the €327M zone. Target line is the official ambition. */}
+        {/* Formula — visible single line, compact. The "after review
+            and rework" clause is the key correction vs. coding-speed-only. */}
+        <motion.div
+          initial={{ opacity: 0, y: 4 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-1 rounded-lg border border-brand-ivory/10 bg-brand-green-mid/20 px-3.5 py-2.5 sm:px-4"
+        >
+          <span className="text-[9.5px] uppercase tracking-[0.26em] text-brand-ivory/55 sm:text-[10px]">
+            ROI contribution formula
+          </span>
+          <p className="text-[11px] leading-snug text-brand-ivory/85 sm:text-[12px]">
+            execution-zone effort{" "}
+            <span className="text-brand-ivory/50">×</span> workflow applicability{" "}
+            <span className="text-brand-ivory/50">×</span> adoption{" "}
+            <span className="text-brand-ivory/50">×</span>{" "}
+            <em className="not-italic font-semibold text-brand-orange-soft">net efficiency after review and rework</em>
+          </p>
+        </motion.div>
+
+        {/* Scenario ladder — horizontal. */}
         <div className="flex flex-col gap-2">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <span className="text-[10px] uppercase tracking-[0.26em] text-brand-ivory/55 sm:text-[10.5px]">
-              Trajectory scenarios across coding, testing/release and PR-ready delivery
+              Scenarios across coding, testing/release and PR-ready delivery
             </span>
             <span className="text-[10px] italic text-brand-ivory/45 sm:text-[10.5px]">
               Net efficiency on ~€327M
@@ -186,11 +229,11 @@ export function Panel8RoiSignal() {
             })}
           </div>
           <p className="text-[10px] italic leading-snug text-brand-ivory/45 sm:text-[10.5px]">
-            Scenarios to validate — not guaranteed savings.
+            Trajectory scenarios to validate — not guaranteed savings.
           </p>
         </div>
 
-        {/* Tiny inline leverage path — replaces the prior 5-card row. */}
+        {/* Tiny inline leverage path. */}
         <motion.p
           initial={{ opacity: 0, y: 4 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -201,10 +244,10 @@ export function Panel8RoiSignal() {
           <span className="uppercase tracking-[0.22em] text-brand-orange-soft/85">
             Leverage path ·
           </span>{" "}
-          code transformation → testing → remediation → PR-ready packaging → review acceleration
+          code transformation → test generation → remediation → PR-ready packaging → review acceleration
         </motion.p>
 
-        {/* Pilot evidence — compact chip row. */}
+        {/* Pilot evidence chips. */}
         <div className="flex flex-col gap-1.5 border-t border-brand-ivory/10 pt-2.5">
           <span className="text-[9.5px] uppercase tracking-[0.26em] text-brand-ivory/55 sm:text-[10.5px]">
             Operational proof from the pilot
@@ -233,16 +276,16 @@ export function Panel8RoiSignal() {
           </div>
         </div>
 
-        {/* Closing line + model-notes drawer. */}
+        {/* Closing line + small disclaimer drawer. */}
         <div className="flex flex-col gap-1.5">
           <motion.p
             initial={{ opacity: 0, y: 4 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[11.5px] italic leading-snug text-brand-ivory/70 sm:text-[12.5px]"
+            className="text-[11.5px] italic leading-snug text-brand-ivory/75 sm:text-[12.5px]"
           >
-            ~21% net efficiency on the ~€327M execution zone reaches the official €70M target; 25–30% creates upside above it.
+            ~21% net efficiency across the execution zone reaches the official €70M ambition. 25–30% creates upside.
           </motion.p>
           <details className="group text-[10.5px] text-brand-ivory/50 sm:text-[11px]">
             <summary className="cursor-pointer list-none select-none text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/40 transition hover:text-brand-ivory/70 sm:text-[10px]">
@@ -253,9 +296,6 @@ export function Panel8RoiSignal() {
             </summary>
             <div className="mt-1.5 flex flex-col gap-1 leading-snug">
               <p className="italic">{p.derivationNote}</p>
-              <p className="italic text-brand-ivory/40">
-                Formula · ROI contribution = addressable SDLC execution effort × workflow applicability × adoption × net efficiency after review and rework.
-              </p>
               <p className="italic text-brand-ivory/40">{p.disclaimer}</p>
             </div>
           </details>
@@ -265,17 +305,27 @@ export function Panel8RoiSignal() {
   );
 }
 
-function CalcStep({ children }: { children: React.ReactNode }) {
-  return <span className="whitespace-normal">{children}</span>;
-}
-
-function CalcDot() {
+function CalcRow({
+  expression,
+  result,
+  highlight,
+}: {
+  expression: React.ReactNode;
+  result: React.ReactNode;
+  highlight?: boolean;
+}) {
   return (
-    <span
-      aria-hidden
-      className="hidden text-brand-ivory/30 lg:inline-block"
+    <div
+      className={[
+        "grid grid-cols-[auto_auto_1fr] items-baseline gap-2 rounded-md px-1.5 py-1 sm:gap-3",
+        highlight ? "bg-brand-orange/[0.06]" : "",
+      ].join(" ")}
     >
-      ·
-    </span>
+      <span className="text-brand-ivory/85">{expression}</span>
+      <span aria-hidden className="text-brand-orange-soft/85">
+        =
+      </span>
+      <span>{result}</span>
+    </div>
   );
 }

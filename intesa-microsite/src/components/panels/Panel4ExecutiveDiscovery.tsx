@@ -65,13 +65,14 @@ export function Panel4ExecutiveDiscovery() {
 
           <FlowArrow />
 
-          {/* Column 3 — Reviewable output */}
+          {/* Column 3 — Future-state PR-ready workstream. No
+              gate-styled last item — governance language lives in
+              Panel 6, not here. */}
           <Column
             label={reviewable.label}
             caption={reviewable.caption}
             items={reviewable.items.slice(0, 4)}
             tone="elevated"
-            highlightLast
           />
         </div>
 
