@@ -621,7 +621,29 @@ export const intesa = {
     // approval / accountability remain human. Trust & Control
     // detail lives in the appendix.
     subhead:
-      "From linear human-led execution to parallel, AI-augmented workstreams — while approval and accountability remain human.",
+      "From linear human-led execution to scalable, faster, AI-augmented workstreams — while approval and accountability remain human.",
+    // Outcome strip rendered between the subline and the three
+    // paradigm columns. Scalability + Speed are the dominant
+    // emphasis words; Control is present but secondary so the
+    // slide reads as a business-outcome shift, not a governance
+    // page (governance lives in the Trust & Control appendix).
+    outcomes: [
+      {
+        word: "Scalability",
+        label: "parallel SDLC workstreams",
+        emphasis: "primary" as const,
+      },
+      {
+        word: "Speed",
+        label: "faster path to PR-ready output",
+        emphasis: "primary" as const,
+      },
+      {
+        word: "Control",
+        label: "human approval remains",
+        emphasis: "secondary" as const,
+      },
+    ],
     // SDLC phase anchors rendered as subtle labels under the
     // future-state flow. Maps Devin's execution layer onto
     // Intesa's own SDLC effort distribution (43% coding +
@@ -657,11 +679,10 @@ export const intesa = {
     current: {
       label: "Current paradigm",
       caption: "Before",
-      subtitle: "Human-led linear execution",
+      subtitle: "Linear human execution",
       items: [
         "Sequential remediation",
         "Manual test creation",
-        "Documentation reconstruction",
         "Slow PR readiness",
       ],
     },
@@ -677,14 +698,13 @@ export const intesa = {
     // parallel, AI-augmented workstreams. The center column is
     // visually the heaviest (orange accent + parallel motion).
     future: {
-      label: "Devin execution layer",
+      label: "Devin layer",
       caption: "Shift",
-      subtitle: "Parallel AI-augmented workstreams",
+      subtitle: "Parallel AI workstreams",
       items: [
         "Repo understanding",
         "Code transformation",
         "Test generation",
-        "Remediation",
       ],
       // Cinematic acceleration anchor — premium scale signal,
       // sits at the bottom of the right column. Reduced from a
@@ -704,21 +724,20 @@ export const intesa = {
     // The operating-model destination: multiple parallel reviewable
     // PRs flowing into the existing SDLC, not a governance overlay.
     reviewable: {
-      label: "Future paradigm",
+      label: "Future state",
       caption: "After",
-      subtitle: "Reviewable PR-ready delivery",
+      subtitle: "Scalable PR-ready delivery",
       items: [
         "Multiple PR-ready outputs",
         "Test-backed changes",
-        "Faster throughput",
         "Measurable review effort",
       ],
     },
     // Closing punchline — single sentence, executive tone. Anchors
     // the paradigm shift back to repetitive SDLC execution becoming
-    // reviewable, test-backed PR-ready work.
+    // faster, reviewable, test-backed PR-ready work.
     closing:
-      "Devin scales repetitive SDLC execution into reviewable, test-backed PR-ready work.",
+      "Devin scales repetitive SDLC execution into faster, reviewable, test-backed PR-ready work.",
     // One short trust line, kept in the main flow because Trust &
     // Control is now an appendix panel. Signals that human approval
     // is preserved without duplicating the appendix content.
