@@ -91,53 +91,68 @@ export function Panel9ItauReference() {
               </span>
             </motion.div>
 
-            {/* RIGHT — five official Itaú proof tiles in a clean
-                grid: 6× faster (.NET → Java), 5× faster (SQL),
-                5× lower cost (.NET → Java), 300,000+ repos
-                documented, 75% adoption. */}
+            {/* RIGHT — six official Itaú proof tiles in a clean
+                2×3 grid on lg: 6× faster (.NET → Java), 5× faster
+                (SQL), 5× lower cost (.NET → Java), 300,000+ repos
+                documented, 75% adoption, 20–30% net efficiency
+                signal. The 20–30% tile is the bridge to the Intesa
+                ROI scenario and gets a slightly muted tone (ivory,
+                not orange) to make clear it is a sanity-check signal,
+                not a guaranteed Intesa saving. */}
             <div className="flex flex-col gap-4 px-5 py-5 sm:gap-5 sm:px-6 sm:py-6">
-              <div className="grid auto-rows-fr grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-5">
-                {metrics.map((m, i) => (
-                  <motion.div
-                    key={m.label}
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{
-                      duration: 0.55,
-                      delay: 0.08 + i * 0.07,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="flex min-w-0 flex-col gap-1 rounded-xl border bg-brand-green-deep/40 px-3 py-3 sm:px-3.5 sm:py-3.5 lg:gap-1.5 lg:px-3 lg:py-3"
-                    style={{ borderColor: `${ITAU_ORANGE}33` }}
-                  >
-                    {/* Value + suffix stack. On lg the tile is narrow
-                        (1/5 of width) so we keep value on its own
-                        line and let suffix sit just under it to
-                        avoid overflow on wide values like "300,000+". */}
-                    <div className="flex flex-col gap-0.5">
-                      <span
-                        className="block font-display font-semibold leading-[1] tracking-tight text-[26px] sm:text-[30px] lg:text-[28px] xl:text-[32px]"
-                        style={{ color: `${ITAU_ORANGE}ee` }}
-                      >
-                        {m.value}
+              <div className="grid auto-rows-fr grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3">
+                {metrics.map((m, i) => {
+                  const isSignalTile = m.value === "20–30%";
+                  return (
+                    <motion.div
+                      key={m.label}
+                      initial={{ opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{
+                        duration: 0.55,
+                        delay: 0.08 + i * 0.07,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className={`flex min-w-0 flex-col gap-1 rounded-xl border px-3 py-3 sm:px-3.5 sm:py-3.5 lg:gap-1.5 lg:px-3.5 lg:py-3.5 ${
+                        isSignalTile
+                          ? "border-dashed bg-brand-ivory/[0.03]"
+                          : "bg-brand-green-deep/40"
+                      }`}
+                      style={{
+                        borderColor: isSignalTile
+                          ? "rgba(245, 240, 230, 0.22)"
+                          : `${ITAU_ORANGE}33`,
+                      }}
+                    >
+                      <div className="flex flex-col gap-0.5">
+                        <span
+                          className="block font-display font-semibold leading-[1] tracking-tight text-[26px] sm:text-[30px] lg:text-[30px] xl:text-[34px]"
+                          style={{
+                            color: isSignalTile
+                              ? "rgba(245, 240, 230, 0.92)"
+                              : `${ITAU_ORANGE}ee`,
+                          }}
+                        >
+                          {m.value}
+                        </span>
+                        {m.suffix && (
+                          <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-ivory/85 sm:text-[11px]">
+                            {m.suffix}
+                          </span>
+                        )}
+                      </div>
+                      <span className="break-words text-[11px] leading-snug text-brand-ivory/85 sm:text-[12px] lg:text-[12px]">
+                        {m.label}
                       </span>
-                      {m.suffix && (
-                        <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-ivory/85 sm:text-[11px]">
-                          {m.suffix}
+                      {m.note && (
+                        <span className="break-words text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[10.5px] lg:text-[10.5px]">
+                          {m.note}
                         </span>
                       )}
-                    </div>
-                    <span className="break-words text-[11px] leading-snug text-brand-ivory/85 sm:text-[12px] lg:text-[11.5px]">
-                      {m.label}
-                    </span>
-                    {m.note && (
-                      <span className="break-words text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[10.5px] lg:text-[10px]">
-                        {m.note}
-                      </span>
-                    )}
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </div>
 
               {/* Pattern line — one compact secondary line under
@@ -155,6 +170,22 @@ export function Panel9ItauReference() {
                 </motion.p>
               )}
 
+              {/* ROI bridge line — connects the 20–30% Itaú signal
+                  to the 21–30% scenarios on the ROI page. Visually
+                  secondary, dashed top divider so it reads as a
+                  bridge rather than a proof point. */}
+              {itau.roiBridge && (
+                <motion.p
+                  initial={{ opacity: 0, y: 4 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="border-t border-dashed border-brand-ivory/15 pt-3 text-[11px] leading-snug text-brand-ivory/70 sm:text-[12px]"
+                >
+                  {itau.roiBridge}
+                </motion.p>
+              )}
+
               {/* Capacity-shift footer + source link row. */}
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
                 {itau.capacityShift && (
@@ -162,7 +193,7 @@ export function Panel9ItauReference() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.5, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="max-w-2xl text-[10.5px] italic leading-snug text-brand-ivory/55 sm:text-[11px]"
                   >
                     {itau.capacityShift}

@@ -404,15 +404,15 @@ export const intesa = {
       note: "15% ambition by 2028",
     },
     // Lower business-pressure card — the mainframe-to-cloud
-    // value-capture clock. The exact official savings figure is
-    // not present in the source data, so the value field is left
-    // as a placeholder to be confirmed by Intesa rather than
-    // invented. Label + note convey the economic anchor.
+    // value-capture clock. Anchored on Intesa's own isytech / cloud
+    // savings figures: ~€350M by 2029 as the headline value and
+    // ~€380M run-rate by 2030 (including ~€280M from exit and
+    // redeployment of 3,800 people) as the supporting note.
     businessPressure: {
-      caption: "Mainframe-to-cloud efficiency unlock",
-      value: "[Official mainframe / isytech / cloud savings value]",
-      label: "Structural savings to be confirmed by Intesa",
-      note: "Structural savings tied to mainframe decommissioning, isytech extension and cloud migration.",
+      caption: "isytech / cloud savings",
+      value: "~€350M",
+      label: "isytech / cloud savings by 2029",
+      note: "~€380M run-rate by 2030; includes ~€280M from exit / redeployment.",
     },
     closing:
       "Execution delay risks delaying value capture.",
@@ -1349,10 +1349,22 @@ export const intesa = {
           suffix: "adoption",
           label: "Teams using Devin",
         },
+        {
+          value: "20–30%",
+          suffix: "signal",
+          label: "Net efficiency / throughput signal",
+          note: "reference banking environment — used to sanity-check the Intesa ROI scenario, not a guaranteed Intesa saving.",
+        },
       ],
       // Compact secondary line under the proof grid.
       patternLine:
-        "The pattern: faster modernization, lower execution cost, broader engineering adoption.",
+        "The pattern: faster modernization, lower execution cost, broader adoption, and a 20–30% efficiency signal to validate.",
+      // Bridge line connecting the Itaú proof points to the ROI page
+      // — frames the 21–30% net efficiency scenarios as a direct
+      // extension of the Itaú 20–30% signal applied to Intesa's 70%
+      // execution zone.
+      roiBridge:
+        "This is why the ROI page tests a 21–30% net efficiency range across Intesa’s 70% execution zone.",
       // Footer capacity-shift line. Visually secondary — anchors
       // what shifts on the engineering side as routine execution
       // moves to AI.
