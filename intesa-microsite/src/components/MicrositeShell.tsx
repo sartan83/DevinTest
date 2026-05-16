@@ -7,6 +7,7 @@ import { ExecutiveCounter } from "./ExecutiveCounter";
 import { ProgressBar } from "./ProgressBar";
 import { Panel0Welcome } from "./panels/Panel0Welcome";
 import { Panel1Opening } from "./panels/Panel1Opening";
+import { Panel1bAgenda } from "./panels/Panel1bAgenda";
 import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
 import { Panel3CurrentState } from "./panels/Panel3CurrentState";
 import { Panel35SdlcMap } from "./panels/Panel35SdlcMap";
@@ -24,7 +25,7 @@ import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework"
 // Control lives in the appendix to keep the main flow commercial — the
 // content is still one click away when a buyer wants to inspect the
 // control envelope, but it no longer sits between Demo and Banking Proof.
-const MAIN_PANELS = 10;
+const MAIN_PANELS = 11;
 const APPENDIX_START = MAIN_PANELS;
 const APPENDIX_COUNT = 2;
 const TOTAL_PANELS = MAIN_PANELS + APPENDIX_COUNT;
@@ -356,6 +357,7 @@ export function MicrositeShell() {
               section closes the room on its own. */}
           <Panel0Welcome onBegin={(idx) => goTo(idx)} />
           <Panel1Opening />
+          <Panel1bAgenda />
           <Panel2ExecutionGap />
           {/* SDLC Execution Map comes BEFORE Validation: first show the
               quantitative SDLC effort distribution, then pause and ask
