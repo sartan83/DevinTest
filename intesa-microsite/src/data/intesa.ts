@@ -669,6 +669,7 @@ export const intesa = {
       caption: "Before",
       subtitle: "Linear human execution",
       items: [
+        "Manual coding",
         "Sequential remediation",
         "Manual test creation",
         "Slow PR readiness",
