@@ -1293,19 +1293,19 @@ export const intesa = {
   // demonstrates measurable gains under governance-aware factory workflows.
   // -------------------------------------------------------------------------
   panel9: {
-    eyebrow: "Banking Proof at Scale",
+    eyebrow: "Banking Proof / Use Case",
     // Single enterprise banking proof point (Itaú). Case-study
     // layout: left = Itaú wordmark + reference caption; right =
-    // 6× hero metric + secondary chip cluster + qualitative PR
-    // line. The Itaú anchor restores the section's credibility —
-    // without it, the page reads as a generic metrics list.
+    // 5-tile metric grid with the official Itaú proof points
+    // (modernization acceleration, cost, codebase documentation,
+    // adoption). The Itaú anchor is the credibility frame — the
+    // five metrics are the must-have evidence row.
     headline:
-      "Banking-scale outcomes\nalready show the curve can move.",
-    // SDLC interpretation line — anchors why these metrics matter
-    // specifically for Intesa: they sit on top of Intesa's own
-    // largest SDLC effort concentration (coding + testing/release).
+      "Itaú shows Devin can scale modernization,\nnot just accelerate coding.",
+    // Subline anchoring the proof points: faster migrations, lower
+    // cost, large-scale documentation, broad adoption.
     sdlcInterpretation:
-      "These metrics matter because Intesa’s highest-effort SDLC zones are coding, testing and release.",
+      "In a large financial-services engineering environment, Devin delivered faster migrations, lower execution cost, massive codebase documentation and broad team adoption.",
     itau: {
       logoSrc: "logos/itau.svg",
       logoAlt: "Itaú",
@@ -1314,43 +1314,60 @@ export const intesa = {
       // context line. NOT a logo wall — single proof anchor.
       anchorCaption: "Reference banking deployment",
       anchorContext: "Large-scale banking engineering environment",
-      // Hero anchor — the single dominant modernization acceleration
-      // multiplier. Apple-keynote scale; carries the emotional impact
-      // of the slide.
-      heroMetric: {
-        metric: "6×",
-        label: "Faster modernization delivery",
-      },
-      // Qualitative PR-review proof line. Rendered alongside the
-      // chip row as a non-numeric proof point. Source material does
-      // not give an exact PR-acceptance metric, so this stays
-      // qualitative — no invented number.
-      qualitativePr: "Faster path to reviewable PRs",
-      // Tier 1 — Gartner-validated operational outcomes (primary).
-      outcomeMetrics: [
-        { metric: "20–30%", label: "Throughput increase" },
-        { metric: "15%", label: "Lead-time improvement" },
-        { metric: "25%", label: "Fewer testing errors" },
-        { metric: "70%", label: "Vulnerability remediation automated" },
+      // Five official Itaú proof points. Each tile renders a big
+      // value + a short suffix (faster / lower cost / repos /
+      // adoption), an under-label naming the workflow, and an
+      // optional scale note (number of services / database objects).
+      // Replaces the previous Gartner-throughput cluster so the
+      // section anchors on modernization execution at scale rather
+      // than generic productivity numbers.
+      proofMetrics: [
+        {
+          value: "6×",
+          suffix: "faster",
+          label: ".NET → Java migration",
+          note: "59 services",
+        },
+        {
+          value: "5×",
+          suffix: "faster",
+          label: "SQL Server migration",
+          note: "800 database objects",
+        },
+        {
+          value: "5×",
+          suffix: "lower cost",
+          label: ".NET → Java migration",
+        },
+        {
+          value: "300,000+",
+          suffix: "repos",
+          label: "Documented and continuously updated",
+        },
+        {
+          value: "75%",
+          suffix: "adoption",
+          label: "Teams using Devin",
+        },
       ],
-      // Tier 2 — Adoption signal. Reduced to a single anchor
-      // (engineering team adoption) so the secondary tier reads
-      // as a fifth supporting metric rather than a second KPI
-      // sub-block. The "17,000+ technology staff" tile was
-      // removed because the canonical metric set anchors the
-      // proof on operational outcomes, not on organisational
-      // headcount.
-      adoptionMetrics: [
-        { metric: "75%", label: "Engineering team adoption" },
-      ],
-      sourceLabel: "Source: Gartner Research · doc 7778353",
-      sourceUrl:
-        "https://www.gartner.com/document-reader/document/7778353?ref=solrAll&refval=553684491&",
+      // Compact secondary line under the proof grid.
+      patternLine:
+        "The pattern: faster modernization, lower execution cost, broader engineering adoption.",
+      // Footer capacity-shift line. Visually secondary — anchors
+      // what shifts on the engineering side as routine execution
+      // moves to AI.
+      capacityShift:
+        "Routine execution moves to AI; engineers spend more time on architecture, problem framing and business context.",
+      sourceLabel: "Source: Devin customer story · Itaú",
+      sourceUrl: "https://devin.ai/customer-stories/itau",
+      // Kept as the left-column tagline under the wordmark so the
+      // reference reads as a single proof anchor rather than a
+      // logo wall.
       interpretiveFooter:
         "Proof point: governed AI workflows already operating inside banking-scale engineering environments.",
     },
     disclaimer:
-      "Illustrative reference metrics from a separate enterprise banking environment.",
+      "Reference metrics from the Devin × Itaú customer story.",
   },
 
   // -------------------------------------------------------------------------

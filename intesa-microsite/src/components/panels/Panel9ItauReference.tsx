@@ -25,9 +25,7 @@ const ITAU_BLUE = "#002779";
 export function Panel9ItauReference() {
   const p = intesa.panel9;
   const itau = p.itau;
-  // Fold the 75% adoption signal into the secondary chip row so the
-  // proof reads as one tight metric cluster.
-  const chips = [...itau.outcomeMetrics, ...itau.adoptionMetrics];
+  const metrics = itau.proofMetrics;
 
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="bright">
@@ -93,82 +91,84 @@ export function Panel9ItauReference() {
               </span>
             </motion.div>
 
-            {/* RIGHT — metric proof cluster. 6× hero, secondary chip
-                row, qualitative PR line, source. */}
-            <div className="flex flex-col gap-3.5 px-5 py-5 sm:gap-4 sm:px-6 sm:py-6">
-              {/* 6× hero */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-wrap items-baseline gap-x-4 gap-y-1"
-              >
-                <span
-                  className="font-display font-semibold leading-[0.9] tracking-tight text-[60px] sm:text-[80px] lg:text-[96px]"
-                  style={{ color: `${ITAU_ORANGE}f0` }}
-                >
-                  {itau.heroMetric.metric}
-                </span>
-                <span className="max-w-xs text-[13px] uppercase tracking-[0.2em] text-brand-ivory/85 sm:text-[14px] lg:text-[15px]">
-                  {itau.heroMetric.label}
-                </span>
-              </motion.div>
-
-              {/* Secondary metrics — five compact chips. */}
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                {chips.map((m, i) => (
-                  <motion.span
+            {/* RIGHT — five official Itaú proof tiles in a clean
+                grid: 6× faster (.NET → Java), 5× faster (SQL),
+                5× lower cost (.NET → Java), 300,000+ repos
+                documented, 75% adoption. */}
+            <div className="flex flex-col gap-4 px-5 py-5 sm:gap-5 sm:px-6 sm:py-6">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-5">
+                {metrics.map((m, i) => (
+                  <motion.div
                     key={m.label}
-                    initial={{ opacity: 0, y: 4 }}
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{
-                      duration: 0.42,
-                      delay: 0.06 + i * 0.05,
+                      duration: 0.55,
+                      delay: 0.08 + i * 0.07,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="inline-flex items-baseline gap-1.5 rounded-full border bg-brand-green-mid/30 px-3 py-1 sm:gap-2 sm:px-3.5"
+                    className="flex flex-col gap-1.5 rounded-xl border bg-brand-green-deep/40 px-3 py-3 sm:px-3.5 sm:py-3.5"
                     style={{ borderColor: `${ITAU_ORANGE}33` }}
                   >
-                    <span
-                      className="font-display text-[13px] font-semibold leading-none tracking-tight sm:text-[14px]"
-                      style={{ color: `${ITAU_ORANGE}e0` }}
-                    >
-                      {m.metric}
-                    </span>
-                    <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-ivory/75 sm:text-[11px]">
+                    <div className="flex items-baseline gap-1.5">
+                      <span
+                        className="font-display font-semibold leading-none tracking-tight text-[28px] sm:text-[32px] lg:text-[34px]"
+                        style={{ color: `${ITAU_ORANGE}ee` }}
+                      >
+                        {m.value}
+                      </span>
+                      {m.suffix && (
+                        <span className="text-[11px] uppercase tracking-[0.18em] text-brand-ivory/85 sm:text-[11.5px]">
+                          {m.suffix}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[11.5px] leading-snug text-brand-ivory/85 sm:text-[12.5px]">
                       {m.label}
                     </span>
-                  </motion.span>
+                    {m.note && (
+                      <span className="text-[10.5px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+                        {m.note}
+                      </span>
+                    )}
+                  </motion.div>
                 ))}
-                {itau.qualitativePr && (
-                  <motion.span
-                    initial={{ opacity: 0, y: 4 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.42, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="inline-flex items-baseline gap-1.5 rounded-full border border-brand-ivory/20 bg-brand-ivory/[0.04] px-3 py-1 sm:gap-2 sm:px-3.5"
-                  >
-                    <span
-                      aria-hidden
-                      className="inline-block h-1.5 w-1.5 rounded-full"
-                      style={{ background: `${ITAU_ORANGE}cc` }}
-                    />
-                    <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-ivory/85 sm:text-[11px]">
-                      {itau.qualitativePr}
-                    </span>
-                  </motion.span>
-                )}
               </div>
 
-              {/* Source link. */}
-              <div className="mt-1 flex items-center">
+              {/* Pattern line — one compact secondary line under
+                  the proof grid. */}
+              {itau.patternLine && (
+                <motion.p
+                  initial={{ opacity: 0, y: 4 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.5, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-baseline gap-2 border-l-2 pl-3 text-[12px] leading-snug text-brand-ivory/85 sm:text-[13px]"
+                  style={{ borderColor: `${ITAU_ORANGE}99` }}
+                >
+                  {itau.patternLine}
+                </motion.p>
+              )}
+
+              {/* Capacity-shift footer + source link row. */}
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+                {itau.capacityShift && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    className="max-w-2xl text-[10.5px] italic leading-snug text-brand-ivory/55 sm:text-[11px]"
+                  >
+                    {itau.capacityShift}
+                  </motion.p>
+                )}
                 <a
                   href={itau.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[10px] leading-relaxed text-brand-ivory/50 underline decoration-brand-ivory/20 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60 sm:text-[10.5px]"
+                  className="inline-flex items-center gap-1 self-start text-[10px] leading-relaxed text-brand-ivory/50 underline decoration-brand-ivory/20 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60 sm:self-end sm:text-[10.5px]"
                 >
                   <span aria-hidden>↗</span>
                   <span>{itau.sourceLabel}</span>
