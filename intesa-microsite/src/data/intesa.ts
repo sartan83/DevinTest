@@ -111,21 +111,23 @@ export const intesa = {
   // sits in the appendix range so the main flow runs:
   // Opening → Why Now → SDLC Map → Validation → Future-State →
   // Demo → Banking Proof → ROI → Pilot → Decision Point.
+  // Tightened 10-panel main flow (excluding the pre-session welcome at
+  // idx 0). Agenda has been removed as a dedicated page; the final ask
+  // collapses into Pilot + Decision. Appendix range carries Trust &
+  // Control and the Discovery framework for Q&A only.
   nav: [
     { index: 0,  label: "·",  full: "Executive working session", appendix: false },
-    { index: 1,  label: "1",  full: "Opening", appendix: false },
-    { index: 2,  label: "2",  full: "Agenda", appendix: false },
-    { index: 3,  label: "3",  full: "Why now · 2029", appendix: false },
-    { index: 4,  label: "4",  full: "SDLC execution map", appendix: false },
-    { index: 5,  label: "5",  full: "Validation before pilot scope", appendix: false },
-    { index: 6,  label: "6",  full: "Future-state engineering flow", appendix: false },
-    { index: 7,  label: "7",  full: "SDLC execution demo", appendix: false },
-    { index: 8,  label: "8",  full: "Banking proof at scale", appendix: false },
-    { index: 9,  label: "9",  full: "ROI / upside potential", appendix: false },
-    { index: 10, label: "10", full: "4-week pilot", appendix: false },
-    { index: 11, label: "11", full: "Decision point", appendix: false },
-    { index: 12, label: "A1", full: "Trust & Control (appendix)", appendix: true },
-    { index: 13, label: "A2", full: "Discovery framework (appendix)", appendix: true },
+    { index: 1,  label: "1",  full: "Opening / why Intesa", appendix: false },
+    { index: 2,  label: "2",  full: "Why now", appendix: false },
+    { index: 3,  label: "3",  full: "SDLC execution map", appendix: false },
+    { index: 4,  label: "4",  full: "Validation checkpoint", appendix: false },
+    { index: 5,  label: "5",  full: "Future-state + demo setup", appendix: false },
+    { index: 6,  label: "6",  full: "Demo", appendix: false },
+    { index: 7,  label: "7",  full: "Banking proof / use case", appendix: false },
+    { index: 8,  label: "8",  full: "ROI / upside potential", appendix: false },
+    { index: 9,  label: "9",  full: "Pilot + decision", appendix: false },
+    { index: 10, label: "A1", full: "Trust & Control (appendix)", appendix: true },
+    { index: 11, label: "A2", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
@@ -194,19 +196,22 @@ export const intesa = {
     //   P13 Next-step 3'
     //
     // Per-minute increment: 8/60 ≈ 0.133 (min) and 18/60 = 0.3 (max).
+    // Updated step ladder matches the tightened 10-panel main flow:
+    //   P1 Welcome (pre)        P2 Opening 3'      P3 Why Now 4'
+    //   P4 SDLC Map 4'          P5 Validation 6'   P6 Future-State 3'
+    //   P7 Demo 15'             P8 Banking Proof 3.5'
+    //   P9 ROI 3.5'             P10 Pilot + Decision 5'
     steps: [
       { panel: 1,  addMin: 0.00, addMax: 0.00, note: "Executive opening screen (0' — pre-session)" },
-      { panel: 2,  addMin: 0.40, addMax: 0.90, note: "Hero framing (3')" },
-      { panel: 3,  addMin: 0.27, addMax: 0.60, note: "Agenda (2')" },
-      { panel: 4,  addMin: 0.53, addMax: 1.20, note: "Why now · 2029 (4')" },
-      { panel: 5,  addMin: 0.67, addMax: 1.50, note: "Current state pressure mapped (5')" },
-      { panel: 6,  addMin: 0.80, addMax: 1.80, note: "Executive validation areas (6')" },
-      { panel: 7,  addMin: 1.32, addMax: 3.00, note: "Governed modernization workflow + capacity narrated inline (9')" },
-      { panel: 8,  addMin: 0.40, addMax: 0.90, note: "Enterprise trust envelope (3')" },
-      { panel: 9,  addMin: 0.67, addMax: 1.50, note: "ROI signal (5')" },
-      { panel: 10, addMin: 0.67, addMax: 1.50, note: "Itaú enterprise reference (5')" },
-      { panel: 11, addMin: 1.33, addMax: 3.00, note: "Pilot + enterprise safeguards (10')" },
-      { panel: 12, addMin: 0.94, addMax: 2.10, note: "Decision point — scale-out criteria (7')" },
+      { panel: 2,  addMin: 0.40, addMax: 0.90, note: "Opening / why Intesa (3')" },
+      { panel: 3,  addMin: 0.53, addMax: 1.20, note: "Why now · 2029 (4')" },
+      { panel: 4,  addMin: 0.53, addMax: 1.20, note: "SDLC execution map (4')" },
+      { panel: 5,  addMin: 0.80, addMax: 1.80, note: "Validation checkpoint (6')" },
+      { panel: 6,  addMin: 0.40, addMax: 0.90, note: "Future-state + demo setup (3')" },
+      { panel: 7,  addMin: 2.00, addMax: 4.50, note: "Demo (15')" },
+      { panel: 8,  addMin: 0.47, addMax: 1.05, note: "Banking proof / use case (3.5')" },
+      { panel: 9,  addMin: 0.47, addMax: 1.05, note: "ROI / upside potential (3.5')" },
+      { panel: 10, addMin: 0.67, addMax: 1.50, note: "Pilot + decision (5')" },
     ] as CounterStep[],
   },
 
@@ -1422,6 +1427,22 @@ export const intesa = {
           "Net efficiency signal, scale-out recommendation, follow-up meeting",
       },
     ],
+    // Commitment ask — absorbs the former Decision Point slide so the
+    // pilot section now closes the room on its own. Four short bullets:
+    // workflow scope, owners, success metrics, executive review.
+    commitment: {
+      label: "Commitment ask",
+      caption: "What advancing looks like before leaving the room",
+      items: [
+        "Select 3–4 workflows",
+        "Confirm engineering + governance owners",
+        "Agree success metrics",
+        "Schedule executive review at end of week 4",
+      ],
+    },
+    // Closing strapline — the strategic anchor under the ask.
+    closing:
+      "From task definition to reviewable, test-backed PRs — measured against Intesa's own SDLC efficiency ambition.",
   },
 
   // -------------------------------------------------------------------------

@@ -7,7 +7,6 @@ import { ExecutiveCounter } from "./ExecutiveCounter";
 import { ProgressBar } from "./ProgressBar";
 import { Panel0Welcome } from "./panels/Panel0Welcome";
 import { Panel1Opening } from "./panels/Panel1Opening";
-import { Panel1bAgenda } from "./panels/Panel1bAgenda";
 import { Panel2ExecutionGap } from "./panels/Panel2ExecutionGap";
 import { Panel3CurrentState } from "./panels/Panel3CurrentState";
 import { Panel35SdlcMap } from "./panels/Panel35SdlcMap";
@@ -17,7 +16,6 @@ import { Panel6EnterpriseTrust } from "./panels/Panel6EnterpriseTrust";
 import { Panel8RoiSignal } from "./panels/Panel8RoiSignal";
 import { Panel9ItauReference } from "./panels/Panel9ItauReference";
 import { Panel10Pilot } from "./panels/Panel10Pilot";
-import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
 // Main flow panels (index 0…MAIN_PANELS-1) drive the sales narrative. The
@@ -26,7 +24,7 @@ import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework"
 // Control lives in the appendix to keep the main flow commercial — the
 // content is still one click away when a buyer wants to inspect the
 // control envelope, but it no longer sits between Demo and Banking Proof.
-const MAIN_PANELS = 12;
+const MAIN_PANELS = 10;
 const APPENDIX_START = MAIN_PANELS;
 const APPENDIX_COUNT = 2;
 const TOTAL_PANELS = MAIN_PANELS + APPENDIX_COUNT;
@@ -353,9 +351,11 @@ export function MicrositeShell() {
               : { width: `${TOTAL_PANELS * 100}vw` }
           }
         >
+          {/* Tightened 10-panel main flow. Agenda has been removed as a
+              dedicated page; Pilot + Decision are merged so the pilot
+              section closes the room on its own. */}
           <Panel0Welcome onBegin={(idx) => goTo(idx)} />
           <Panel1Opening />
-          <Panel1bAgenda />
           <Panel2ExecutionGap />
           {/* SDLC Execution Map comes BEFORE Validation: first show the
               quantitative SDLC effort distribution, then pause and ask
@@ -371,7 +371,6 @@ export function MicrositeShell() {
           <Panel9ItauReference />
           <Panel8RoiSignal />
           <Panel10Pilot />
-          <Panel12FinalAsk onCta={(target) => goTo(target - 1)} />
           {/* Appendix panels — reachable only via the Appendix toggle
               (or `A` shortcut). Trust & Control first, then Discovery
               Framework. */}

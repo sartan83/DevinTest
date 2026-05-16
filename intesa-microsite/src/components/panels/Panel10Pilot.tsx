@@ -132,6 +132,63 @@ export function Panel10Pilot() {
             ))}
           </div>
         </motion.div>
+
+        {/* Commitment ask + closing — absorbs the former Decision
+            Point slide. Pilot now closes the room on its own with a
+            short, executive commitment block and a strategic anchor. */}
+        {p.commitment && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-3 border-t-[1.5px] border-brand-orange/45 pt-4 sm:gap-3.5 sm:pt-5"
+          >
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+              <span className="text-[11px] uppercase tracking-[0.32em] text-brand-orange sm:text-[12px]">
+                {p.commitment.label}
+              </span>
+              {p.commitment.caption && (
+                <span className="text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+                  {p.commitment.caption}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              {p.commitment.items.map((item, i) => (
+                <motion.span
+                  key={item}
+                  initial={{ opacity: 0, y: 4 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.5 + i * 0.06,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[11px] leading-tight text-brand-ivory/85 sm:text-[12px]"
+                >
+                  <span
+                    aria-hidden
+                    className="inline-block h-1.5 w-1.5 rounded-[1px] bg-brand-orange/80"
+                  />
+                  {item}
+                </motion.span>
+              ))}
+            </div>
+            {p.closing && (
+              <motion.p
+                initial={{ opacity: 0, y: 4 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
+                className="max-w-3xl text-[11.5px] italic leading-snug text-brand-ivory/65 sm:text-[12.5px]"
+              >
+                {p.closing}
+              </motion.p>
+            )}
+          </motion.div>
+        )}
       </div>
     </PanelShell>
   );
