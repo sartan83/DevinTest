@@ -1015,13 +1015,34 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel8: {
     eyebrow: "ROI / Upside Potential",
+    // Cognition-style minimal hero. The page now reads in 5
+    // seconds: hero statement → 3 big numbers (€70M / €82M /
+    // €98M) → one compact calc line → one caveat. Everything
+    // else (benchmarks, formula, leverage path, pilot chips,
+    // 4-number tile) is intentionally hidden so the value arc
+    // is the unmistakable visual hero.
     headline:
-      "The €70M target is the ambition —\nnot the ceiling.",
-    // Subline — frames the ROI question as net efficiency across
-    // the full execution path (coding, testing, release, PR-ready
-    // packaging, review). NOT a coding-speed-only story.
+      "€70M is the target.\nThe upside sits in the execution zone.",
     subhead:
-      "If governed AI improves net efficiency across the 70% execution zone, the path to target becomes measurable and upside becomes visible.",
+      "70% of SDLC effort sits in coding + testing/release.",
+    // Three large economic outcomes — the only thing the viewer
+    // should remember. Reads as a premium value arc.
+    valueArc: {
+      caption:
+        "Based on 21% / 25% / 30% net efficiency across the execution zone.",
+      points: [
+        { value: "€70M", label: "official target", tone: "target" as const },
+        { value: "€82M", label: "upside", tone: "upside" as const },
+        { value: "€98M", label: "high upside", tone: "highUpside" as const },
+      ],
+    },
+    // Single compact calculation line — visible but small. The
+    // math is right there for anyone who looks; it is not the
+    // visual hero.
+    calcLine:
+      "€70M / 15% = €467M SDLC baseline → ×70% = €327M execution zone → 21% = €70M target",
+    // One short caveat — sits below the value arc.
+    caveat: "Scenarios to validate — not guaranteed savings.",
     // Hero — four executive numbers. The fourth (~21%) makes the
     // ROI math visible: to reach €70M on a €327M execution-effort
     // zone, the pilot must demonstrate ~21% net efficiency after
