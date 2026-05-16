@@ -177,6 +177,44 @@ export function Panel8RoiSignal() {
           </p>
         </motion.div>
 
+        {/* External benchmark support — compact two-card row.
+            Gartner framing + McKinsey 16–30% / 31–45% benchmark. */}
+        {p.benchmarks && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-2"
+          >
+            <span className="text-[9.5px] uppercase tracking-[0.26em] text-brand-ivory/55 sm:text-[10.5px]">
+              {p.benchmarks.label}
+            </span>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {p.benchmarks.cards.map((c, i) => (
+                <motion.div
+                  key={c.key}
+                  initial={{ opacity: 0, y: 4 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.45, delay: 0.22 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-col gap-1.5 rounded-lg border border-brand-ivory/12 bg-brand-green-mid/20 px-3.5 py-2.5 sm:px-4"
+                >
+                  <span className="text-[9.5px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
+                    {c.source}
+                  </span>
+                  <p className="text-[11px] italic leading-snug text-brand-ivory/75 sm:text-[12px]">
+                    “{c.body}”
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+            <p className="text-[10px] italic leading-snug text-brand-ivory/45 sm:text-[10.5px]">
+              {p.benchmarks.note}
+            </p>
+          </motion.div>
+        )}
+
         {/* Scenario ladder — horizontal. */}
         <div className="flex flex-col gap-2">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -199,7 +237,7 @@ export function Panel8RoiSignal() {
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.5, delay: 0.08 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                   className={[
-                    "relative flex items-baseline gap-2 rounded-lg border px-3 py-2 sm:px-3.5 sm:py-2.5",
+                    "relative flex flex-col gap-1 rounded-lg border px-3 py-2 sm:px-3.5 sm:py-2.5",
                     isTarget
                       ? "border-brand-orange/45 bg-brand-orange/[0.08]"
                       : isUpside
@@ -207,17 +245,22 @@ export function Panel8RoiSignal() {
                       : "border-brand-ivory/12 bg-brand-green-mid/25",
                   ].join(" ")}
                 >
-                  <span
-                    className={[
-                      "font-display font-semibold leading-none tracking-tight",
-                      "text-[18px] sm:text-[20px] lg:text-[22px]",
-                      isTarget ? "text-brand-orange-soft" : "text-brand-ivory",
-                    ].join(" ")}
-                  >
-                    {s.value}
-                  </span>
-                  <span className="text-[10px] uppercase tracking-[0.18em] text-brand-ivory/60 sm:text-[10.5px]">
-                    {s.efficiency} net efficiency
+                  <div className="flex items-baseline gap-2">
+                    <span
+                      className={[
+                        "font-display font-semibold leading-none tracking-tight",
+                        "text-[18px] sm:text-[20px] lg:text-[22px]",
+                        isTarget ? "text-brand-orange-soft" : "text-brand-ivory",
+                      ].join(" ")}
+                    >
+                      {s.value}
+                    </span>
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-brand-ivory/60 sm:text-[10.5px]">
+                      {s.efficiency} net efficiency
+                    </span>
+                  </div>
+                  <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/50 sm:text-[10px]">
+                    {s.title}
                   </span>
                   {isTarget && (
                     <span className="absolute -top-1.5 right-2 rounded-full bg-brand-orange/20 px-1.5 py-0.5 text-[8px] uppercase tracking-[0.2em] text-brand-orange-soft">
@@ -228,6 +271,11 @@ export function Panel8RoiSignal() {
               );
             })}
           </div>
+          {p.scenarioLadder.credibilityLine && (
+            <p className="text-[10.5px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+              {p.scenarioLadder.credibilityLine}
+            </p>
+          )}
           <p className="text-[10px] italic leading-snug text-brand-ivory/45 sm:text-[10.5px]">
             Trajectory scenarios to validate — not guaranteed savings.
           </p>

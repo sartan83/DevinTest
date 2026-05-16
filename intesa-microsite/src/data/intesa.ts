@@ -1120,6 +1120,32 @@ export const intesa = {
         },
       ],
     },
+    // External benchmark support — compact row, two cards.
+    // Anchors the scenario ladder on external research without
+    // overclaiming. Gartner card frames why the value story has
+    // to extend beyond coding speed; McKinsey card supports the
+    // 16–30% productivity and 31–45% quality range that makes
+    // the upside trajectory directionally credible. No invented
+    // percentages, no "Gartner says 25–30%".
+    benchmarks: {
+      label: "External benchmark support",
+      cards: [
+        {
+          key: "gartner",
+          source: "Gartner",
+          body:
+            "Code-generation time savings are only the starting point; the full value story must connect AI coding assistants to broader engineering and organizational outcomes.",
+        },
+        {
+          key: "mckinsey",
+          source: "McKinsey",
+          body:
+            "Leading AI-driven software organizations report 16–30% improvements in productivity / time-to-market and 31–45% improvement in software quality.",
+        },
+      ],
+      note:
+        "External benchmarks support the trajectory logic; the pilot validates Intesa-specific contribution.",
+    },
     // Scenario ladder — four points across the €327M execution
     // zone. The €70M target is the official ambition, not the
     // ceiling. Reads as trajectory-to-validate, not as guaranteed
@@ -1131,33 +1157,35 @@ export const intesa = {
       scenarios: [
         {
           key: "conservative",
-          title: "Conservative contribution",
+          title: "Conservative",
           efficiency: "10%",
           value: "~€33M",
           tone: "conservative" as const,
         },
         {
           key: "target",
-          title: "Target-aligned contribution",
+          title: "Target-aligned",
           efficiency: "~21%",
           value: "~€70M",
           tone: "target" as const,
         },
         {
           key: "upside",
-          title: "Upside contribution",
+          title: "Upside",
           efficiency: "25%",
           value: "~€82M",
           tone: "upside" as const,
         },
         {
           key: "highUpside",
-          title: "High-upside contribution",
+          title: "High-upside",
           efficiency: "30%",
           value: "~€98M",
           tone: "highUpside" as const,
         },
       ],
+      credibilityLine:
+        "McKinsey top-performer benchmarks make the 25–30% upside trajectory credible, but Intesa-specific validation must come from the pilot.",
       disclaimers: [
         "These are trajectory scenarios to validate — not guaranteed savings.",
         "The €70M target is the official ambition, not the ceiling.",
@@ -1290,34 +1318,31 @@ export const intesa = {
     eyebrow: "4-week pilot",
     headline:
       "Prove the curve\nbefore scaling the rollout.",
-    pilotSupport:
-      "The pilot validates whether workflow-level improvements make the €70M trajectory credible.",
     // Supporting subline. Frames the pilot as a bounded validation
-    // sprint focused on the highest-effort SDLC zones (coding,
-    // testing, release) — not a transformation programme, not a
-    // sandbox experiment, not a roadmap.
+    // sprint focused on whether Devin creates measurable net
+    // efficiency after review and rework.
     subhead:
-      "A 4-week controlled validation sprint focused on the highest-effort SDLC zones: coding, testing, release and PR-ready delivery.",
+      "A 4-week validation sprint to test whether Devin creates measurable net efficiency after review and rework.",
     // Anchor line beneath the subhead — anchors the pilot on net
     // efficiency, not on raw code generation speed. Mirrors the
     // ROI formula.
     netEfficiencyLine:
       "The pilot validates net efficiency after review and rework — not just code generation speed.",
-    // Measured KPIs row — explicit operational measurement frame
-    // that the pilot will baseline in Week 1 and report against in
-    // Week 4. Updated to mirror the Panel 8 pilot evidence row so
-    // ROI and pilot measure the same signals.
-    measuredKpis: {
-      label: "Measured KPIs",
+    // Single consolidated success criteria block — replaces the
+    // previous "Measured KPIs" rail and "Decision criteria" module
+    // (which overlapped and made the page verbose). Six chip items,
+    // each with a short title + label tier. Reads as one measurement
+    // frame, not two competing KPI lists.
+    successCriteria: {
+      label: "Success criteria",
+      caption: "Baselined in Week 1, validated at the end of Week 4",
       items: [
-        "Time from task to PR-ready",
-        "Review effort per PR",
-        "PR acceptance rate",
-        "Test pass rate",
-        "Rework required",
-        "Vulnerabilities remediated",
-        "Release-readiness evidence",
-        "Engineering hours redeployed",
+        { title: "Time to PR-ready", tag: "execution acceleration" },
+        { title: "Review effort per PR", tag: "review scalability" },
+        { title: "PR acceptance rate", tag: "engineering trust" },
+        { title: "Test pass rate / rework", tag: "quality" },
+        { title: "Vulnerabilities remediated", tag: "security value" },
+        { title: "Engineering hours redeployed", tag: "ROI contribution" },
       ],
     },
     // Week-by-week operational validation plan. Four equally weighted
@@ -1325,61 +1350,35 @@ export const intesa = {
     // operational; not a transformation programme. Activities reworked
     // to map directly onto the Measured KPIs row above (baseline →
     // controlled execution → validation → executive decision).
+    // Weekly execution blocks — each compacted to a single Output
+    // line. The weeks read as a tight 4-step progression, not as
+    // four mini-roadmaps with their own activities.
     blocks: [
       {
         week: "Week 1",
-        title: "Baseline & workflow selection",
-        items: [
-          "Select 3–4 workflows in coding / testing / release",
-          "Establish baseline from task definition to PR-ready and review effort",
-        ],
+        title: "Baseline",
+        output:
+          "3–4 workflows selected, current task-to-PR and review baseline",
       },
       {
         week: "Week 2",
-        title: "Controlled execution",
-        items: [
-          "Run Devin on selected workflows",
-          "Measure time to PR-ready and quality of review package",
-        ],
+        title: "Execution",
+        output:
+          "Devin-generated PR-ready outputs, tests and evidence",
       },
       {
         week: "Week 3",
-        title: "Review & validation",
-        items: [
-          "Measure PR acceptance, review effort, test pass rate and rework",
-          "Identify whether review becomes a bottleneck or becomes more scalable",
-        ],
+        title: "Review validation",
+        output:
+          "PR acceptance, review effort, rework and test quality",
       },
       {
         week: "Week 4",
         title: "Executive decision",
-        items: [
-          "Quantify net efficiency after review and rework",
-          "Decide scale-out workflow, owner and follow-up meeting",
-        ],
+        output:
+          "Net efficiency signal, scale-out recommendation, follow-up meeting",
       },
     ],
-    // Decision criteria module — what the executive review at the
-    // end of Week 4 will validate before scale-out. Rendered as a
-    // small uppercase-titled list below the weekly blocks; reads as
-    // the executive gate, not as additional pilot activities.
-    decisionCriteria: {
-      label: "Decision criteria",
-      caption: "Validated at the end of Week 4",
-      items: [
-        "Execution time reduced",
-        "Review effort acceptable or reduced",
-        "PR quality accepted by engineering",
-        "Tests pass with low rework",
-        "Governance model validated",
-        "Repeatable workflow patterns identified",
-      ],
-    },
-    // Key executive question the pilot is designed to answer.
-    // Rendered as a thin italic line under the decision criteria
-    // module — anchors the pilot intent without overpromising.
-    keyQuestion:
-      "How do we prove near-term ROI without overpromising the full €70M?",
   },
 
   // -------------------------------------------------------------------------

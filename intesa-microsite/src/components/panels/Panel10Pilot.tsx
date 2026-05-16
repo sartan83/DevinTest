@@ -7,26 +7,19 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
 /**
  * Panel 11 — 4-Week Pilot · controlled validation sprint.
  *
- * Cognition-style operational pilot. Reads as a small, controlled
- * validation sprint with explicit measurement and an executive gate
- * — not as a transformation programme or consulting roadmap.
- *
  * Layout (top → bottom):
- *   1. Hero + supporting subline
- *   2. "Measured KPIs" rail (uppercase chip row, sits above the
- *      timeline so each week below maps onto an explicit KPI set)
- *   3. Four weekly execution blocks (W1 → W4), each with 4 bounded
- *      activities and a visual progression connector
- *   4. "Decision criteria" module — what the executive review at
- *      the end of Week 4 validates before scale-out
+ *   1. Hero + supporting subline + net-efficiency anchor
+ *   2. Four weekly execution blocks (compact, single Output line)
+ *   3. Single "Success criteria" block — six measurement chips,
+ *      each with a title and a tier label. Replaces the previous
+ *      "Measured KPIs" + "Decision criteria" duo, which overlapped.
  */
 export function Panel10Pilot() {
   const p = intesa.panel11;
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="clean">
-      <div className="flex flex-col gap-5 sm:gap-6 lg:gap-7">
-        {/* Hero + supporting subline + net-efficiency anchor. */}
-        <div className="flex flex-col gap-2.5 sm:gap-3">
+      <div className="flex flex-col gap-5 sm:gap-6">
+        <div className="flex flex-col gap-2 sm:gap-2.5">
           <PanelHeadline text={p.headline} compact />
           <motion.p
             initial={{ opacity: 0, y: 6 }}
@@ -50,50 +43,8 @@ export function Panel10Pilot() {
           )}
         </div>
 
-        {/* Measured KPIs rail.
-            ─────────────────────────────────────────────────────────
-            Uppercase chip row sitting above the weekly timeline.
-            Each chip is a single measurable KPI; the pilot baselines
-            this set in Week 1 and reports against it in Week 4. The
-            label on the left and the chips on the right read as a
-            single measurement frame, not as 7 separate KPI tiles. */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-2.5 rounded-2xl border border-brand-ivory/10 bg-brand-ivory/[0.025] px-4 py-3.5 sm:px-5 sm:py-4 lg:flex-row lg:items-center lg:gap-5"
-        >
-          <span className="shrink-0 text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
-            {p.measuredKpis.label}
-          </span>
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            {p.measuredKpis.items.map((item, i) => (
-              <motion.span
-                key={item}
-                initial={{ opacity: 0, y: 4 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.45,
-                  delay: 0.22 + i * 0.035,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-brand-ivory/75 sm:text-[11px]"
-              >
-                <span
-                  aria-hidden
-                  className="inline-block h-1 w-1 rounded-full bg-brand-orange/70"
-                />
-                {item}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* 4 weekly execution blocks. On desktop they line up as a
-            horizontal timeline with arrow connectors between weeks;
-            on mobile they stack vertically. */}
+        {/* 4 weekly execution blocks — each with a single Output
+            line. Reads as a tight 4-step progression. */}
         <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {p.blocks.map((b, i) => (
             <motion.div
@@ -102,7 +53,7 @@ export function Panel10Pilot() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.55, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex flex-col overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 p-4 sm:p-5"
+              className="relative flex flex-col overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 p-4 sm:p-4.5"
             >
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
@@ -112,20 +63,15 @@ export function Panel10Pilot() {
                   0{i + 1}
                 </span>
               </div>
-              <div className="mt-2 text-[14px] font-medium leading-snug text-brand-ivory sm:text-[15px]">
+              <div className="mt-1.5 text-[13.5px] font-medium leading-snug text-brand-ivory sm:text-[14.5px]">
                 {b.title}
               </div>
-              <ul className="mt-3 space-y-2">
-                {b.items.map((it) => (
-                  <li
-                    key={it}
-                    className="flex gap-2 text-[12px] leading-snug text-brand-ivory/85 sm:text-[13px]"
-                  >
-                    <span aria-hidden className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-brand-orange/70" />
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-2 text-[11.5px] leading-snug text-brand-ivory/70 sm:text-[12.5px]">
+                <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/45 sm:text-[10px]">
+                  Output ·{" "}
+                </span>
+                {b.output}
+              </p>
               {i < p.blocks.length - 1 && (
                 <span
                   aria-hidden
@@ -138,71 +84,54 @@ export function Panel10Pilot() {
           ))}
         </div>
 
-        {/* Decision criteria module.
-            ─────────────────────────────────────────────────────────
-            Premium executive gate. Sits below the weekly timeline
-            as the explicit list of conditions that determine
-            scale-out at the Week 4 review. Renders as a thin
-            top-rule with a small caption row and an inline chip
-            list — not a card, not a checklist, not an additional
-            pilot week. */}
+        {/* Success criteria — single consolidated block. Six chips,
+            each with a title + tier label. Replaces the previous
+            Measured KPIs + Decision criteria duo. */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col gap-3 border-t border-brand-ivory/10 pt-4 sm:gap-3.5 sm:pt-5"
         >
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
             <span className="text-[11px] uppercase tracking-[0.32em] text-brand-orange sm:text-[12px]">
-              {p.decisionCriteria.label}
+              {p.successCriteria.label}
             </span>
             <span className="text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
-              {p.decisionCriteria.caption}
+              {p.successCriteria.caption}
             </span>
           </div>
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            {p.decisionCriteria.items.map((item, i) => (
-              <motion.span
-                key={item}
+          <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 sm:gap-2 lg:grid-cols-3">
+            {p.successCriteria.items.map((item, i) => (
+              <motion.div
+                key={item.title}
                 initial={{ opacity: 0, y: 4 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{
                   duration: 0.45,
-                  delay: 0.5 + i * 0.05,
+                  delay: 0.4 + i * 0.05,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="inline-flex items-center gap-1.5 rounded-full border border-brand-orange/30 bg-brand-orange/[0.06] px-2.5 py-1 text-[11px] leading-tight text-brand-ivory sm:text-[12px]"
+                className="flex items-baseline gap-2 rounded-lg border border-brand-orange/22 bg-brand-orange/[0.05] px-3 py-2 sm:px-3.5"
               >
                 <span
                   aria-hidden
-                  className="inline-block h-1.5 w-1.5 rounded-[1px] bg-brand-orange/80"
+                  className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-[1px] bg-brand-orange/80"
                 />
-                {item}
-              </motion.span>
+                <div className="flex flex-col">
+                  <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
+                    {item.title}
+                  </span>
+                  <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
+                    {item.tag}
+                  </span>
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
-
-        {/* Key executive question — anchors the pilot intent without
-            overpromising. Reads as a thin italic line under the
-            decision criteria module: "How do we prove near-term ROI
-            without overpromising the full €70M?". Premium executive
-            framing, not a callout box. */}
-        {p.keyQuestion && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-start gap-3 border-l-2 border-brand-orange/55 pl-4 sm:pl-5"
-          >
-            <p className="max-w-3xl text-[13px] italic leading-snug text-brand-ivory/80 sm:text-[14px] lg:text-[15px]">
-              “{p.keyQuestion}”
-            </p>
-          </motion.div>
-        )}
       </div>
     </PanelShell>
   );
