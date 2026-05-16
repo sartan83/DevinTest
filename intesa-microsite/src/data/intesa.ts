@@ -610,14 +610,18 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel4: {
     eyebrow: "Future-State Engineering Flow",
+    // Reframed as a paradigm-shift slide, not a process diagram.
+    // Current paradigm → Devin execution layer → Future paradigm.
+    // The slide must communicate that Devin changes the SDLC
+    // OPERATING MODEL, not that it adds another coding assistant.
     headline:
-      "Execution becomes parallel\nbefore governance becomes the bottleneck.",
+      "Devin changes the\nSDLC execution paradigm.",
     // Subline under the hero. Anchors the section on the
-    // OPERATING-MODEL shift (linear → parallel workstream),
-    // not on governance or review controls — those live in
-    // Panel 6 (Governed Acceleration).
+    // OPERATING-MODEL shift while reminding the room that
+    // approval / accountability remain human. Trust & Control
+    // detail lives in the appendix.
     subhead:
-      "Devin turns repetitive SDLC work into parallel, reviewable work units across coding, testing and release.",
+      "From linear human-led execution to parallel, AI-augmented workstreams — while approval and accountability remain human.",
     // SDLC phase anchors rendered as subtle labels under the
     // future-state flow. Maps Devin's execution layer onto
     // Intesa's own SDLC effort distribution (43% coding +
@@ -648,11 +652,12 @@ export const intesa = {
     // Anchors the governance message: Devin scales execution
     // and reviewability; decision authority stays with Intesa.
     authorityLine: "Devin scales execution and reviewability — not decision authority.",
-    // Left column — current-state pain signals. Short, operational,
-    // not abstract. Visually muted/constrained on the page.
+    // Left column — current paradigm. Human-led linear execution.
+    // Short, operational, not abstract. Visually muted/constrained.
     current: {
-      label: "Today — linear execution",
-      caption: "Today",
+      label: "Current paradigm",
+      caption: "Before",
+      subtitle: "Human-led linear execution",
       items: [
         "Sequential remediation",
         "Manual test creation",
@@ -667,21 +672,19 @@ export const intesa = {
       label: "Devin execution layer",
       sublabel: "Governed SDLC orchestration",
     },
-    // Right column — future-state operating signals. Brighter, more
-    // energy, slightly elevated. Same parallel structure as the left
-    // column so the BEFORE / AFTER comparison reads instantly. Items
-    // map directly onto the SDLC phases Devin executes inside the
-    // 70% execution zone: coding, testing, and PR-ready delivery.
+    // Center column — the Devin execution layer. The paradigm
+    // shift itself: repetitive SDLC work moves from linear to
+    // parallel, AI-augmented workstreams. The center column is
+    // visually the heaviest (orange accent + parallel motion).
     future: {
       label: "Devin execution layer",
-      caption: "Devin",
+      caption: "Shift",
+      subtitle: "Parallel AI-augmented workstreams",
       items: [
-        "Parallel sessions",
         "Repo understanding",
         "Code transformation",
         "Test generation",
         "Remediation",
-        "PR preparation",
       ],
       // Cinematic acceleration anchor — premium scale signal,
       // sits at the bottom of the right column. Reduced from a
@@ -697,25 +700,25 @@ export const intesa = {
         { value: "20–30%", label: "Throughput increase" },
       ],
     },
-    // Future-state PR-ready workstream — third column. Reads as
-    // the operating-model destination: multiple parallel reviewable
+    // Right column — future paradigm. Reviewable PR-ready delivery.
+    // The operating-model destination: multiple parallel reviewable
     // PRs flowing into the existing SDLC, not a governance overlay.
     reviewable: {
-      label: "Future state — PR-ready workstream",
-      caption: "Future state",
+      label: "Future paradigm",
+      caption: "After",
+      subtitle: "Reviewable PR-ready delivery",
       items: [
-        "Multiple reviewable PRs",
-        "Test-backed output",
+        "Multiple PR-ready outputs",
+        "Test-backed changes",
         "Faster throughput",
         "Measurable review effort",
       ],
     },
-    // Closing line — single sentence, executive tone. Anchors the
-    // transformation back into the pilot narrative without becoming
-    // a roadmap or a vendor claim. Frames review as accelerated by
-    // a better starting package, not removed.
+    // Closing punchline — single sentence, executive tone. Anchors
+    // the paradigm shift back to repetitive SDLC execution becoming
+    // reviewable, test-backed PR-ready work.
     closing:
-      "Devin scales repetitive execution into PR-ready workstreams — not just individual coding tasks.",
+      "Devin scales repetitive SDLC execution into reviewable, test-backed PR-ready work.",
     // One short trust line, kept in the main flow because Trust &
     // Control is now an appendix panel. Signals that human approval
     // is preserved without duplicating the appendix content.
