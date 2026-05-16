@@ -96,7 +96,7 @@ export function Panel9ItauReference() {
                 5× lower cost (.NET → Java), 300,000+ repos
                 documented, 75% adoption. */}
             <div className="flex flex-col gap-4 px-5 py-5 sm:gap-5 sm:px-6 sm:py-6">
-              <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-5">
+              <div className="grid auto-rows-fr grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-5">
                 {metrics.map((m, i) => (
                   <motion.div
                     key={m.label}
@@ -108,27 +108,31 @@ export function Panel9ItauReference() {
                       delay: 0.08 + i * 0.07,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="flex flex-col gap-1.5 rounded-xl border bg-brand-green-deep/40 px-3 py-3 sm:px-3.5 sm:py-3.5"
+                    className="flex min-w-0 flex-col gap-1 rounded-xl border bg-brand-green-deep/40 px-3 py-3 sm:px-3.5 sm:py-3.5 lg:gap-1.5 lg:px-3 lg:py-3"
                     style={{ borderColor: `${ITAU_ORANGE}33` }}
                   >
-                    <div className="flex items-baseline gap-1.5">
+                    {/* Value + suffix stack. On lg the tile is narrow
+                        (1/5 of width) so we keep value on its own
+                        line and let suffix sit just under it to
+                        avoid overflow on wide values like "300,000+". */}
+                    <div className="flex flex-col gap-0.5">
                       <span
-                        className="font-display font-semibold leading-none tracking-tight text-[28px] sm:text-[32px] lg:text-[34px]"
+                        className="block font-display font-semibold leading-[1] tracking-tight text-[26px] sm:text-[30px] lg:text-[28px] xl:text-[32px]"
                         style={{ color: `${ITAU_ORANGE}ee` }}
                       >
                         {m.value}
                       </span>
                       {m.suffix && (
-                        <span className="text-[11px] uppercase tracking-[0.18em] text-brand-ivory/85 sm:text-[11.5px]">
+                        <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-ivory/85 sm:text-[11px]">
                           {m.suffix}
                         </span>
                       )}
                     </div>
-                    <span className="text-[11.5px] leading-snug text-brand-ivory/85 sm:text-[12.5px]">
+                    <span className="break-words text-[11px] leading-snug text-brand-ivory/85 sm:text-[12px] lg:text-[11.5px]">
                       {m.label}
                     </span>
                     {m.note && (
-                      <span className="text-[10.5px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+                      <span className="break-words text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[10.5px] lg:text-[10px]">
                         {m.note}
                       </span>
                     )}
