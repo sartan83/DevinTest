@@ -168,50 +168,16 @@ export function Panel4ExecutiveDiscovery() {
           </motion.p>
         )}
 
-        {/* Two metrics + closing line — one tight row. */}
-        <div className="flex flex-col gap-2 border-t border-brand-ivory/10 pt-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-5">
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <motion.div
-              initial={{ opacity: 0, y: 4 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-baseline gap-2"
-            >
-              <span className="font-display text-[32px] font-semibold leading-none tracking-tight text-brand-orange sm:text-[38px] lg:text-[42px]">
-                {p.future.anchor.metric}
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/85 sm:text-[12px]">
-                {p.future.anchor.label}
-              </span>
-            </motion.div>
-            {p.future.signals?.[0] && (
-              <motion.div
-                initial={{ opacity: 0, y: 4 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                className="flex items-baseline gap-2"
-              >
-                <span className="font-display text-[22px] font-medium leading-none text-brand-ivory sm:text-[26px] lg:text-[28px]">
-                  {p.future.signals[0].value}
-                </span>
-                <span className="text-[11px] uppercase tracking-[0.18em] text-brand-ivory/75 sm:text-[12px]">
-                  {p.future.signals[0].label}
-                </span>
-              </motion.div>
-            )}
-          </div>
-          <motion.p
-            initial={{ opacity: 0, y: 4 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-xl text-[12.5px] italic leading-snug text-brand-ivory/75 sm:text-[13.5px] lg:text-right"
-          >
-            {p.closing}
-          </motion.p>
-        </div>
+        {/* Closing punchline — single line, no metrics row above. */}
+        <motion.p
+          initial={{ opacity: 0, y: 4 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl border-t border-brand-ivory/10 pt-3 text-[12.5px] italic leading-snug text-brand-ivory/75 sm:text-[13.5px]"
+        >
+          {p.closing}
+        </motion.p>
       </div>
     </PanelShell>
   );
