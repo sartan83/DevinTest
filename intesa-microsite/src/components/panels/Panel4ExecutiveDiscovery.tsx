@@ -43,67 +43,15 @@ export function Panel4ExecutiveDiscovery() {
           </motion.p>
         </div>
 
-        {/* Outcome strip — the three business outcomes the paradigm
-            shift produces. Scalability + Speed are visually dominant
-            (orange accent, display weight). Control is present but
-            secondary (ivory, smaller, no orange) so the section
-            communicates a business-outcome shift, not a governance
-            page. */}
-        {p.outcomes && (
-          <div className="grid gap-2 sm:grid-cols-3 sm:gap-3">
-            {p.outcomes.map((o, i) => {
-              const isPrimary = o.emphasis === "primary";
-              return (
-                <motion.div
-                  key={o.word}
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{
-                    duration: 0.55,
-                    delay: 0.18 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className={[
-                    "flex flex-col gap-1 rounded-lg border px-3 py-2.5 sm:px-3.5 sm:py-3",
-                    isPrimary
-                      ? "border-brand-orange/40 bg-brand-orange/[0.05] shadow-[0_4px_18px_-14px_rgba(243,111,33,0.6)]"
-                      : "border-brand-ivory/12 bg-brand-green-deep/40",
-                  ].join(" ")}
-                >
-                  <span
-                    className={[
-                      "font-display leading-none tracking-tight",
-                      isPrimary
-                        ? "text-[22px] font-semibold text-brand-ivory sm:text-[26px] lg:text-[28px]"
-                        : "text-[15px] font-medium text-brand-ivory/85 sm:text-[16.5px] lg:text-[18px]",
-                    ].join(" ")}
-                  >
-                    {o.word}
-                  </span>
-                  <span
-                    className={[
-                      "leading-snug",
-                      isPrimary
-                        ? "text-[11.5px] text-brand-orange-soft/95 sm:text-[12.5px]"
-                        : "text-[10.5px] text-brand-ivory/55 sm:text-[11.5px]",
-                    ].join(" ")}
-                  >
-                    {o.label}
-                  </span>
-                </motion.div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* Three-column paradigm-shift flow.
-            Current paradigm → Devin execution layer → Future paradigm.
-            The center column is visually the heaviest (orange accent
-            + parallel-line motion) so the slide reads as an operating
-            model shift, not as a generic process diagram. */}
-        <div className="relative grid gap-2.5 sm:gap-3 lg:grid-cols-[1fr_auto_1.05fr_auto_1fr] lg:items-stretch lg:gap-2">
-          {/* Column 1 — Current paradigm (human-led linear execution) */}
+        {/* Paradigm-shift flow.
+            Current paradigm sits standalone on the left.
+            Devin layer + Future state are wrapped in a single
+            orange-accented frame on the right, with a hero
+            "Scalability · Speed · Control" header above the two
+            columns so the right side reads as one unified Devin
+            transformation block (three outcomes → two stages). */}
+        <div className="relative grid gap-3 sm:gap-4 lg:grid-cols-[1fr_auto_2.2fr] lg:items-stretch lg:gap-3">
+          {/* Left — Current paradigm (human-led linear execution) */}
           <Column
             label={p.current.label}
             caption={p.current.caption}
@@ -115,27 +63,90 @@ export function Panel4ExecutiveDiscovery() {
 
           <FlowArrow />
 
-          {/* Column 2 — Devin execution layer (the paradigm shift) */}
-          <Column
-            label={p.future.label}
-            caption={p.future.caption}
-            subtitle={p.future.subtitle}
-            items={p.future.items.slice(0, 4)}
-            tone="primary"
-            mode="parallel"
-          />
+          {/* Right — Devin transformation wrapper. Frames the two
+              right columns inside one orange-accented container.
+              The wrapper header carries the three business outcomes
+              (Scalability / Speed / Control) so the outcomes are
+              the hero statement of the right side, not a separate
+              strip on top of the slide. */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex flex-col gap-3 rounded-2xl border border-brand-orange/35 bg-brand-orange/[0.04] p-3 shadow-[0_10px_36px_-22px_rgba(243,111,33,0.55)] sm:gap-3.5 sm:p-4 lg:p-5"
+          >
+            {/* Wrapper hero header — Scalability · Speed · Control. */}
+            {p.outcomes && (
+              <div className="flex flex-col gap-1.5 border-b border-brand-orange/25 pb-3 sm:pb-3.5">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-brand-orange sm:text-[10.5px]">
+                  Devin transformation
+                </span>
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 sm:gap-x-4">
+                  {p.outcomes.map((o, i) => {
+                    const isPrimary = o.emphasis === "primary";
+                    return (
+                      <div key={o.word} className="flex items-baseline gap-2">
+                        {i > 0 && (
+                          <span
+                            aria-hidden
+                            className="text-[14px] font-light text-brand-orange/45 sm:text-[16px]"
+                          >
+                            ·
+                          </span>
+                        )}
+                        <motion.span
+                          initial={{ opacity: 0, y: 6 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.35 }}
+                          transition={{
+                            duration: 0.5,
+                            delay: 0.25 + i * 0.08,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
+                          className={[
+                            "font-display leading-none tracking-tight",
+                            isPrimary
+                              ? "text-[22px] font-semibold text-brand-ivory sm:text-[26px] lg:text-[30px]"
+                              : "text-[16px] font-medium text-brand-ivory/80 sm:text-[18px] lg:text-[20px]",
+                          ].join(" ")}
+                        >
+                          {o.word}
+                        </motion.span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <span className="text-[11px] leading-snug text-brand-ivory/65 sm:text-[12px]">
+                  Parallel SDLC workstreams · faster path to PR-ready output · human approval remains.
+                </span>
+              </div>
+            )}
 
-          <FlowArrow />
+            {/* Two stages of the transformation, kept as separate
+                columns inside the wrapper. */}
+            <div className="grid gap-2.5 sm:gap-3 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
+              <Column
+                label={p.future.label}
+                caption={p.future.caption}
+                subtitle={p.future.subtitle}
+                items={p.future.items.slice(0, 4)}
+                tone="primary"
+                mode="parallel"
+              />
 
-          {/* Column 3 — Future paradigm (reviewable PR-ready delivery) */}
-          <Column
-            label={reviewable.label}
-            caption={reviewable.caption}
-            subtitle={reviewable.subtitle}
-            items={reviewable.items.slice(0, 4)}
-            tone="elevated"
-            mode="ready"
-          />
+              <FlowArrow />
+
+              <Column
+                label={reviewable.label}
+                caption={reviewable.caption}
+                subtitle={reviewable.subtitle}
+                items={reviewable.items.slice(0, 4)}
+                tone="elevated"
+                mode="ready"
+              />
+            </div>
+          </motion.div>
         </div>
 
         {/* Trust line — one thin reminder that human approval
