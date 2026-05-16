@@ -242,7 +242,8 @@ export const intesa = {
     // visual treatment lives in Panel1Opening.tsx. SDLC north star
     // markers lead (15% / ~€70M / ~6,900 dev capacity), followed by
     // the migration anchor and the structural investment anchor.
-    scaleContext: "One of Europe’s largest SDLC modernization environments.",
+    scaleContext:
+      "One of Europe’s largest modernization environments — with quantified efficiency pressure already attached.",
     kpis: [
       {
         value: "15%",
@@ -250,15 +251,19 @@ export const intesa = {
       },
       {
         value: "~€70M",
-        label: "Efficiency target by 2028",
+        label: "Target by 2028",
       },
       {
         value: "~6,900",
-        label: "Development capacity (internal + external)",
+        label: "Development capacity",
       },
       {
         value: "~100%",
-        label: "Cloud migration target by 2029",
+        label: "Cloud-based applications by 2029",
+      },
+      {
+        value: "Cloud / isytech",
+        label: "Efficiency unlock",
       },
       {
         value: "€1.2B+",
@@ -359,7 +364,7 @@ export const intesa = {
     // 15% / ~€70M is Intesa's own quantified ambition, not a
     // Devin claim.
     support:
-      "Intesa already has a quantified SDLC efficiency ambition: 15% improvement, equivalent to approximately €70M by 2028. The question is where execution leverage can be created safely — without weakening governance, review quality, or control.",
+      "The issue is no longer whether Intesa has a modernization strategy. It is whether execution capacity scales fast enough to capture the economic benefits on time.",
     // Current-state → target-state anchors flanking a tension zone.
     // The component renders 64% on the left and ~100% by 2029 on
     // the right, with the remaining 36% gap visualised between
@@ -397,14 +402,14 @@ export const intesa = {
       tracks: [
         {
           key: "cloud",
-          title: "Cloud migration target",
-          target: "~100% by 2029",
-          gap: "36% gap remaining",
+          title: "Cloud migration value capture",
+          target: "~100% cloud-based by 2029",
+          gap: "Mainframe / isytech / cloud extension linked to structural efficiency gains",
         },
         {
           key: "sdlc",
-          title: "SDLC efficiency ambition",
-          target: "15% / ~€70M by 2028",
+          title: "15% SDLC efficiency ambition",
+          target: "~€70M target by 2028",
           gap: "Largest effort zone: coding + testing/release",
         },
       ],
@@ -423,56 +428,61 @@ export const intesa = {
   // and what needs alignment — never assumed.
   // -------------------------------------------------------------------------
   panel3: {
-    eyebrow: "Executive validation points",
-    // Repositioned from "discovery findings" to a live executive
-    // validation checkpoint. The section now supports the roleplay
-    // pause before Devin is introduced — four open questions that
-    // anchor the conversation in Intesa's own SDLC economics
-    // (15% target · 70% execution zone · review throughput ·
-    // scale-out ownership). No competing metrics with surrounding
-    // sections, no research-slide feel.
+    eyebrow: "Validation before pilot scope",
+    // Repositioned to sit immediately AFTER the SDLC Execution Map.
+    // The map shows quantitatively that 70% of SDLC effort sits in
+    // coding + testing/release. This section then pauses and asks
+    // whether that execution zone is the right starting point for
+    // the pilot — and what would need to be true around it
+    // (workflow selection · review scalability · decision
+    // ownership). It is an executive alignment checkpoint, not a
+    // discovery slide.
     discoveryIntro:
-      "Before discussing Devin, I would validate where the SDLC pressure is actually felt today.",
-    headline: "What we need to validate.",
+      "Before defining the pilot, I would validate whether the 70% execution zone is the right place to start.",
+    headline: "Aligning on the right\nstarting point.",
     // Four open executive validation questions. Each card has a
     // short title, the question itself, and a quiet supporting
     // note describing what the answer would unlock. Cards are
     // intentionally minimal — they should feel like a live
-    // discovery checkpoint, not a research slide.
+    // discovery checkpoint, not a research slide. The 15% / €70M
+    // question is intentionally removed — the SDLC Execution Map
+    // already grounds the conversation in that ambition.
     validationCards: [
       {
-        key: "target",
-        title: "SDLC efficiency target",
+        key: "starting",
+        title: "Starting point",
         question:
-          "Where is the 15% SDLC efficiency target expected to come from?",
+          "Does coding + testing/release feel like the right first execution zone to validate?",
         note:
-          "Clarifies whether the opportunity is mainly coding, testing, release, governance, vendor capacity, or process redesign.",
+          "Confirms whether the 70% SDLC concentration is the right pilot focus.",
       },
       {
-        key: "zone",
-        title: "70% execution zone",
+        key: "workflow",
+        title: "Workflow selection",
         question:
-          "Within coding and testing/release, which workflows are most repetitive and measurable?",
-        note: "Identifies where Devin can be tested without boiling the ocean.",
+          "Which workflows inside that zone are repetitive enough to measure safely?",
+        note:
+          "Focuses the pilot on bounded modernization, remediation, testing, release-readiness or PR-ready delivery workflows.",
       },
       {
         key: "review",
-        title: "Review bottleneck",
+        title: "Review scalability",
         question:
-          "If execution accelerates, where would review or approval throughput become constrained?",
+          "If Devin increases PR-ready output, where would review effort become constrained?",
         note:
-          "Defines whether the pilot must optimize not only PR generation, but also review effort, acceptance, and rework.",
+          "Ensures the pilot measures review effort, PR acceptance and rework — not just execution speed.",
       },
       {
         key: "ownership",
-        title: "Scale-out ownership",
+        title: "Decision ownership",
         question:
-          "Who would need to own the scale-out decision if the pilot proves measurable contribution?",
-        note: "Connects technical validation to executive commitment.",
+          "Who needs to be involved to turn pilot evidence into a scale-out decision?",
+        note:
+          "Connects technical validation to executive commitment and follow-up.",
       },
     ],
     validationFooter:
-      "Goal: validate where governed AI execution can contribute measurably before defining the pilot scope.",
+      "Goal: align on the right starting point before defining pilot scope.",
     subhead: "",
     legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
@@ -992,24 +1002,23 @@ export const intesa = {
   // PANEL 8 — ROI Signal (€€€ math, separated from the leverage panel)
   // -------------------------------------------------------------------------
   panel8: {
-    eyebrow: "Contribution to the 15% ambition",
-    headline: "A measured path toward the\n15% SDLC efficiency ambition.",
-    // Subline — anchors the pilot intent in a single executive
-    // sentence. The whole panel is designed to be readable in
-    // 10 seconds: 3 hero numbers, 3 implied-model blocks, 1
-    // proof row, 1 closing line.
+    eyebrow: "From SDLC ambition to upside potential",
+    headline: "A measured path to — and beyond —\nthe €70M SDLC ambition.",
+    // Subline — frames the ROI question as net efficiency across
+    // the full execution path (coding, testing, release, PR-ready
+    // packaging, review). NOT a coding-speed-only story.
     subhead:
-      "Intesa is targeting approximately €70M of SDLC efficiency by 2028. The pilot should validate measurable contribution where SDLC effort concentrates most: coding, testing and release.",
-    // Hero — three executive numbers, premium typography, no
-    // dashboard feel. The 70% number visually connects to the
-    // 43% coding + 27% testing/release split rendered as a
-    // small segmented bar beneath the hero row.
+      "Intesa’s official target is 15% SDLC efficiency, equivalent to ~€70M by 2028. The question is whether governed AI execution can create enough net efficiency across coding, testing, release and reviewable PR preparation to meet — and potentially exceed — that ambition.",
+    // Hero — four executive numbers. The fourth (~21%) makes the
+    // ROI math visible: to reach €70M on a €327M execution-effort
+    // zone, the pilot must demonstrate ~21% net efficiency after
+    // review and rework. Reads in <10 seconds.
     hero: {
       numbers: [
         {
           key: "ambition",
           value: "15%",
-          label: "SDLC efficiency ambition",
+          label: "Official SDLC efficiency ambition",
         },
         {
           key: "target",
@@ -1021,9 +1030,14 @@ export const intesa = {
           value: "70%",
           label: "SDLC effort in coding + testing/release",
         },
+        {
+          key: "netEfficiency",
+          value: "~21%",
+          label: "Net efficiency required on execution zone to reach target",
+        },
       ],
-      // 43% + 27% = 70% execution zone — rendered as a subtle
-      // segmented bar under the 70% number.
+      // 43% + 27% = 70% execution zone — segmented bar attached
+      // to the 70% number.
       executionZone: {
         parts: [
           { value: "43%", label: "Coding" },
@@ -1032,10 +1046,8 @@ export const intesa = {
         total: "70% execution zone",
       },
     },
-    // Value-logic strip — three compact blocks. €467M and €327M
-    // are implied / derived model numbers, explicitly labelled
-    // as such. They sit visually secondary to the hero numbers
-    // above, not as competing headlines.
+    // Implied-model blocks — €467M baseline and €327M execution
+    // zone, both explicitly labelled as derived figures.
     valueStrip: {
       label: "Implied model derived from 15% / €70M ambition",
       blocks: [
@@ -1043,7 +1055,7 @@ export const intesa = {
           key: "baseline",
           value: "~€467M",
           label: "Implied SDLC baseline",
-          note: "Derived from €70M / 15%",
+          note: "€70M / 15%",
         },
         {
           key: "executionZone",
@@ -1051,46 +1063,125 @@ export const intesa = {
           label: "Execution-effort zone",
           note: "70% of implied SDLC baseline",
         },
+      ],
+    },
+    // Formula — explicit, visible. The "after review and rework"
+    // clause is the key correction: ROI is NOT coding speed only.
+    formula: {
+      label: "ROI contribution formula",
+      value:
+        "ROI contribution = addressable SDLC execution effort × workflow applicability × adoption × net efficiency after review and rework",
+    },
+    // Where Devin creates SDLC leverage — five compact stages
+    // showing that ROI accrues across the full execution path,
+    // not only at the coding step.
+    leverageStages: {
+      label: "Where Devin creates SDLC leverage",
+      items: [
         {
-          key: "pilot",
-          value: "Pilot-validated\ncontribution",
-          label: "Measured through execution and review signals",
-          note: "PR-ready time · review effort · test quality · rework",
+          key: "transformation",
+          title: "Code transformation",
+          note: "reduces repetitive implementation effort",
+        },
+        {
+          key: "testing",
+          title: "Test generation",
+          note: "improves validation speed and test coverage",
+        },
+        {
+          key: "remediation",
+          title: "Remediation",
+          note: "accelerates bug and vulnerability fixes",
+        },
+        {
+          key: "packaging",
+          title: "PR-ready packaging",
+          note:
+            "creates structured diffs, summaries, test evidence and execution trace",
+        },
+        {
+          key: "review",
+          title: "Review acceleration",
+          note:
+            "human approval remains, but review starts from a better package",
         },
       ],
     },
-    // Pilot proof row — six measured signals the pilot reports
-    // against. Visually light: small chip row, not large tiles.
+    // Scenario ladder — four points across the €327M execution
+    // zone. The €70M target is the official ambition, not the
+    // ceiling. Reads as trajectory-to-validate, not as guaranteed
+    // savings.
+    scenarioLadder: {
+      label: "Efficiency scenarios across coding, testing/release and PR-ready delivery",
+      caption: "Net efficiency on the ~€327M execution zone",
+      anchor: "Target line: ~€70M (official ambition, not ceiling)",
+      scenarios: [
+        {
+          key: "conservative",
+          title: "Conservative contribution",
+          efficiency: "10%",
+          value: "~€33M",
+          tone: "conservative" as const,
+        },
+        {
+          key: "target",
+          title: "Target-aligned contribution",
+          efficiency: "~21%",
+          value: "~€70M",
+          tone: "target" as const,
+        },
+        {
+          key: "upside",
+          title: "Upside contribution",
+          efficiency: "25%",
+          value: "~€82M",
+          tone: "upside" as const,
+        },
+        {
+          key: "highUpside",
+          title: "High-upside contribution",
+          efficiency: "30%",
+          value: "~€98M",
+          tone: "highUpside" as const,
+        },
+      ],
+      disclaimers: [
+        "These are trajectory scenarios to validate — not guaranteed savings.",
+        "The €70M target is the official ambition, not the ceiling.",
+        "The pilot does not need to prove the full upside immediately. It needs to validate whether workflow-level improvements make the target trajectory credible.",
+      ],
+    },
+    // Pilot evidence row — operational metrics that prove whether
+    // the curve is realistic. Replaces the prior single pilotProof
+    // row with a more comprehensive list covering testing and
+    // remediation, not only PR mechanics.
     pilotProof: {
-      label: "How the pilot proves contribution",
+      label: "Pilot evidence — what the curve depends on",
       items: [
         "Time to PR-ready",
         "Review effort per PR",
         "PR acceptance rate",
         "Test pass rate",
         "Rework required",
+        "Release-readiness evidence",
+        "Vulnerabilities remediated",
         "Engineering hours redeployed",
       ],
     },
-    // Closing line — visible but not large. Sits below the proof
-    // row as the executive frame for the entire section.
+    // Final ROI message — the single executive line that anchors
+    // the entire section.
     closing:
-      "The objective is not to claim the full €70M upfront. It is to validate measurable contribution in the highest-effort SDLC zones.",
-    // Governance reframe — single uppercase rail above the
-    // collapsible methodology drawer.
+      "Intesa has a €70M official SDLC efficiency ambition. Because 70% of SDLC effort sits in coding, testing and release, governed AI execution could create a credible path to the target — and upside beyond it — if the pilot proves net efficiency after review and rework.",
     redeploymentNote: "Capacity redeployment, not headcount reduction.",
-    // Methodology — collapsed by default, secondary. Removed
-    // scenario ranges, dev-equivalents, McKinsey/Gartner refs.
+    // Methodology — collapsible drawer, secondary.
     derivationNote:
-      "Derivation: €70M / 15% ≈ €467M implied SDLC baseline · ≈€467M × 70% ≈ €327M implied coding + testing/release effort zone. Implied-model figures, not standalone official numbers.",
-    formula:
-      "Impact = addressable SDLC effort × workflow applicability × throughput improvement × adoption.",
+      "Derivation: €70M / 15% ≈ €467M implied SDLC baseline · ≈€467M × 70% ≈ €327M implied coding + testing/release effort zone · €70M / €327M ≈ 21% net efficiency required on the execution zone to reach the official target. Implied-model figures, not standalone official numbers.",
     sources: [
       "Intesa Sanpaolo — 15% SDLC efficiency ambition · ~€70M target by 2028.",
       "Intesa Sanpaolo — SDLC effort distribution: 17% requirements writing · 8% functional analysis · 5% technical analysis · 43% coding · 27% testing & release.",
     ],
     disclaimer:
-      "Implied model derived from Intesa’s own 15% / €70M SDLC efficiency ambition. Pilot validates measurable contribution toward that ambition, not committed savings, not a Devin guarantee of the full €70M.",
+      "Implied model derived from Intesa’s own 15% / €70M SDLC efficiency ambition. Scenarios are trajectories to validate during the pilot — not committed savings, not a Devin guarantee of the €70M target or of the upside above it.",
   },
 
   // -------------------------------------------------------------------------
@@ -1178,20 +1269,25 @@ export const intesa = {
     // testing, release) — not a transformation programme, not a
     // sandbox experiment, not a roadmap.
     subhead:
-      "A 4-week controlled validation sprint focused on the highest-effort SDLC zones: coding, testing, and release.",
+      "A 4-week controlled validation sprint focused on the highest-effort SDLC zones: coding, testing, release and PR-ready delivery.",
+    // Anchor line beneath the subhead — anchors the pilot on net
+    // efficiency, not on raw code generation speed. Mirrors the
+    // ROI formula.
+    netEfficiencyLine:
+      "The pilot validates net efficiency after review and rework — not just code generation speed.",
     // Measured KPIs row — explicit operational measurement frame
     // that the pilot will baseline in Week 1 and report against in
-    // Week 4. Rendered as a thin uppercase chip row at the top of
-    // the pilot, so each week below reads against an actual KPI
-    // set rather than against generic "success metrics".
+    // Week 4. Updated to mirror the Panel 8 pilot evidence row so
+    // ROI and pilot measure the same signals.
     measuredKpis: {
       label: "Measured KPIs",
       items: [
-        "Time to PR-ready",
+        "Time from task to PR-ready",
         "Review effort per PR",
         "PR acceptance rate",
         "Test pass rate",
         "Rework required",
+        "Vulnerabilities remediated",
         "Release-readiness evidence",
         "Engineering hours redeployed",
       ],
@@ -1207,39 +1303,31 @@ export const intesa = {
         title: "Baseline & workflow selection",
         items: [
           "Select 3–4 workflows in coding / testing / release",
-          "Establish current baseline effort",
-          "Capture review effort and cycle time",
-          "Confirm governance boundaries",
+          "Establish baseline from task definition to PR-ready and review effort",
         ],
       },
       {
         week: "Week 2",
         title: "Controlled execution",
         items: [
-          "Run Devin on selected SDLC workflows",
-          "Generate code changes, tests, and PR-ready output",
-          "Capture time to PR-ready",
-          "Track review package completeness",
+          "Run Devin on selected workflows",
+          "Measure time to PR-ready and quality of review package",
         ],
       },
       {
         week: "Week 3",
         title: "Review & validation",
         items: [
-          "Measure PR acceptance and rework",
-          "Validate test evidence and CI status",
-          "Identify whether review becomes the next bottleneck",
-          "Confirm team confidence in the workflow pattern",
+          "Measure PR acceptance, review effort, test pass rate and rework",
+          "Identify whether review becomes a bottleneck or becomes more scalable",
         ],
       },
       {
         week: "Week 4",
         title: "Executive decision",
         items: [
-          "Quantify effort reduction signals",
-          "Estimate contribution to the SDLC ambition",
-          "Confirm scale-out use cases",
-          "Schedule broader deployment review",
+          "Quantify net efficiency after review and rework",
+          "Decide scale-out workflow, owner and follow-up meeting",
         ],
       },
     ],
@@ -1277,20 +1365,17 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel12: {
     eyebrow: "Decision point",
-    headline: "The decision is whether governed\nAI execution can move the\nSDLC efficiency curve.",
-    // Subline anchors the actual decision being asked of the room —
-    // not replacing engineers, but reducing repetitive execution
-    // effort in the largest SDLC work zones.
+    headline: "Commit to a controlled\nSDLC ROI validation sprint.",
+    // Subline — frames the ask as a bounded 4-week validation, not
+    // a rollout, not a transformation programme.
     subhead:
-      "Not by replacing engineers, but by reducing repetitive execution effort in the largest SDLC work zones.",
-    // Two-block commitment ask. Reads as the explicit next step
-    // and the follow-up checkpoint — not as additional pilot
-    // mechanics. Premium executive minimalism: thin top-rule,
-    // small uppercase label, single short sentence per block.
+      "The next step is not a full rollout. It is a 4-week validation of measurable contribution against Intesa’s 15% / €70M SDLC ambition.",
+    // Two-block commitment ask — explicit next step + follow-up
+    // checkpoint.
     commitment: [
       {
         label: "Recommended next step",
-        value: "Launch a 4-week controlled SDLC modernization validation sprint.",
+        value: "Launch a 4-week controlled SDLC ROI validation sprint.",
       },
       {
         label: "Follow-up decision meeting",
@@ -1298,22 +1383,21 @@ export const intesa = {
           "Review measured outcomes, confirm scale-out criteria, and align on broader deployment path.",
       },
     ],
-    // Four final action bullets that crystallise what advancing
-    // looks like before leaving the room. Compact, executive,
-    // checkbox-style — NOT a project plan.
+    // Four final action bullets — what advancing looks like before
+    // leaving the room.
     actionBullets: {
       label: "To advance",
       items: [
-        "Select 3–4 coding / testing / release workflows",
+        "Select 3–4 workflows",
         "Confirm engineering and governance owners",
-        "Agree pilot KPIs",
+        "Agree success metrics",
         "Schedule executive review at the end of week 4",
       ],
     },
     strategicObjective: {
       label: "Strategic objective",
       value:
-        "From task definition to reviewable, test-backed PRs — measured against Intesa’s own 15% SDLC efficiency ambition.",
+        "From task definition to reviewable, test-backed PRs — measured against Intesa’s own SDLC efficiency ambition.",
     },
   },
 

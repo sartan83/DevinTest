@@ -353,13 +353,18 @@ export function MicrositeShell() {
           <Panel1Opening />
           <Panel1bAgenda />
           <Panel2ExecutionGap />
-          <Panel3CurrentState />
+          {/* SDLC Execution Map comes BEFORE Validation: first show the
+              quantitative SDLC effort distribution, then pause and ask
+              whether the 70% execution zone is the right place to start. */}
           <Panel35SdlcMap />
+          <Panel3CurrentState />
           <Panel4ExecutiveDiscovery />
           <Panel5BusinessImpact />
           <Panel6EnterpriseTrust />
-          <Panel8RoiSignal />
+          {/* Banking Proof comes BEFORE ROI: give the buyer banking-scale
+              evidence first, then walk into the ROI / upside model. */}
           <Panel9ItauReference />
+          <Panel8RoiSignal />
           <Panel10Pilot />
           <Panel12FinalAsk onCta={(target) => goTo(target - 1)} />
           <AppendixDiscoveryFramework />

@@ -25,7 +25,7 @@ export function Panel10Pilot() {
   return (
     <PanelShell eyebrow={p.eyebrow} compact bg="clean">
       <div className="flex flex-col gap-5 sm:gap-6 lg:gap-7">
-        {/* Hero + supporting subline. */}
+        {/* Hero + supporting subline + net-efficiency anchor. */}
         <div className="flex flex-col gap-2.5 sm:gap-3">
           <PanelHeadline text={p.headline} compact />
           <motion.p
@@ -37,6 +37,17 @@ export function Panel10Pilot() {
           >
             {p.subhead}
           </motion.p>
+          {p.netEfficiencyLine && (
+            <motion.p
+              initial={{ opacity: 0, y: 4 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-3xl text-[11.5px] italic leading-relaxed text-brand-orange-soft/85 sm:text-[12.5px]"
+            >
+              {p.netEfficiencyLine}
+            </motion.p>
+          )}
         </div>
 
         {/* Measured KPIs rail.
