@@ -76,6 +76,25 @@ export function Panel4ExecutiveDiscovery() {
           />
         </div>
 
+        {/* Trust line — one thin reminder that human approval
+            remains. Replaces the dedicated Governed Acceleration
+            slide that has been moved to the appendix. */}
+        {p.trustLine && (
+          <motion.p
+            initial={{ opacity: 0, y: 4 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.45, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-center gap-2 text-[10.5px] uppercase tracking-[0.26em] text-brand-ivory/55 sm:text-[11px]"
+          >
+            <span
+              aria-hidden
+              className="inline-block h-1 w-1 shrink-0 rounded-full bg-brand-orange-soft/80"
+            />
+            <span className="leading-snug">{p.trustLine}</span>
+          </motion.p>
+        )}
+
         {/* Two metrics + closing line — one tight row. */}
         <div className="flex flex-col gap-2 border-t border-brand-ivory/10 pt-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-5">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">

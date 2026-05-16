@@ -20,20 +20,16 @@ import { Panel10Pilot } from "./panels/Panel10Pilot";
 import { Panel12FinalAsk } from "./panels/Panel12FinalAsk";
 import { AppendixDiscoveryFramework } from "./panels/AppendixDiscoveryFramework";
 
-// 12 main panels (index 0–11) + 1 appendix panel (index 12) reachable only
-// via the discrete "Appendix" toggle in the header. Idx 0 is the
-// pre-session executive opening screen. Hero idx 1, agenda idx 2, Why
-// Now · 2029 idx 3, governed modernization workflow idx 6. The
-// standalone Capacity Redeployment panel and the standalone
-// Enterprise-Ready Execution panel were both removed during the
-// Cognition-style reduction passes — capacity content lives in the
-// ROI signal panel; governance/safeguard signals are now the third
-// block of the 4-week pilot. Final panel (idx 11) is the Decision
-// Point closer (scale-out criteria), replacing the earlier
-// "Proposed next step" recap.
-const MAIN_PANELS = 13;
-const APPENDIX_INDEX = 13;
-const TOTAL_PANELS = MAIN_PANELS + 1;
+// Main flow panels (index 0…MAIN_PANELS-1) drive the sales narrative. The
+// appendix range (APPENDIX_START…TOTAL_PANELS-1) is reachable only via the
+// discrete "Appendix" toggle in the header (or the `A` shortcut). Trust &
+// Control lives in the appendix to keep the main flow commercial — the
+// content is still one click away when a buyer wants to inspect the
+// control envelope, but it no longer sits between Demo and Banking Proof.
+const MAIN_PANELS = 12;
+const APPENDIX_START = MAIN_PANELS;
+const APPENDIX_COUNT = 2;
+const TOTAL_PANELS = MAIN_PANELS + APPENDIX_COUNT;
 const MOBILE_MAX_WIDTH = 767;
 
 export function MicrositeShell() {
@@ -56,14 +52,19 @@ export function MicrositeShell() {
       const el = scrollerRef.current;
       if (!el) return;
       const max = opts.allowAppendix ? TOTAL_PANELS - 1 : MAIN_PANELS - 1;
-      const clamped = Math.max(0, Math.min(max, idx));
+      // If we're already in the appendix we let navigation move
+      // freely inside the appendix range without re-passing the
+      // allowAppendix flag.
+      const inAppendix = active >= APPENDIX_START;
+      const effectiveMax = inAppendix ? TOTAL_PANELS - 1 : max;
+      const clamped = Math.max(0, Math.min(effectiveMax, idx));
       if (isMobile) {
         el.scrollTo({ top: el.clientHeight * clamped, behavior: "smooth" });
       } else {
         el.scrollTo({ left: el.clientWidth * clamped, behavior: "smooth" });
       }
     },
-    [isMobile]
+    [isMobile, active]
   );
 
   // Track which panel is active from scroll position.
@@ -138,9 +139,9 @@ export function MicrositeShell() {
         case "ArrowDown":
         case "PageDown":
           e.preventDefault();
-          if (active === APPENDIX_INDEX) {
-            // No forward nav from the appendix; bounce back to last main panel.
-            goTo(MAIN_PANELS - 1);
+          if (active >= APPENDIX_START) {
+            // Allow forward nav inside the appendix; cap at last appendix panel.
+            goTo(Math.min(TOTAL_PANELS - 1, active + 1), { allowAppendix: true });
           } else {
             goTo(active + 1);
           }
@@ -148,8 +149,8 @@ export function MicrositeShell() {
         case " ":
           if (isActivatable) return;
           e.preventDefault();
-          if (active === APPENDIX_INDEX) {
-            goTo(MAIN_PANELS - 1);
+          if (active >= APPENDIX_START) {
+            goTo(Math.min(TOTAL_PANELS - 1, active + 1), { allowAppendix: true });
           } else {
             goTo(active + 1);
           }
@@ -158,8 +159,11 @@ export function MicrositeShell() {
         case "ArrowUp":
         case "PageUp":
           e.preventDefault();
-          if (active === APPENDIX_INDEX) {
+          if (active === APPENDIX_START) {
+            // Back from the first appendix panel returns to last main panel.
             goTo(MAIN_PANELS - 1);
+          } else if (active > APPENDIX_START) {
+            goTo(active - 1, { allowAppendix: true });
           } else {
             goTo(active - 1);
           }
@@ -173,7 +177,7 @@ export function MicrositeShell() {
           goTo(MAIN_PANELS - 1);
           break;
         case "Escape":
-          if (active === APPENDIX_INDEX) {
+          if (active >= APPENDIX_START) {
             e.preventDefault();
             goTo(MAIN_PANELS - 1);
           }
@@ -182,10 +186,10 @@ export function MicrositeShell() {
         case "A":
           if (isActivatable) return;
           e.preventDefault();
-          if (active === APPENDIX_INDEX) {
+          if (active >= APPENDIX_START) {
             goTo(MAIN_PANELS - 1);
           } else {
-            goTo(APPENDIX_INDEX, { allowAppendix: true });
+            goTo(APPENDIX_START, { allowAppendix: true });
           }
           break;
       }
@@ -283,13 +287,13 @@ export function MicrositeShell() {
     return { min, max };
   }, [visited]);
 
-  const isAppendix = active === APPENDIX_INDEX;
+  const isAppendix = active >= APPENDIX_START;
 
   const toggleAppendix = useCallback(() => {
     if (isAppendix) {
       goTo(MAIN_PANELS - 1);
     } else {
-      goTo(APPENDIX_INDEX, { allowAppendix: true });
+      goTo(APPENDIX_START, { allowAppendix: true });
     }
   }, [isAppendix, goTo]);
 
@@ -360,13 +364,18 @@ export function MicrositeShell() {
           <Panel3CurrentState />
           <Panel4ExecutiveDiscovery />
           <Panel5BusinessImpact />
-          <Panel6EnterpriseTrust />
           {/* Banking Proof comes BEFORE ROI: give the buyer banking-scale
-              evidence first, then walk into the ROI / upside model. */}
+              evidence first, then walk into the ROI / upside model.
+              Governed Acceleration / Trust & Control has been moved
+              to the appendix to keep the main flow commercial. */}
           <Panel9ItauReference />
           <Panel8RoiSignal />
           <Panel10Pilot />
           <Panel12FinalAsk onCta={(target) => goTo(target - 1)} />
+          {/* Appendix panels — reachable only via the Appendix toggle
+              (or `A` shortcut). Trust & Control first, then Discovery
+              Framework. */}
+          <Panel6EnterpriseTrust />
           <AppendixDiscoveryFramework />
         </div>
       </div>

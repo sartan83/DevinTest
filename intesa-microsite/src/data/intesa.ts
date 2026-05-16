@@ -107,22 +107,25 @@ export const intesa = {
   // executive ask. Index 0–13 are the main executive flow. Index 14 is
   // the appendix ("Discovery framework") — reachable only via the
   // discrete appendix toggle, hidden from the progress dots.
+  // Nav order matches MicrositeShell render order. Trust & Control
+  // sits in the appendix range so the main flow runs:
+  // Opening → Why Now → SDLC Map → Validation → Future-State →
+  // Demo → Banking Proof → ROI → Pilot → Decision Point.
   nav: [
-    { index: 0, label: "·", full: "Executive working session", appendix: false },
-    { index: 1, label: "1", full: "Opening", appendix: false },
-    { index: 2, label: "2", full: "Agenda", appendix: false },
-    { index: 3, label: "3", full: "Why now · 2029", appendix: false },
-    { index: 4, label: "4", full: "Current state", appendix: false },
-    { index: 5, label: "5", full: "Executive validation", appendix: false },
-    { index: 6, label: "6", full: "Governed modernization workflow", appendix: false },
-    { index: 7, label: "7", full: "Enterprise trust", appendix: false },
-    { index: 8, label: "8", full: "Capacity redeployment", appendix: false },
-    { index: 9, label: "9", full: "ROI signal", appendix: false },
-    { index: 10, label: "10", full: "Enterprise reference", appendix: false },
-    { index: 11, label: "11", full: "4-week pilot", appendix: false },
-    { index: 12, label: "12", full: "Operational readiness", appendix: false },
-    { index: 13, label: "13", full: "Next-step alignment", appendix: false },
-    { index: 14, label: "A", full: "Discovery framework (appendix)", appendix: true },
+    { index: 0,  label: "·",  full: "Executive working session", appendix: false },
+    { index: 1,  label: "1",  full: "Opening", appendix: false },
+    { index: 2,  label: "2",  full: "Agenda", appendix: false },
+    { index: 3,  label: "3",  full: "Why now · 2029", appendix: false },
+    { index: 4,  label: "4",  full: "SDLC execution map", appendix: false },
+    { index: 5,  label: "5",  full: "Validation before pilot scope", appendix: false },
+    { index: 6,  label: "6",  full: "Future-state engineering flow", appendix: false },
+    { index: 7,  label: "7",  full: "SDLC execution demo", appendix: false },
+    { index: 8,  label: "8",  full: "Banking proof at scale", appendix: false },
+    { index: 9,  label: "9",  full: "ROI / upside potential", appendix: false },
+    { index: 10, label: "10", full: "4-week pilot", appendix: false },
+    { index: 11, label: "11", full: "Decision point", appendix: false },
+    { index: 12, label: "A1", full: "Trust & Control (appendix)", appendix: true },
+    { index: 13, label: "A2", full: "Discovery framework (appendix)", appendix: true },
   ] as { index: number; label: string; full: string; appendix: boolean }[],
 
   counter: {
@@ -706,6 +709,11 @@ export const intesa = {
     // a better starting package, not removed.
     closing:
       "Devin scales repetitive execution into PR-ready workstreams — not just individual coding tasks.",
+    // One short trust line, kept in the main flow because Trust &
+    // Control is now an appendix panel. Signals that human approval
+    // is preserved without duplicating the appendix content.
+    trustLine:
+      "Human approval remains. Review starts from a better package.",
   },
 
   // -------------------------------------------------------------------------
@@ -874,12 +882,16 @@ export const intesa = {
   // enterprise features. Three pillars instead of five feature cards,
   // larger typography, more breathing room, no compliance badges.
   // -------------------------------------------------------------------------
+  // Now lives in the appendix range, accessible via the Appendix
+  // toggle. Same three-pillar trust content (review package, control
+  // model, enterprise envelope) — only the eyebrow/headline shift to
+  // signal that this is reference material, not a main-flow slide.
   panel6: {
-    eyebrow: "Governed acceleration",
+    eyebrow: "Appendix · Trust & Control",
     headline:
-      "Control is not added after acceleration —\nit is built into the execution envelope.",
+      "Acceleration only matters if control survives it.",
     subhead:
-      "Final approval remains human, while Devin makes the review package more structured, traceable and measurable.",
+      "Final approval remains human, while Devin makes execution more structured, traceable and measurable.",
     legacySubheadDeprecated:
       "The same controls a regulated bank already enforces — applied to AI-assisted engineering execution from day one.",
     pillars: [
@@ -1022,9 +1034,9 @@ export const intesa = {
     // 4-number tile) is intentionally hidden so the value arc
     // is the unmistakable visual hero.
     headline:
-      "€70M is the target.\nThe upside sits in the execution zone.",
+      "€70M is the target.\nUpside lives in the 70% execution zone.",
     subhead:
-      "70% of SDLC effort sits in coding + testing/release.",
+      "Coding + testing/release represent 70% of SDLC effort — the zone where net efficiency gains can meet and exceed the official ambition.",
     // Three large economic outcomes — the only thing the viewer
     // should remember. Reads as a premium value arc.
     valueArc: {
@@ -1036,11 +1048,21 @@ export const intesa = {
         { value: "€98M", label: "high upside", tone: "highUpside" as const },
       ],
     },
-    // Single compact calculation line — visible but small. The
-    // math is right there for anyone who looks; it is not the
-    // visual hero.
-    calcLine:
-      "€70M / 15% = €467M SDLC baseline → ×70% = €327M execution zone → 21% = €70M target",
+    // Compact ROI logic bar — three readable steps that derive the
+    // value arc from Intesa's own SDLC ambition. Sits directly under
+    // the value arc; visible and legible but not a financial model.
+    logicBar: [
+      { op: "€70M / 15%", result: "~€467M implied SDLC baseline" },
+      { op: "× 70%", result: "~€327M execution zone" },
+      { op: "21% / 25% / 30%", result: "net efficiency scenarios" },
+    ] as { op: string; result: string }[],
+    // Thin scenario line under the logic bar — maps each net-efficiency
+    // scenario back to the value arc. Three short, equal-weight rows.
+    scenarioLine: [
+      { eff: "21%", value: "€70M", label: "target" },
+      { eff: "25%", value: "€82M", label: "upside" },
+      { eff: "30%", value: "€98M", label: "high upside" },
+    ] as { eff: string; value: string; label: string }[],
     // One short caveat — sits below the value arc.
     caveat: "Scenarios to validate — not guaranteed savings.",
     // Hero — four executive numbers. The fourth (~21%) makes the
