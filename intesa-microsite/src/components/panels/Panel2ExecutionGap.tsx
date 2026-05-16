@@ -22,22 +22,43 @@ export function Panel2ExecutionGap() {
   return (
     <PanelShell eyebrow={p.eyebrow} bg="deep">
       <div className="flex h-full flex-col justify-center gap-9 sm:gap-12 lg:gap-14">
-        {/* Strategic hero + supporting line.
-            ─────────────────────────────────────────────────────────
-            The headline is the operational tension; the supporting
-            line ties cloud migration to structural value capture
-            without naming Devin. */}
-        <div className="flex flex-col gap-3 sm:gap-4">
-          <PanelHeadline text={p.headline} />
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-2xl text-[13px] leading-relaxed text-brand-ivory/70 sm:text-[15px] lg:text-[16px]"
-          >
-            {p.support}
-          </motion.p>
+        {/* Header row. On lg, splits into hero+subline (left) and a
+            small SDLC efficiency metric (right) so the page surfaces
+            BOTH execution clocks without duplicating the ~100%
+            milestone shown in the main visual below. */}
+        <div className="flex flex-col gap-4 sm:gap-5 lg:grid lg:grid-cols-[1fr_auto] lg:items-start lg:gap-10">
+          <div className="flex flex-col gap-3 sm:gap-4">
+            <PanelHeadline text={p.headline} />
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-2xl text-[13px] leading-relaxed text-brand-ivory/75 sm:text-[15px] lg:text-[16px]"
+            >
+              {p.support}
+            </motion.p>
+          </div>
+
+          {p.topRightMetric && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.55, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="flex w-full flex-col items-start gap-1 border-l-2 border-brand-orange/55 pl-4 sm:max-w-xs sm:pl-5 lg:items-end lg:border-l-0 lg:border-r-2 lg:pl-0 lg:pr-5 lg:text-right"
+            >
+              <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
+                {p.topRightMetric.caption}
+              </span>
+              <span className="font-display text-[34px] font-light leading-none tracking-tight text-brand-ivory sm:text-[42px] lg:text-[48px]">
+                {p.topRightMetric.value}
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[11.5px]">
+                {p.topRightMetric.note}
+              </span>
+            </motion.div>
+          )}
         </div>
 
         {/* Current-state → tension zone → target-state progression.
@@ -117,70 +138,37 @@ export function Panel2ExecutionGap() {
           </motion.div>
         </div>
 
-        {/* Dual-track pressure band.
-            ─────────────────────────────────────────────────────────
-            Two simultaneous value-capture vectors converging on the
-            same execution capacity: cloud migration (~100% by 2029)
-            and SDLC efficiency (15% / ~€70M by 2028). Rendered as
-            two horizontal rails — minimal, premium, NOT a KPI tile
-            block. Reads as the operational pressure landscape, not
-            as a dashboard. */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-3 border-t border-brand-ivory/10 pt-4 sm:gap-4 sm:pt-5"
-        >
-          <span className="text-[9px] uppercase tracking-[0.3em] text-brand-orange-soft sm:text-[10px]">
-            {p.dualTrack.label}
-          </span>
-          <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
-            {p.dualTrack.tracks.map((t, i) => (
-              <motion.div
-                key={t.key}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.55, delay: 0.65 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="flex items-start gap-3"
-              >
-                <span
-                  aria-hidden
-                  className={[
-                    "mt-1.5 inline-block h-3 w-3 shrink-0 rounded-full",
-                    t.key === "sdlc"
-                      ? "bg-brand-orange/85 ring-2 ring-brand-orange/30"
-                      : "border border-brand-ivory/40 bg-transparent",
-                  ].join(" ")}
-                />
-                <div className="flex flex-col gap-1">
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[11px]">
-                    {t.title}
-                  </span>
-                  <span className="font-display text-xl font-light leading-tight text-brand-ivory sm:text-[26px] lg:text-[30px]">
-                    {t.target}
-                  </span>
-                  <span className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px]">
-                    {t.gap}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        {/* Lower business-pressure card — the mainframe-to-cloud
+            efficiency unlock. Replaces the prior dual-track band so
+            this row owns ONE message: structural value capture
+            tied to mainframe decommissioning, isytech extension
+            and cloud migration. The exact official figure is left
+            as a placeholder pending Intesa confirmation rather
+            than invented. */}
+        {p.businessPressure && (
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-3"
+            transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-2 border-t border-brand-ivory/10 pt-4 sm:gap-2.5 sm:pt-5"
           >
-            <span aria-hidden className="h-px w-6 bg-brand-orange/55 sm:w-8" />
-            <span className="text-[10px] uppercase tracking-[0.26em] text-brand-ivory/70 sm:text-[11px]">
-              {p.dualTrack.callout}
+            <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
+              {p.businessPressure.caption}
             </span>
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
+              <span className="font-display text-[16px] font-light leading-tight text-brand-ivory/85 sm:text-[20px] lg:text-[22px]">
+                {p.businessPressure.value}
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[11.5px]">
+                {p.businessPressure.label}
+              </span>
+            </div>
+            <p className="max-w-3xl text-[11.5px] leading-snug text-brand-ivory/65 sm:text-[12.5px]">
+              {p.businessPressure.note}
+            </p>
           </motion.div>
-        </motion.div>
+        )}
 
         {/* Closing line — reframes the executive discussion from
             "should we modernize?" to "can execution capacity scale

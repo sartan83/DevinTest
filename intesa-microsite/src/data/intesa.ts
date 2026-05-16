@@ -370,12 +370,11 @@ export const intesa = {
     // descriptive milestone.
     headline:
       "The remaining 36% is where\nexecution risk concentrates.",
-    // Supporting line — anchors the dual-track pressure: cloud
-    // migration is one vector, SDLC efficiency is the other. The
-    // 15% / ~€70M is Intesa's own quantified ambition, not a
-    // Devin claim.
+    // Supporting line — anchors the two execution clocks (cloud
+    // value capture + 15% SDLC efficiency ambition) without
+    // duplicating the ~100% milestone shown in the main visual.
     support:
-      "The question is no longer whether Intesa has a modernization strategy. It is whether SDLC execution capacity scales fast enough to capture value on time.",
+      "Two execution clocks are now running in parallel: cloud migration value capture and a 15% SDLC efficiency ambition.",
     // Current-state → target-state anchors flanking a tension zone.
     // The component renders 64% on the left and ~100% by 2029 on
     // the right, with the remaining 36% gap visualised between
@@ -396,38 +395,27 @@ export const intesa = {
       value: "36%",
       label: "Remaining migration",
     },
-    // SDLC efficiency ambition marker — Intesa's own quantified
-    // efficiency target. Replaces the prior €380M run-rate marker
-    // because the 15% / ~€70M data is more directly relevant to
-    // governed SDLC execution. Understated chip, not a KPI tile.
-    economicMarker: {
-      caption: "SDLC efficiency ambition",
-      value: "15% / ~€70M",
-      label: "Target by 2028 — Intesa’s own quantified ambition",
+    // Top-right corner metric — SDLC efficiency pressure. Replaces
+    // the previous dual-track band so ~100% appears only once (in
+    // the main 64% → ~100% visual) and ~€70M owns the SDLC clock.
+    topRightMetric: {
+      caption: "SDLC efficiency target",
+      value: "~€70M",
+      note: "15% ambition by 2028",
     },
-    // Dual-track pressure visual data — cloud migration on track 1,
-    // SDLC efficiency on track 2. Reads as two simultaneous value
-    // capture vectors converging on the same execution capacity.
-    dualTrack: {
-      label: "Two simultaneous pressures on the same execution capacity",
-      tracks: [
-        {
-          key: "cloud",
-          title: "Cloud migration value capture",
-          target: "~100% cloud-based by 2029",
-          gap: "Mainframe / isytech / cloud extension linked to structural efficiency gains",
-        },
-        {
-          key: "sdlc",
-          title: "15% SDLC efficiency ambition",
-          target: "~€70M target by 2028",
-          gap: "Largest effort zone: coding + testing/release",
-        },
-      ],
-      callout: "Execution delay risks delaying value capture.",
+    // Lower business-pressure card — the mainframe-to-cloud
+    // value-capture clock. The exact official savings figure is
+    // not present in the source data, so the value field is left
+    // as a placeholder to be confirmed by Intesa rather than
+    // invented. Label + note convey the economic anchor.
+    businessPressure: {
+      caption: "Mainframe-to-cloud efficiency unlock",
+      value: "[Official mainframe / isytech / cloud savings value]",
+      label: "Structural savings to be confirmed by Intesa",
+      note: "Structural savings tied to mainframe decommissioning, isytech extension and cloud migration.",
     },
     closing:
-      "The question is not whether modernization continues. The question is whether SDLC execution capacity scales fast enough.",
+      "Execution delay risks delaying value capture.",
   },
 
   // -------------------------------------------------------------------------
