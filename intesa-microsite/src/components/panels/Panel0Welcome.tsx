@@ -55,15 +55,6 @@ export function Panel0Welcome({ onBegin }: Props) {
           >
             {p.supportingLine}
           </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 4.55, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl text-balance font-display text-[1.05rem] font-light leading-snug text-brand-ivory/95 sm:text-[1.25rem] lg:text-[1.5rem]"
-          >
-            {p.intesaHero}
-          </motion.p>
         </div>
       </div>
 
