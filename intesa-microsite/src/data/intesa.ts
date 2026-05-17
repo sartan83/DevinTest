@@ -1612,58 +1612,93 @@ export const intesa = {
   panelSdlcMap: {
     eyebrow: "SDLC execution map",
     headline:
-      "The biggest lever is not abstract productivity —\nit is the 70% execution zone.",
+      "Devin's strongest opportunity sits in\nthe 83% SDLC delivery zone.",
     subhead:
-      "43% coding + 27% testing/release represents the largest concentration of SDLC effort. This is the zone where Devin should be validated first: code transformation, testing, remediation and PR-ready delivery.",
-    // Hero metric — the 70% execution zone. Sits as the dominant
-    // anchor above the stacked-bar visual.
+      "The best pilot entry point is the 70% core execution zone — but Devin can also accelerate functional and technical analysis upstream.",
+    // Hero metric — the 83% Devin-relevant delivery zone. The
+    // smaller 70% sits below as the pilot entry point.
     heroMetric: {
-      value: "70%",
-      label: "of SDLC effort sits in coding, testing, and release",
+      value: "83%",
+      label: "Devin-relevant SDLC delivery zone",
     },
-    // SDLC effort distribution — five phases, with coding and
-    // testing/release flagged `prominent: true` so the component
-    // can highlight them as the execution zone. Ordered to read
-    // left-to-right as the SDLC progresses.
+    // SDLC effort distribution — five phases. `zone` distinguishes:
+    //   - "core"     : 43% coding + 27% testing/release (saturated orange)
+    //   - "assisted" : 8% functional + 5% technical analysis (soft orange)
+    //   - "outside"  : 17% requirements (muted ivory)
+    // `prominent` is preserved for back-compat with the bracket
+    // anchor over the 70% zone.
     distribution: [
       {
         key: "requirements",
         value: 17,
         label: "Requirements writing",
+        subLabel: "",
+        zone: "outside" as const,
         prominent: false,
       },
       {
         key: "functional",
         value: 8,
         label: "Functional analysis",
+        subLabel: "Devin-assisted",
+        zone: "assisted" as const,
         prominent: false,
       },
       {
         key: "technical",
         value: 5,
         label: "Technical analysis",
+        subLabel: "Devin-assisted",
+        zone: "assisted" as const,
         prominent: false,
       },
       {
         key: "coding",
         value: 43,
         label: "Coding",
+        subLabel: "Core Devin execution",
+        zone: "core" as const,
         prominent: true,
       },
       {
         key: "testing",
         value: 27,
         label: "Testing & release",
+        subLabel: "Core Devin execution",
+        zone: "core" as const,
         prominent: true,
       },
     ],
-    // Aggregate label for the highlighted segments.
-    zoneLabel: "70% execution zone",
-    zoneSubLabel: "43% coding + 27% testing/release",
-    // Devin relevance line — rendered as a subtle italic anchor
-    // beneath the distribution visual.
+    // Aggregate label for the 70% pilot zone (bracket over the bar).
+    zoneLabel: "70% core execution zone",
+    zoneSubLabel: "Best pilot entry point: coding + testing / release",
+    // Two callouts rendered above (or alongside) the bar — the
+    // broader Devin-relevant delivery zone vs. the focused pilot
+    // entry point.
+    callouts: [
+      {
+        key: "delivery",
+        value: "83%",
+        title: "Devin-relevant delivery zone",
+        note: "Functional analysis + technical analysis + coding + testing / release.",
+        tone: "broad" as const,
+      },
+      {
+        key: "pilot",
+        value: "70%",
+        title: "Core execution zone",
+        note: "Best pilot entry point: coding + testing / release.",
+        tone: "core" as const,
+      },
+    ],
+    // Optional small math anchor — rendered as a quiet caption below
+    // the callouts when space allows.
+    deliveryMathNote:
+      "€467M SDLC baseline × 83% ≈ €388M broader delivery zone.",
+    // Final interpretation line — pilot starts in the 70% core
+    // execution zone, then expands upstream into analysis workflows.
     devinRelevance:
-      "Devin should be validated first where execution effort is highest: remediation, code transformation, test generation, debugging, documentation, and PR-ready delivery.",
+      "The pilot should start in the 70% core execution zone, then expand upstream into analysis workflows once repeatability and review quality are proven.",
     source:
       "Source: Intesa Sanpaolo — SDLC effort distribution across requirements, analysis, coding, and testing/release.",
   },
