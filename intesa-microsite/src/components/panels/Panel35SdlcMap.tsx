@@ -52,15 +52,17 @@ export function Panel35SdlcMap() {
         {/* Headline + subhead */}
         <div className="flex flex-col gap-3 sm:gap-4">
           <PanelHeadline text={p.headline} compact />
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl text-[12.5px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
-          >
-            {p.subhead}
-          </motion.p>
+          {p.subhead && (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-3xl text-[12.5px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
+            >
+              {p.subhead}
+            </motion.p>
+          )}
         </div>
 
         {/* Hero metric — 83% Devin-relevant delivery zone */}
@@ -315,7 +317,9 @@ export function Panel35SdlcMap() {
           </motion.div>
         )}
 
-        {/* Closing interpretation line + source rail */}
+        {/* Source rail — closing interpretation line removed per
+            user direction; bracket label + callouts already carry
+            the 70% pilot anchor. */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -323,9 +327,11 @@ export function Panel35SdlcMap() {
           transition={{ duration: 0.6, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col gap-2.5 border-t border-brand-ivory/10 pt-4 sm:pt-5"
         >
-          <p className="max-w-3xl text-[12.5px] italic leading-relaxed text-brand-ivory/75 sm:text-[13.5px] lg:text-[15px]">
-            {p.devinRelevance}
-          </p>
+          {p.devinRelevance && (
+            <p className="max-w-3xl text-[12.5px] italic leading-relaxed text-brand-ivory/75 sm:text-[13.5px] lg:text-[15px]">
+              {p.devinRelevance}
+            </p>
+          )}
           <span className="text-[10px] uppercase tracking-[0.24em] text-brand-ivory/40 sm:text-[11px]">
             {p.source}
           </span>

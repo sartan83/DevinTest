@@ -1622,8 +1622,7 @@ export const intesa = {
     eyebrow: "SDLC execution map",
     headline:
       "Devin's strongest opportunity sits in\nthe 83% SDLC delivery zone.",
-    subhead:
-      "The best pilot entry point is the 70% core execution zone — but Devin can also accelerate functional and technical analysis upstream.",
+    subhead: "",
     // Hero metric — the 83% Devin-relevant delivery zone. The
     // smaller 70% sits below as the pilot entry point.
     heroMetric: {
@@ -1704,10 +1703,10 @@ export const intesa = {
     // the callouts when space allows.
     deliveryMathNote:
       "€467M SDLC baseline × 83% ≈ €388M broader delivery zone.",
-    // Final interpretation line — pilot starts in the 70% core
-    // execution zone, then expands upstream into analysis workflows.
-    devinRelevance:
-      "The pilot should start in the 70% core execution zone, then expand upstream into analysis workflows once repeatability and review quality are proven.",
+    // Closing interpretation line removed per user direction —
+    // the bracket label + callouts already carry the 70% pilot
+    // anchor without a written restatement.
+    devinRelevance: "",
     source:
       "Source: Intesa Sanpaolo — SDLC effort distribution across requirements, analysis, coding, and testing/release.",
   },
