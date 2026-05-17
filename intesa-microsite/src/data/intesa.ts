@@ -370,23 +370,26 @@ export const intesa = {
     // descriptive milestone.
     headline:
       "The remaining 36% is where\nexecution risk concentrates.",
-    // Supporting line — anchors the two execution clocks (cloud
-    // value capture + 15% SDLC efficiency ambition) without
-    // duplicating the ~100% milestone shown in the main visual.
+    // Supporting line — anchors the three value clocks that all
+    // converge on the same operational constraint (SDLC execution
+    // capacity). Replaces the prior two-clock framing because the
+    // page now surfaces three clocks in the card cluster below.
     support:
-      "Two execution clocks are now running in parallel: cloud migration value capture and a 15% SDLC efficiency ambition.",
+      "Three value clocks now depend on the same constraint: SDLC execution capacity.",
     // Current-state → target-state anchors flanking a tension zone.
-    // The component renders 64% on the left and ~100% by 2029 on
-    // the right, with the remaining 36% gap visualised between
-    // them as the operational tension being closed.
+    // The component renders 64% on the left, 36% as the gap in the
+    // middle, and 2029 on the right as the deadline. ~100% is NOT
+    // shown as a large number — if 64% is today and 36% remains,
+    // ~100% is implied. The third number communicates the real
+    // tension: the deadline.
     states: [
       {
         value: "64%",
         label: "Cloud-based applications today",
       },
       {
-        value: "~100%",
-        label: "Target by 2029",
+        value: "2029",
+        label: "Cloud deadline",
       },
     ],
     // The tension zone between the two states. Reads as the gap
@@ -395,27 +398,42 @@ export const intesa = {
       value: "36%",
       label: "Remaining migration",
     },
-    // Top-right corner metric — SDLC efficiency pressure. Replaces
-    // the previous dual-track band so ~100% appears only once (in
-    // the main 64% → ~100% visual) and ~€70M owns the SDLC clock.
-    topRightMetric: {
-      caption: "SDLC efficiency target",
-      value: "~€70M",
-      note: "15% ambition by 2028",
-    },
-    // Lower business-pressure card — the mainframe-to-cloud
-    // value-capture clock. Anchored on Intesa's own isytech / cloud
-    // savings figures: ~€350M by 2029 as the headline value and
-    // ~€380M run-rate by 2030 (including ~€280M from exit and
-    // redeployment of 3,800 people) as the supporting note.
-    businessPressure: {
-      caption: "isytech / cloud savings",
-      value: "~€350M",
-      label: "isytech / cloud savings by 2029",
-      note: "~€380M run-rate by 2030; includes ~€280M from exit / redeployment.",
-    },
+    // Three value-clock cards below the main visual. Replace the
+    // prior top-right SDLC metric + single business-pressure card
+    // with one clean three-card row. Each card carries: title +
+    // hero value + label + small supporting note. Together they
+    // surface the three clocks: cloud deadline, SDLC efficiency
+    // ambition, isytech / cloud value capture.
+    clocks: [
+      {
+        title: "Cloud migration deadline",
+        value: "2029",
+        label: "Target year for cloud-based applications",
+        note: "36% remaining migration risk.",
+        tone: "deadline" as const,
+      },
+      {
+        title: "SDLC efficiency ambition",
+        value: "~€70M",
+        label: "Target by 2028",
+        note: "15% SDLC efficiency ambition.",
+        tone: "efficiency" as const,
+      },
+      {
+        title: "isytech / cloud value capture",
+        value: "~€350M",
+        label: "Savings by 2029",
+        note: "~€380M run-rate by 2030; includes ~€280M from exit / redeployment.",
+        tone: "value" as const,
+      },
+    ],
     closing:
       "Execution delay risks delaying value capture.",
+    // Optional second closing line — kept short so it doesn't
+    // verbose-up the slide. Reframes the discussion from "should we
+    // modernize?" to "can SDLC execution capacity scale fast enough?".
+    closingSecondary:
+      "The bottleneck is not the strategy — it is whether SDLC execution capacity scales fast enough.",
   },
 
   // -------------------------------------------------------------------------

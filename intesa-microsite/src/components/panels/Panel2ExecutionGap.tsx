@@ -9,65 +9,43 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
  *
  * Strategic execution-tension panel. Hero anchored on the operational
  * hardness of the remaining gap, not on a calendar milestone. The
- * 64% today → ~100% by 2029 progression frames the gap visually, with
- * the remaining 36% rendered as the tension zone between the two
- * states. A subtle €380M run-rate marker below ties the urgency to
- * structural efficiency value capture (Intesa-side, not Devin-side).
- * Closing line reframes the discussion from "should we modernize?"
- * to "can execution capacity scale fast enough?".
+ * 64% today → 36% remaining → 2029 deadline progression frames the
+ * gap visually, with 36% rendered as the tension zone between the
+ * two states. Below the visual, three value-clock cards surface the
+ * three pressures that all converge on the same constraint: SDLC
+ * execution capacity. Closing lines reframe the discussion from
+ * "should we modernize?" to "can execution capacity scale fast
+ * enough?".
  */
 export function Panel2ExecutionGap() {
   const p = intesa.panel2;
   const [today, target] = p.states;
   return (
     <PanelShell eyebrow={p.eyebrow} bg="deep">
-      <div className="flex h-full flex-col justify-center gap-9 sm:gap-12 lg:gap-14">
-        {/* Header row. On lg, splits into hero+subline (left) and a
-            small SDLC efficiency metric (right) so the page surfaces
-            BOTH execution clocks without duplicating the ~100%
-            milestone shown in the main visual below. */}
-        <div className="flex flex-col gap-4 sm:gap-5 lg:grid lg:grid-cols-[1fr_auto] lg:items-start lg:gap-10">
-          <div className="flex flex-col gap-3 sm:gap-4">
-            <PanelHeadline text={p.headline} />
-            <motion.p
-              initial={{ opacity: 0, y: 6 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-2xl text-[13px] leading-relaxed text-brand-ivory/75 sm:text-[15px] lg:text-[16px]"
-            >
-              {p.support}
-            </motion.p>
-          </div>
-
-          {p.topRightMetric && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.55, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="flex w-full flex-col items-start gap-1 border-l-2 border-brand-orange/55 pl-4 sm:max-w-xs sm:pl-5 lg:items-end lg:border-l-0 lg:border-r-2 lg:pl-0 lg:pr-5 lg:text-right"
-            >
-              <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
-                {p.topRightMetric.caption}
-              </span>
-              <span className="font-display text-[34px] font-light leading-none tracking-tight text-brand-ivory sm:text-[42px] lg:text-[48px]">
-                {p.topRightMetric.value}
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[11.5px]">
-                {p.topRightMetric.note}
-              </span>
-            </motion.div>
-          )}
+      <div className="flex h-full flex-col justify-center gap-8 sm:gap-10 lg:gap-12">
+        {/* Header — hero + single subline. No right-side metric;
+            all clocks live in the card cluster below the visual. */}
+        <div className="flex flex-col gap-3 sm:gap-4">
+          <PanelHeadline text={p.headline} />
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl text-[13px] leading-relaxed text-brand-ivory/75 sm:text-[15px] lg:text-[16px]"
+          >
+            {p.support}
+          </motion.p>
         </div>
 
-        {/* Current-state → tension zone → target-state progression.
-            ─────────────────────────────────────────────────────────
+        {/* Current-state → tension zone → deadline progression.
+            ─────────────────────────────────────────────────────
             Three columns on desktop:
-              [ 64% today ] [ 36% remaining ] [ ~100% by 2029 ]
+              [ 64% today ] [ 36% remaining ] [ 2029 deadline ]
             The middle slot is the operational tension being closed.
-            Visually framed by a thin orange-edged bracket so it
-            reads as the gap, not as a third KPI tile. */}
+            ~100% is intentionally NOT rendered as a large number —
+            if 64% is today and 36% remains, ~100% is implied. The
+            third slot communicates the real tension: the deadline. */}
         <div className="grid items-end gap-6 sm:gap-8 lg:grid-cols-[1fr_1.1fr_1fr] lg:gap-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -84,10 +62,7 @@ export function Panel2ExecutionGap() {
             </div>
           </motion.div>
 
-          {/* Tension zone — the remaining migration gap rendered as
-              the operational hard part being closed. Sublte
-              orange-tinted bracket frames the zone without making
-              it a card. The label below names the gap explicitly. */}
+          {/* Tension zone — 36% rendered as the gap. */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -122,6 +97,8 @@ export function Panel2ExecutionGap() {
             </div>
           </motion.div>
 
+          {/* Deadline — 2029. Slightly tighter type so the year
+              reads as a date marker, not a percentage. */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -129,7 +106,7 @@ export function Panel2ExecutionGap() {
             transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-2 border-l border-brand-orange/40 pl-5 sm:pl-7"
           >
-            <div className="font-display text-[3rem] font-light leading-none text-brand-ivory sm:text-[4.25rem] lg:text-[5rem]">
+            <div className="font-display text-[2.75rem] font-light leading-none text-brand-ivory sm:text-[3.75rem] lg:text-[4.5rem]">
               {target.value}
             </div>
             <div className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[12px]">
@@ -138,51 +115,73 @@ export function Panel2ExecutionGap() {
           </motion.div>
         </div>
 
-        {/* Lower business-pressure card — the mainframe-to-cloud
-            efficiency unlock. Replaces the prior dual-track band so
-            this row owns ONE message: structural value capture
-            tied to mainframe decommissioning, isytech extension
-            and cloud migration. The exact official figure is left
-            as a placeholder pending Intesa confirmation rather
-            than invented. */}
-        {p.businessPressure && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col gap-2 border-t border-brand-ivory/10 pt-4 sm:gap-2.5 sm:pt-5"
-          >
-            <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
-              {p.businessPressure.caption}
-            </span>
-            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-4">
-              <span className="font-display text-[16px] font-light leading-tight text-brand-ivory/85 sm:text-[20px] lg:text-[22px]">
-                {p.businessPressure.value}
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[11.5px]">
-                {p.businessPressure.label}
-              </span>
-            </div>
-            <p className="max-w-3xl text-[11.5px] leading-snug text-brand-ivory/65 sm:text-[12.5px]">
-              {p.businessPressure.note}
-            </p>
-          </motion.div>
+        {/* Three value-clock cards. Replaces the previous top-right
+            SDLC metric + single business-pressure card with one
+            clean three-card row that surfaces the three pressures
+            converging on SDLC execution capacity. */}
+        {p.clocks && p.clocks.length > 0 && (
+          <div className="grid gap-3 sm:gap-3.5 lg:grid-cols-3 lg:gap-4">
+            {p.clocks.map((c, i) => {
+              const isDeadline = c.tone === "deadline";
+              return (
+                <motion.div
+                  key={c.title}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.55 + i * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="flex min-w-0 flex-col gap-1.5 rounded-xl border border-brand-ivory/10 bg-brand-ivory/[0.025] px-4 py-3.5 sm:px-5 sm:py-4"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
+                    {c.title}
+                  </span>
+                  <div className="flex flex-col gap-0.5">
+                    <span
+                      className={[
+                        "font-display font-light leading-none tracking-tight",
+                        isDeadline
+                          ? "text-[30px] sm:text-[36px] lg:text-[40px]"
+                          : "text-[30px] sm:text-[36px] lg:text-[40px]",
+                        "text-brand-ivory",
+                      ].join(" ")}
+                    >
+                      {c.value}
+                    </span>
+                    <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[11.5px]">
+                      {c.label}
+                    </span>
+                  </div>
+                  {c.note && (
+                    <p className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px]">
+                      {c.note}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
         )}
 
-        {/* Closing line — reframes the executive discussion from
-            "should we modernize?" to "can execution capacity scale
-            fast enough?". */}
+        {/* Closing lines — primary reframe + optional secondary. */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="border-l-2 border-brand-orange/60 pl-4 sm:pl-5"
+          transition={{ duration: 0.6, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-2 border-l-2 border-brand-orange/60 pl-4 sm:pl-5"
         >
           <p className="max-w-3xl font-display text-lg font-light leading-snug text-brand-ivory sm:text-xl lg:text-[26px]">
             {p.closing}
           </p>
+          {p.closingSecondary && (
+            <p className="max-w-3xl text-[12px] leading-snug text-brand-ivory/65 sm:text-[13px]">
+              {p.closingSecondary}
+            </p>
+          )}
         </motion.div>
       </div>
     </PanelShell>
