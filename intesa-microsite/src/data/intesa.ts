@@ -467,62 +467,59 @@ export const intesa = {
   // and what needs alignment — never assumed.
   // -------------------------------------------------------------------------
   panel3: {
-    eyebrow: "Validation before pilot scope",
-    // Repositioned to sit immediately AFTER the SDLC Execution Map.
-    // The map shows quantitatively that 70% of SDLC effort sits in
-    // coding + testing/release. This section then pauses and asks
-    // whether that execution zone is the right starting point for
-    // the pilot — and what would need to be true around it
-    // (workflow selection · review scalability · decision
-    // ownership). It is an executive alignment checkpoint, not a
-    // discovery slide.
+    eyebrow: "Where the remaining 36% gets hard.",
+    // Shifted from an open validation checkpoint to a concrete
+    // initiative map of the remaining 36% modernization estate.
+    // Reads as an executive hypothesis (account-specific), not a
+    // discovery questionnaire. The five cards name the actual
+    // initiatives Devin would land into; the question block keeps
+    // the live discovery moment with one focused question + chips.
     discoveryIntro:
-      "Based on the SDLC data, the hypothesis is to start where effort concentrates most: coding, testing and release.",
+      "This is where cloud migration turns into core modernization, legacy simplification, testing intensity and execution bottlenecks.",
     headline:
-      "Before proposing a pilot,\nvalidate the starting point.",
-    // Four open executive validation questions. Each card has a
-    // short title, the question itself, and a quiet supporting
-    // note describing what the answer would unlock. Cards are
-    // intentionally minimal — they should feel like a live
-    // discovery checkpoint, not a research slide. The 15% / €70M
-    // question is intentionally removed — the SDLC Execution Map
-    // already grounds the conversation in that ambition.
-    validationCards: [
+      "The remaining 36% is the\nhard modernization estate.",
+    // Five-card initiative map of the remaining 36%. Each card
+    // names a concrete modernization estate Devin would land into.
+    estateCards: [
       {
-        key: "starting",
-        title: "Starting point",
-        question:
-          "Does coding + testing/release feel like the right first execution zone to validate?",
-        note:
-          "Confirms whether the 70% SDLC concentration is the right pilot focus.",
+        key: "core",
+        title: "Core banking / isytech extension",
+        note: "Main bank, core services and broader isytech rollout.",
       },
       {
-        key: "workflow",
-        title: "Workflow selection",
-        question:
-          "Which workflows inside that zone are repetitive enough to measure safely?",
-        note:
-          "Focuses the pilot on bounded modernization, remediation, testing, release-readiness or PR-ready delivery workflows.",
+        key: "wealth",
+        title: "Private Banking & Wealth platforms",
+        note: "Advisory, investment, portfolio and operating platforms.",
       },
       {
-        key: "review",
-        title: "Review scalability",
-        question:
-          "If Devin increases PR-ready output, where would review effort become constrained?",
-        note:
-          "Ensures the pilot measures review effort, PR acceptance and rework — not just execution speed.",
+        key: "international",
+        title: "International Banks rollout",
+        note: "Digital and advisory capabilities replicated across markets.",
       },
       {
-        key: "ownership",
-        title: "Decision ownership",
-        question:
-          "Who needs to be involved to turn pilot evidence into a scale-out decision?",
-        note:
-          "Connects technical validation to executive commitment and follow-up.",
+        key: "legacy",
+        title: "Legacy & integration layer",
+        note: "Batch flows, old infrastructure, integrations and documentation gaps.",
+      },
+      {
+        key: "testing",
+        title: "Testing, remediation & release-readiness",
+        note: "Regression testing, vulnerability remediation, code transformation and PR-ready delivery.",
       },
     ],
+    // One focused executive question with chip-style options —
+    // keeps the live discovery moment without turning the page
+    // into a questionnaire.
+    estateQuestion: "Where does the remaining 36% hurt most today?",
+    estateChips: [
+      "Core modernization",
+      "Testing",
+      "Remediation",
+      "Release-readiness",
+      "Review capacity",
+    ],
     validationFooter:
-      "Goal: align on the right starting point before defining pilot scope.",
+      "The pilot should start where business priority, repeatable SDLC work and measurable execution bottlenecks overlap.",
     subhead: "",
     legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
