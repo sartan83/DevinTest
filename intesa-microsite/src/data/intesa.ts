@@ -275,7 +275,7 @@ export const intesa = {
     // markers lead (15% / ~€70M / ~6,900 dev capacity), followed by
     // the migration anchor and the structural investment anchor.
     scaleContext:
-      "Mainframe-to-cloud modernization and isytech extension are tied to structural efficiency gains.",
+      "Cloud migration, isytech extension and legacy platform simplification are tied to ~€350M savings by 2029.",
     kpis: [
       {
         value: "15%",
@@ -294,8 +294,8 @@ export const intesa = {
         label: "Cloud-based applications by 2029",
       },
       {
-        value: "Cloud / isytech",
-        label: "Efficiency unlock",
+        value: "~€350M",
+        label: "Infra legacy reduction",
       },
       {
         value: "€1.2B+",

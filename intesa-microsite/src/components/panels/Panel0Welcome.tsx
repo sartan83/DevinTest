@@ -58,15 +58,18 @@ export function Panel0Welcome({ onBegin }: Props) {
         </div>
       </div>
 
-      {/* Footer: partner caption + begin-session affordance. */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.85, delay: 4.9, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-brand-ivory/35 sm:bottom-14 sm:text-[11px]"
-      >
-        <span>{p.footer}</span>
-        {onBegin && (
+      {/* Footer: begin-session affordance only. The partner caption
+          ('Intesa Sanpaolo × Cognition') has been removed from this
+          row to avoid overlap with the shell-level scroll/swipe hint
+          and because the two wordmarks at the top of the screen
+          already establish the partner pair. */}
+      {onBegin && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.85, delay: 4.9, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-brand-ivory/35 sm:bottom-14 sm:text-[11px]"
+        >
           <button
             type="button"
             onClick={() => onBegin(1)}
@@ -77,8 +80,8 @@ export function Panel0Welcome({ onBegin }: Props) {
               →
             </span>
           </button>
-        )}
-      </motion.div>
+        </motion.div>
+      )}
     </PanelShell>
   );
 }
