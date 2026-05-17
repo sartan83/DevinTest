@@ -407,9 +407,9 @@ export const intesa = {
     clocks: [
       {
         title: "Cloud migration deadline",
-        value: "2029",
-        label: "Target year for cloud-based applications",
-        note: "36% remaining migration risk.",
+        value: "64% → 36% → 2029",
+        label: "64% cloud-based today · 36% remaining · 2029 deadline",
+        note: "Execution risk concentrates in the remaining migration wave.",
         tone: "deadline" as const,
       },
       {
@@ -420,10 +420,10 @@ export const intesa = {
         tone: "efficiency" as const,
       },
       {
-        title: "isytech / cloud value capture",
+        title: "Infra legacy reduction",
         value: "~€350M",
         label: "Savings by 2029",
-        note: "~€380M run-rate by 2030; includes ~€280M from exit / redeployment.",
+        note: "Driven by cloud migration, isytech extension and legacy platform simplification.",
         tone: "value" as const,
       },
     ],
@@ -1390,13 +1390,19 @@ export const intesa = {
           suffix: "adoption",
           label: "Teams using Devin",
         },
-        {
-          value: "20–30%",
-          suffix: "signal",
-          label: "Net efficiency / throughput signal",
-          note: "reference banking environment — used to sanity-check the Intesa ROI scenario, not a guaranteed Intesa saving.",
-        },
       ],
+      // Headline signal tile — separated from the five Itaú proof
+      // points so it reads as the dominant business takeaway of the
+      // page and the direct bridge to the Intesa ROI scenario. The
+      // five Itaú metrics above explain why this 20–30% range is
+      // credible; this tile is the number the executive remembers.
+      signalTile: {
+        eyebrow: "The signal to validate at Intesa",
+        value: "20–30%",
+        suffix: "net efficiency / throughput",
+        label: "Reference banking environment",
+        note: "Range used to sanity-check the Intesa ROI scenario — not a guaranteed Intesa saving.",
+      },
       // Compact secondary line under the proof grid.
       patternLine:
         "The pattern: faster modernization, lower execution cost, broader adoption, and a 20–30% efficiency signal to validate.",
