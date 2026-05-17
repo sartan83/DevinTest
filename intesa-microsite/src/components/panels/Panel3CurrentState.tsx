@@ -70,32 +70,21 @@ export function Panel3CurrentState() {
           ))}
         </ul>
 
-        {/* Executive discovery question + chip row */}
+        {/* Executive discovery question — chip row removed per user
+            direction; the question stands alone as the live moment. */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.55, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-3 rounded-2xl border border-brand-ivory/10 bg-brand-ivory/[0.025] px-4 py-4 sm:px-5 sm:py-4.5"
+          className="flex flex-col gap-1.5 rounded-2xl border border-brand-ivory/10 bg-brand-ivory/[0.025] px-4 py-4 sm:px-5 sm:py-4.5"
         >
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft/85 sm:text-[10.5px]">
-              Live discovery
-            </span>
-            <p className="font-display text-[15px] font-medium leading-[1.3] text-brand-ivory sm:text-[17px] lg:text-[18px]">
-              {p.estateQuestion}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {p.estateChips.map((chip) => (
-              <span
-                key={chip}
-                className="inline-flex items-center rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-3 py-1.5 text-[11.5px] font-medium tracking-wide text-brand-ivory/85 transition hover:border-brand-orange/45 hover:text-brand-ivory sm:text-[12px]"
-              >
-                {chip}
-              </span>
-            ))}
-          </div>
+          <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft/85 sm:text-[10.5px]">
+            Live discovery
+          </span>
+          <p className="font-display text-[16px] font-medium leading-[1.3] text-brand-ivory sm:text-[18px] lg:text-[20px]">
+            {p.estateQuestion}
+          </p>
         </motion.div>
 
         {/* Pilot-link closing line */}

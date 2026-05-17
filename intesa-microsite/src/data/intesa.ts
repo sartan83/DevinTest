@@ -1492,22 +1492,58 @@ export const intesa = {
     // ROI formula.
     netEfficiencyLine:
       "The pilot validates net efficiency after review and rework — not just code generation speed.",
-    // Single consolidated success criteria block — replaces the
-    // previous "Measured KPIs" rail and "Decision criteria" module
-    // (which overlapped and made the page verbose). Six chip items,
-    // each with a short title + label tier. Reads as one measurement
-    // frame, not two competing KPI lists.
+    // Single consolidated success criteria block — grouped into
+    // three themes (Execution · Trust · Scale) to communicate that
+    // the pilot validates more than coding speed: it tests review
+    // trust and scale-out potential across teams. "Vulnerabilities
+    // remediated" was removed from the main pilot KPI cluster (it
+    // remains a valid Itaú proof point but is workflow-specific);
+    // "Time to ramp on unfamiliar repos" replaces it to surface
+    // adoption / cross-team scalability.
     successCriteria: {
       label: "Success criteria",
       caption: "Baselined in Week 1, validated at the end of Week 4",
+      // Three-theme grouping. Each group renders as a column with a
+      // small uppercase theme label and two criteria chips below.
+      groups: [
+        {
+          key: "execution",
+          theme: "Execution",
+          items: [
+            { title: "Time to PR-ready", tag: "execution acceleration" },
+            { title: "Test pass rate / rework", tag: "quality signal" },
+          ],
+        },
+        {
+          key: "trust",
+          theme: "Trust",
+          items: [
+            { title: "Review effort per PR", tag: "review scalability" },
+            { title: "PR acceptance rate", tag: "engineering trust" },
+          ],
+        },
+        {
+          key: "scale",
+          theme: "Scale",
+          items: [
+            { title: "Engineering hours redeployed", tag: "business impact" },
+            { title: "Time to ramp on unfamiliar repos", tag: "cross-team scalability" },
+          ],
+        },
+      ],
+      // Flat list kept for back-compat with any consumer that still
+      // reads `items` directly. Mirrors the grouped order.
       items: [
         { title: "Time to PR-ready", tag: "execution acceleration" },
+        { title: "Test pass rate / rework", tag: "quality signal" },
         { title: "Review effort per PR", tag: "review scalability" },
         { title: "PR acceptance rate", tag: "engineering trust" },
-        { title: "Test pass rate / rework", tag: "quality" },
-        { title: "Vulnerabilities remediated", tag: "security value" },
-        { title: "Engineering hours redeployed", tag: "ROI contribution" },
+        { title: "Engineering hours redeployed", tag: "business impact" },
+        { title: "Time to ramp on unfamiliar repos", tag: "cross-team scalability" },
       ],
+      // Short interpretation line — anchored under the cluster.
+      interpretation:
+        "The pilot measures execution speed, review trust and scale-out potential — not just code generation.",
     },
     // Week-by-week operational validation plan. Four equally weighted
     // blocks with a clear timeline progression — small, controlled,

@@ -102,35 +102,112 @@ export function Panel10Pilot() {
               {p.successCriteria.caption}
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 sm:gap-2 lg:grid-cols-3">
-            {p.successCriteria.items.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 4 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.45,
-                  delay: 0.4 + i * 0.05,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="flex items-baseline gap-2 rounded-lg border border-brand-orange/22 bg-brand-orange/[0.05] px-3 py-2 sm:px-3.5"
-              >
-                <span
-                  aria-hidden
-                  className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-[1px] bg-brand-orange/80"
-                />
-                <div className="flex flex-col">
-                  <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
-                    {item.title}
-                  </span>
-                  <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
-                    {item.tag}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Three-theme grouped grid — Execution · Trust · Scale.
+              Each theme renders as a small column with its uppercase
+              label + two criteria chips. Falls back to a flat 6-chip
+              grid if `groups` is absent. */}
+          {p.successCriteria.groups && p.successCriteria.groups.length > 0 ? (
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+              {p.successCriteria.groups.map((group, gi) => (
+                <motion.div
+                  key={group.key}
+                  initial={{ opacity: 0, y: 6 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.38 + gi * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="flex flex-col gap-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      aria-hidden
+                      className="inline-block h-1 w-3.5 rounded-[1px] bg-brand-orange/80"
+                    />
+                    <span className="text-[10px] uppercase tracking-[0.32em] text-brand-orange sm:text-[10.5px]">
+                      {group.theme}
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {group.items.map((item, i) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 4 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{
+                          duration: 0.45,
+                          delay: 0.45 + gi * 0.08 + i * 0.05,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        className="flex items-baseline gap-2 rounded-lg border border-brand-orange/22 bg-brand-orange/[0.05] px-3 py-2 sm:px-3.5"
+                      >
+                        <span
+                          aria-hidden
+                          className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-[1px] bg-brand-orange/80"
+                        />
+                        <div className="flex flex-col">
+                          <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
+                            {item.title}
+                          </span>
+                          <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
+                            {item.tag}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 sm:gap-2 lg:grid-cols-3">
+              {p.successCriteria.items.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 4 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.4 + i * 0.05,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="flex items-baseline gap-2 rounded-lg border border-brand-orange/22 bg-brand-orange/[0.05] px-3 py-2 sm:px-3.5"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-[1px] bg-brand-orange/80"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
+                      {item.title}
+                    </span>
+                    <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
+                      {item.tag}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* Short interpretation line — anchors the cluster on the
+              broader signal: execution speed + review trust + scale-out
+              potential, not just code generation. */}
+          {p.successCriteria.interpretation && (
+            <motion.p
+              initial={{ opacity: 0, y: 4 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-3xl text-[11.5px] italic leading-snug text-brand-ivory/60 sm:text-[12.5px]"
+            >
+              {p.successCriteria.interpretation}
+            </motion.p>
+          )}
         </motion.div>
 
         {/* Commitment ask + closing — absorbs the former Decision
