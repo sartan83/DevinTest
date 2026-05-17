@@ -1060,10 +1060,28 @@ export const intesa = {
     valueArc: {
       caption:
         "Based on 21% / 25% / 30% net efficiency across the execution zone.",
+      // Each point renders a big value + a small "/ year" suffix
+      // (kept separate so the display-size number stays clean and
+      // doesn't overflow on narrow columns).
       points: [
-        { value: "€70M", label: "official target", tone: "target" as const },
-        { value: "€82M", label: "upside", tone: "upside" as const },
-        { value: "€98M", label: "high upside", tone: "highUpside" as const },
+        {
+          value: "€70M",
+          unit: "/ year",
+          label: "target",
+          tone: "target" as const,
+        },
+        {
+          value: "€82M",
+          unit: "/ year",
+          label: "realistic",
+          tone: "upside" as const,
+        },
+        {
+          value: "€98M",
+          unit: "/ year",
+          label: "upside",
+          tone: "highUpside" as const,
+        },
       ],
     },
     // Compact ROI logic bar — three readable steps that derive the
@@ -1077,10 +1095,14 @@ export const intesa = {
     // Thin scenario line under the logic bar — maps each net-efficiency
     // scenario back to the value arc. Three short, equal-weight rows.
     scenarioLine: [
-      { eff: "21%", value: "€70M", label: "target" },
-      { eff: "25%", value: "€82M", label: "upside" },
-      { eff: "30%", value: "€98M", label: "high upside" },
+      { eff: "21%", value: "€70M / year", label: "target" },
+      { eff: "25%", value: "€82M / year", label: "realistic" },
+      { eff: "30%", value: "€98M / year", label: "upside" },
     ] as { eff: string; value: string; label: string }[],
+    // NOTE: scenarioLine values keep the "/ year" inline because the
+    // thin row uses a 13–14px font where the suffix fits naturally
+    // without overflow. Only the large value-arc tiles split value
+    // and unit.
     // One short caveat — sits below the value arc.
     caveat: "Scenarios to validate — not guaranteed savings.",
     // Hero — four executive numbers. The fourth (~21%) makes the

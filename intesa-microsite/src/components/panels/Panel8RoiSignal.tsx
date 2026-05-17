@@ -59,19 +59,26 @@ export function Panel8RoiSignal() {
                     }}
                     className="flex flex-col items-start gap-1.5 sm:items-center sm:text-center"
                   >
-                    <span
-                      className={[
-                        "font-display font-semibold leading-[0.85] tracking-tight",
-                        "text-[60px] sm:text-[80px] lg:text-[104px]",
-                        isTarget
-                          ? "text-brand-ivory"
-                          : isHigh
-                          ? "text-brand-orange"
-                          : "text-brand-orange-soft",
-                      ].join(" ")}
-                    >
-                      {point.value}
-                    </span>
+                    <div className="flex items-baseline gap-1.5 sm:gap-2">
+                      <span
+                        className={[
+                          "font-display font-semibold leading-[0.85] tracking-tight",
+                          "text-[60px] sm:text-[80px] lg:text-[104px]",
+                          isTarget
+                            ? "text-brand-ivory"
+                            : isHigh
+                            ? "text-brand-orange"
+                            : "text-brand-orange-soft",
+                        ].join(" ")}
+                      >
+                        {point.value}
+                      </span>
+                      {point.unit && (
+                        <span className="text-[12px] font-light leading-none text-brand-ivory/55 sm:text-[14px] lg:text-[16px]">
+                          {point.unit}
+                        </span>
+                      )}
+                    </div>
                     <span className="text-[10.5px] uppercase tracking-[0.32em] text-brand-ivory/70 sm:text-[11.5px] lg:text-[12px]">
                       {point.label}
                     </span>
