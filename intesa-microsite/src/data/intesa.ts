@@ -1082,21 +1082,19 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel8: {
     eyebrow: "ROI / Upside Potential",
-    // Cognition-style minimal hero. The page now reads in 5
-    // seconds: hero statement → 3 big numbers (€70M / €82M /
-    // €98M) → one compact calc line → one caveat. Everything
-    // else (benchmarks, formula, leverage path, pilot chips,
-    // 4-number tile) is intentionally hidden so the value arc
-    // is the unmistakable visual hero.
+    // Cognition-style minimal hero. Reads in 5 seconds:
+    // hero statement → 4-step value arc (€70M / €82M / €97M / €116M)
+    // → compact ROI logic bar (€467M baseline → ×83% → 18–30% range)
+    // → scenario line → one caveat + one pilot-link footer note.
     headline:
-      "€70M is the target.\nUpside lives in the 70% execution zone.",
+      "€70M is the target.\nThe 83% delivery zone makes the threshold more reachable.",
     subhead:
-      "Coding + testing/release represent 70% of SDLC effort — the zone where net efficiency gains can meet and exceed the official ambition.",
-    // Three large economic outcomes — the only thing the viewer
-    // should remember. Reads as a premium value arc.
+      "Functional analysis, technical analysis, coding, testing and release represent the Devin-relevant delivery zone.",
+    // Four large economic outcomes across the 83% Devin-relevant
+    // delivery zone. Reads as a premium value arc.
     valueArc: {
       caption:
-        "Based on 21% / 25% / 30% net efficiency across the execution zone.",
+        "Based on 18% / 21% / 25% / 30% net efficiency across the 83% delivery zone.",
       // Each point renders a big value + a small "/ year" suffix
       // (kept separate so the display-size number stays clean and
       // doesn't overflow on narrow columns).
@@ -1110,13 +1108,19 @@ export const intesa = {
         {
           value: "€82M",
           unit: "/ year",
-          label: "realistic",
+          label: "upside",
           tone: "upside" as const,
         },
         {
-          value: "€98M",
+          value: "€97M",
           unit: "/ year",
-          label: "upside",
+          label: "strong upside",
+          tone: "strongUpside" as const,
+        },
+        {
+          value: "€116M",
+          unit: "/ year",
+          label: "high upside",
           tone: "highUpside" as const,
         },
       ],
@@ -1125,16 +1129,17 @@ export const intesa = {
     // value arc from Intesa's own SDLC ambition. Sits directly under
     // the value arc; visible and legible but not a financial model.
     logicBar: [
-      { op: "€70M / 15%", result: "~€467M implied SDLC baseline" },
-      { op: "× 70%", result: "~€327M execution zone" },
-      { op: "21% / 25% / 30%", result: "net efficiency scenarios" },
+      { op: "€70M / 15%", result: "~€467M SDLC baseline" },
+      { op: "× 83%", result: "~€388M Devin-relevant delivery zone" },
+      { op: "18–30%", result: "net efficiency range" },
     ] as { op: string; result: string }[],
     // Thin scenario line under the logic bar — maps each net-efficiency
-    // scenario back to the value arc. Three short, equal-weight rows.
+    // scenario back to the value arc. Four equal-weight rows.
     scenarioLine: [
-      { eff: "21%", value: "€70M / year", label: "target" },
-      { eff: "25%", value: "€82M / year", label: "realistic" },
-      { eff: "30%", value: "€98M / year", label: "upside" },
+      { eff: "18%", value: "~€70M / year", label: "target" },
+      { eff: "21%", value: "~€82M / year", label: "upside" },
+      { eff: "25%", value: "~€97M / year", label: "strong upside" },
+      { eff: "30%", value: "~€116M / year", label: "high upside" },
     ] as { eff: string; value: string; label: string }[],
     // NOTE: scenarioLine values keep the "/ year" inline because the
     // thin row uses a 13–14px font where the suffix fits naturally
@@ -1142,6 +1147,10 @@ export const intesa = {
     // and unit.
     // One short caveat — sits below the value arc.
     caveat: "Scenarios to validate — not guaranteed savings.",
+    // Pilot-link footer note — anchors the broader delivery zone
+    // back to the 70% core execution pilot entry point.
+    pilotFooter:
+      "Pilot starts in the 70% core execution zone; scale-out extends into the broader 83% delivery zone.",
     // Hero — four executive numbers. The fourth (~21%) makes the
     // ROI math visible: to reach €70M on a €327M execution-effort
     // zone, the pilot must demonstrate ~21% net efficiency after

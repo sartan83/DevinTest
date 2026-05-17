@@ -40,12 +40,14 @@ export function Panel8RoiSignal() {
           </motion.p>
         </div>
 
-        {/* Value arc — three large economic outcomes. */}
+        {/* Value arc — four large economic outcomes (target → upside →
+            strong upside → high upside) across the 83% delivery zone. */}
         <div className="flex flex-col gap-3 sm:gap-3.5">
-          <div className="grid grid-cols-1 items-end gap-6 sm:grid-cols-3 sm:gap-4 lg:gap-2">
+          <div className="grid grid-cols-2 items-end gap-6 sm:grid-cols-4 sm:gap-3 lg:gap-2">
             {p.valueArc.points.map((point, i) => {
               const isTarget = point.tone === "target";
               const isHigh = point.tone === "highUpside";
+              const isStrong = point.tone === "strongUpside";
               return (
                 <div key={point.value} className="relative">
                   <motion.div
@@ -54,7 +56,7 @@ export function Panel8RoiSignal() {
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{
                       duration: 0.75,
-                      delay: 0.18 + i * 0.18,
+                      delay: 0.18 + i * 0.16,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     className="flex flex-col items-start gap-1.5 sm:items-center sm:text-center"
@@ -63,23 +65,30 @@ export function Panel8RoiSignal() {
                       <span
                         className={[
                           "font-display font-semibold leading-[0.85] tracking-tight",
-                          "text-[60px] sm:text-[80px] lg:text-[104px]",
+                          "text-[44px] sm:text-[64px] lg:text-[84px]",
                           isTarget
                             ? "text-brand-ivory"
                             : isHigh
                             ? "text-brand-orange"
+                            : isStrong
+                            ? "text-brand-orange"
                             : "text-brand-orange-soft",
                         ].join(" ")}
+                        style={
+                          isStrong
+                            ? { color: "rgba(243,111,33,0.82)" }
+                            : undefined
+                        }
                       >
                         {point.value}
                       </span>
                       {point.unit && (
-                        <span className="text-[12px] font-light leading-none text-brand-ivory/55 sm:text-[14px] lg:text-[16px]">
+                        <span className="text-[11px] font-light leading-none text-brand-ivory/55 sm:text-[12.5px] lg:text-[14px]">
                           {point.unit}
                         </span>
                       )}
                     </div>
-                    <span className="text-[10.5px] uppercase tracking-[0.32em] text-brand-ivory/70 sm:text-[11.5px] lg:text-[12px]">
+                    <span className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/70 sm:text-[10.5px] lg:text-[11.5px]">
                       {point.label}
                     </span>
                   </motion.div>
@@ -194,16 +203,29 @@ export function Panel8RoiSignal() {
           })}
         </motion.div>
 
-        {/* Single caveat — sits at the very bottom. */}
-        <motion.p
-          initial={{ opacity: 0, y: 4 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[10.5px] italic leading-snug text-brand-ivory/45 sm:text-[11.5px]"
-        >
-          {p.caveat}
-        </motion.p>
+        {/* Single caveat + pilot-link footer — sit at the very bottom. */}
+        <div className="flex flex-col gap-1.5">
+          <motion.p
+            initial={{ opacity: 0, y: 4 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[10.5px] italic leading-snug text-brand-ivory/45 sm:text-[11.5px]"
+          >
+            {p.caveat}
+          </motion.p>
+          {p.pilotFooter && (
+            <motion.p
+              initial={{ opacity: 0, y: 4 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: 1.22, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[10.5px] leading-snug text-brand-ivory/55 sm:text-[11.5px]"
+            >
+              {p.pilotFooter}
+            </motion.p>
+          )}
+        </div>
       </div>
     </PanelShell>
   );
