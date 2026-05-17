@@ -300,9 +300,20 @@ export function MicrositeShell() {
     <div className="relative h-[100svh] w-screen overflow-hidden bg-brand-green text-brand-ivory">
       {/* Top bar */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-3 px-4 pt-3 sm:gap-6 sm:px-8 sm:pt-6 md:px-12">
-        <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+        <div className="pointer-events-auto flex items-center gap-2.5 sm:gap-3">
+          {/* Intesa Sanpaolo logo replaces the prior text wordmark
+              so the header reads as a branded session header
+              rather than a duplicated text caption. The session
+              label sits to the right of the logo, separated by a
+              quiet ivory divider. */}
+          <img
+            src="logos/intesa-sanpaolo.svg"
+            alt={intesa.brand.client}
+            className="h-4 w-auto select-none sm:h-5"
+          />
+          <span aria-hidden className="h-3 w-px bg-brand-ivory/25 sm:h-3.5" />
           <span className="text-xs font-medium text-brand-ivory sm:text-sm">
-            {intesa.brand.client} · {intesa.brand.sessionLabel}
+            {intesa.brand.sessionLabel}
           </span>
         </div>
 
