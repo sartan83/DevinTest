@@ -223,6 +223,28 @@ export const intesa = {
   panel0: {
     leftWordmark: "Intesa Sanpaolo",
     rightWordmark: "Cognition",
+    // Devin-native command-style hook. Replaces the prior corporate
+    // line ("Governed Modernization Execution at Enterprise Scale")
+    // with a chat-input style prompt rendered inside a subtle
+    // command bar — the @Devin token reads as a mention, the rest
+    // animates in like typed input followed by a blinking cursor.
+    command: {
+      mention: "@Devin",
+      body: " analyze the legacy workflow, generate the migration plan, create tests, and prepare a reviewable PR.",
+      placeholderHint: "Devin · message to assign engineering work",
+    },
+    // Short positioning line under the command — connects the
+    // mention to what Devin actually produces.
+    supportingLine:
+      "From modernization priorities to reviewable, test-backed SDLC work.",
+    // Business framing kept directly under the command so the
+    // Devin-native moment lands inside the Intesa context, not as
+    // a generic product demo.
+    intesaHero:
+      "Intesa is not evaluating AI productivity — it is racing two quantified execution clocks.",
+    // Title / subtitle retained as data for back-compat (other
+    // surfaces or print exports may still reference them), but the
+    // Panel 0 render no longer surfaces them as the main headline.
     title: "Governed Modernization Execution at Enterprise Scale",
     subtitle: "Governance-Aware Modernization Discussion",
     footer: "Intesa Sanpaolo × Cognition",
