@@ -1689,7 +1689,7 @@ export const intesa = {
     headline:
       "The €70M SDLC efficiency target\ndepends on execution capacity.",
     subhead:
-      "70% of SDLC effort sits in coding and testing/release — where work still moves too linearly.",
+      "83% of SDLC effort sits across functional, technical, coding and testing/release — where work still moves too linearly.",
     // Hero metric retired per user direction — the 70% anchor
     // is now carried by the bracket label above the SDLC bar
     // alone, so the slide leads with the €70M target headline
@@ -1719,7 +1719,7 @@ export const intesa = {
         key: "functional",
         value: 8,
         label: "Functional analysis",
-        subLabel: "Devin-assisted",
+        subLabel: "",
         zone: "assisted" as const,
         prominent: false,
       },
@@ -1727,7 +1727,7 @@ export const intesa = {
         key: "technical",
         value: 5,
         label: "Technical analysis",
-        subLabel: "Devin-assisted",
+        subLabel: "",
         zone: "assisted" as const,
         prominent: false,
       },
@@ -1735,7 +1735,7 @@ export const intesa = {
         key: "coding",
         value: 43,
         label: "Coding",
-        subLabel: "Core Devin execution",
+        subLabel: "",
         zone: "core" as const,
         prominent: true,
       },
@@ -1743,14 +1743,18 @@ export const intesa = {
         key: "testing",
         value: 27,
         label: "Testing & release",
-        subLabel: "Core Devin execution",
+        subLabel: "",
         zone: "core" as const,
         prominent: true,
       },
     ],
-    // Aggregate label for the 70% execution zone (bracket over the bar).
-    zoneLabel: "70% execution zone",
-    zoneSubLabel: "43% coding + 27% testing / release",
+    // Aggregate label for the 83% near-term ROI zone
+    // (Functional + Technical + Coding + Testing / Release).
+    // Per user direction the bracket now spans the four orange
+    // segments and the breakdown sublabel is dropped (the math
+    // is intuitive from the bar itself).
+    zoneLabel: "83% Near-term ROI zone",
+    zoneSubLabel: "",
     // Legacy two-callout block retired — the current-state pain
     // block + Devin bridge below carry the read now.
     callouts: [],

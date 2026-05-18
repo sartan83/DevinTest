@@ -42,7 +42,10 @@ export function Panel35SdlcMap() {
     cursor += (d.value / total) * 100;
     return { ...d, start, end: cursor, widthPct: (d.value / total) * 100 };
   });
-  const zoneStart = segments.find((s) => s.key === "coding")!.start;
+  // Zone bracket now spans Functional + Technical + Coding +
+  // Testing / Release (= 83%), starting after Requirements
+  // (17%). Previously it spanned only Coding + Testing (= 70%).
+  const zoneStart = segments.find((s) => s.key === "functional")!.start;
   const zoneEnd = segments.find((s) => s.key === "testing")!.end;
   const zoneWidth = zoneEnd - zoneStart;
 
