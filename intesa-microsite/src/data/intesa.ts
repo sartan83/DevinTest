@@ -449,13 +449,17 @@ export const intesa = {
         tone: "value" as const,
       },
     ],
+    // Closing reframed as an executive question per user direction.
+    // The slide must not assume Intesa will successfully complete
+    // the remaining 36% migration; the question puts the SDLC
+    // execution model itself on the table.
     closing:
-      "Execution delay risks delaying value capture.",
-    // Optional second closing line — kept short so it doesn't
-    // verbose-up the slide. Reframes the discussion from "should we
-    // modernize?" to "can SDLC execution capacity scale fast enough?".
+      "What if the hardest 36% cannot move fast enough with today’s SDLC execution model?",
+    // Secondary line renders smaller and more subtle directly
+    // under the question. Anchors the value-capture risk frame
+    // without restating the question.
     closingSecondary:
-      "The bottleneck is not the strategy — it is whether SDLC execution capacity scales fast enough.",
+      "That is where value capture risk concentrates.",
   },
 
   // -------------------------------------------------------------------------
