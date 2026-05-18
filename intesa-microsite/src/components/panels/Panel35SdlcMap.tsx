@@ -254,53 +254,87 @@ export function Panel35SdlcMap() {
           </div>
         </div>
 
-        {/* Two callouts — 83% delivery zone (broad) and 70% pilot zone (core) */}
-        {p.callouts && p.callouts.length > 0 && (
-          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-            {p.callouts.map((c, i) => {
-              const isCore = c.tone === "core";
-              return (
-                <motion.div
-                  key={c.key}
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.55,
-                    delay: 0.7 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="relative flex min-w-0 flex-col gap-1.5 overflow-hidden rounded-2xl border px-4 py-3.5 sm:px-5 sm:py-4"
-                  style={{
-                    borderColor: isCore
-                      ? "rgba(243,111,33,0.45)"
-                      : "rgba(243,111,33,0.22)",
-                    background: isCore
-                      ? "linear-gradient(135deg, rgba(243,111,33,0.16) 0%, rgba(243,111,33,0.06) 60%, rgba(8,36,28,0.45) 100%)"
-                      : "linear-gradient(135deg, rgba(243,111,33,0.09) 0%, rgba(243,111,33,0.03) 55%, rgba(8,36,28,0.5) 100%)",
-                  }}
-                >
-                  <div className="flex items-baseline gap-3">
-                    <span
-                      className="font-display font-semibold leading-none tracking-tight text-[34px] sm:text-[40px] lg:text-[44px]"
-                      style={{
-                        color: isCore
-                          ? "rgba(247,244,239,0.96)"
-                          : "rgba(247,244,239,0.9)",
-                      }}
+        {/* Current pain block + small Devin bridge.
+            ─────────────────────────────────────────────────────────
+            The pain panel is the visual anchor of the current-state
+            diagnosis. The Devin bridge sits to the right as a single
+            small "why Devin here" tile, deliberately quieter so the
+            slide does not turn into a solution comparison page. */}
+        {(p.currentPain || p.devinBridge) && (
+          <div className="grid gap-3 sm:gap-4 lg:grid-cols-[1.35fr_1fr] lg:items-stretch">
+            {p.currentPain && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="relative flex min-w-0 flex-col gap-3 rounded-2xl border border-brand-ivory/12 bg-brand-green-deep/55 px-4 py-4 sm:gap-3.5 sm:px-5 sm:py-5"
+              >
+                <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-ivory/55 sm:text-[11px]">
+                  {p.currentPain.title}
+                </span>
+                <ul className="flex flex-col gap-1.5 sm:gap-2">
+                  {p.currentPain.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 leading-snug text-brand-ivory/82 text-[12.5px] sm:text-[13.5px] lg:text-[14px]"
                     >
-                      {c.value}
-                    </span>
-                    <span className="text-[10.5px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
-                      {c.title}
-                    </span>
+                      <span
+                        aria-hidden
+                        className="mt-[6px] inline-block h-1 w-1 shrink-0 rounded-full bg-brand-ivory/40"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                {p.currentPain.label && (
+                  <div className="mt-auto flex items-center gap-2 rounded-md border border-brand-ivory/12 bg-brand-ivory/[0.03] px-3 py-2 text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[11.5px]">
+                    <span
+                      aria-hidden
+                      className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-ivory/40"
+                    />
+                    <span className="leading-snug">{p.currentPain.label}</span>
                   </div>
-                  <p className="text-[11.5px] leading-relaxed text-brand-ivory/65 sm:text-[12.5px]">
-                    {c.note}
-                  </p>
-                </motion.div>
-              );
-            })}
+                )}
+              </motion.div>
+            )}
+
+            {p.devinBridge && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.78,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="relative flex min-w-0 flex-col gap-2.5 rounded-2xl border border-brand-orange/35 bg-brand-orange/[0.05] px-4 py-4 shadow-[0_12px_36px_-22px_rgba(243,111,33,0.55)] sm:gap-3 sm:px-5 sm:py-5"
+              >
+                <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-orange sm:text-[11px]">
+                  {p.devinBridge.question}
+                </span>
+                <p className="text-[12.5px] leading-relaxed text-brand-ivory/85 sm:text-[13.5px] lg:text-[14px]">
+                  {p.devinBridge.text}
+                </p>
+                {p.devinBridge.tags && p.devinBridge.tags.length > 0 && (
+                  <div className="mt-auto flex flex-wrap gap-1.5">
+                    {p.devinBridge.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center rounded-full border border-brand-orange/35 bg-brand-orange/[0.06] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[10.5px]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            )}
           </div>
         )}
 

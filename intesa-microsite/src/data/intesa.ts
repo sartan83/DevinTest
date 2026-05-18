@@ -1651,15 +1651,21 @@ export const intesa = {
   // dominates without becoming a chart dump.
   // -------------------------------------------------------------------------
   panelSdlcMap: {
-    eyebrow: "SDLC execution map",
+    // Reframed per VP feedback as Intesa's current-state SDLC
+    // diagnosis — the section is a photograph of the pain, not a
+    // generic delivery-zone chart.
+    eyebrow: "Current State",
     headline:
-      "Devin's strongest opportunity sits in\nthe 83% SDLC delivery zone.",
-    subhead: "",
-    // Hero metric — the 83% Devin-relevant delivery zone. The
-    // smaller 70% sits below as the pilot entry point.
+      "The 70% execution zone is where\nSDLC friction compounds.",
+    subhead:
+      "Coding and testing/release absorb the majority of SDLC effort. This is where execution capacity becomes the modernization bottleneck.",
+    // Hero metric is now the 70% execution zone (coding +
+    // testing/release). The 83% delivery zone is no longer
+    // surfaced as a hero number on this slide — it lives on the
+    // ROI page where the broader scale-out math is anchored.
     heroMetric: {
-      value: "83%",
-      label: "Devin-relevant SDLC delivery zone",
+      value: "70%",
+      label: "Execution zone — coding + testing / release",
     },
     // SDLC effort distribution — five phases. `zone` distinguishes:
     //   - "core"     : 43% coding + 27% testing/release (saturated orange)
@@ -1709,35 +1715,39 @@ export const intesa = {
         prominent: true,
       },
     ],
-    // Aggregate label for the 70% pilot zone (bracket over the bar).
-    zoneLabel: "70% core execution zone",
-    zoneSubLabel: "Best pilot entry point: coding + testing / release",
-    // Two callouts rendered above (or alongside) the bar — the
-    // broader Devin-relevant delivery zone vs. the focused pilot
-    // entry point.
-    callouts: [
-      {
-        key: "delivery",
-        value: "83%",
-        title: "Devin-relevant delivery zone",
-        note: "Functional analysis + technical analysis + coding + testing / release.",
-        tone: "broad" as const,
-      },
-      {
-        key: "pilot",
-        value: "70%",
-        title: "Core execution zone",
-        note: "Best pilot entry point: coding + testing / release.",
-        tone: "core" as const,
-      },
-    ],
-    // Optional small math anchor — rendered as a quiet caption below
-    // the callouts when space allows.
-    deliveryMathNote:
-      "€467M SDLC baseline × 83% ≈ €388M broader delivery zone.",
-    // Closing interpretation line removed per user direction —
-    // the bracket label + callouts already carry the 70% pilot
-    // anchor without a written restatement.
+    // Aggregate label for the 70% execution zone (bracket over the bar).
+    zoneLabel: "70% execution zone",
+    zoneSubLabel: "43% coding + 27% testing / release",
+    // Legacy two-callout block retired — the current-state pain
+    // block + Devin bridge below carry the read now.
+    callouts: [],
+    // Math anchor retired on this slide. The €467M baseline and
+    // 83% delivery zone live on the ROI page.
+    deliveryMathNote: "",
+    // Current-pain block. Diagnoses the operating-model pain that
+    // makes the 70% zone the friction zone. Rendered as a compact
+    // panel under the SDLC bar.
+    currentPain: {
+      title: "Current pain",
+      items: [
+        "Execution remains largely linear",
+        "Remediation and testing move sequentially",
+        "Review starts late",
+        "Capacity limits modernization speed",
+      ],
+      label: "Pain: execution capacity becomes the bottleneck.",
+    },
+    // Small Devin bridge — single question + one-line answer +
+    // three secondary outcome tags. Deliberately compact so the
+    // slide stays a current-state diagnosis, not a solution page.
+    devinBridge: {
+      question: "Why Devin here?",
+      text:
+        "Validate Devin where repetitive execution is concentrated: coding, testing, remediation and PR-ready delivery.",
+      tags: ["Scalability", "Speed", "Control"],
+    },
+    // Closing interpretation line stays empty — the pain block
+    // + Devin bridge already close the read.
     devinRelevance: "",
     source:
       "Source: Intesa Sanpaolo — SDLC effort distribution across requirements, analysis, coding, and testing/release.",
