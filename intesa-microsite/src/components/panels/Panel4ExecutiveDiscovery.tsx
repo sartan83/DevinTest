@@ -97,7 +97,7 @@ export function Panel4ExecutiveDiscovery() {
 
   return (
     <PanelShell eyebrow={p.eyebrow}>
-      <div className="flex h-full flex-col gap-6 sm:gap-7 lg:gap-8">
+      <div className="flex h-full flex-col gap-4 sm:gap-5 lg:gap-5">
         {/* Headline + subline */}
         <div className="flex flex-col gap-3 sm:gap-4">
           <PanelHeadline text={p.headline} />
@@ -313,7 +313,7 @@ export function Panel4ExecutiveDiscovery() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-brand-orange/35 px-4 py-4 shadow-[0_24px_60px_-32px_rgba(243,111,33,0.55)] sm:px-5 sm:py-5 lg:gap-5"
+          className="relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-brand-orange/35 px-4 py-3.5 shadow-[0_24px_60px_-32px_rgba(243,111,33,0.55)] sm:px-5 sm:py-4 lg:gap-3.5"
           style={{
             background:
               "linear-gradient(150deg, rgba(243,111,33,0.10) 0%, rgba(243,111,33,0.03) 45%, rgba(8,36,28,0.55) 100%)",
@@ -356,14 +356,16 @@ export function Panel4ExecutiveDiscovery() {
             />
             <FlowArrow />
 
-            {/* 3 · Parallel lanes — coding + testing/release */}
-            <div className="flex flex-col gap-2 sm:gap-2.5">
+            {/* 3 · Parallel lanes — coding + testing/release.
+                Items render in a single horizontal row inside each
+                lane so the cell stays short on desktop. */}
+            <div className="flex flex-col gap-1.5 sm:gap-2">
               {p.withDevinFlow.lanes.map((lane) => (
                 <div
                   key={lane.key}
-                  className="relative flex flex-col gap-1.5 rounded-xl border border-brand-orange/25 bg-brand-green-deep/55 px-2.5 py-2 sm:px-3 sm:py-2.5"
+                  className="relative flex flex-col gap-1 rounded-xl border border-brand-orange/25 bg-brand-green-deep/55 px-2.5 py-1.5 sm:flex-row sm:items-center sm:gap-2.5 sm:px-3 sm:py-2"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[10.5px]">
+                  <span className="shrink-0 text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[10.5px]">
                     {lane.title}
                   </span>
                   <div className="flex flex-wrap gap-1">
@@ -395,15 +397,19 @@ export function Panel4ExecutiveDiscovery() {
             />
           </div>
 
-          {/* Three bullets — horizontal row on lg, stacked on mobile */}
-          <ul className="grid gap-1.5 text-[12px] leading-snug text-brand-ivory/82 sm:gap-2 sm:text-[12.5px] lg:grid-cols-3 lg:text-[13px]">
-            {p.withDevinFlow.bullets.map((b) => (
-              <li key={b} className="flex gap-2">
+          {/* Three bullets — inline horizontal row on lg with bullet
+              separators so the strip stays single-line. */}
+          <ul className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] leading-snug text-brand-ivory/82 sm:text-[12.5px] lg:text-[12.5px]">
+            {p.withDevinFlow.bullets.map((b, i) => (
+              <li key={b} className="flex items-center gap-2">
                 <span
                   aria-hidden
-                  className="mt-1 h-1 w-1 shrink-0 rounded-full bg-brand-orange"
+                  className="h-1 w-1 shrink-0 rounded-full bg-brand-orange"
                 />
                 <span>{b}</span>
+                {i < p.withDevinFlow.bullets.length - 1 && (
+                  <span aria-hidden className="hidden text-brand-ivory/25 lg:inline">·</span>
+                )}
               </li>
             ))}
           </ul>
@@ -419,7 +425,7 @@ export function Panel4ExecutiveDiscovery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55, delay: 1.32, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-brand-ivory/10 pt-4 sm:gap-x-7 sm:pt-5"
+            className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-brand-ivory/10 pt-3 sm:gap-x-7 sm:pt-3.5"
           >
             {p.outcomes.map((o) => {
               const isPrimary = o.emphasis === "primary";
