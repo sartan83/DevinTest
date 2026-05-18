@@ -47,14 +47,41 @@ export function Panel0Welcome({ onBegin }: Props) {
         <div className="flex w-full flex-col items-center gap-5 sm:gap-6 lg:gap-7">
           <DevinCommand mention={p.command.mention} body={p.command.body} hint={p.command.placeholderHint} />
 
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 4.2, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-2xl text-center text-[12px] uppercase tracking-[0.28em] text-brand-ivory/55 sm:text-[13px]"
-          >
-            {p.supportingLine}
-          </motion.p>
+          {p.supportingLine ? (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 4.2, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-2xl text-center text-[12px] uppercase tracking-[0.28em] text-brand-ivory/55 sm:text-[13px]"
+            >
+              {p.supportingLine}
+            </motion.p>
+          ) : null}
+
+          {/* Presenter signature — replaces the previous strapline
+              per user direction. Reads as a quiet executive
+              signature (name + role), not a slide headline. The
+              short orange hairline above the name anchors it as
+              a deliberate signature mark, not a caption. */}
+          {p.presenter ? (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 4.2, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center gap-1.5 text-center"
+            >
+              <span
+                aria-hidden
+                className="block h-px w-10 bg-brand-orange/60"
+              />
+              <span className="font-display text-[15px] font-medium tracking-tight text-brand-ivory sm:text-[16.5px] lg:text-[18px]">
+                {p.presenter.name}
+              </span>
+              <span className="text-[10.5px] uppercase tracking-[0.32em] text-brand-ivory/55 sm:text-[11px]">
+                {p.presenter.title}
+              </span>
+            </motion.div>
+          ) : null}
         </div>
       </div>
 

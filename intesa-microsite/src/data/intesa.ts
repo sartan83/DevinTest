@@ -233,10 +233,17 @@ export const intesa = {
       body: " analyze the legacy workflow, generate the migration plan, create tests, and prepare a reviewable PR.",
       placeholderHint: "Devin · message to assign engineering work",
     },
-    // Short positioning line under the command — connects the
-    // mention to what Devin actually produces.
-    supportingLine:
-      "From modernization priorities to reviewable, test-backed SDLC work.",
+    // Strapline retired per user direction. The opening now
+    // closes with a quiet presenter signature instead of a
+    // positioning line — see `presenter` below.
+    supportingLine: "",
+    // Presenter signature rendered under the command bar in
+    // place of the previous positioning line. Subtle and
+    // executive — reads as a signature, not a headline.
+    presenter: {
+      name: "Simone Agazzi",
+      title: "Majors Account Director, Europe",
+    },
     // Business framing kept directly under the command so the
     // Devin-native moment lands inside the Intesa context, not as
     // a generic product demo.
