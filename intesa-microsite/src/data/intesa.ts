@@ -467,8 +467,8 @@ export const intesa = {
     // Secondary line renders smaller and more subtle directly
     // under the question. Anchors the value-capture risk frame
     // without restating the question.
-    closingSecondary:
-      "That is where value capture risk concentrates.",
+    // Closing secondary line retired per user direction.
+    closingSecondary: "",
   },
 
   // -------------------------------------------------------------------------
