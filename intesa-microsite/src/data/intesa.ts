@@ -646,9 +646,9 @@ export const intesa = {
     // before/after comparison.
     eyebrow: "Current SDLC vs. SDLC with Devin",
     headline:
-      "The €70M target depends on how the\n83% Devin-addressable SDLC flow is executed.",
+      "The €70M target depends on how the\n83% Devin-addressable flow moves.",
     subhead:
-      "Functional analysis, technical analysis, coding and testing/release represent 83% of SDLC effort — with the 70% execution core as the first validation zone.",
+      "The first visible shift happens in the 70% execution core: coding and testing/release move from linear queues to parallel workstreams.",
     // End-to-end SDLC process bar. Five stages split into two
     // groups (definition / execution). Each stage carries its
     // % of SDLC effort and two flags:
@@ -721,50 +721,55 @@ export const intesa = {
         note: "First pilot validation zone",
       },
     },
-    // Four Devin workstreams that concentrate on the highest-
-    // impact SDLC stages. Each maps to one or more stage keys
-    // so the component can render the mapping inline.
-    workstreams: [
-      {
-        key: "req-to-task",
-        title: "Requirement-to-Task Workstream",
-        description:
-          "Turns requirements into executable engineering tasks",
-        // Remapped from Requirements (outside the 83%) to the
-        // analysis stages that actually convert requirements into
-        // task definitions. Keeps the workstream inside the 83%
-        // addressable flow.
-        mapsToLabel: "Functional + Technical analysis",
-        mapsTo: ["functional", "technical"],
-      },
-      {
-        key: "code-transform",
-        title: "Code Transformation Workstream",
-        description: "Generates or modifies code from scoped tasks",
-        mapsToLabel: "Coding",
-        mapsTo: ["coding"],
-      },
-      {
-        key: "test-validation",
-        title: "Test & Validation Workstream",
-        description:
-          "Generates tests and validation evidence earlier",
-        mapsToLabel: "Testing / Release",
-        mapsTo: ["testing"],
-      },
-      {
-        key: "remediation-pr",
-        title: "Remediation-to-PR Workstream",
-        description: "Fixes issues and prepares PR-ready output",
-        mapsToLabel: "Coding + Testing / Release",
-        mapsTo: ["coding", "testing"],
-      },
-    ],
-    // Compact prioritization statement under the workstream
-    // cards. Connects the four workstreams back to the 83% /
-    // 70% framing without restating the math.
-    prioritization:
-      "Prioritize 4 Devin workstreams across the 83% addressable flow, with the 70% execution core as the first pilot validation zone.",
+    // Current-flow vs. With-Devin flow comparison.
+    // Visualizes the shift in how the 70% execution core moves:
+    // from a linear queue (Requirements → Coding → Testing/Release
+    // → Review) to a parallel-lane operating model where coding AND
+    // testing/release run as parallel workstreams under the Devin
+    // execution layer.
+    currentFlow: {
+      label: "Current flow",
+      caption: "Linear human-led SDLC execution",
+      steps: ["Requirements", "Coding", "Testing / Release", "Review"],
+      painTags: ["handoffs", "linear execution", "late review"],
+      bullets: [
+        "Requirements become handoffs",
+        "Coding runs linearly",
+        "Testing / release starts late",
+      ],
+    },
+    withDevinFlow: {
+      label: "With Devin",
+      caption: "Parallel AI-augmented execution",
+      input: "Requirements",
+      layer: "Devin execution layer",
+      // Two parallel lane groups under the execution layer. Both
+      // coding and testing/release are visibly parallel — the
+      // slide must not imply Devin parallelizes coding only.
+      lanes: [
+        {
+          key: "coding",
+          title: "Parallel coding workstreams",
+          items: ["Code transformation", "Refactoring", "Remediation"],
+        },
+        {
+          key: "testing",
+          title: "Parallel testing / release workstreams",
+          items: [
+            "Test generation",
+            "Test execution / validation",
+            "Release preparation",
+          ],
+        },
+      ],
+      output: "PR-ready, test-backed output",
+      review: "Human review",
+      bullets: [
+        "Requirements become executable tasks",
+        "Coding runs in parallel",
+        "Testing / release runs in parallel",
+      ],
+    },
     // Three outcome tags at the bottom of the slide.
     // Scalability and Speed render slightly stronger than
     // Control per user direction — Control is present but
