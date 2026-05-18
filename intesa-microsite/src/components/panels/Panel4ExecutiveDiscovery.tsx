@@ -98,21 +98,9 @@ export function Panel4ExecutiveDiscovery() {
   return (
     <PanelShell eyebrow={p.eyebrow}>
       <div className="flex h-full flex-col gap-5 sm:gap-6 lg:gap-7">
-        {/* Headline + subline. Subline restored per user direction:
-            it carries the 70% execution-core read into the chain. */}
+        {/* Headline only — subline removed per user direction. */}
         <div className="flex flex-col gap-3 sm:gap-4">
           <PanelHeadline text={p.headline} />
-          {p.subhead ? (
-            <motion.p
-              initial={{ opacity: 0, y: 6 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-3xl text-[13px] leading-relaxed text-brand-ivory/78 sm:text-[14.5px] lg:text-[15.5px]"
-            >
-              {p.subhead}
-            </motion.p>
-          ) : null}
         </div>
 
         {/* Process map — group labels + bar + highlight badges.
@@ -405,46 +393,7 @@ export function Panel4ExecutiveDiscovery() {
           </motion.p>
         ) : null}
 
-        {/* Outcome tags — Scalability · Speed · Control. Compact
-            inline strip; Scalability and Speed primary, Control
-            secondary, so the slide stays an operating-model map. */}
-        {p.outcomes && p.outcomes.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-brand-ivory/10 pt-3 sm:gap-x-7 sm:pt-3.5"
-          >
-            {p.outcomes.map((o) => {
-              const isPrimary = o.emphasis === "primary";
-              return (
-                <div key={o.word} className="flex items-baseline gap-2">
-                  <span
-                    className={[
-                      "font-display font-semibold leading-none tracking-tight",
-                      isPrimary
-                        ? "text-[22px] text-brand-ivory sm:text-[28px] lg:text-[32px]"
-                        : "text-[16px] text-brand-ivory/78 sm:text-[20px] lg:text-[24px]",
-                    ].join(" ")}
-                  >
-                    {o.word}
-                  </span>
-                  <span
-                    className={[
-                      "text-[10.5px] uppercase tracking-[0.22em] sm:text-[11.5px]",
-                      isPrimary
-                        ? "text-brand-orange-soft"
-                        : "text-brand-ivory/50",
-                    ].join(" ")}
-                  >
-                    {o.label}
-                  </span>
-                </div>
-              );
-            })}
-          </motion.div>
-        )}
+        {/* Outcome strip removed per user direction. */}
       </div>
     </PanelShell>
   );
