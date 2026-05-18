@@ -1763,17 +1763,18 @@ export const intesa = {
     // panel under the SDLC bar.
     currentPain: {
       title: "Current pain",
-      // Trimmed to three bullets per readability guidance — the
-      // three operating-model frictions that make the 70% zone
-      // the friction zone.
+      // Per user direction the punchline is dropped and a fourth
+      // friction line is added — "Onboarding on legacy
+      // application" reads as the same kind of operating-model
+      // pain as the three preceding bullets, not a separate
+      // tile.
       items: [
         "Remediation and testing move sequentially",
         "Review starts late",
         "Capacity limits modernization speed",
+        "Onboarding on legacy application",
       ],
-      // Punchline replaces the prior pain label; reads as the
-      // diagnosis sentence that closes the pain box.
-      label: "Execution friction compounds exactly where effort concentrates.",
+      label: "",
     },
     // Small Devin bridge — single question + one-line answer +
     // three secondary outcome tags. Deliberately compact so the
