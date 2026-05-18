@@ -119,7 +119,7 @@ export const intesa = {
     { index: 0,  label: "·",  full: "Executive working session", appendix: false },
     { index: 1,  label: "1",  full: "Opening / why Intesa", appendix: false },
     { index: 2,  label: "2",  full: "Agenda", appendix: false },
-    { index: 3,  label: "3",  full: "Why now", appendix: false },
+    { index: 3,  label: "3",  full: "Current state", appendix: false },
     { index: 4,  label: "4",  full: "SDLC execution map", appendix: false },
     { index: 5,  label: "5",  full: "Validation checkpoint", appendix: false },
     { index: 6,  label: "6",  full: "Future-state + demo setup", appendix: false },
@@ -386,7 +386,7 @@ export const intesa = {
   // presenter narrates the urgency live.
   // -------------------------------------------------------------------------
   panel2: {
-    eyebrow: "Why now",
+    eyebrow: "Current state",
     // Strategic execution-tension hero. Frames the remaining gap
     // as the operational hard part of the migration, not as a
     // descriptive milestone.
@@ -510,7 +510,7 @@ export const intesa = {
     // One focused executive question with chip-style options —
     // keeps the live discovery moment without turning the page
     // into a questionnaire.
-    estateQuestion: "Where does the remaining 36% hurt most today?",
+    estateQuestion: "Where does the remaining 36% hurt most today? And why?",
     estateChips: [
       "Core modernization",
       "Testing",
@@ -634,19 +634,18 @@ export const intesa = {
   // memorable moments in the microsite — premium, cinematic, asymmetric.
   // -------------------------------------------------------------------------
   panel4: {
-    eyebrow: "Future-State Engineering Flow",
-    // Reframed as a paradigm-shift slide, not a process diagram.
-    // Current paradigm → Devin execution layer → Future paradigm.
-    // The slide must communicate that Devin changes the SDLC
-    // OPERATING MODEL, not that it adds another coding assistant.
-    headline:
-      "Devin changes the\nSDLC execution paradigm.",
-    // Subline under the hero. Anchors the section on the
-    // OPERATING-MODEL shift while reminding the room that
-    // approval / accountability remain human. Trust & Control
-    // detail lives in the appendix.
+    // Eyebrow reframed per VP feedback — the slide must read as a
+    // direct current-state vs. future-state comparison, not a
+    // generic future-state flow diagram.
+    eyebrow: "Current SDLC vs. SDLC with Devin",
+    // Single-line hero. Anchors the entire slide on the paradigm
+    // shift, not on Devin as a feature.
+    headline: "Devin changes the SDLC execution paradigm.",
+    // Subline under the hero. Names the shift in one sentence and
+    // protects the human-approval frame so the slide cannot be
+    // misread as removing engineering oversight.
     subhead:
-      "From linear human-led execution to scalable, faster, AI-augmented workstreams — while approval and accountability remain human.",
+      "From linear, capacity-constrained execution to parallel, AI-augmented workstreams — while approval remains human.",
     // Outcome strip rendered between the subline and the three
     // paradigm columns. Scalability + Speed are the dominant
     // emphasis words; Control is present but secondary so the
@@ -666,7 +665,7 @@ export const intesa = {
       {
         word: "Control",
         label: "human approval remains",
-        emphasis: "secondary" as const,
+        emphasis: "primary" as const,
       },
     ],
     // SDLC phase anchors rendered as subtle labels under the
@@ -678,6 +677,17 @@ export const intesa = {
       { value: "27%", label: "Testing & release" },
       { value: "70%", label: "Execution zone" },
     ],
+    // Execution-zone anchor band rendered below the two-side
+    // comparison. Connects the paradigm shift to Intesa's own
+    // SDLC effort distribution and explains WHY this zone is
+    // the right pilot target — not as a separate page, but as a
+    // one-line bridge between the comparison and the proof
+    // metrics.
+    executionAnchor: {
+      formula: "43% coding + 27% testing/release = 70% of SDLC effort",
+      reason:
+        "This is where execution friction compounds — and where Devin should be validated first.",
+    },
     // Embedded operational chips that sit inline between the
     // parallel SDLC streams and the 6× acceleration anchor.
     // Reads as the review-package elements Devin prepares —
@@ -699,71 +709,58 @@ export const intesa = {
     // Anchors the governance message: Devin scales execution
     // and reviewability; decision authority stays with Intesa.
     authorityLine: "Devin scales execution and reviewability — not decision authority.",
-    // Left column — current paradigm. Human-led linear execution.
-    // Short, operational, not abstract. Visually muted/constrained.
+    // Left side — current state. Human-led linear execution.
+    // Five concrete pain points that compound into the
+    // execution-capacity bottleneck named in painLabel.
     current: {
-      label: "Current paradigm",
-      caption: "Before",
-      subtitle: "Linear human execution",
+      label: "Current state",
+      caption: "Without Devin",
+      subtitle: "Linear human-led SDLC execution",
       items: [
-        "Manual coding",
-        "Sequential remediation",
-        "Manual test creation",
-        "Slow PR readiness",
+        "Coding and testing/release absorb 70% of SDLC effort",
+        "Work moves sequentially through teams",
+        "Remediation and testing create delivery friction",
+        "Review starts late and often lacks evidence",
+        "Execution capacity limits modernization speed",
       ],
+      painLabel: "Pain: execution capacity becomes the bottleneck",
     },
-    // Center bridge — Devin execution layer. Reads as an execution
-    // capability layer, not as a system architecture. Sublabel keeps
-    // the framing operational ("orchestrated", not "AI agent").
+    // Center bridge — labelled transition between the two sides.
+    // Reads as an execution capability layer, not as a system
+    // architecture. Sublabel keeps the framing operational.
     bridge: {
       label: "Devin execution layer",
-      sublabel: "Governed SDLC orchestration",
+      sublabel: "AI-augmented execution",
     },
-    // Center column — the Devin execution layer. The paradigm
-    // shift itself: repetitive SDLC work moves from linear to
-    // parallel, AI-augmented workstreams. The center column is
-    // visually the heaviest (orange accent + parallel motion).
-    future: {
-      label: "Devin layer",
-      caption: "Shift",
-      subtitle: "Parallel AI workstreams",
+    // Right side — with Devin. Future-state operating model.
+    // Five outcomes that mirror the five current-state pain
+    // points, written to read as direct answers. The component
+    // surfaces the three hero outcome words (Scalability /
+    // Speed / Control) above the bullets so the side reads as a
+    // single visual statement.
+    withDevin: {
+      label: "With Devin",
+      caption: "Future state",
+      subtitle: "Parallel AI-augmented execution workstreams",
       items: [
-        "Repo understanding",
-        "Code transformation",
-        "Test generation",
+        "Repetitive coding and testing tasks run in parallel",
+        "Remediation is converted into PR-ready work",
+        "Tests and evidence are generated earlier",
+        "Review starts from a better package",
+        "Teams scale throughput without removing human approval",
       ],
-      // Cinematic acceleration anchor — premium scale signal,
-      // sits at the bottom of the right column. Reduced from a
-      // full anchor block to a single inline metric.
-      anchor: {
-        metric: "6×",
-        label: "Modernization acceleration",
-        caption: "Reference deployment",
-      },
-      // Reduced to a single secondary signal per the compaction
-      // pass — only 6× and 20–30% are visible on this slide.
-      signals: [
-        { value: "20–30%", label: "Throughput increase" },
-      ],
+      outcomeLabel: "Outcome: scalability, speed and control",
     },
-    // Right column — future paradigm. Reviewable PR-ready delivery.
-    // The operating-model destination: multiple parallel reviewable
-    // PRs flowing into the existing SDLC, not a governance overlay.
-    reviewable: {
-      label: "Future state",
-      caption: "After",
-      subtitle: "Scalable PR-ready delivery",
-      items: [
-        "Multiple PR-ready outputs",
-        "Test-backed changes",
-        "Measurable review effort",
-      ],
-    },
-    // Closing punchline — single sentence, executive tone. Anchors
-    // the paradigm shift back to repetitive SDLC execution becoming
-    // faster, reviewable, test-backed PR-ready work.
-    closing:
-      "Devin scales repetitive SDLC execution into faster, reviewable, test-backed PR-ready work.",
+    // Two proof metrics — used as future-state evidence, not as
+    // standalone claims. Sit under the two-side comparison.
+    proofMetrics: [
+      { value: "6×", label: "Modernization acceleration" },
+      { value: "20–30%", label: "Throughput increase" },
+    ],
+    // Closing punchline retired — the two-side comparison plus
+    // the trust line carry the read on their own. Kept as an
+    // empty string so the existing render guard skips it.
+    closing: "",
     // One short trust line, kept in the main flow because Trust &
     // Control is now an appendix panel. Signals that human approval
     // is preserved without duplicating the appendix content.
