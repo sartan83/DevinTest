@@ -648,7 +648,12 @@ export const intesa = {
     headline:
       "The €70M target depends on how the\n83% Devin-addressable flow moves.",
     subhead:
-      "The first visible shift happens in the 70% execution core: coding and testing/release move from linear queues to parallel workstreams.",
+      "The first visible shift happens in the 70% execution core: coding and testing/release move from linear execution to parallel, PR-ready workstreams.",
+    // One emphasized sentence under the chain that anchors the
+    // operating-model read — prevents the slide from being read
+    // as 'Devin replaces the SDLC'.
+    keyMessage:
+      "Devin does not replace the SDLC — it changes how the execution core moves.",
     // End-to-end SDLC process bar. Five stages split into two
     // groups (definition / execution). Each stage carries its
     // % of SDLC effort and two flags:

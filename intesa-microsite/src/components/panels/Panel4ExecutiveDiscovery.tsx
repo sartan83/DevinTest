@@ -97,10 +97,22 @@ export function Panel4ExecutiveDiscovery() {
 
   return (
     <PanelShell eyebrow={p.eyebrow}>
-      <div className="flex h-full flex-col gap-4 sm:gap-5 lg:gap-5">
-        {/* Headline only — subline removed per user direction. */}
+      <div className="flex h-full flex-col gap-5 sm:gap-6 lg:gap-7">
+        {/* Headline + subline. Subline restored per user direction:
+            it carries the 70% execution-core read into the chain. */}
         <div className="flex flex-col gap-3 sm:gap-4">
           <PanelHeadline text={p.headline} />
+          {p.subhead ? (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-3xl text-[13px] leading-relaxed text-brand-ivory/78 sm:text-[14.5px] lg:text-[15.5px]"
+            >
+              {p.subhead}
+            </motion.p>
+          ) : null}
         </div>
 
         {/* Process map — group labels + bar + highlight badges.
@@ -227,10 +239,37 @@ export function Panel4ExecutiveDiscovery() {
             })}
           </div>
 
-          {/* 83% / 70% highlight badges removed per user direction.
-              The SDLC bar coloring (saturated orange = execution
-              core, soft orange = addressable) already carries the
-              read — the two badge boxes were redundant. */}
+          {/* Execution-core bracket — a single inline label under
+              the execution-side of the bar that calls out the 70%
+              core without re-introducing the heavy badge boxes. */}
+          <div className="relative mt-3 flex w-full sm:mt-4" aria-hidden>
+            <div
+              className="shrink-0"
+              style={{ width: `${(definitionTotal / totalEffort) * 100}%` }}
+            />
+            <div className="relative flex flex-1 items-start">
+              <span
+                aria-hidden
+                className="absolute left-0 top-0 h-2 w-px bg-brand-orange/50"
+              />
+              <span
+                aria-hidden
+                className="absolute right-0 top-0 h-2 w-px bg-brand-orange/50"
+              />
+              <span
+                aria-hidden
+                className="absolute left-0 right-0 top-0 h-px bg-brand-orange/45"
+              />
+              <div className="flex w-full items-baseline justify-between gap-3 pt-3">
+                <span className="font-display text-[12px] font-semibold uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[13px] lg:text-[14px]">
+                  {p.flow.core.value} {p.flow.core.label}
+                </span>
+                <span className="text-[10.5px] uppercase tracking-[0.2em] text-brand-ivory/55 sm:text-[11px]">
+                  {p.flow.core.note}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* With-Devin flow — horizontal end-to-end execution chain.
@@ -293,23 +332,23 @@ export function Panel4ExecutiveDiscovery() {
             <FlowArrow />
 
             {/* 3 · Parallel lanes — coding + testing/release.
-                Title sits on its own row above the items so the
-                pills never collide with the lane label. Items are
-                flex-wrap pills with comfortable padding/gap. */}
-            <div className="flex flex-col gap-2 sm:gap-2.5">
+                Lane title is now sentence-case display type for
+                stronger contrast; pills bumped to text-[12/12.5px]
+                for legibility. */}
+            <div className="flex flex-col gap-2.5 sm:gap-3">
               {p.withDevinFlow.lanes.map((lane) => (
                 <div
                   key={lane.key}
-                  className="relative flex flex-col gap-1.5 rounded-xl border border-brand-orange/25 bg-brand-green-deep/55 px-3 py-2 sm:px-3.5 sm:py-2.5"
+                  className="relative flex flex-col gap-2 rounded-xl border border-brand-orange/30 bg-brand-green-deep/55 px-3.5 py-2.5 sm:px-4 sm:py-3"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[10.5px]">
+                  <span className="font-display text-[12.5px] font-medium leading-snug tracking-tight text-brand-ivory sm:text-[13.5px] lg:text-[14.5px]">
                     {lane.title}
                   </span>
                   <div className="flex flex-wrap gap-x-1.5 gap-y-1">
                     {lane.items.map((item) => (
                       <span
                         key={item}
-                        className="inline-block whitespace-nowrap rounded-md border border-brand-ivory/12 bg-brand-green-deep/70 px-2 py-0.5 text-[11px] leading-snug text-brand-ivory/88 sm:text-[11.5px]"
+                        className="inline-block whitespace-nowrap rounded-md border border-brand-ivory/16 bg-brand-green-deep/70 px-2.5 py-1 text-[12px] leading-snug text-brand-ivory/92 sm:text-[12.5px]"
                       >
                         {item}
                       </span>
@@ -352,9 +391,60 @@ export function Panel4ExecutiveDiscovery() {
           </ul>
         </motion.div>
 
-        {/* Outcome tags (Scalability · Speed · Control) removed per
-            user direction. The With Devin chain + bullets already
-            carry the operating-model read. */}
+        {/* Key message — one emphasized sentence under the chain
+            that anchors the operating-model read. */}
+        {p.keyMessage ? (
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 1.18, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl border-l-2 border-brand-orange/55 pl-4 font-display text-[14.5px] italic leading-snug text-brand-ivory/92 sm:pl-5 sm:text-[16px] lg:text-[17.5px]"
+          >
+            {p.keyMessage}
+          </motion.p>
+        ) : null}
+
+        {/* Outcome tags — Scalability · Speed · Control. Compact
+            inline strip; Scalability and Speed primary, Control
+            secondary, so the slide stays an operating-model map. */}
+        {p.outcomes && p.outcomes.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-brand-ivory/10 pt-3 sm:gap-x-7 sm:pt-3.5"
+          >
+            {p.outcomes.map((o) => {
+              const isPrimary = o.emphasis === "primary";
+              return (
+                <div key={o.word} className="flex items-baseline gap-2">
+                  <span
+                    className={[
+                      "font-display font-semibold leading-none tracking-tight",
+                      isPrimary
+                        ? "text-[22px] text-brand-ivory sm:text-[28px] lg:text-[32px]"
+                        : "text-[16px] text-brand-ivory/78 sm:text-[20px] lg:text-[24px]",
+                    ].join(" ")}
+                  >
+                    {o.word}
+                  </span>
+                  <span
+                    className={[
+                      "text-[10.5px] uppercase tracking-[0.22em] sm:text-[11.5px]",
+                      isPrimary
+                        ? "text-brand-orange-soft"
+                        : "text-brand-ivory/50",
+                    ].join(" ")}
+                  >
+                    {o.label}
+                  </span>
+                </div>
+              );
+            })}
+          </motion.div>
+        )}
       </div>
     </PanelShell>
   );
