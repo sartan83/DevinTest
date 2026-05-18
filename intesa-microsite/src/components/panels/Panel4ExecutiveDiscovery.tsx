@@ -98,18 +98,9 @@ export function Panel4ExecutiveDiscovery() {
   return (
     <PanelShell eyebrow={p.eyebrow}>
       <div className="flex h-full flex-col gap-4 sm:gap-5 lg:gap-5">
-        {/* Headline + subline */}
+        {/* Headline only — subline removed per user direction. */}
         <div className="flex flex-col gap-3 sm:gap-4">
           <PanelHeadline text={p.headline} />
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl text-[12.5px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
-          >
-            {p.subhead}
-          </motion.p>
         </div>
 
         {/* Process map — group labels + bar + highlight badges.
@@ -236,65 +227,10 @@ export function Panel4ExecutiveDiscovery() {
             })}
           </div>
 
-          {/* Two highlight badges — 83% addressable + 70% execution core.
-              Layout: side-by-side under the labels. Both are coloured
-              orange but the core badge sits stronger (saturated border
-              + halo) since it is the first pilot validation zone. */}
-          <div className="mt-4 grid gap-3 sm:mt-5 sm:gap-4 lg:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex min-w-0 items-baseline gap-3 overflow-hidden rounded-2xl border border-brand-orange/30 px-4 py-3 sm:px-5 sm:py-3.5"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(243,111,33,0.10) 0%, rgba(243,111,33,0.03) 55%, rgba(8,36,28,0.5) 100%)",
-              }}
-            >
-              <span
-                className="font-display font-semibold leading-none tracking-tight text-[32px] sm:text-[38px] lg:text-[42px]"
-                style={{ color: "rgba(247,244,239,0.92)" }}
-              >
-                {p.flow.addressable.value}
-              </span>
-              <div className="flex min-w-0 flex-col gap-0.5">
-                <span className="text-[10.5px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
-                  {p.flow.addressable.label}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-brand-ivory/55 sm:text-[10.5px]">
-                  {p.flow.addressable.note}
-                </span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.55, delay: 0.86, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex min-w-0 items-baseline gap-3 overflow-hidden rounded-2xl border border-brand-orange/55 px-4 py-3 shadow-[0_18px_42px_-26px_rgba(243,111,33,0.65)] sm:px-5 sm:py-3.5"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(243,111,33,0.18) 0%, rgba(243,111,33,0.06) 55%, rgba(8,36,28,0.45) 100%)",
-              }}
-            >
-              <span
-                className="font-display font-semibold leading-none tracking-tight text-[32px] sm:text-[38px] lg:text-[42px]"
-                style={{ color: "rgba(247,244,239,0.98)" }}
-              >
-                {p.flow.core.value}
-              </span>
-              <div className="flex min-w-0 flex-col gap-0.5">
-                <span className="text-[10.5px] uppercase tracking-[0.24em] text-brand-orange sm:text-[11.5px]">
-                  {p.flow.core.label}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-brand-ivory/65 sm:text-[10.5px]">
-                  {p.flow.core.note}
-                </span>
-              </div>
-            </motion.div>
-          </div>
+          {/* 83% / 70% highlight badges removed per user direction.
+              The SDLC bar coloring (saturated orange = execution
+              core, soft orange = addressable) already carries the
+              read — the two badge boxes were redundant. */}
         </div>
 
         {/* With-Devin flow — horizontal end-to-end execution chain.
@@ -415,47 +351,9 @@ export function Panel4ExecutiveDiscovery() {
           </ul>
         </motion.div>
 
-        {/* Outcome tags — Scalability / Speed / Control.
-            Scalability and Speed render with primary emphasis;
-            Control sits secondary (smaller, lower contrast) so
-            the slide stays an operating-model map. */}
-        {p.outcomes && p.outcomes.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 1.32, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-brand-ivory/10 pt-3 sm:gap-x-7 sm:pt-3.5"
-          >
-            {p.outcomes.map((o) => {
-              const isPrimary = o.emphasis === "primary";
-              return (
-                <div key={o.word} className="flex items-baseline gap-2">
-                  <span
-                    className={[
-                      "font-display font-semibold leading-none tracking-tight",
-                      isPrimary
-                        ? "text-[24px] text-brand-ivory sm:text-[30px] lg:text-[34px]"
-                        : "text-[18px] text-brand-ivory/78 sm:text-[22px] lg:text-[26px]",
-                    ].join(" ")}
-                  >
-                    {o.word}
-                  </span>
-                  <span
-                    className={[
-                      "text-[10.5px] uppercase tracking-[0.22em] sm:text-[11.5px]",
-                      isPrimary
-                        ? "text-brand-orange-soft"
-                        : "text-brand-ivory/50",
-                    ].join(" ")}
-                  >
-                    {o.label}
-                  </span>
-                </div>
-              );
-            })}
-          </motion.div>
-        )}
+        {/* Outcome tags (Scalability · Speed · Control) removed per
+            user direction. The With Devin chain + bullets already
+            carry the operating-model read. */}
       </div>
     </PanelShell>
   );
