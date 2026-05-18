@@ -16,22 +16,10 @@ function format(n: number) {
   });
 }
 
-function formatEquivalent(n: number) {
-  // Dev-equivalents are small fractions when computed against a session-scale
-  // dev-day envelope (1 dev-eq = 220 dev-days/year). Render with 2 sig figs
-  // so executives still read a meaningful CIO-translation number.
-  if (n === 0) return "0";
-  if (n >= 1) {
-    return n.toLocaleString("en-GB", {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    });
-  }
-  return n.toLocaleString("en-GB", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
+// formatEquivalent + minEq/maxEq retired alongside the
+// secondary developer-equivalents line in the collapsed counter
+// pill. The translation is still surfaced inside the expanded
+// popover (popover.bullets) rather than the pill itself.
 
 /**
  * Eases `value` toward `target` with a cubic-ease-out (~700ms) on every change
@@ -89,9 +77,6 @@ export function ExecutiveCounter({ min, max }: Props) {
   const c = intesa.counter;
   const popover = c.popover;
 
-  const minEq = aMin / c.devDaysPerEquivalent;
-  const maxEq = aMax / c.devDaysPerEquivalent;
-
   // Close the expansion when the user clicks outside of it.
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -143,14 +128,10 @@ export function ExecutiveCounter({ min, max }: Props) {
               {c.unit}
             </span>
           </div>
-          <div className="mt-0.5 flex items-baseline gap-1.5 sm:gap-2">
-            <span className="font-display text-[12px] font-medium tabular-nums text-brand-ivory/85 sm:text-sm">
-              ≈ {formatEquivalent(minEq)}–{formatEquivalent(maxEq)}
-            </span>
-            <span className="text-[9px] text-brand-ivory/55 sm:text-[10px]">
-              {c.devEquivalentUnit}
-            </span>
-          </div>
+          {/* Developer-equivalents secondary line retired per user
+              direction. The counter pill now reads as a pure
+              dev-days number; the dev-equivalents translation is
+              still available in the expanded popover below. */}
         </div>
 
         {/* Subtle "?" trigger — low contrast, retained for affordance. */}
