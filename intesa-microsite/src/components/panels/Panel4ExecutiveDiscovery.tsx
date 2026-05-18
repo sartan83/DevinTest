@@ -131,11 +131,16 @@ export function Panel4ExecutiveDiscovery() {
             </div>
           </div>
 
-          {/* The bar itself */}
-          <div className="relative flex h-16 w-full overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/55 sm:h-[72px] lg:h-20">
+          {/* The bar itself — stage label + percentage now stack
+              INSIDE each segment (per user direction). Bar height
+              bumped so both lines fit comfortably across all five
+              stages, including the narrow 5% / 8% definition
+              segments. */}
+          <div className="relative flex h-[88px] w-full overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/55 sm:h-[108px] lg:h-[124px]">
             {stages.map((s, i) => {
               const isCore = s.core;
               const isAddressable = s.addressable && !s.core;
+              const isNarrow = s.value < 10;
               let background =
                 "linear-gradient(180deg, rgba(247,244,239,0.05) 0%, rgba(247,244,239,0.015) 100%)";
               if (isCore) {
@@ -161,7 +166,7 @@ export function Panel4ExecutiveDiscovery() {
                     delay: 0.25 + i * 0.08,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="relative flex h-full items-center justify-center overflow-hidden border-r border-brand-ivory/10 last:border-r-0"
+                  className="relative flex h-full flex-col items-center justify-center overflow-hidden border-r border-brand-ivory/10 px-1.5 last:border-r-0"
                   style={{ background }}
                 >
                   {isCore && (
@@ -174,14 +179,33 @@ export function Panel4ExecutiveDiscovery() {
                       }}
                     />
                   )}
+                  {/* Stage label inside the bar. For narrow
+                      stages (5%, 8%) we drop the tracking and
+                      allow wrap so 'Technical analysis' / 'Functional
+                      analysis' break to two lines. */}
                   <span
                     className={[
-                      "relative z-10 font-display font-semibold leading-none tracking-tight",
+                      "relative z-10 text-center font-medium uppercase leading-[1.1]",
+                      isNarrow
+                        ? "text-[9px] tracking-[0.08em] sm:text-[10px] lg:text-[10.5px]"
+                        : "text-[10px] tracking-[0.18em] sm:text-[11.5px] lg:text-[12.5px]",
                       isCore
-                        ? "text-[22px] text-brand-ivory sm:text-[26px] lg:text-[32px]"
+                        ? "text-brand-ivory"
                         : isAddressable
-                        ? "text-[16px] text-brand-ivory/95 sm:text-[20px] lg:text-[24px]"
-                        : "text-[14px] text-brand-ivory/65 sm:text-[16px] lg:text-[20px]",
+                        ? "text-brand-ivory/90"
+                        : "text-brand-ivory/65",
+                    ].join(" ")}
+                  >
+                    {s.label}
+                  </span>
+                  <span
+                    className={[
+                      "relative z-10 mt-1 font-display font-semibold leading-none tracking-tight sm:mt-1.5",
+                      isCore
+                        ? "text-[22px] text-brand-ivory sm:text-[28px] lg:text-[34px]"
+                        : isAddressable
+                        ? "text-[15px] text-brand-ivory/95 sm:text-[19px] lg:text-[22px]"
+                        : "text-[16px] text-brand-ivory/75 sm:text-[20px] lg:text-[24px]",
                     ].join(" ")}
                   >
                     {s.value}%
@@ -191,49 +215,19 @@ export function Panel4ExecutiveDiscovery() {
             })}
           </div>
 
-          {/* Per-stage labels under the bar */}
-          <div className="relative mt-2.5 flex w-full sm:mt-3">
-            {stages.map((s, i) => {
-              const isCore = s.core;
-              const isAddressable = s.addressable && !s.core;
-              return (
-                <motion.div
-                  key={`label-${s.key}`}
-                  initial={{ opacity: 0, y: 4 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.6 + i * 0.04,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="flex flex-col items-center px-1 text-center"
-                  style={{ width: `${(s.value / totalEffort) * 100}%` }}
-                >
-                  <span
-                    className={[
-                      "truncate text-[10px] uppercase leading-tight tracking-[0.18em] sm:text-[11px]",
-                      isCore
-                        ? "text-brand-ivory/95"
-                        : isAddressable
-                        ? "text-brand-ivory/80"
-                        : "text-brand-ivory/45",
-                    ].join(" ")}
-                  >
-                    {s.label}
-                  </span>
-                </motion.div>
-              );
-            })}
-          </div>
+          {/* Per-stage label row removed — labels now sit inside
+              each bar segment per user direction. */}
 
-          {/* Execution-core bracket — a single inline label under
-              the execution-side of the bar that calls out the 70%
-              core without re-introducing the heavy badge boxes. */}
+          {/* Devin near-term ROI zone bracket — a single inline
+              label under the bar that calls out the 83% addressable
+              flow (Functional + Technical + Coding + Testing /
+              Release). Per user direction the bracket starts after
+              Requirements (17%) and spans the remaining 83%, so it
+              now sits above the four orange-toned segments. */}
           <div className="relative mt-3 flex w-full sm:mt-4" aria-hidden>
             <div
               className="shrink-0"
-              style={{ width: `${(definitionTotal / totalEffort) * 100}%` }}
+              style={{ width: `${((stages[0]?.value ?? 0) / totalEffort) * 100}%` }}
             />
             <div className="relative flex flex-1 items-start">
               <span

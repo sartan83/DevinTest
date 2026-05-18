@@ -22,7 +22,20 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
 export function Panel2ExecutionGap() {
   const p = intesa.panel2;
   return (
-    <PanelShell eyebrow={p.eyebrow} bg="deep">
+    <PanelShell
+      eyebrow={p.eyebrow}
+      bg="deep"
+      headerRight={
+        <motion.img
+          src="logos/intesa-sanpaolo.svg"
+          alt="Intesa Sanpaolo"
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 0.9, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="h-6 w-auto sm:h-7 lg:h-8"
+        />
+      }
+    >
       <div className="flex h-full flex-col justify-center gap-8 sm:gap-10 lg:gap-12">
         {/* Header — hero + single subline. No standalone metric
             anywhere above the three hero cards. */}

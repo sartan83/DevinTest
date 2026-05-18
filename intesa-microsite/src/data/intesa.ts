@@ -720,10 +720,16 @@ export const intesa = {
         label: "Devin-addressable flow",
         note: "Functional + Technical + Coding + Testing / Release",
       },
+      // Bracket label rendered under the SDLC bar. Per user
+      // direction this now spans Functional + Technical + Coding
+      // + Testing/Release (=83%), excluding Requirements. The
+      // semantic 'core' flag on individual stages still marks the
+      // 70% execution core (coding + testing/release) and drives
+      // the bar coloring — only the bracket label changed.
       core: {
-        value: "70%",
-        label: "Execution core",
-        note: "First pilot validation zone",
+        value: "83%",
+        label: "Devin near-term ROI zone",
+        note: "Functional + Technical + Coding + Testing / Release",
       },
     },
     // With-Devin flow — horizontal end-to-end execution chain.
