@@ -374,6 +374,15 @@ export const intesa = {
         helper: "Pilot decision",
       },
     ],
+    // Single executive discovery question rendered under the
+    // agenda timeline. Anchors the agenda as a conversation
+    // opener and invites the buyer to define what matters most
+    // before the narrative starts. Visually distinct from the
+    // agenda blocks (eyebrow chip + display question + soft
+    // orange-tinted frame) — not a slide title, not a bullet,
+    // not a long explanatory paragraph.
+    discoveryQuestion:
+      "Before we go deeper, what would make this conversation most valuable for you today?",
     closing: "",
   },
 

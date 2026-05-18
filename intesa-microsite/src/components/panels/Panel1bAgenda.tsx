@@ -52,6 +52,27 @@ export function Panel1bAgenda() {
           ))}
         </div>
 
+        {p.discoveryQuestion ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-brand-orange/35 bg-brand-orange/[0.05] px-5 py-4 shadow-[0_12px_36px_-22px_rgba(243,111,33,0.5)] sm:gap-2.5 sm:px-6 sm:py-5 lg:px-7 lg:py-6"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-y-3 left-0 w-[2px] rounded-full bg-brand-orange/70"
+            />
+            <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-orange sm:text-[11px]">
+              Opening question
+            </span>
+            <p className="font-display text-[17px] font-medium italic leading-snug text-brand-ivory sm:text-[19px] lg:text-[22px]">
+              {p.discoveryQuestion}
+            </p>
+          </motion.div>
+        ) : null}
+
         {p.closing ? (
           <p className="text-[13px] italic leading-relaxed text-brand-ivory/68 sm:text-[14.5px] lg:text-[16px]">
             {p.closing}
