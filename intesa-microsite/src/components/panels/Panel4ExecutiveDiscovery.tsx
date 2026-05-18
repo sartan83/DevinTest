@@ -198,18 +198,17 @@ export function Panel4ExecutiveDiscovery() {
                   >
                     {s.label}
                   </span>
-                  <span
-                    className={[
-                      "relative z-10 mt-0.5 font-display font-semibold leading-none tracking-tight sm:mt-1",
-                      isCore
-                        ? "text-[16px] text-brand-ivory sm:text-[20px] lg:text-[24px]"
-                        : isAddressable
-                        ? "text-[12px] text-brand-ivory/95 sm:text-[15px] lg:text-[17px]"
-                        : "text-[13px] text-brand-ivory/75 sm:text-[16px] lg:text-[19px]",
-                    ].join(" ")}
-                  >
-                    {s.value}%
-                  </span>
+                  {/* Percentage only on stages OUTSIDE the 83%
+                      (Requirements). The 4 addressable stages
+                      (Functional / Technical / Coding / Testing)
+                      now share a single aggregate anchor via the
+                      bracket below ("83% Devin near-term ROI
+                      zone"), per user direction. */}
+                  {!s.addressable && (
+                    <span className="relative z-10 mt-0.5 font-display font-semibold leading-none tracking-tight text-[13px] text-brand-ivory/75 sm:mt-1 sm:text-[16px] lg:text-[19px]">
+                      {s.value}%
+                    </span>
+                  )}
                 </motion.div>
               );
             })}
@@ -243,10 +242,15 @@ export function Panel4ExecutiveDiscovery() {
                 className="absolute left-0 right-0 top-0 h-px bg-brand-orange/45"
               />
               <div className="flex w-full items-baseline justify-between gap-3 pt-3">
-                <span className="font-display text-[12px] font-semibold uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[13px] lg:text-[14px]">
-                  {p.flow.core.value} {p.flow.core.label}
+                <span className="flex items-baseline gap-2">
+                  <span className="font-display font-semibold leading-none tracking-tight text-brand-orange text-[20px] sm:text-[24px] lg:text-[28px]">
+                    {p.flow.core.value}
+                  </span>
+                  <span className="font-display font-semibold uppercase tracking-[0.22em] text-brand-orange-soft text-[12px] sm:text-[13px] lg:text-[14.5px]">
+                    {p.flow.core.label}
+                  </span>
                 </span>
-                <span className="text-[10.5px] uppercase tracking-[0.2em] text-brand-ivory/55 sm:text-[11px]">
+                <span className="hidden text-[10.5px] uppercase tracking-[0.2em] text-brand-ivory/55 sm:inline sm:text-[11px]">
                   {p.flow.core.note}
                 </span>
               </div>
