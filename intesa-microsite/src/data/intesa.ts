@@ -522,8 +522,7 @@ export const intesa = {
       "Release-readiness",
       "Review capacity",
     ],
-    validationFooter:
-      "The pilot should start where business priority, repeatable SDLC work and measurable execution bottlenecks overlap.",
+    validationFooter: "",
     subhead: "",
     legacySubheadDeprecated:
       "Patterns commonly seen across large financial institutions — surfaced as observations, hypotheses, and alignment areas. Never assumed.",
