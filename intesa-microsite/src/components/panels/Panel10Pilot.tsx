@@ -84,6 +84,28 @@ export function Panel10Pilot() {
           ))}
         </div>
 
+        {/* Mutual commitment line — quiet bridge from the 4-week
+            pilot to the post-pilot path. Per user direction this
+            sits directly under the Week 4 / Executive Decision
+            step. Compact, secondary to the main pilot structure,
+            single line, with a small orange tick so it reads as
+            an intentional anchor rather than a footnote. */}
+        {p.mutualCommitment && (
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-baseline gap-2 rounded-lg border-l-2 border-brand-orange/55 bg-brand-orange/[0.04] px-3 py-2 text-[12px] leading-snug text-brand-ivory/85 sm:text-[13px] lg:text-[13.5px]"
+          >
+            <span
+              aria-hidden
+              className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange-soft"
+            />
+            <span>{p.mutualCommitment}</span>
+          </motion.p>
+        )}
+
         {/* Success criteria — single consolidated block. Six chips,
             each with a title + tier label. Replaces the previous
             Measured KPIs + Decision criteria duo. */}

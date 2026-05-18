@@ -1603,6 +1603,13 @@ export const intesa = {
           "Net efficiency signal, scale-out recommendation, follow-up meeting",
       },
     ],
+    // Compact mutual-commitment line that anchors the pilot to a
+    // real post-pilot path. Renders directly under the 4-week grid
+    // (before the success criteria block) so it reads as a quiet
+    // bridge between the pilot and what comes next — not a new
+    // bullet, not a long timeline.
+    mutualCommitment:
+      "Mutual commitment: if Week 4 success criteria are met, align on a 30–60 day controlled go-live path.",
     // Commitment ask — absorbs the former Decision Point slide so the
     // pilot section now closes the room on its own. Four short bullets:
     // workflow scope, owners, success metrics, executive review.
