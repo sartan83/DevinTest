@@ -136,7 +136,7 @@ export function Panel4ExecutiveDiscovery() {
               bumped so both lines fit comfortably across all five
               stages, including the narrow 5% / 8% definition
               segments. */}
-          <div className="relative flex h-[88px] w-full overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/55 sm:h-[108px] lg:h-[124px]">
+          <div className="relative flex h-[68px] w-full overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/55 sm:h-[80px] lg:h-[92px]">
             {stages.map((s, i) => {
               const isCore = s.core;
               const isAddressable = s.addressable && !s.core;
@@ -187,8 +187,8 @@ export function Panel4ExecutiveDiscovery() {
                     className={[
                       "relative z-10 text-center font-medium uppercase leading-[1.1]",
                       isNarrow
-                        ? "text-[9px] tracking-[0.08em] sm:text-[10px] lg:text-[10.5px]"
-                        : "text-[10px] tracking-[0.18em] sm:text-[11.5px] lg:text-[12.5px]",
+                        ? "text-[7.5px] tracking-[0.06em] sm:text-[8.5px] lg:text-[9px]"
+                        : "text-[8.5px] tracking-[0.16em] sm:text-[9.5px] lg:text-[10.5px]",
                       isCore
                         ? "text-brand-ivory"
                         : isAddressable
@@ -200,12 +200,12 @@ export function Panel4ExecutiveDiscovery() {
                   </span>
                   <span
                     className={[
-                      "relative z-10 mt-1 font-display font-semibold leading-none tracking-tight sm:mt-1.5",
+                      "relative z-10 mt-0.5 font-display font-semibold leading-none tracking-tight sm:mt-1",
                       isCore
-                        ? "text-[22px] text-brand-ivory sm:text-[28px] lg:text-[34px]"
+                        ? "text-[16px] text-brand-ivory sm:text-[20px] lg:text-[24px]"
                         : isAddressable
-                        ? "text-[15px] text-brand-ivory/95 sm:text-[19px] lg:text-[22px]"
-                        : "text-[16px] text-brand-ivory/75 sm:text-[20px] lg:text-[24px]",
+                        ? "text-[12px] text-brand-ivory/95 sm:text-[15px] lg:text-[17px]"
+                        : "text-[13px] text-brand-ivory/75 sm:text-[16px] lg:text-[19px]",
                     ].join(" ")}
                   >
                     {s.value}%
