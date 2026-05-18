@@ -1663,13 +1663,15 @@ export const intesa = {
       "The €70M SDLC efficiency target\ndepends on execution capacity.",
     subhead:
       "70% of SDLC effort sits in coding and testing/release — where work still moves too linearly.",
-    // Hero metric is now the 70% execution zone (coding +
-    // testing/release). The 83% delivery zone is no longer
-    // surfaced as a hero number on this slide — it lives on the
-    // ROI page where the broader scale-out math is anchored.
+    // Hero metric retired per user direction — the 70% anchor
+    // is now carried by the bracket label above the SDLC bar
+    // alone, so the slide leads with the €70M target headline
+    // and a cleaner whitespace block above the distribution.
+    // Empty strings keep the data shape stable; the component
+    // guards on `heroMetric.value` so the block does not render.
     heroMetric: {
-      value: "70%",
-      label: "Execution zone — coding + testing / release",
+      value: "",
+      label: "",
     },
     // SDLC effort distribution — five phases. `zone` distinguishes:
     //   - "core"     : 43% coding + 27% testing/release (saturated orange)

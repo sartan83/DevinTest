@@ -65,24 +65,31 @@ export function Panel35SdlcMap() {
           )}
         </div>
 
-        {/* Hero metric — 83% Devin-relevant delivery zone */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-wrap items-baseline gap-x-4 gap-y-1"
-        >
-          <span
-            className="font-display font-semibold leading-[0.9] tracking-tight text-[80px] sm:text-[112px] lg:text-[140px]"
-            style={{ color: "rgba(243,111,33,0.95)" }}
+        {/* Hero metric block. Guarded so the slide can omit the
+            standalone display number — when value is empty the
+            block is skipped entirely and the SDLC bar reads as
+            the visual anchor of the 70% zone. */}
+        {p.heroMetric && p.heroMetric.value && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap items-baseline gap-x-4 gap-y-1"
           >
-            {p.heroMetric.value}
-          </span>
-          <span className="max-w-md text-[12.5px] uppercase tracking-[0.22em] text-brand-ivory/80 sm:text-[14px] lg:text-[15px]">
-            {p.heroMetric.label}
-          </span>
-        </motion.div>
+            <span
+              className="font-display font-semibold leading-[0.9] tracking-tight text-[80px] sm:text-[112px] lg:text-[140px]"
+              style={{ color: "rgba(243,111,33,0.95)" }}
+            >
+              {p.heroMetric.value}
+            </span>
+            {p.heroMetric.label && (
+              <span className="max-w-md text-[12.5px] uppercase tracking-[0.22em] text-brand-ivory/80 sm:text-[14px] lg:text-[15px]">
+                {p.heroMetric.label}
+              </span>
+            )}
+          </motion.div>
+        )}
 
         {/* Cinematic horizontal stacked bar.
             ─────────────────────────────────────────────────────────
