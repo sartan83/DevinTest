@@ -638,138 +638,147 @@ export const intesa = {
   // memorable moments in the microsite — premium, cinematic, asymmetric.
   // -------------------------------------------------------------------------
   panel4: {
-    // Eyebrow reframed per VP feedback — the slide must read as a
-    // direct current-state vs. future-state comparison, not a
-    // generic future-state flow diagram.
+    // Reframed per VP feedback as an SDLC operating-model map.
+    // The slide must show (a) where SDLC effort sits across the
+    // end-to-end flow, (b) which parts Devin materially
+    // addresses, and (c) the four Devin workstreams that
+    // concentrate on the highest-impact stages — not a generic
+    // before/after comparison.
     eyebrow: "Current SDLC vs. SDLC with Devin",
-    // Single-line hero. Anchors the entire slide on the paradigm
-    // shift, not on Devin as a feature.
-    headline: "Devin changes the SDLC execution paradigm.",
-    // Subline under the hero. Names the shift in one sentence and
-    // protects the human-approval frame so the slide cannot be
-    // misread as removing engineering oversight.
+    headline:
+      "The €70M target depends on how the\n83% Devin-addressable SDLC flow is executed.",
     subhead:
-      "From linear, capacity-constrained execution to parallel, AI-augmented workstreams — while approval remains human.",
-    // Outcome strip rendered between the subline and the three
-    // paradigm columns. Scalability + Speed are the dominant
-    // emphasis words; Control is present but secondary so the
-    // slide reads as a business-outcome shift, not a governance
-    // page (governance lives in the Trust & Control appendix).
+      "Requirements, coding and testing/release represent 83% of SDLC effort — with the 70% execution core as the first validation zone.",
+    // End-to-end SDLC process bar. Five stages split into two
+    // groups (definition / execution). Each stage carries its
+    // % of SDLC effort and two flags:
+    //   - addressable : surfaced by one or more Devin workstreams
+    //   - core        : sits inside the 70% execution core
+    // (the first pilot validation zone).
+    flow: {
+      groups: [
+        { key: "definition", label: "Definition stages" },
+        { key: "execution", label: "Execution stages" },
+      ],
+      stages: [
+        {
+          key: "requirements",
+          group: "definition" as const,
+          label: "Requirements",
+          value: 17,
+          addressable: true,
+          core: false,
+        },
+        {
+          key: "functional",
+          group: "definition" as const,
+          label: "Functional analysis",
+          value: 8,
+          addressable: false,
+          core: false,
+        },
+        {
+          key: "technical",
+          group: "definition" as const,
+          label: "Technical analysis",
+          value: 5,
+          addressable: false,
+          core: false,
+        },
+        {
+          key: "coding",
+          group: "execution" as const,
+          label: "Coding",
+          value: 43,
+          addressable: true,
+          core: true,
+        },
+        {
+          key: "testing",
+          group: "execution" as const,
+          label: "Testing / Release",
+          value: 27,
+          addressable: true,
+          core: true,
+        },
+      ],
+      // Two layered highlights rendered as badges above and below
+      // the process bar. The 83% addressable flow stays a
+      // narrative anchor consistent with the ROI page; the 70%
+      // execution core is the first pilot validation zone.
+      addressable: {
+        value: "83%",
+        label: "Devin-addressable flow",
+        note: "Requirements + Coding + Testing / Release",
+      },
+      core: {
+        value: "70%",
+        label: "Execution core",
+        note: "First pilot validation zone",
+      },
+    },
+    // Four Devin workstreams that concentrate on the highest-
+    // impact SDLC stages. Each maps to one or more stage keys
+    // so the component can render the mapping inline.
+    workstreams: [
+      {
+        key: "req-to-task",
+        title: "Requirement-to-Task Workstream",
+        description:
+          "Turns requirements into executable engineering tasks",
+        mapsToLabel: "Requirements",
+        mapsTo: ["requirements"],
+      },
+      {
+        key: "code-transform",
+        title: "Code Transformation Workstream",
+        description: "Generates or modifies code from scoped tasks",
+        mapsToLabel: "Coding",
+        mapsTo: ["coding"],
+      },
+      {
+        key: "test-validation",
+        title: "Test & Validation Workstream",
+        description:
+          "Generates tests and validation evidence earlier",
+        mapsToLabel: "Testing / Release",
+        mapsTo: ["testing"],
+      },
+      {
+        key: "remediation-pr",
+        title: "Remediation-to-PR Workstream",
+        description: "Fixes issues and prepares PR-ready output",
+        mapsToLabel: "Coding + Testing / Release",
+        mapsTo: ["coding", "testing"],
+      },
+    ],
+    // Compact prioritization statement under the workstream
+    // cards. Connects the four workstreams back to the 83% /
+    // 70% framing without restating the math.
+    prioritization:
+      "Prioritize 4 Devin workstreams across the 83% addressable flow, with the 70% execution core as the first pilot validation zone.",
+    // Three outcome tags at the bottom of the slide.
+    // Scalability and Speed render slightly stronger than
+    // Control per user direction — Control is present but
+    // secondary so the slide stays an operating-model map, not
+    // a governance page.
     outcomes: [
       {
         word: "Scalability",
-        label: "parallel SDLC workstreams",
+        label: "parallel workstreams",
         emphasis: "primary" as const,
       },
       {
         word: "Speed",
-        label: "faster path to PR-ready output",
+        label: "faster path to PR-ready",
         emphasis: "primary" as const,
       },
       {
         word: "Control",
         label: "human approval remains",
-        emphasis: "primary" as const,
+        emphasis: "secondary" as const,
       },
     ],
-    // SDLC phase anchors rendered as subtle labels under the
-    // future-state flow. Maps Devin's execution layer onto
-    // Intesa's own SDLC effort distribution (43% coding +
-    // 27% testing/release = 70% execution zone).
-    sdlcAnchors: [
-      { value: "43%", label: "Coding" },
-      { value: "27%", label: "Testing & release" },
-      { value: "70%", label: "Execution zone" },
-    ],
-    // Execution-zone anchor band rendered below the two-side
-    // comparison. Connects the paradigm shift to Intesa's own
-    // SDLC effort distribution and explains WHY this zone is
-    // the right pilot target — not as a separate page, but as a
-    // one-line bridge between the comparison and the proof
-    // metrics.
-    executionAnchor: {
-      formula: "43% coding + 27% testing/release = 70% of SDLC effort",
-      reason:
-        "This is where execution friction compounds — and where Devin should be validated first.",
-    },
-    // Embedded operational chips that sit inline between the
-    // parallel SDLC streams and the 6× acceleration anchor.
-    // Reads as the review-package elements Devin prepares —
-    // diff, summary, tests, CI evidence, execution trace,
-    // documentation context — so review starts from a better
-    // package, not from a blocker. The "Human approval" chip
-    // is flagged `gate: true` so the component renders it as
-    // the controlled approval gate — stronger contrast,
-    // orange tint, no afterthought.
-    flowMetrics: [
-      { label: "Structured diffs" },
-      { label: "PR summary" },
-      { label: "Test evidence" },
-      { label: "CI status" },
-      { label: "Execution trace" },
-      { label: "Human approval", gate: true },
-    ],
-    // Small italic footer rendered under the closing line.
-    // Anchors the governance message: Devin scales execution
-    // and reviewability; decision authority stays with Intesa.
-    authorityLine: "Devin scales execution and reviewability — not decision authority.",
-    // Left side — current state. Human-led linear execution.
-    // Five concrete pain points that compound into the
-    // execution-capacity bottleneck named in painLabel.
-    current: {
-      label: "Current state",
-      caption: "Without Devin",
-      subtitle: "Linear human-led SDLC execution",
-      items: [
-        "Coding and testing/release absorb 70% of SDLC effort",
-        "Work moves sequentially through teams",
-        "Remediation and testing create delivery friction",
-        "Review starts late and often lacks evidence",
-        "Execution capacity limits modernization speed",
-      ],
-      painLabel: "Pain: execution capacity becomes the bottleneck",
-    },
-    // Center bridge — labelled transition between the two sides.
-    // Reads as an execution capability layer, not as a system
-    // architecture. Sublabel keeps the framing operational.
-    bridge: {
-      label: "Devin execution layer",
-      sublabel: "AI-augmented execution",
-    },
-    // Right side — with Devin. Future-state operating model.
-    // Five outcomes that mirror the five current-state pain
-    // points, written to read as direct answers. The component
-    // surfaces the three hero outcome words (Scalability /
-    // Speed / Control) above the bullets so the side reads as a
-    // single visual statement.
-    withDevin: {
-      label: "With Devin",
-      caption: "Future state",
-      subtitle: "Parallel AI-augmented execution workstreams",
-      items: [
-        "Repetitive coding and testing tasks run in parallel",
-        "Remediation is converted into PR-ready work",
-        "Tests and evidence are generated earlier",
-        "Review starts from a better package",
-        "Teams scale throughput without removing human approval",
-      ],
-      outcomeLabel: "Outcome: scalability, speed and control",
-    },
-    // Two proof metrics — used as future-state evidence, not as
-    // standalone claims. Sit under the two-side comparison.
-    proofMetrics: [
-      { value: "6×", label: "Modernization acceleration" },
-      { value: "20–30%", label: "Throughput increase" },
-    ],
-    // Closing punchline retired — the two-side comparison plus
-    // the trust line carry the read on their own. Kept as an
-    // empty string so the existing render guard skips it.
-    closing: "",
-    // One short trust line, kept in the main flow because Trust &
-    // Control is now an appendix panel. Signals that human approval
-    // is preserved without duplicating the appendix content.
-    trustLine:
-      "Human approval remains. Review starts from a better package.",
   },
 
   // -------------------------------------------------------------------------
