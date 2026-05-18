@@ -648,7 +648,7 @@ export const intesa = {
     headline:
       "The €70M target depends on how the\n83% Devin-addressable SDLC flow is executed.",
     subhead:
-      "Requirements, coding and testing/release represent 83% of SDLC effort — with the 70% execution core as the first validation zone.",
+      "Functional analysis, technical analysis, coding and testing/release represent 83% of SDLC effort — with the 70% execution core as the first validation zone.",
     // End-to-end SDLC process bar. Five stages split into two
     // groups (definition / execution). Each stage carries its
     // % of SDLC effort and two flags:
@@ -666,7 +666,11 @@ export const intesa = {
           group: "definition" as const,
           label: "Requirements",
           value: 17,
-          addressable: true,
+          // Requirements sits outside the 83% addressable flow per
+          // user clarification (83 = 8+5+43+27). The Requirement-to-
+          // Task Workstream still consumes Requirements as input but
+          // the stage itself is not counted in the addressable %.
+          addressable: false,
           core: false,
         },
         {
@@ -674,7 +678,7 @@ export const intesa = {
           group: "definition" as const,
           label: "Functional analysis",
           value: 8,
-          addressable: false,
+          addressable: true,
           core: false,
         },
         {
@@ -682,7 +686,7 @@ export const intesa = {
           group: "definition" as const,
           label: "Technical analysis",
           value: 5,
-          addressable: false,
+          addressable: true,
           core: false,
         },
         {
@@ -709,7 +713,7 @@ export const intesa = {
       addressable: {
         value: "83%",
         label: "Devin-addressable flow",
-        note: "Requirements + Coding + Testing / Release",
+        note: "Functional + Technical + Coding + Testing / Release",
       },
       core: {
         value: "70%",
@@ -726,8 +730,12 @@ export const intesa = {
         title: "Requirement-to-Task Workstream",
         description:
           "Turns requirements into executable engineering tasks",
-        mapsToLabel: "Requirements",
-        mapsTo: ["requirements"],
+        // Remapped from Requirements (outside the 83%) to the
+        // analysis stages that actually convert requirements into
+        // task definitions. Keeps the workstream inside the 83%
+        // addressable flow.
+        mapsToLabel: "Functional + Technical analysis",
+        mapsTo: ["functional", "technical"],
       },
       {
         key: "code-transform",
