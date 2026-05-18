@@ -42,13 +42,11 @@ export function Panel7TasksToOutcomes() {
               <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
                 {s.title}
               </div>
-              {/* Per user direction the dev-days figure is now the
-                  sole headline of each scenario. The previous
-                  developer-equivalents line (≈ 62 / ≈ 198) is
-                  retired so the slide reads as a pure capacity
-                  number, not a headcount translation. */}
               <div className="font-display text-[2rem] font-light leading-[1.05] text-brand-ivory sm:text-[2.6rem] lg:text-[3rem]">
                 {s.devDays}
+              </div>
+              <div className="font-display text-[1.1rem] font-light leading-tight text-brand-ivory/85 sm:text-[1.4rem] lg:text-[1.6rem]">
+                {s.devEquivalents}
               </div>
             </motion.div>
           ))}
@@ -58,10 +56,9 @@ export function Panel7TasksToOutcomes() {
           <p className="font-display text-[15px] font-light leading-snug text-brand-ivory sm:text-[16px] lg:text-[17px]">
             {p.capacityRedeploymentLine}
           </p>
-          {/* capacityCalcNote ('1 developer-equivalent = 220
-              working days / year.') retired alongside the
-              developer-equivalents line — it had no anchor on the
-              slide anymore. */}
+          <p className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px]">
+            {p.capacityCalcNote}
+          </p>
           <p className="text-[10px] leading-snug text-brand-ivory/40 sm:text-[11px]">
             {p.capacityFootnote}
           </p>
