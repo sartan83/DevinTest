@@ -1752,7 +1752,7 @@ export const intesa = {
     // Per user direction the bracket now spans the four orange
     // segments and the breakdown sublabel is dropped (the math
     // is intuitive from the bar itself).
-    zoneLabel: "83% Near-term ROI zone",
+    zoneLabel: "83% Execution Bottleneck",
     zoneSubLabel: "",
     // Legacy two-callout block retired — the current-state pain
     // block + Devin bridge below carry the read now.
