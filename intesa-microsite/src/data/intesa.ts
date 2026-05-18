@@ -1655,10 +1655,14 @@ export const intesa = {
     // diagnosis — the section is a photograph of the pain, not a
     // generic delivery-zone chart.
     eyebrow: "Current State",
+    // Hero now anchors the slide on the €70M SDLC efficiency
+    // target. The target is the business stake; the 70%
+    // execution zone below is the operating-model reason it
+    // depends on capacity, not strategy.
     headline:
-      "The 70% execution zone is where\nSDLC friction compounds.",
+      "The €70M SDLC efficiency target\ndepends on execution capacity.",
     subhead:
-      "Coding and testing/release absorb the majority of SDLC effort. This is where execution capacity becomes the modernization bottleneck.",
+      "70% of SDLC effort sits in coding and testing/release — where work still moves too linearly.",
     // Hero metric is now the 70% execution zone (coding +
     // testing/release). The 83% delivery zone is no longer
     // surfaced as a hero number on this slide — it lives on the
@@ -1729,21 +1733,25 @@ export const intesa = {
     // panel under the SDLC bar.
     currentPain: {
       title: "Current pain",
+      // Trimmed to three bullets per readability guidance — the
+      // three operating-model frictions that make the 70% zone
+      // the friction zone.
       items: [
-        "Execution remains largely linear",
         "Remediation and testing move sequentially",
         "Review starts late",
         "Capacity limits modernization speed",
       ],
-      label: "Pain: execution capacity becomes the bottleneck.",
+      // Punchline replaces the prior pain label; reads as the
+      // diagnosis sentence that closes the pain box.
+      label: "Execution friction compounds exactly where effort concentrates.",
     },
     // Small Devin bridge — single question + one-line answer +
     // three secondary outcome tags. Deliberately compact so the
     // slide stays a current-state diagnosis, not a solution page.
     devinBridge: {
-      question: "Why Devin here?",
+      question: "Why validate Devin here?",
       text:
-        "Validate Devin where repetitive execution is concentrated: coding, testing, remediation and PR-ready delivery.",
+        "Because this is where repetitive execution concentrates: coding, testing, remediation and PR-ready delivery.",
       tags: ["Scalability", "Speed", "Control"],
     },
     // Closing interpretation line stays empty — the pain block

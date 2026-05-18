@@ -292,12 +292,14 @@ export function Panel35SdlcMap() {
                   ))}
                 </ul>
                 {p.currentPain.label && (
-                  <div className="mt-auto flex items-center gap-2 rounded-md border border-brand-ivory/12 bg-brand-ivory/[0.03] px-3 py-2 text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[11.5px]">
+                  <div className="mt-auto flex items-start gap-2.5 rounded-md border border-brand-ivory/12 bg-brand-ivory/[0.03] px-3.5 py-2.5">
                     <span
                       aria-hidden
-                      className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-ivory/40"
+                      className="mt-[7px] inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange/85"
                     />
-                    <span className="leading-snug">{p.currentPain.label}</span>
+                    <span className="font-display text-[12.5px] italic leading-snug text-brand-ivory/90 sm:text-[13.5px] lg:text-[14px]">
+                      {p.currentPain.label}
+                    </span>
                   </div>
                 )}
               </motion.div>
