@@ -1137,40 +1137,37 @@ export const intesa = {
       // Each point renders a big value + a small "/ year" suffix
       // (kept separate so the display-size number stays clean and
       // doesn't overflow on narrow columns).
-      // Each tile carries a secondary `capacity` line under the
-      // €€€ value. Math is derived (not invented):
-      //   capacity = net-efficiency × 0.83 × 400 engineers
-      //            = net-efficiency × 332 engineer-equivalents
-      // Rounded to the nearest whole dev-equivalent.
-      //   18% → 60   21% → 70   25% → 83   30% → 100
+      // Capacity translation (dev-equivalents) retired per user
+      // direction. Mixing two derivation threads (€€€ from €70M /
+      // 15% × 83% × net-eff and dev-eq from 400 engineers × 83% ×
+      // net-eff) produced an implicit ~€1.17M/engineer/year
+      // fully-loaded cost that doesn't match the banking-sector
+      // benchmark (~€200-350K). To avoid the EB-challenge moment
+      // the value arc now reads as pure €€€.
       points: [
         {
           value: "€70M",
           unit: "/ year",
           label: "target",
           tone: "target" as const,
-          capacity: "≈ 60 developer-equivalents redeployed",
         },
         {
           value: "€82M",
           unit: "/ year",
           label: "upside",
           tone: "upside" as const,
-          capacity: "≈ 70 developer-equivalents redeployed",
         },
         {
           value: "€97M",
           unit: "/ year",
           label: "strong upside",
           tone: "strongUpside" as const,
-          capacity: "≈ 83 developer-equivalents redeployed",
         },
         {
           value: "€116M",
           unit: "/ year",
           label: "high upside",
           tone: "highUpside" as const,
-          capacity: "≈ 100 developer-equivalents redeployed",
         },
       ],
     },

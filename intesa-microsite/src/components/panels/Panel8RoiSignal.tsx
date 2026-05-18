@@ -91,17 +91,9 @@ export function Panel8RoiSignal() {
                     <span className="text-[10px] uppercase tracking-[0.28em] text-brand-ivory/70 sm:text-[10.5px] lg:text-[11.5px]">
                       {point.label}
                     </span>
-                    {/* Capacity translation per €€€ tile — derived
-                        from net-efficiency × 0.83 × 400 engineers.
-                        Renders as a secondary line under the label,
-                        so the eye still lands on €€€ first; the
-                        capacity number reinforces "redeployment,
-                        not cost reduction". */}
-                    {point.capacity && (
-                      <span className="mt-1 text-[10.5px] leading-snug text-brand-ivory/55 sm:text-[11.5px] lg:text-[12.5px]">
-                        {point.capacity}
-                      </span>
-                    )}
+                    {/* Capacity translation line retired per user
+                        direction \u2014 see panel8.valueArc.points
+                        comment for the math-coherence rationale. */}
                   </motion.div>
                   {i < p.valueArc.points.length - 1 && (
                     <motion.span
