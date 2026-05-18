@@ -338,12 +338,24 @@ export function Panel35SdlcMap() {
                   delay: 0.78,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="relative flex min-w-0 flex-col gap-2.5 rounded-2xl border border-brand-orange/35 bg-brand-orange/[0.05] px-4 py-4 shadow-[0_12px_36px_-22px_rgba(243,111,33,0.55)] sm:gap-3 sm:px-5 sm:py-5"
+                className="relative flex min-w-0 flex-col justify-center gap-2.5 rounded-2xl border border-brand-orange/35 bg-brand-orange/[0.05] px-4 py-4 shadow-[0_12px_36px_-22px_rgba(243,111,33,0.55)] sm:gap-3 sm:px-5 sm:py-5"
               >
-                <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-orange sm:text-[11px]">
-                  {p.devinBridge.question}
-                </span>
-                <p className="text-[12.5px] leading-relaxed text-brand-ivory/85 sm:text-[13.5px] lg:text-[14px]">
+                {p.devinBridge.question && (
+                  <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-orange sm:text-[11px]">
+                    {p.devinBridge.question}
+                  </span>
+                )}
+                <p
+                  className={[
+                    "leading-snug text-brand-ivory",
+                    // When the eyebrow is hidden the body text
+                    // promotes to an executive tension question:
+                    // display weight, slightly larger, italic.
+                    p.devinBridge.question
+                      ? "text-[12.5px] leading-relaxed text-brand-ivory/85 sm:text-[13.5px] lg:text-[14px]"
+                      : "font-display text-[15px] italic text-brand-ivory/95 sm:text-[16.5px] lg:text-[18px]",
+                  ].join(" ")}
+                >
                   {p.devinBridge.text}
                 </p>
                 {p.devinBridge.tags && p.devinBridge.tags.length > 0 && (

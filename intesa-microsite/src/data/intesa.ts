@@ -1512,8 +1512,9 @@ export const intesa = {
     // Anchor line beneath the subhead — anchors the pilot on net
     // efficiency, not on raw code generation speed. Mirrors the
     // ROI formula.
-    netEfficiencyLine:
-      "The pilot validates net efficiency after review and rework — not just code generation speed.",
+    // Anchor line retired per user direction — the subhead +
+    // success-criteria cluster already carry the read.
+    netEfficiencyLine: "",
     // Single consolidated success criteria block — grouped into
     // three themes (Execution · Trust · Scale) to communicate that
     // the pilot validates more than coding speed: it tests review
@@ -1564,8 +1565,9 @@ export const intesa = {
         { title: "Time to ramp on unfamiliar repos", tag: "cross-team scalability" },
       ],
       // Short interpretation line — anchored under the cluster.
-      interpretation:
-        "The pilot measures execution speed, review trust and scale-out potential — not just code generation.",
+      // Interpretation line retired per user direction — the
+      // four success-criteria cards above already carry the read.
+      interpretation: "",
     },
     // Week-by-week operational validation plan. Four equally weighted
     // blocks with a clear timeline progression — small, controlled,
@@ -1782,10 +1784,13 @@ export const intesa = {
     // three secondary outcome tags. Deliberately compact so the
     // slide stays a current-state diagnosis, not a solution page.
     devinBridge: {
-      question: "Why validate Devin here?",
+      // Eyebrow title + supporting tags retired per user
+      // direction. The block now reads as a single compact
+      // executive tension question.
+      question: "",
       text:
-        "Because this is where repetitive execution concentrates: coding, testing, remediation and PR-ready delivery.",
-      tags: ["Scalability", "Speed", "Control"],
+        "Is the current SDLC execution model scalable enough to capture the €70M target? And how?",
+      tags: [],
     },
     // Closing interpretation line stays empty — the pain block
     // + Devin bridge already close the read.

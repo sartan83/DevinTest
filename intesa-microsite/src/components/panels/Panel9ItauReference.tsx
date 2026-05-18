@@ -38,7 +38,7 @@ export function Panel9ItauReference() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-3xl text-[12px] leading-snug text-brand-ivory/70 sm:text-[13px]"
+              className="max-w-3xl text-[13.5px] leading-snug text-brand-ivory/85 sm:text-[14.5px] lg:text-[15px]"
             >
               {p.sdlcInterpretation}
             </motion.p>
@@ -83,10 +83,10 @@ export function Panel9ItauReference() {
                   priority={false}
                 />
               </div>
-              <span className="text-[11px] leading-snug text-brand-ivory/65 sm:text-[12px]">
+              <span className="text-[12.5px] leading-snug text-brand-ivory/80 sm:text-[13.5px] lg:text-[14px]">
                 {itau.anchorContext}
               </span>
-              <span className="mt-auto text-[10px] italic leading-snug text-brand-ivory/45 sm:text-[10.5px]">
+              <span className="mt-auto text-[11.5px] italic leading-snug text-brand-ivory/60 sm:text-[12.5px]">
                 {itau.interpretiveFooter}
               </span>
             </motion.div>
@@ -128,11 +128,11 @@ export function Panel9ItauReference() {
                       >
                         {itau.signalTile.eyebrow}
                       </span>
-                      <span className="break-words text-[12.5px] leading-snug text-brand-ivory/90 sm:text-[13.5px]">
+                      <span className="break-words text-[14px] leading-snug text-brand-ivory sm:text-[15px] lg:text-[16px]">
                         {itau.signalTile.label}
                       </span>
                       {itau.signalTile.note && (
-                        <span className="break-words text-[10.5px] italic leading-snug text-brand-ivory/65 sm:text-[11px]">
+                        <span className="break-words text-[12px] italic leading-snug text-brand-ivory/80 sm:text-[12.5px] lg:text-[13px]">
                           {itau.signalTile.note}
                         </span>
                       )}
@@ -180,16 +180,16 @@ export function Panel9ItauReference() {
                         {m.value}
                       </span>
                       {m.suffix && (
-                        <span className="text-[9.5px] uppercase tracking-[0.16em] text-brand-ivory/75 sm:text-[10px]">
+                        <span className="text-[10.5px] uppercase tracking-[0.16em] text-brand-ivory/85 sm:text-[11px]">
                           {m.suffix}
                         </span>
                       )}
                     </div>
-                    <span className="break-words text-[10.5px] leading-snug text-brand-ivory/80 sm:text-[11px] lg:text-[10.5px]">
+                    <span className="break-words text-[11.5px] leading-snug text-brand-ivory/90 sm:text-[12.5px] lg:text-[12px]">
                       {m.label}
                     </span>
                     {m.note && (
-                      <span className="break-words text-[9.5px] italic leading-snug text-brand-ivory/55 sm:text-[10px] lg:text-[9.5px]">
+                      <span className="break-words text-[10.5px] italic leading-snug text-brand-ivory/70 sm:text-[11px] lg:text-[10.5px]">
                         {m.note}
                       </span>
                     )}
@@ -205,7 +205,7 @@ export function Panel9ItauReference() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.5, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex items-baseline gap-2 border-l-2 pl-3 text-[12px] leading-snug text-brand-ivory/85 sm:text-[13px]"
+                  className="flex items-baseline gap-2 border-l-2 pl-3 text-[13.5px] leading-snug text-brand-ivory sm:text-[14.5px] lg:text-[15px]"
                   style={{ borderColor: `${ITAU_ORANGE}99` }}
                 >
                   {itau.patternLine}
@@ -222,7 +222,7 @@ export function Panel9ItauReference() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="border-t border-dashed border-brand-ivory/15 pt-3 text-[11px] leading-snug text-brand-ivory/70 sm:text-[12px]"
+                  className="border-t border-dashed border-brand-ivory/15 pt-3 text-[12.5px] leading-snug text-brand-ivory/85 sm:text-[13.5px] lg:text-[14px]"
                 >
                   {itau.roiBridge}
                 </motion.p>
@@ -236,7 +236,7 @@ export function Panel9ItauReference() {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.5, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="max-w-2xl text-[10.5px] italic leading-snug text-brand-ivory/55 sm:text-[11px]"
+                    className="max-w-2xl text-[11.5px] italic leading-snug text-brand-ivory/70 sm:text-[12.5px] lg:text-[13px]"
                   >
                     {itau.capacityShift}
                   </motion.p>
@@ -245,7 +245,7 @@ export function Panel9ItauReference() {
                   href={itau.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 self-start text-[10px] leading-relaxed text-brand-ivory/50 underline decoration-brand-ivory/20 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60 sm:self-end sm:text-[10.5px]"
+                  className="inline-flex items-center gap-1 self-start text-[11px] leading-relaxed text-brand-ivory/65 underline decoration-brand-ivory/25 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60 sm:self-end sm:text-[12px]"
                 >
                   <span aria-hidden>↗</span>
                   <span>{itau.sourceLabel}</span>
@@ -255,7 +255,7 @@ export function Panel9ItauReference() {
           </div>
         </div>
 
-        <div className="text-[10px] leading-relaxed text-brand-ivory/40 sm:text-[10.5px]">
+        <div className="text-[11px] leading-relaxed text-brand-ivory/55 sm:text-[12px]">
           {p.disclaimer}
         </div>
       </div>

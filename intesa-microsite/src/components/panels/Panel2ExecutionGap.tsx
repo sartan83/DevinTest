@@ -102,8 +102,49 @@ export function Panel2ExecutionGap() {
                     </span>
                   </div>
                   {c.note && (
-                    <p className="text-[11.5px] leading-snug text-brand-ivory/60 sm:text-[12.5px]">
-                      {c.note}
+                    <p
+                      className={[
+                        "leading-snug",
+                        // The SDLC efficiency clock carries the
+                        // "15% SDLC efficiency ambition." anchor in
+                        // its note. Per user direction this reads
+                        // more prominently than the other two
+                        // clock notes — display-weight, brand-orange
+                        // accent on the 15%, slightly larger.
+                        c.tone === "efficiency"
+                          ? "font-display text-[14px] font-medium text-brand-ivory/95 sm:text-[16px] lg:text-[18px]"
+                          : "text-[11.5px] text-brand-ivory/60 sm:text-[12.5px]",
+                      ].join(" ")}
+                    >
+                      {c.tone === "efficiency"
+                        ? (() => {
+                            // Render the note with the leading
+                            // "15%" highlighted in brand orange,
+                            // and the rest in ivory. Falls back to
+                            // raw note if the expected prefix is
+                            // missing.
+                            const match = c.note.match(/^(\d+%)\s*(.*)$/);
+                            if (match) {
+                              return (
+                                <>
+                                  <span
+                                    className="font-display font-semibold tracking-tight text-brand-orange"
+                                    style={{
+                                      textShadow:
+                                        "0 0 18px rgba(243,111,33,0.45)",
+                                    }}
+                                  >
+                                    {match[1]}
+                                  </span>{" "}
+                                  <span className="text-brand-ivory/85">
+                                    {match[2]}
+                                  </span>
+                                </>
+                              );
+                            }
+                            return c.note;
+                          })()
+                        : c.note}
                     </p>
                   )}
                 </motion.div>

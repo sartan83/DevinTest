@@ -88,19 +88,25 @@ export function Panel5BusinessImpact() {
             </motion.p>
           )}
 
-          {/* Closing executive line — small, italic. */}
+          {/* Closing executive line — promoted per user
+              direction to the same size as the supporting line
+              above (and the repo / disclaimer row below). */}
           <motion.p
             initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[12px] italic leading-relaxed text-brand-ivory/55 sm:text-[13px]"
+            className="text-[13px] italic leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
           >
             {p.closingStatement}
           </motion.p>
 
-          {/* Repo link — tiny, single line. */}
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[9px] leading-snug text-brand-ivory/40 sm:text-[10px]">
+          {/* Repo link + disclaimer row — promoted to the same
+              text size as the support line above per user
+              direction. The repo URL stays monospace and
+              underlined; the disclaimer reads as a quiet caption
+              at the same size for consistency. */}
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[13px] leading-snug text-brand-ivory/60 sm:text-[14px] lg:text-[15px]">
             <a
               href={p.repoLink.url}
               target="_blank"

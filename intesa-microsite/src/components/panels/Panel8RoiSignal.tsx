@@ -117,7 +117,7 @@ export function Panel8RoiSignal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px] sm:text-center"
+            className="text-[13px] leading-snug text-brand-ivory/75 sm:text-center sm:text-[14px] lg:text-[15px]"
           >
             {p.valueArc.caption}
           </motion.p>
