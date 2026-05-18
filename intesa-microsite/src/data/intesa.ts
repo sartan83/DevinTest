@@ -644,7 +644,7 @@ export const intesa = {
     // addresses, and (c) the four Devin workstreams that
     // concentrate on the highest-impact stages — not a generic
     // before/after comparison.
-    eyebrow: "Current SDLC vs. SDLC with Devin",
+    eyebrow: "SDLC with Devin",
     headline:
       "The €70M target depends on how the\n83% Devin-addressable flow moves.",
     subhead:
