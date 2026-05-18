@@ -721,23 +721,14 @@ export const intesa = {
         note: "First pilot validation zone",
       },
     },
-    // Current-flow vs. With-Devin flow comparison.
+    // With-Devin flow — horizontal end-to-end execution chain.
     // Visualizes the shift in how the 70% execution core moves:
-    // from a linear queue (Requirements → Coding → Testing/Release
-    // → Review) to a parallel-lane operating model where coding AND
-    // testing/release run as parallel workstreams under the Devin
-    // execution layer.
-    currentFlow: {
-      label: "Current flow",
-      caption: "Linear human-led SDLC execution",
-      steps: ["Requirements", "Coding", "Testing / Release", "Review"],
-      painTags: ["handoffs", "linear execution", "late review"],
-      bullets: [
-        "Requirements become handoffs",
-        "Coding runs linearly",
-        "Testing / release starts late",
-      ],
-    },
+    // requirements feed the Devin execution layer, which fans out
+    // into parallel coding AND testing/release workstreams,
+    // converging into PR-ready output reviewed by humans. The
+    // current-flow box was retired per user direction — the
+    // horizontal layout keeps the slide compact while still
+    // showing both lanes run in parallel.
     withDevinFlow: {
       label: "With Devin",
       caption: "Parallel AI-augmented execution",
@@ -908,8 +899,8 @@ export const intesa = {
     // credibility chip beneath the narrative.
     referenceDeployment: {
       caption: "Reference deployment",
-      metric: "6×",
-      label: "modernization acceleration",
+      metric: "20–30%",
+      label: "Net Efficiency",
     },
     // Right column — vertical execution stream. Six bounded steps,
     // last one ("Human approval") is the governance enforcement point.
