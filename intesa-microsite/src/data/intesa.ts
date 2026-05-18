@@ -651,8 +651,7 @@ export const intesa = {
     // One emphasized sentence under the chain that anchors the
     // operating-model read — prevents the slide from being read
     // as 'Devin replaces the SDLC'.
-    keyMessage:
-      "Devin does not replace the SDLC — it changes how the execution core moves.",
+    keyMessage: "",
     // End-to-end SDLC process bar. Five stages split into two
     // groups (definition / execution). Each stage carries its
     // % of SDLC effort and two flags:
