@@ -1805,7 +1805,7 @@ export const intesa = {
       // executive tension question.
       question: "",
       text:
-        "Is the current SDLC execution model scalable enough to capture the €70M target? And how?",
+        "Where is the €70M target expected to come from — and how?",
       tags: [],
     },
     // Closing interpretation line stays empty — the pain block
