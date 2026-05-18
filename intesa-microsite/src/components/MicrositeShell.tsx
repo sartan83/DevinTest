@@ -286,56 +286,30 @@ export function MicrositeShell() {
     return { min, max };
   }, [visited]);
 
-  const isAppendix = active >= APPENDIX_START;
-
-  const toggleAppendix = useCallback(() => {
-    if (isAppendix) {
-      goTo(MAIN_PANELS - 1);
-    } else {
-      goTo(APPENDIX_START, { allowAppendix: true });
-    }
-  }, [isAppendix, goTo]);
+  // Appendix toggle button retired from the header per user
+  // direction. Keyboard shortcuts (A / Esc) still navigate
+  // to/from the appendix range via the keydown handler above.
 
   return (
     <div className="relative h-[100svh] w-screen overflow-hidden bg-brand-green text-brand-ivory">
       {/* Top bar */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-3 px-4 pt-3 sm:gap-6 sm:px-8 sm:pt-6 md:px-12">
         <div className="pointer-events-auto flex items-center gap-2.5 sm:gap-3">
-          {/* Intesa Sanpaolo logo replaces the prior text wordmark
-              so the header reads as a branded session header
-              rather than a duplicated text caption. The session
-              label sits to the right of the logo, separated by a
-              quiet ivory divider. */}
-          <img
-            src="logos/intesa-sanpaolo.svg"
-            alt={intesa.brand.client}
-            className="h-4 w-auto select-none sm:h-5"
-          />
-          <span aria-hidden className="h-3 w-px bg-brand-ivory/25 sm:h-3.5" />
+          {/* Top-left Intesa Sanpaolo logo retired per user
+              direction. The session label now reads as the sole
+              left-aligned header caption; the brand mark lives
+              on a per-panel basis (top-right headerRight slot)
+              on the Current State / 36% panels. */}
           <span className="text-xs font-medium text-brand-ivory sm:text-sm">
             {intesa.brand.sessionLabel}
           </span>
         </div>
 
         <div className="pointer-events-auto flex items-start gap-2 sm:gap-3">
-          <button
-            type="button"
-            onClick={toggleAppendix}
-            aria-pressed={isAppendix}
-            className={[
-              "hidden h-8 items-center gap-1.5 rounded-full border px-3 text-[10px] uppercase tracking-[0.24em] transition-colors sm:inline-flex sm:text-[11px]",
-              isAppendix
-                ? "border-brand-orange/45 bg-brand-orange/10 text-brand-ivory"
-                : "border-brand-ivory/15 bg-brand-green-deep/40 text-brand-ivory/55 hover:border-brand-ivory/30 hover:text-brand-ivory/85",
-            ].join(" ")}
-            title={isAppendix ? "Return to main flow (Esc)" : "Open appendix (A)"}
-          >
-            <span aria-hidden className={isAppendix ? "text-brand-orange" : "text-brand-ivory/40"}>
-              {isAppendix ? "←" : "¶"}
-            </span>
-            <span>{isAppendix ? "Back to flow" : "Appendix"}</span>
-          </button>
-
+          {/* Appendix toggle button retired per user direction.
+              Appendix navigation is still reachable via keyboard
+              shortcut (A / Esc) but no longer surfaces as a
+              header chip. */}
           <ExecutiveCounter
             min={counterValue.min}
             max={counterValue.max}

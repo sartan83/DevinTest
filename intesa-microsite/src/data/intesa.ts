@@ -899,11 +899,12 @@ export const intesa = {
     // SDLC anchor chip — subtle reference to the effort zone the
     // demo focuses on. Rendered as a small caption alongside the
     // reference deployment metric, not as a competing KPI.
-    sdlcFocus: "Focus area: 43% coding + 27% testing/release",
-    // Executive talk-track support line — frames the demo as a
-    // controlled SDLC compression example, not a feature tour.
-    talkTrack:
-      "This is not a generic product tour. It is a controlled example of how repetitive SDLC execution can be compressed into reviewable, test-backed work.",
+    // Focus area chip retired per user direction.
+    sdlcFocus: "",
+    // Executive talk-track support line retired per user
+    // direction — the workflow steps + 'What this demo
+    // validates' chips already frame the read.
+    talkTrack: "",
     // Understated operational proof, NOT a KPI tile. Reads as a
     // credibility chip beneath the narrative.
     referenceDeployment: {
@@ -933,13 +934,12 @@ export const intesa = {
     // the demo body, not as a KPI tile block.
     validating: {
       label: "What this demo validates",
+      // Tightened to four operational lenses per user direction.
       items: [
-        "Time to PR-ready",
-        "Code transformation",
-        "Test generation",
-        "Review package quality",
-        "Rework required",
-        "Repeatability",
+        "Onboarding",
+        "Time to PR Ready",
+        "Coding",
+        "Test Generation",
       ],
     },
     repoLink: {

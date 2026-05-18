@@ -22,7 +22,20 @@ import { PanelShell, PanelHeadline } from "../PanelShell";
 export function Panel3CurrentState() {
   const p = intesa.panel3;
   return (
-    <PanelShell eyebrow={p.eyebrow} compact>
+    <PanelShell
+      eyebrow={p.eyebrow}
+      compact
+      headerRight={
+        <motion.img
+          src="logos/intesa-sanpaolo.svg"
+          alt="Intesa Sanpaolo"
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 0.9, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="h-6 w-auto sm:h-7 lg:h-8"
+        />
+      }
+    >
       <div className="flex flex-col gap-5 sm:gap-6">
         {/* Header — subline + hero */}
         <div className="flex flex-col gap-2 sm:gap-2.5">
