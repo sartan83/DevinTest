@@ -91,9 +91,6 @@ export function Panel4ExecutiveDiscovery() {
   const p = intesa.panel4;
   const stages = p.flow.stages;
   const totalEffort = stages.reduce((acc, s) => acc + s.value, 0);
-  const definitionTotal = stages
-    .filter((s) => s.group === "definition")
-    .reduce((acc, s) => acc + s.value, 0);
 
   return (
     <PanelShell eyebrow={p.eyebrow}>
@@ -103,158 +100,80 @@ export function Panel4ExecutiveDiscovery() {
           <PanelHeadline text={p.headline} />
         </div>
 
-        {/* Process map — group labels + bar + highlight badges.
+        {/* Process map — simplified 2-block SDLC bar.
             ─────────────────────────────────────────────────────────
-            Two-group axis above the bar (Definition | Execution),
-            a single horizontal stacked bar of five proportional
-            stages below it, and two highlight badges flanking the
-            map: 83% Devin-addressable flow (top-right) and 70%
-            execution core (under the execution-side bracket). */}
+            Per user direction the bar collapses the 5-stage split
+            into two readable blocks while preserving the same
+            footprint:
+              - 17% Requirements (muted, left)
+              - 83% Near-term ROI zone (saturated orange anchor,
+                right) — visually dominant, with the underlying
+                stage breakdown rendered as a smaller secondary
+                line inside the block.
+            The previous group axis (Definition / Execution) and
+            the bracket beneath the bar are retired; the two
+            blocks carry the read on their own. */}
         <div className="relative w-full">
-          {/* Group axis */}
-          <div
-            className="relative mb-2.5 flex w-full text-[10px] uppercase tracking-[0.28em] text-brand-ivory/55 sm:mb-3 sm:text-[10.5px]"
-            aria-hidden
-          >
-            <div
-              className="relative flex items-end pb-1.5"
-              style={{ width: `${(definitionTotal / totalEffort) * 100}%` }}
+          <div className="relative flex h-[80px] w-full overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/55 sm:h-[96px] lg:h-[112px]">
+            {/* Requirements block (17%) — kept muted so the eye
+                immediately lands on the 83% anchor on the right. */}
+            <motion.div
+              initial={{ width: 0, opacity: 0 }}
+              whileInView={{
+                width: `${((stages[0]?.value ?? 0) / totalEffort) * 100}%`,
+                opacity: 1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex h-full shrink-0 flex-col items-center justify-center overflow-hidden border-r border-brand-ivory/10 px-2"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(247,244,239,0.05) 0%, rgba(247,244,239,0.015) 100%)",
+              }}
             >
-              <span className="truncate">{p.flow.groups[0].label}</span>
-              <span
-                className="absolute bottom-0 right-0 h-2 w-px bg-brand-ivory/20"
-                aria-hidden
-              />
-            </div>
-            <div className="relative flex items-end pb-1.5 pl-3" style={{ flex: 1 }}>
-              <span className="truncate">{p.flow.groups[1].label}</span>
-            </div>
-          </div>
+              <span className="relative z-10 font-display font-semibold leading-none tracking-tight text-[18px] text-brand-ivory/85 sm:text-[22px] lg:text-[26px]">
+                {stages[0]?.value ?? 17}%
+              </span>
+              <span className="relative z-10 mt-1 text-center font-medium uppercase leading-tight tracking-[0.16em] text-[9px] text-brand-ivory/70 sm:mt-1.5 sm:text-[10.5px] lg:text-[11.5px]">
+                Requirements
+              </span>
+            </motion.div>
 
-          {/* The bar itself — stage label + percentage now stack
-              INSIDE each segment (per user direction). Bar height
-              bumped so both lines fit comfortably across all five
-              stages, including the narrow 5% / 8% definition
-              segments. */}
-          <div className="relative flex h-[68px] w-full overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/55 sm:h-[80px] lg:h-[92px]">
-            {stages.map((s, i) => {
-              const isCore = s.core;
-              const isAddressable = s.addressable && !s.core;
-              const isNarrow = s.value < 10;
-              let background =
-                "linear-gradient(180deg, rgba(247,244,239,0.05) 0%, rgba(247,244,239,0.015) 100%)";
-              if (isCore) {
-                background =
-                  s.key === "coding"
-                    ? "linear-gradient(180deg, rgba(243,111,33,0.85) 0%, rgba(243,111,33,0.55) 100%)"
-                    : "linear-gradient(180deg, rgba(243,111,33,0.7) 0%, rgba(243,111,33,0.42) 100%)";
-              } else if (isAddressable) {
-                background =
-                  "linear-gradient(180deg, rgba(243,111,33,0.34) 0%, rgba(243,111,33,0.18) 100%)";
-              }
-              return (
-                <motion.div
-                  key={s.key}
-                  initial={{ width: 0, opacity: 0 }}
-                  whileInView={{
-                    width: `${(s.value / totalEffort) * 100}%`,
-                    opacity: 1,
-                  }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.25 + i * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="relative flex h-full flex-col items-center justify-center overflow-hidden border-r border-brand-ivory/10 px-1.5 last:border-r-0"
-                  style={{ background }}
-                >
-                  {isCore && (
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute inset-0"
-                      style={{
-                        background:
-                          "radial-gradient(ellipse at 50% 0%, rgba(243,111,33,0.4) 0%, transparent 65%)",
-                      }}
-                    />
-                  )}
-                  {/* Stage label inside the bar. For narrow
-                      stages (5%, 8%) we drop the tracking and
-                      allow wrap so 'Technical analysis' / 'Functional
-                      analysis' break to two lines. */}
-                  <span
-                    className={[
-                      "relative z-10 text-center font-medium uppercase leading-[1.1]",
-                      isNarrow
-                        ? "text-[7.5px] tracking-[0.06em] sm:text-[8.5px] lg:text-[9px]"
-                        : "text-[8.5px] tracking-[0.16em] sm:text-[9.5px] lg:text-[10.5px]",
-                      isCore
-                        ? "text-brand-ivory"
-                        : isAddressable
-                        ? "text-brand-ivory/90"
-                        : "text-brand-ivory/65",
-                    ].join(" ")}
-                  >
-                    {s.label}
-                  </span>
-                  {/* Percentage only on stages OUTSIDE the 83%
-                      (Requirements). The 4 addressable stages
-                      (Functional / Technical / Coding / Testing)
-                      now share a single aggregate anchor via the
-                      bracket below ("83% Devin near-term ROI
-                      zone"), per user direction. */}
-                  {!s.addressable && (
-                    <span className="relative z-10 mt-0.5 font-display font-semibold leading-none tracking-tight text-[13px] text-brand-ivory/75 sm:mt-1 sm:text-[16px] lg:text-[19px]">
-                      {s.value}%
-                    </span>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Per-stage label row removed — labels now sit inside
-              each bar segment per user direction. */}
-
-          {/* Devin near-term ROI zone bracket — a single inline
-              label under the bar that calls out the 83% addressable
-              flow (Functional + Technical + Coding + Testing /
-              Release). Per user direction the bracket starts after
-              Requirements (17%) and spans the remaining 83%, so it
-              now sits above the four orange-toned segments. */}
-          <div className="relative mt-3 flex w-full sm:mt-4" aria-hidden>
-            <div
-              className="shrink-0"
-              style={{ width: `${((stages[0]?.value ?? 0) / totalEffort) * 100}%` }}
-            />
-            <div className="relative flex flex-1 items-start">
+            {/* Near-term ROI zone (83%) — visual anchor of the
+                slide. Saturated-orange gradient + halo, with the
+                stage breakdown as a smaller secondary line. */}
+            <motion.div
+              initial={{ width: 0, opacity: 0 }}
+              whileInView={{
+                width: `${(1 - (stages[0]?.value ?? 17) / totalEffort) * 100}%`,
+                opacity: 1,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex h-full flex-col items-center justify-center overflow-hidden px-3 sm:px-4"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(243,111,33,0.85) 0%, rgba(243,111,33,0.55) 100%)",
+              }}
+            >
               <span
                 aria-hidden
-                className="absolute left-0 top-0 h-2 w-px bg-brand-orange/50"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 50% 0%, rgba(243,111,33,0.4) 0%, transparent 65%)",
+                }}
               />
-              <span
-                aria-hidden
-                className="absolute right-0 top-0 h-2 w-px bg-brand-orange/50"
-              />
-              <span
-                aria-hidden
-                className="absolute left-0 right-0 top-0 h-px bg-brand-orange/45"
-              />
-              <div className="flex w-full items-baseline justify-between gap-3 pt-3">
-                <span className="flex items-baseline gap-2">
-                  <span className="font-display font-semibold leading-none tracking-tight text-brand-orange text-[20px] sm:text-[24px] lg:text-[28px]">
-                    {p.flow.core.value}
-                  </span>
-                  <span className="font-display font-semibold uppercase tracking-[0.22em] text-brand-orange-soft text-[12px] sm:text-[13px] lg:text-[14.5px]">
-                    {p.flow.core.label}
-                  </span>
-                </span>
-                <span className="hidden text-[10.5px] uppercase tracking-[0.2em] text-brand-ivory/55 sm:inline sm:text-[11px]">
-                  {p.flow.core.note}
-                </span>
-              </div>
-            </div>
+              <span className="relative z-10 font-display font-semibold leading-none tracking-tight text-[26px] text-brand-ivory sm:text-[34px] lg:text-[42px]">
+                83%
+              </span>
+              <span className="relative z-10 mt-1 text-center font-display font-medium uppercase leading-tight tracking-[0.22em] text-[10.5px] text-brand-ivory sm:mt-1.5 sm:text-[12.5px] lg:text-[14px]">
+                Near-term ROI zone
+              </span>
+              <span className="relative z-10 mt-1 hidden text-center text-[10px] uppercase leading-tight tracking-[0.18em] text-brand-ivory/80 sm:mt-1.5 sm:inline-block sm:text-[10.5px] lg:text-[11.5px]">
+                8% Functional · 5% Technical · 43% Coding · 27% Testing / Release
+              </span>
+            </motion.div>
           </div>
         </div>
 
