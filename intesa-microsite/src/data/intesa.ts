@@ -1146,11 +1146,10 @@ export const intesa = {
     // without overflow. Only the large value-arc tiles split value
     // and unit.
     // One short caveat — sits below the value arc.
-    caveat: "Scenarios to validate — not guaranteed savings.",
-    // Pilot-link footer note — anchors the broader delivery zone
-    // back to the 70% core execution pilot entry point.
-    pilotFooter:
-      "Pilot starts in the 70% core execution zone; scale-out extends into the broader 83% delivery zone.",
+    caveat: "Scenarios to validate.",
+    // Pilot-link footer note removed per user direction — the
+    // value-arc + logic-bar already carry the model framing.
+    pilotFooter: "",
     // Hero — four executive numbers. The fourth (~21%) makes the
     // ROI math visible: to reach €70M on a €327M execution-effort
     // zone, the pilot must demonstrate ~21% net efficiency after
@@ -1592,9 +1591,9 @@ export const intesa = {
         "Schedule executive review at end of week 4",
       ],
     },
-    // Closing strapline — the strategic anchor under the ask.
-    closing:
-      "From task definition to reviewable, test-backed PRs — measured against Intesa's own SDLC efficiency ambition.",
+    // Closing strapline removed per user direction — the
+    // commitment-ask chips already close the room.
+    closing: "",
   },
 
   // -------------------------------------------------------------------------
