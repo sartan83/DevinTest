@@ -277,7 +277,7 @@ export function Panel4ExecutiveDiscovery() {
               becomes a real left-to-right flow. The middle Lanes
               cell is wider than the others so the two stacked lane
               boxes can breathe. */}
-          <div className="grid items-stretch gap-2.5 sm:gap-3 lg:grid-cols-[1fr_auto_1.05fr_auto_1.65fr_auto_1.05fr_auto_1fr] lg:items-center lg:gap-2.5">
+          <div className="grid items-stretch gap-2.5 sm:gap-3 lg:grid-cols-[0.85fr_auto_1fr_auto_2.05fr_auto_1fr_auto_0.85fr] lg:items-stretch lg:gap-3">
             {/* 1 · Requirements */}
             <FlowStep
               label={p.withDevinFlow.input}
@@ -293,22 +293,23 @@ export function Panel4ExecutiveDiscovery() {
             <FlowArrow />
 
             {/* 3 · Parallel lanes — coding + testing/release.
-                Items render in a single horizontal row inside each
-                lane so the cell stays short on desktop. */}
-            <div className="flex flex-col gap-1.5 sm:gap-2">
+                Title sits on its own row above the items so the
+                pills never collide with the lane label. Items are
+                flex-wrap pills with comfortable padding/gap. */}
+            <div className="flex flex-col gap-2 sm:gap-2.5">
               {p.withDevinFlow.lanes.map((lane) => (
                 <div
                   key={lane.key}
-                  className="relative flex flex-col gap-1 rounded-xl border border-brand-orange/25 bg-brand-green-deep/55 px-2.5 py-1.5 sm:flex-row sm:items-center sm:gap-2.5 sm:px-3 sm:py-2"
+                  className="relative flex flex-col gap-1.5 rounded-xl border border-brand-orange/25 bg-brand-green-deep/55 px-3 py-2 sm:px-3.5 sm:py-2.5"
                 >
-                  <span className="shrink-0 text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[10.5px]">
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[10.5px]">
                     {lane.title}
                   </span>
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex flex-wrap gap-x-1.5 gap-y-1">
                     {lane.items.map((item) => (
                       <span
                         key={item}
-                        className="rounded-md border border-brand-ivory/10 bg-brand-green-deep/70 px-2 py-0.5 text-[10.5px] leading-snug text-brand-ivory/85 sm:text-[11px]"
+                        className="inline-block whitespace-nowrap rounded-md border border-brand-ivory/12 bg-brand-green-deep/70 px-2 py-0.5 text-[11px] leading-snug text-brand-ivory/88 sm:text-[11.5px]"
                       >
                         {item}
                       </span>
