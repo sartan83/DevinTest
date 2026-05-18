@@ -10,8 +10,12 @@ type Props = {
 };
 
 function format(n: number) {
-  return (Math.round(n * 10) / 10).toLocaleString("en-GB", {
-    minimumFractionDigits: n % 1 === 0 ? 0 : 1,
+  // Single-value display per user direction. Render as an integer
+  // when very close to a whole number, otherwise show one decimal.
+  const rounded = Math.round(n * 10) / 10;
+  const isIntegerish = Math.abs(rounded - Math.round(rounded)) < 0.05;
+  return rounded.toLocaleString("en-GB", {
+    minimumFractionDigits: isIntegerish ? 0 : 1,
     maximumFractionDigits: 1,
   });
 }
@@ -71,8 +75,14 @@ function useEasedNumber(target: number) {
  * illustrative model, based on representative modernization assumptions.
  */
 export function ExecutiveCounter({ min, max }: Props) {
-  const aMin = useEasedNumber(min);
-  const aMax = useEasedNumber(max);
+  // Single-value display per user direction. The accumulation
+  // mechanic per visited panel is preserved, but the pill now
+  // renders the midpoint of the min/max envelope as a single
+  // dev-days number rather than a range. Reads cleaner for an
+  // Economic Buyer audience that can otherwise read the wide
+  // range as "imprecise modelling".
+  const mid = (min + max) / 2;
+  const aValue = useEasedNumber(mid);
   const [open, setOpen] = useState(false);
   const c = intesa.counter;
   const popover = c.popover;
@@ -122,7 +132,7 @@ export function ExecutiveCounter({ min, max }: Props) {
               layout
               className="font-display text-sm font-semibold tabular-nums text-brand-ivory sm:text-lg"
             >
-              ≈ {format(aMin)}–{format(aMax)}
+              ≈ {format(aValue)}
             </motion.span>
             <span className="text-[10px] text-brand-ivory/65 sm:text-[11px]">
               {c.unit}
