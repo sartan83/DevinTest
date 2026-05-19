@@ -403,6 +403,16 @@ export const intesa = {
   // -------------------------------------------------------------------------
   panel2: {
     eyebrow: "Current state",
+    // Business-level corporate objective added near the top of
+    // the section per user direction. Sits above the existing
+    // strategic priorities (three value clocks) and frames them
+    // as execution-level expressions of a single corporate
+    // ambition. Compact and executive — no long paragraphs.
+    corporateObjective: {
+      label: "Corporate objective",
+      text:
+        "Increase profitability and competitiveness by scaling digital banking while structurally reducing technology cost.",
+    },
     // Strategic execution-tension hero. Frames the remaining gap
     // as the operational hard part of the migration, not as a
     // descriptive milestone.

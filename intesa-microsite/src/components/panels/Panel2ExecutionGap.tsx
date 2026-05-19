@@ -37,6 +37,34 @@ export function Panel2ExecutionGap() {
       }
     >
       <div className="flex h-full flex-col justify-center gap-8 sm:gap-10 lg:gap-12">
+        {/* Corporate objective — business-level frame added near
+            the top of the section per user direction. Sits above
+            the headline and the three strategic priority cards.
+            Compact card with small uppercase eyebrow + a single
+            executive sentence (no bullets, no paragraphs). The
+            three value clocks below read as execution priorities
+            connected to this objective. */}
+        {p.corporateObjective && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex max-w-3xl flex-col gap-1.5 rounded-xl border border-brand-orange/25 bg-brand-orange/[0.05] px-4 py-3 sm:gap-2 sm:px-5 sm:py-3.5"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-y-2 left-0 w-px bg-brand-orange/60"
+            />
+            <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
+              {p.corporateObjective.label}
+            </span>
+            <p className="text-[13px] leading-snug text-brand-ivory sm:text-[14.5px] lg:text-[15.5px]">
+              {p.corporateObjective.text}
+            </p>
+          </motion.div>
+        )}
+
         {/* Header — hero + single subline. No standalone metric
             anywhere above the three hero cards. */}
         <div className="flex flex-col gap-3 sm:gap-4">
