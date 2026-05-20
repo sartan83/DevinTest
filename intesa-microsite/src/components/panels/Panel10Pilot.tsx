@@ -26,7 +26,7 @@ export function Panel10Pilot() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl text-[12.5px] leading-relaxed text-brand-ivory/70 sm:text-[14px] lg:text-[15px]"
+            className="max-w-3xl text-[12.5px] leading-relaxed text-brand-ivory/92 sm:text-[14px] lg:text-[15px]"
           >
             {p.subhead}
           </motion.p>
@@ -36,7 +36,7 @@ export function Panel10Pilot() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-3xl text-[11.5px] italic leading-relaxed text-brand-orange-soft/85 sm:text-[12.5px]"
+              className="max-w-3xl text-[11.5px] italic leading-relaxed text-brand-orange-soft/95 sm:text-[12.5px]"
             >
               {p.netEfficiencyLine}
             </motion.p>
@@ -53,21 +53,21 @@ export function Panel10Pilot() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.55, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex flex-col overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 p-4 sm:p-4.5"
+              className="relative flex flex-col overflow-hidden rounded-xl border border-brand-ivory/20 bg-brand-green-mid/25 p-4 sm:p-4.5"
             >
               <div className="flex items-baseline justify-between gap-2">
-                <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
+                <span className="text-[10.5px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
                   {b.week}
                 </span>
-                <span className="font-display text-[11px] font-light leading-none text-brand-ivory/35 sm:text-[12px]">
+                <span className="font-display text-[11px] font-light leading-none text-brand-ivory/52 sm:text-[12px]">
                   0{i + 1}
                 </span>
               </div>
               <div className="mt-1.5 text-[13.5px] font-medium leading-snug text-brand-ivory sm:text-[14.5px]">
                 {b.title}
               </div>
-              <p className="mt-2 text-[11.5px] leading-snug text-brand-ivory/70 sm:text-[12.5px]">
-                <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/45 sm:text-[10px]">
+              <p className="mt-2 text-[11.5px] leading-snug text-brand-ivory/92 sm:text-[12.5px]">
+                <span className="text-[10.5px] uppercase tracking-[0.22em] text-brand-ivory/75 sm:text-[10.5px]">
                   Output ·{" "}
                 </span>
                 {b.output}
@@ -75,7 +75,7 @@ export function Panel10Pilot() {
               {i < p.blocks.length - 1 && (
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 text-base text-brand-ivory/25 lg:block"
+                  className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 text-base text-brand-ivory/42 lg:block"
                 >
                   →
                 </span>
@@ -96,7 +96,7 @@ export function Panel10Pilot() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-baseline gap-2 rounded-lg border-l-2 border-brand-orange/55 bg-brand-orange/[0.04] px-3 py-2 text-[12px] leading-snug text-brand-ivory/85 sm:text-[13px] lg:text-[13.5px]"
+            className="flex items-baseline gap-2 rounded-lg border-l-2 border-brand-orange/55 bg-brand-orange/[0.04] px-3 py-2 text-[12px] leading-snug text-brand-ivory/94 sm:text-[13px] lg:text-[13.5px]"
           >
             <span
               aria-hidden
@@ -114,13 +114,13 @@ export function Panel10Pilot() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-3 border-t border-brand-ivory/10 pt-4 sm:gap-3.5 sm:pt-5"
+          className="flex flex-col gap-3 border-t border-brand-ivory/20 pt-4 sm:gap-3.5 sm:pt-5"
         >
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
             <span className="text-[11px] uppercase tracking-[0.32em] text-brand-orange sm:text-[12px]">
               {p.successCriteria.label}
             </span>
-            <span className="text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+            <span className="text-[10.5px] italic leading-snug text-brand-ivory/82 sm:text-[11px]">
               {p.successCriteria.caption}
             </span>
           </div>
@@ -148,7 +148,7 @@ export function Panel10Pilot() {
                       aria-hidden
                       className="inline-block h-1 w-3.5 rounded-[1px] bg-brand-orange/80"
                     />
-                    <span className="text-[10px] uppercase tracking-[0.32em] text-brand-orange sm:text-[10.5px]">
+                    <span className="text-[10.5px] uppercase tracking-[0.32em] text-brand-orange sm:text-[10.5px]">
                       {group.theme}
                     </span>
                   </div>
@@ -174,7 +174,7 @@ export function Panel10Pilot() {
                           <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
                             {item.title}
                           </span>
-                          <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
+                          <span className="text-[10.5px] uppercase tracking-[0.22em] text-brand-ivory/82 sm:text-[10.5px]">
                             {item.tag}
                           </span>
                         </div>
@@ -207,7 +207,7 @@ export function Panel10Pilot() {
                     <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
                       {item.title}
                     </span>
-                    <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
+                    <span className="text-[10.5px] uppercase tracking-[0.22em] text-brand-ivory/82 sm:text-[10.5px]">
                       {item.tag}
                     </span>
                   </div>
@@ -225,7 +225,7 @@ export function Panel10Pilot() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-3xl text-[11.5px] italic leading-snug text-brand-ivory/60 sm:text-[12.5px]"
+              className="max-w-3xl text-[11.5px] italic leading-snug text-brand-ivory/88 sm:text-[12.5px]"
             >
               {p.successCriteria.interpretation}
             </motion.p>
@@ -248,7 +248,7 @@ export function Panel10Pilot() {
                 {p.commitment.label}
               </span>
               {p.commitment.caption && (
-                <span className="text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+                <span className="text-[10.5px] italic leading-snug text-brand-ivory/82 sm:text-[11px]">
                   {p.commitment.caption}
                 </span>
               )}
@@ -265,7 +265,7 @@ export function Panel10Pilot() {
                     delay: 0.5 + i * 0.06,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[11px] leading-tight text-brand-ivory/85 sm:text-[12px]"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/25 bg-brand-ivory/[0.04] px-2.5 py-1 text-[11px] leading-tight text-brand-ivory/94 sm:text-[12px]"
                 >
                   <span
                     aria-hidden
@@ -281,7 +281,7 @@ export function Panel10Pilot() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.55, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
-                className="max-w-3xl text-[11.5px] italic leading-snug text-brand-ivory/65 sm:text-[12.5px]"
+                className="max-w-3xl text-[11.5px] italic leading-snug text-brand-ivory/90 sm:text-[12.5px]"
               >
                 {p.closing}
               </motion.p>

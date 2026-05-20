@@ -478,7 +478,7 @@ export const intesa = {
         title: "Cloud migration deadline",
         value: "64% → 36% → 2029",
         label: "64% cloud-based today · 36% remaining · 2029 deadline",
-        note: "Execution risk concentrates in the remaining migration wave.",
+        note: "",
         tone: "deadline" as const,
       },
       {
@@ -1157,7 +1157,7 @@ export const intesa = {
     // delivery zone. Reads as a premium value arc.
     valueArc: {
       caption:
-        "Based on 18% / 21% / 25% / 30% net efficiency across the 83% delivery zone.",
+        "Based on 18% / 20% / 25% / 30% net efficiency across the 83% delivery zone.",
       // Each point renders a big value + a small "/ year" suffix
       // (kept separate so the display-size number stays clean and
       // doesn't overflow on narrow columns).
@@ -1176,7 +1176,7 @@ export const intesa = {
           tone: "target" as const,
         },
         {
-          value: "€82M",
+          value: "€78M",
           unit: "/ year",
           label: "upside",
           tone: "upside" as const,
@@ -1207,7 +1207,7 @@ export const intesa = {
     // scenario back to the value arc. Four equal-weight rows.
     scenarioLine: [
       { eff: "18%", value: "~€70M / year", label: "target" },
-      { eff: "21%", value: "~€82M / year", label: "upside" },
+      { eff: "20%", value: "~€78M / year", label: "upside" },
       { eff: "25%", value: "~€97M / year", label: "strong upside" },
       { eff: "30%", value: "~€116M / year", label: "high upside" },
     ] as { eff: string; value: string; label: string }[],
@@ -1220,10 +1220,11 @@ export const intesa = {
     // Pilot-link footer note removed per user direction — the
     // value-arc + logic-bar already carry the model framing.
     pilotFooter: "",
-    // Hero — four executive numbers. The fourth (~21%) makes the
-    // ROI math visible: to reach €70M on a €327M execution-effort
-    // zone, the pilot must demonstrate ~21% net efficiency after
-    // review and rework. Reads in <10 seconds.
+    // Hero — four executive numbers. The fourth (~20%) makes the
+    // ROI math visible: to reach €70M-class outcomes on the
+    // €388M Devin-relevant delivery zone, the pilot must
+    // demonstrate ~20% net efficiency after review and rework.
+    // Reads in <10 seconds.
     hero: {
       numbers: [
         {
@@ -1243,7 +1244,7 @@ export const intesa = {
         },
         {
           key: "netEfficiency",
-          value: "~21%",
+          value: "~20%",
           label: "Net efficiency required on execution zone to reach target",
         },
       ],
@@ -1363,15 +1364,15 @@ export const intesa = {
         {
           key: "target",
           title: "Target-aligned",
-          efficiency: "~21%",
-          value: "~€70M",
+          efficiency: "~20%",
+          value: "~€78M",
           tone: "target" as const,
         },
         {
           key: "upside",
           title: "Upside",
           efficiency: "25%",
-          value: "~€82M",
+          value: "~€97M",
           tone: "upside" as const,
         },
         {
@@ -1414,7 +1415,7 @@ export const intesa = {
     redeploymentNote: "Capacity redeployment, not headcount reduction.",
     // Methodology — collapsible drawer, secondary.
     derivationNote:
-      "Derivation: €70M / 15% ≈ €467M implied SDLC baseline · ≈€467M × 70% ≈ €327M implied coding + testing/release effort zone · €70M / €327M ≈ 21% net efficiency required on the execution zone to reach the official target. Implied-model figures, not standalone official numbers.",
+      "Derivation: €70M / 15% ≈ €467M implied SDLC baseline · ≈€467M × 83% ≈ €388M implied Devin-relevant delivery zone · €70M / €388M ≈ 18% net efficiency to hit the official target · €78M / €388M ≈ 20% net efficiency for the upside tier. Implied-model figures, not standalone official numbers.",
     sources: [
       "Intesa Sanpaolo — 15% SDLC efficiency ambition · ~€70M target by 2028.",
       "Intesa Sanpaolo — SDLC effort distribution: 17% requirements writing · 8% functional analysis · 5% technical analysis · 43% coding · 27% testing & release.",

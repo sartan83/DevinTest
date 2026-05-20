@@ -376,7 +376,7 @@ export function MicrositeShell() {
             alt="Cognition"
             className="h-7 w-auto text-brand-ivory opacity-65 transition-opacity hover:opacity-90 sm:h-8 lg:h-9"
           />
-          <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-brand-ivory/50">
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-brand-ivory/65">
             <KeyHint k="←" />
             <KeyHint k="→" />
             <span>navigate</span>
@@ -392,7 +392,7 @@ export function MicrositeShell() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="pointer-events-none absolute bottom-16 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] text-brand-ivory/45 sm:bottom-20 sm:text-[11px]"
+            className="pointer-events-none absolute bottom-16 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap text-[10.5px] uppercase tracking-[0.3em] text-brand-ivory/60 sm:bottom-20 sm:text-[11px]"
           >
             {isMobile ? "Swipe up or tap the dots" : "Swipe, scroll, or press →"}
           </motion.div>
@@ -404,7 +404,7 @@ export function MicrositeShell() {
 
 function KeyHint({ k }: { k: string }) {
   return (
-    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-[4px] border border-brand-ivory/20 px-1 text-[10px] text-brand-ivory/70">
+    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-[4px] border border-brand-ivory/20 px-1 text-[10.5px] text-brand-ivory/82">
       {k}
     </span>
   );

@@ -100,11 +100,11 @@ export function PanelShell({
                       : "text-[11px] tracking-[0.32em]",
                     tone === "dark"
                       ? isLgEyebrow
-                        ? "text-brand-ivory/90"
-                        : "text-brand-ivory/60"
+                        ? "text-brand-ivory/96"
+                        : "text-brand-ivory/75"
                       : isLgEyebrow
-                        ? "text-brand-charcoal/90"
-                        : "text-brand-charcoal/60",
+                        ? "text-brand-charcoal/96"
+                        : "text-brand-charcoal/75",
                   ].join(" ")}
                 >
                   {eyebrow}
@@ -129,20 +129,30 @@ export function PanelHeadline({
   tone = "dark",
   className,
   compact = false,
+  size,
 }: {
   text: string;
   tone?: "dark" | "ivory";
   className?: string;
   /** Compact reduces font scale by ~25% for dense panels. */
   compact?: boolean;
+  /** Optional explicit size override that wins over `compact`.
+   * - "md" sits between default and compact; useful when the default
+   *   scale is slightly too dominant for a panel but compact is too
+   *   tight (e.g. the SDLC operating-model page). */
+  size?: "md";
 }) {
+  const sizeClass =
+    size === "md"
+      ? "text-[1.65rem] sm:text-[2.4rem] lg:text-[3.25rem]"
+      : compact
+        ? "text-2xl sm:text-3xl lg:text-[2.5rem]"
+        : "text-3xl sm:text-5xl lg:text-6xl";
   return (
     <h2
       className={[
         "font-display font-light leading-[1.05] tracking-displaytight text-balance",
-        compact
-          ? "text-2xl sm:text-3xl lg:text-[2.5rem]"
-          : "text-3xl sm:text-5xl lg:text-6xl",
+        sizeClass,
         tone === "dark" ? "text-brand-ivory" : "text-brand-charcoal",
         className ?? "",
       ].join(" ")}
@@ -174,7 +184,7 @@ export function PanelSubhead({
     <p
       className={[
         "mt-4 max-w-3xl text-pretty text-sm leading-relaxed sm:mt-5 sm:text-base lg:text-lg",
-        tone === "dark" ? "text-brand-ivory/70" : "text-brand-charcoal/70",
+        tone === "dark" ? "text-brand-ivory/82" : "text-brand-charcoal/82",
         className ?? "",
       ].join(" ")}
     >
@@ -194,7 +204,7 @@ export function PanelClosing({
     <div
       className={[
         "mt-10 flex items-center gap-4",
-        tone === "dark" ? "text-brand-ivory/80" : "text-brand-charcoal/80",
+        tone === "dark" ? "text-brand-ivory/92" : "text-brand-charcoal/92",
       ].join(" ")}
     >
       <span

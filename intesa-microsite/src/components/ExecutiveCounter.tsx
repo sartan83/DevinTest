@@ -106,7 +106,7 @@ export function ExecutiveCounter({ min, max }: Props) {
       ref={wrapperRef}
       layout
       transition={{ type: "spring", stiffness: 220, damping: 28 }}
-      className="pointer-events-auto relative rounded-xl border border-brand-ivory/10 bg-brand-green-deep/70 px-3 py-2 shadow-elev backdrop-blur-md sm:px-4 sm:py-3"
+      className="pointer-events-auto relative rounded-xl border border-brand-ivory/20 bg-brand-green-deep/70 px-3 py-2 shadow-elev backdrop-blur-md sm:px-4 sm:py-3"
       aria-live="polite"
     >
       {/* Collapsed-by-default body. Clicking the body (not just the "?")
@@ -124,7 +124,7 @@ export function ExecutiveCounter({ min, max }: Props) {
           className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange"
         />
         <div className="flex min-w-0 flex-col">
-          <span className="text-[9px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px] sm:tracking-[0.28em]">
+          <span className="text-[10px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[10.5px] sm:tracking-[0.28em]">
             {c.label}
           </span>
           <div className="mt-1 flex items-baseline gap-1.5 sm:gap-2">
@@ -134,7 +134,7 @@ export function ExecutiveCounter({ min, max }: Props) {
             >
               ≈ {format(aValue)}
             </motion.span>
-            <span className="text-[10px] text-brand-ivory/65 sm:text-[11px]">
+            <span className="text-[10.5px] text-brand-ivory/78 sm:text-[11px]">
               {c.unit}
             </span>
           </div>
@@ -147,7 +147,7 @@ export function ExecutiveCounter({ min, max }: Props) {
         {/* Subtle "?" trigger — low contrast, retained for affordance. */}
         <span
           aria-hidden
-          className="ml-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-brand-ivory/15 text-[10px] font-medium text-brand-ivory/40 transition-colors hover:border-brand-ivory/35 hover:text-brand-ivory/75 sm:h-6 sm:w-6 sm:text-[11px]"
+          className="ml-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-brand-ivory/25 text-[10.5px] font-medium text-brand-ivory/55 transition-colors hover:border-brand-ivory/35 hover:text-brand-ivory/88 sm:h-6 sm:w-6 sm:text-[11px]"
         >
           ?
         </span>
@@ -163,16 +163,16 @@ export function ExecutiveCounter({ min, max }: Props) {
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             role="dialog"
             aria-label={popover.title}
-            className="absolute right-0 top-full z-40 mt-2 w-[16rem] overflow-hidden rounded-xl border border-brand-ivory/12 bg-brand-green-deep/95 p-4 shadow-elev backdrop-blur-md sm:w-[18rem]"
+            className="absolute right-0 top-full z-40 mt-2 w-[16rem] overflow-hidden rounded-xl border border-brand-ivory/22 bg-brand-green-deep/95 p-4 shadow-elev backdrop-blur-md sm:w-[18rem]"
           >
-            <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft">
+            <div className="text-[10.5px] uppercase tracking-[0.28em] text-brand-orange-soft">
               {popover.title}
             </div>
             <ul className="mt-2.5 space-y-1.5">
               {popover.bullets.map((b) => (
                 <li
                   key={b}
-                  className="flex items-start gap-2 text-[12px] leading-snug text-brand-ivory/85 sm:text-[13px]"
+                  className="flex items-start gap-2 text-[12px] leading-snug text-brand-ivory/94 sm:text-[13px]"
                 >
                   <span
                     aria-hidden
@@ -183,12 +183,12 @@ export function ExecutiveCounter({ min, max }: Props) {
               ))}
             </ul>
 
-            <div className="mt-3 border-t border-brand-ivory/10 pt-2.5">
+            <div className="mt-3 border-t border-brand-ivory/20 pt-2.5">
               <ul className="space-y-1.5">
                 {c.expandedBullets.map((b) => (
                   <li
                     key={b}
-                    className="flex items-start gap-2 text-[11px] leading-snug text-brand-ivory/75 sm:text-[12px]"
+                    className="flex items-start gap-2 text-[11px] leading-snug text-brand-ivory/88 sm:text-[12px]"
                   >
                     <span
                       aria-hidden
@@ -200,7 +200,7 @@ export function ExecutiveCounter({ min, max }: Props) {
               </ul>
             </div>
 
-            <p className="mt-3 text-[10px] leading-snug text-brand-ivory/45">
+            <p className="mt-3 text-[10.5px] leading-snug text-brand-ivory/60">
               {c.disclaimer}
             </p>
           </motion.div>
