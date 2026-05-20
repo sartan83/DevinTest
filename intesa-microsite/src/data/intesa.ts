@@ -478,7 +478,7 @@ export const intesa = {
         title: "Cloud migration deadline",
         value: "64% → 36% → 2029",
         label: "64% cloud-based today · 36% remaining · 2029 deadline",
-        note: "Execution risk concentrates in the remaining migration wave.",
+        note: "",
         tone: "deadline" as const,
       },
       {
@@ -1221,9 +1221,10 @@ export const intesa = {
     // value-arc + logic-bar already carry the model framing.
     pilotFooter: "",
     // Hero — four executive numbers. The fourth (~20%) makes the
-    // ROI math visible: to reach €70M on a €327M execution-effort
-    // zone, the pilot must demonstrate ~20% net efficiency after
-    // review and rework. Reads in <10 seconds.
+    // ROI math visible: to reach €70M-class outcomes on the
+    // €388M Devin-relevant delivery zone, the pilot must
+    // demonstrate ~20% net efficiency after review and rework.
+    // Reads in <10 seconds.
     hero: {
       numbers: [
         {
@@ -1364,14 +1365,14 @@ export const intesa = {
           key: "target",
           title: "Target-aligned",
           efficiency: "~20%",
-          value: "~€65M",
+          value: "~€78M",
           tone: "target" as const,
         },
         {
           key: "upside",
           title: "Upside",
           efficiency: "25%",
-          value: "~€78M",
+          value: "~€97M",
           tone: "upside" as const,
         },
         {
@@ -1414,7 +1415,7 @@ export const intesa = {
     redeploymentNote: "Capacity redeployment, not headcount reduction.",
     // Methodology — collapsible drawer, secondary.
     derivationNote:
-      "Derivation: €70M / 15% ≈ €467M implied SDLC baseline · ≈€467M × 70% ≈ €327M implied coding + testing/release effort zone · €70M / €327M ≈ 20% net efficiency required on the execution zone to reach the official target. Implied-model figures, not standalone official numbers.",
+      "Derivation: €70M / 15% ≈ €467M implied SDLC baseline · ≈€467M × 83% ≈ €388M implied Devin-relevant delivery zone · €70M / €388M ≈ 18% net efficiency to hit the official target · €78M / €388M ≈ 20% net efficiency for the upside tier. Implied-model figures, not standalone official numbers.",
     sources: [
       "Intesa Sanpaolo — 15% SDLC efficiency ambition · ~€70M target by 2028.",
       "Intesa Sanpaolo — SDLC effort distribution: 17% requirements writing · 8% functional analysis · 5% technical analysis · 43% coding · 27% testing & release.",
