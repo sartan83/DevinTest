@@ -410,8 +410,7 @@ export const intesa = {
     // ambition. Compact and executive — no long paragraphs.
     corporateObjective: {
       label: "Corporate objective",
-      text:
-        "Increase profitability and competitiveness by scaling digital banking while structurally reducing technology cost.",
+      text: "20% Return On Equity by scaling digital banking",
     },
     // Strategic execution-tension hero. Frames the remaining gap
     // as the operational hard part of the migration, not as a
