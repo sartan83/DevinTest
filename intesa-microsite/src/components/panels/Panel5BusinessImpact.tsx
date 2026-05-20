@@ -51,7 +51,7 @@ export function Panel5BusinessImpact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-xl text-[13px] leading-relaxed text-brand-ivory/65 sm:text-[14px] lg:text-[15px]"
+            className="max-w-xl text-[13.5px] leading-relaxed text-brand-ivory/80 sm:text-[14.5px] lg:text-[15.5px]"
           >
             {p.support}
           </motion.p>
@@ -66,7 +66,7 @@ export function Panel5BusinessImpact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.55, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-orange/40 bg-brand-orange/5 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[11px]"
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-brand-orange/40 bg-brand-orange/5 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[11.5px]"
             >
               <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-brand-orange-soft" />
               {p.sdlcFocus}
@@ -82,7 +82,7 @@ export function Panel5BusinessImpact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-xl text-[12px] italic leading-relaxed text-brand-ivory/55 sm:text-[13px]"
+              className="max-w-xl text-[12.5px] italic leading-relaxed text-brand-ivory/70 sm:text-[13.5px]"
             >
               {p.talkTrack}
             </motion.p>
@@ -106,17 +106,17 @@ export function Panel5BusinessImpact() {
               direction. The repo URL stays monospace and
               underlined; the disclaimer reads as a quiet caption
               at the same size for consistency. */}
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[13px] leading-snug text-brand-ivory/60 sm:text-[14px] lg:text-[15px]">
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[13px] leading-snug text-brand-ivory/75 sm:text-[14px] lg:text-[15px]">
             <a
               href={p.repoLink.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-brand-ivory/55 underline decoration-brand-ivory/20 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60"
+              className="inline-flex items-center gap-1 text-brand-ivory/70 underline decoration-brand-ivory/30 underline-offset-4 transition-colors hover:text-brand-ivory hover:decoration-brand-ivory/60"
             >
               <span aria-hidden>↗</span>
               <span className="font-mono">{p.repoLink.label}</span>
             </a>
-            <span className="text-brand-ivory/25">·</span>
+            <span className="text-brand-ivory/40">·</span>
             <span>{p.repoDisclaimer}</span>
           </div>
         </div>
@@ -154,7 +154,7 @@ export function Panel5BusinessImpact() {
               {p.referenceDeployment.metric}
             </span>
             <div className="relative z-10 flex flex-col gap-1">
-              <span className="text-[9px] uppercase tracking-[0.3em] text-brand-ivory/50 sm:text-[10px]">
+              <span className="text-[11px] uppercase tracking-[0.26em] text-brand-ivory/65 sm:text-[11.5px]">
                 {p.referenceDeployment.caption}
               </span>
               <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/85 sm:text-[12px]">
@@ -226,9 +226,9 @@ export function Panel5BusinessImpact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col gap-2.5 border-t border-brand-ivory/10 pt-4 sm:flex-row sm:items-center sm:gap-5 sm:pt-5"
+        className="flex flex-col gap-2.5 border-t border-brand-ivory/16 pt-4 sm:flex-row sm:items-center sm:gap-5 sm:pt-5"
       >
-        <span className="shrink-0 text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
+        <span className="shrink-0 text-[11px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
           {p.validating.label}
         </span>
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
@@ -243,7 +243,7 @@ export function Panel5BusinessImpact() {
                 delay: 0.35 + i * 0.04,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-brand-ivory/75 sm:text-[11px]"
+              className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/20 bg-brand-ivory/[0.05] px-2.5 py-1 text-[11px] uppercase tracking-[0.18em] text-brand-ivory/80 sm:text-[11.5px]"
             >
               <span
                 aria-hidden

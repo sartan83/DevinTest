@@ -101,7 +101,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 flex w-full flex-col items-start gap-3 border-t border-brand-ivory/10 pt-5 text-left sm:mt-10 sm:flex-row sm:items-center sm:gap-5"
+          className="mt-8 flex w-full flex-col items-start gap-3 border-t border-brand-ivory/16 pt-5 text-left sm:mt-10 sm:flex-row sm:items-center sm:gap-5"
         >
           <span className="shrink-0 text-[10px] uppercase tracking-[0.32em] text-brand-orange-soft sm:text-[11px]">
             {p.actionBullets.label}

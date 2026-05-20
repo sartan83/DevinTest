@@ -27,10 +27,10 @@ export function Panel1bAgenda() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: 0.06 * i, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex flex-col overflow-hidden rounded-2xl border border-brand-ivory/10 bg-brand-green-mid/25 p-4 sm:p-5 lg:p-6"
+              className="relative flex flex-col overflow-hidden rounded-2xl border border-brand-ivory/15 bg-brand-green-mid/25 p-4 sm:p-5 lg:p-6"
             >
               <div className="flex items-baseline gap-2.5">
-                <span className="text-[10px] uppercase tracking-[0.26em] text-brand-ivory/50 sm:text-[11px]">
+                <span className="text-[11px] uppercase tracking-[0.24em] text-brand-ivory/65 sm:text-[12px]">
                   Focus
                 </span>
                 <span className="font-display text-3xl font-light text-brand-orange-soft sm:text-4xl lg:text-[2.75rem]">
@@ -40,11 +40,11 @@ export function Panel1bAgenda() {
               <h3 className="mt-2.5 font-display text-[15px] font-medium leading-snug text-brand-ivory sm:text-[17px] lg:text-[19px]">
                 {b.title}
               </h3>
-              <p className="mt-2 text-[12.5px] leading-relaxed text-brand-ivory/72 sm:text-[13.5px] lg:text-[14.5px]">
+              <p className="mt-2 text-[13px] leading-relaxed text-brand-ivory/80 sm:text-[14px] lg:text-[15px]">
                 {b.helper}
               </p>
               {i < p.blocks.length - 1 && (
-                <span aria-hidden className="absolute right-3 top-4 hidden text-brand-ivory/25 lg:block">
+                <span aria-hidden className="absolute right-3 top-4 hidden text-brand-ivory/40 lg:block">
                   →
                 </span>
               )}
@@ -58,13 +58,13 @@ export function Panel1bAgenda() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-brand-ivory/15 bg-brand-ivory/[0.04] px-5 py-4 sm:gap-2.5 sm:px-6 sm:py-5 lg:px-7 lg:py-6"
+            className="relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-brand-ivory/20 bg-brand-ivory/[0.05] px-5 py-4 sm:gap-2.5 sm:px-6 sm:py-5 lg:px-7 lg:py-6"
           >
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-y-3 left-0 w-[2px] rounded-full bg-brand-ivory/45"
+              className="pointer-events-none absolute inset-y-3 left-0 w-[2px] rounded-full bg-brand-ivory/55"
             />
-            <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-ivory/65 sm:text-[11px]">
+            <span className="text-[11.5px] uppercase tracking-[0.26em] text-brand-ivory/75 sm:text-[12px]">
               {p.todayGoal.label}
             </span>
             <p className="font-display text-[16px] font-medium leading-snug text-brand-ivory sm:text-[18px] lg:text-[20px]">
@@ -85,7 +85,7 @@ export function Panel1bAgenda() {
               aria-hidden
               className="pointer-events-none absolute inset-y-3 left-0 w-[2px] rounded-full bg-brand-orange/70"
             />
-            <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-orange sm:text-[11px]">
+            <span className="text-[11.5px] uppercase tracking-[0.26em] text-brand-orange sm:text-[12px]">
               Opening question
             </span>
             <p className="font-display text-[17px] font-medium italic leading-snug text-brand-ivory sm:text-[19px] lg:text-[22px]">
@@ -95,7 +95,7 @@ export function Panel1bAgenda() {
         ) : null}
 
         {p.closing ? (
-          <p className="text-[13px] italic leading-relaxed text-brand-ivory/68 sm:text-[14.5px] lg:text-[16px]">
+          <p className="text-[13.5px] italic leading-relaxed text-brand-ivory/80 sm:text-[15px] lg:text-[16.5px]">
             {p.closing}
           </p>
         ) : null}

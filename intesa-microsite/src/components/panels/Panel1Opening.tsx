@@ -53,18 +53,18 @@ export function Panel1Opening() {
           >
             <div aria-hidden className="w-1 bg-brand-orange" />
             <div className="flex flex-col gap-0.5 px-4 py-3 sm:px-5 sm:py-3.5">
-              <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
+              <span className="text-[11px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
                 {p.deadline.caption}
               </span>
               <span className="flex items-baseline gap-2">
-                <span className="text-[11px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[12px]">
+                <span className="text-[12px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[12.5px]">
                   {p.deadline.gap} {p.deadline.preposition}
                 </span>
                 <span className="font-display text-3xl font-light leading-none text-brand-ivory sm:text-4xl">
                   {p.deadline.year}
                 </span>
               </span>
-              <span className="mt-0.5 text-[11px] leading-snug text-brand-ivory/65 sm:text-[12px]">
+              <span className="mt-0.5 text-[12px] leading-snug text-brand-ivory/80 sm:text-[12.5px]">
                 {p.deadline.sub}
               </span>
             </div>
@@ -86,7 +86,7 @@ export function Panel1Opening() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[11px] italic leading-snug text-brand-ivory/60 sm:text-[12px] lg:text-[13px]"
+            className="text-[12px] italic leading-snug text-brand-ivory/75 sm:text-[13px] lg:text-[14px]"
           >
             {p.scaleContext}
           </motion.p>
@@ -102,12 +102,12 @@ export function Panel1Opening() {
                   delay: 0.12 + i * 0.07,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="flex items-baseline justify-between gap-4 border-b border-brand-ivory/10 py-2 sm:py-2.5"
+                className="flex items-baseline justify-between gap-4 border-b border-brand-ivory/16 py-2 sm:py-2.5"
               >
                 <span className="font-display text-2xl font-light leading-none text-brand-ivory sm:text-3xl lg:text-[34px]">
                   {k.value}
                 </span>
-                <span className="max-w-[62%] text-right text-[10px] uppercase leading-snug tracking-[0.2em] text-brand-ivory/60 sm:text-[11px] lg:text-[12px]">
+                <span className="max-w-[62%] text-right text-[11px] uppercase leading-snug tracking-[0.2em] text-brand-ivory/75 sm:text-[12px] lg:text-[13px]">
                   {k.label}
                 </span>
               </motion.div>
@@ -121,10 +121,10 @@ export function Panel1Opening() {
          pressure framing. */}
       <div className="mt-5 sm:mt-7">
         <div className="mb-2 flex items-baseline gap-3">
-          <span className="text-[9px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10px]">
+          <span className="text-[11px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
             {p.pressure.title}
           </span>
-          <span aria-hidden className="h-px flex-1 bg-brand-ivory/10" />
+          <span aria-hidden className="h-px flex-1 bg-brand-ivory/16" />
         </div>
         <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 sm:gap-x-5">
           {p.pressure.bullets.map((b, i) => (
@@ -148,7 +148,7 @@ export function Panel1Opening() {
         ) : null}
       </div>
 
-      <p className="mt-5 text-[10px] leading-snug text-brand-ivory/35 sm:mt-6 sm:text-[11px]">
+      <p className="mt-5 text-[11px] leading-snug text-brand-ivory/55 sm:mt-6 sm:text-[12px]">
         {p.sourcesLine}
       </p>
     </PanelShell>

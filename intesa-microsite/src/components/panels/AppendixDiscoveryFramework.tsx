@@ -62,7 +62,7 @@ export function AppendixDiscoveryFramework() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="grid gap-6 rounded-2xl border border-brand-ivory/10 bg-brand-green-mid/25 p-6 sm:p-8 lg:grid-cols-[1.4fr_1fr] lg:gap-10"
+            className="grid gap-6 rounded-2xl border border-brand-ivory/16 bg-brand-green-mid/25 p-6 sm:p-8 lg:grid-cols-[1.4fr_1fr] lg:gap-10"
           >
             <div>
               <h3 className="font-display text-xl font-light leading-snug text-brand-ivory sm:text-2xl">

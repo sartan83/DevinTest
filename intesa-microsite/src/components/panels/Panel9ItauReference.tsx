@@ -61,7 +61,7 @@ export function Panel9ItauReference() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex flex-col gap-3 border-b border-brand-ivory/8 px-5 py-5 sm:px-6 sm:py-6 lg:border-b-0 lg:border-r lg:border-brand-ivory/10"
+              className="relative flex flex-col gap-3 border-b border-brand-ivory/14 px-5 py-5 sm:px-6 sm:py-6 lg:border-b-0 lg:border-r lg:border-brand-ivory/16"
             >
               <span
                 className="text-[9.5px] uppercase tracking-[0.3em] sm:text-[10px]"
@@ -255,7 +255,7 @@ export function Panel9ItauReference() {
           </div>
         </div>
 
-        <div className="text-[11px] leading-relaxed text-brand-ivory/55 sm:text-[12px]">
+        <div className="text-[12px] leading-relaxed text-brand-ivory/70 sm:text-[12.5px]">
           {p.disclaimer}
         </div>
       </div>

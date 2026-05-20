@@ -56,10 +56,10 @@ export function Panel7TasksToOutcomes() {
           <p className="font-display text-[15px] font-light leading-snug text-brand-ivory sm:text-[16px] lg:text-[17px]">
             {p.capacityRedeploymentLine}
           </p>
-          <p className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px]">
+          <p className="text-[12px] leading-snug text-brand-ivory/70 sm:text-[12.5px]">
             {p.capacityCalcNote}
           </p>
-          <p className="text-[10px] leading-snug text-brand-ivory/40 sm:text-[11px]">
+          <p className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px]">
             {p.capacityFootnote}
           </p>
         </div>

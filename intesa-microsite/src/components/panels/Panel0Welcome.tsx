@@ -52,7 +52,7 @@ export function Panel0Welcome({ onBegin }: Props) {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 4.2, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-2xl text-center text-[12px] uppercase tracking-[0.28em] text-brand-ivory/55 sm:text-[13px]"
+              className="max-w-2xl text-center text-[12.5px] uppercase tracking-[0.24em] text-brand-ivory/70 sm:text-[13.5px]"
             >
               {p.supportingLine}
             </motion.p>
@@ -77,7 +77,7 @@ export function Panel0Welcome({ onBegin }: Props) {
               <span className="font-display text-[15px] font-medium tracking-tight text-brand-ivory sm:text-[16.5px] lg:text-[18px]">
                 {p.presenter.name}
               </span>
-              <span className="text-[10.5px] uppercase tracking-[0.32em] text-brand-ivory/55 sm:text-[11px]">
+              <span className="text-[11.5px] uppercase tracking-[0.28em] text-brand-ivory/70 sm:text-[12px]">
                 {p.presenter.title}
               </span>
             </motion.div>
@@ -95,15 +95,15 @@ export function Panel0Welcome({ onBegin }: Props) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.85, delay: 4.9, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-brand-ivory/35 sm:bottom-14 sm:text-[11px]"
+          className="absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-brand-ivory/50 sm:bottom-14 sm:text-[12px]"
         >
           <button
             type="button"
             onClick={() => onBegin(1)}
-            className="group inline-flex items-center gap-2 text-brand-ivory/50 transition-colors hover:text-brand-ivory/85"
+            className="group inline-flex items-center gap-2 text-brand-ivory/65 transition-colors hover:text-brand-ivory/90"
           >
             <span>{p.cta}</span>
-            <span aria-hidden className="text-brand-ivory/35 transition-transform group-hover:translate-x-0.5">
+            <span aria-hidden className="text-brand-ivory/50 transition-transform group-hover:translate-x-0.5">
               →
             </span>
           </button>
@@ -157,7 +157,7 @@ function DevinCommand({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.75, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
-      className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-brand-ivory/12 bg-brand-ivory/[0.025] px-4 py-4 text-left shadow-[0_18px_60px_-30px_rgba(0,0,0,0.7)] sm:px-5 sm:py-5 lg:px-6 lg:py-6"
+      className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-brand-ivory/18 bg-brand-ivory/[0.035] px-4 py-4 text-left shadow-[0_18px_60px_-30px_rgba(0,0,0,0.7)] sm:px-5 sm:py-5 lg:px-6 lg:py-6"
       aria-label={hint}
     >
       {/* Quiet top accent line — anchors the command bar to the
@@ -172,7 +172,7 @@ function DevinCommand({
             a chat-input affordance, not a shell prompt. */}
         <span
           aria-hidden
-          className="mt-1 select-none font-mono text-[12px] leading-none text-brand-ivory/35 sm:text-[13px]"
+          className="mt-1 select-none font-mono text-[13px] leading-none text-brand-ivory/50 sm:text-[14px]"
         >
           ›
         </span>
@@ -210,9 +210,9 @@ function DevinCommand({
       {/* Bottom-right hint row — small caption clarifying that this is
           a mention-style assignment, not a generic chat. Quiet enough
           to disappear after a glance. */}
-      <div className="mt-3 flex items-center justify-between gap-2 border-t border-brand-ivory/8 pt-2 text-[9.5px] uppercase tracking-[0.28em] text-brand-ivory/35 sm:mt-3.5 sm:pt-2.5 sm:text-[10px]">
+      <div className="mt-3 flex items-center justify-between gap-2 border-t border-brand-ivory/14 pt-2 text-[11px] uppercase tracking-[0.24em] text-brand-ivory/50 sm:mt-3.5 sm:pt-2.5 sm:text-[11.5px]">
         <span>{hint}</span>
-        <span aria-hidden className="font-mono normal-case tracking-normal text-brand-ivory/30">
+        <span aria-hidden className="font-mono normal-case tracking-normal text-brand-ivory/45">
           ⏎
         </span>
       </div>
@@ -232,7 +232,7 @@ function Wordmark({ text, delay, align }: { text: string; delay: number; align: 
         align === "left" ? "items-center sm:items-start" : "items-center sm:items-end",
       ].join(" ")}
     >
-      <span className="text-[9px] uppercase tracking-[0.36em] text-brand-ivory/40 sm:text-[10px]">
+      <span className="text-[11px] uppercase tracking-[0.28em] text-brand-ivory/55 sm:text-[11.5px]">
         {align === "left" ? "Client" : "Partner"}
       </span>
       <span className="font-display text-xl font-light leading-tight tracking-displaytight text-brand-ivory/95 sm:text-2xl lg:text-[1.85rem]">

@@ -56,7 +56,7 @@ export function Panel2ExecutionGap() {
               aria-hidden
               className="pointer-events-none absolute inset-y-2 left-0 w-px bg-brand-orange/60"
             />
-            <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[10.5px]">
+            <span className="text-[11px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
               {p.corporateObjective.label}
             </span>
             <p className="text-[13px] leading-snug text-brand-ivory sm:text-[14.5px] lg:text-[15.5px]">
@@ -76,7 +76,7 @@ export function Panel2ExecutionGap() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-3xl text-[13px] leading-relaxed text-brand-ivory/75 sm:text-[15px] lg:text-[16px]"
+              className="max-w-3xl text-[13.5px] leading-relaxed text-brand-ivory/85 sm:text-[15px] lg:text-[16px]"
             >
               {p.support}
             </motion.p>
@@ -106,7 +106,7 @@ export function Panel2ExecutionGap() {
                     delay: 0.25 + i * 0.1,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="relative flex min-w-0 flex-col gap-4 overflow-hidden rounded-2xl border border-brand-ivory/12 bg-brand-ivory/[0.03] px-5 py-6 sm:gap-5 sm:px-6 sm:py-7 lg:px-7 lg:py-8"
+                  className="relative flex min-w-0 flex-col gap-4 overflow-hidden rounded-2xl border border-brand-ivory/18 bg-brand-ivory/[0.04] px-5 py-6 sm:gap-5 sm:px-6 sm:py-7 lg:px-7 lg:py-8"
                 >
                   {/* Quiet orange top accent line — anchors the card
                       to the section's accent without overwhelming. */}
@@ -114,7 +114,7 @@ export function Panel2ExecutionGap() {
                     aria-hidden
                     className="pointer-events-none absolute inset-x-6 top-0 h-[1px] bg-gradient-to-r from-transparent via-brand-orange/60 to-transparent"
                   />
-                  <span className="text-[10.5px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
+                  <span className="text-[11.5px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[12px]">
                     {c.title}
                   </span>
                   <div className="flex flex-col gap-2">
@@ -128,7 +128,7 @@ export function Panel2ExecutionGap() {
                     >
                       {c.value}
                     </span>
-                    <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/65 sm:text-[12px]">
+                    <span className="text-[12px] uppercase tracking-[0.22em] text-brand-ivory/80 sm:text-[12.5px]">
                       {c.label}
                     </span>
                   </div>
@@ -144,7 +144,7 @@ export function Panel2ExecutionGap() {
                         // accent on the 15%, slightly larger.
                         c.tone === "efficiency"
                           ? "font-display text-[14px] font-medium text-brand-ivory/95 sm:text-[16px] lg:text-[18px]"
-                          : "text-[11.5px] text-brand-ivory/60 sm:text-[12.5px]",
+                          : "text-[12px] text-brand-ivory/75 sm:text-[13px]",
                       ].join(" ")}
                     >
                       {c.tone === "efficiency"
@@ -196,7 +196,7 @@ export function Panel2ExecutionGap() {
             {p.closing}
           </p>
           {p.closingSecondary && (
-            <p className="max-w-3xl text-[12px] leading-snug text-brand-ivory/65 sm:text-[13px]">
+            <p className="max-w-3xl text-[12.5px] leading-snug text-brand-ivory/80 sm:text-[13.5px]">
               {p.closingSecondary}
             </p>
           )}

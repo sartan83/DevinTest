@@ -53,13 +53,13 @@ export function Panel10Pilot() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.55, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex flex-col overflow-hidden rounded-xl border border-brand-ivory/10 bg-brand-green-mid/25 p-4 sm:p-4.5"
+              className="relative flex flex-col overflow-hidden rounded-xl border border-brand-ivory/16 bg-brand-green-mid/25 p-4 sm:p-4.5"
             >
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
                   {b.week}
                 </span>
-                <span className="font-display text-[11px] font-light leading-none text-brand-ivory/35 sm:text-[12px]">
+                <span className="font-display text-[12px] font-light leading-none text-brand-ivory/50 sm:text-[12.5px]">
                   0{i + 1}
                 </span>
               </div>
@@ -67,7 +67,7 @@ export function Panel10Pilot() {
                 {b.title}
               </div>
               <p className="mt-2 text-[11.5px] leading-snug text-brand-ivory/70 sm:text-[12.5px]">
-                <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/45 sm:text-[10px]">
+                <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[11.5px]">
                   Output ·{" "}
                 </span>
                 {b.output}
@@ -75,7 +75,7 @@ export function Panel10Pilot() {
               {i < p.blocks.length - 1 && (
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 text-base text-brand-ivory/25 lg:block"
+                  className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 text-base text-brand-ivory/40 lg:block"
                 >
                   →
                 </span>
@@ -114,13 +114,13 @@ export function Panel10Pilot() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-3 border-t border-brand-ivory/10 pt-4 sm:gap-3.5 sm:pt-5"
+          className="flex flex-col gap-3 border-t border-brand-ivory/16 pt-4 sm:gap-3.5 sm:pt-5"
         >
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
             <span className="text-[11px] uppercase tracking-[0.32em] text-brand-orange sm:text-[12px]">
               {p.successCriteria.label}
             </span>
-            <span className="text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+            <span className="text-[11px] italic leading-snug text-brand-ivory/70 sm:text-[12px]">
               {p.successCriteria.caption}
             </span>
           </div>
@@ -174,7 +174,7 @@ export function Panel10Pilot() {
                           <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
                             {item.title}
                           </span>
-                          <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
+                          <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[11.5px]">
                             {item.tag}
                           </span>
                         </div>
@@ -207,7 +207,7 @@ export function Panel10Pilot() {
                     <span className="text-[12px] font-medium leading-tight text-brand-ivory sm:text-[12.5px]">
                       {item.title}
                     </span>
-                    <span className="text-[9.5px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[10px]">
+                    <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/70 sm:text-[11.5px]">
                       {item.tag}
                     </span>
                   </div>
@@ -248,7 +248,7 @@ export function Panel10Pilot() {
                 {p.commitment.label}
               </span>
               {p.commitment.caption && (
-                <span className="text-[10px] italic leading-snug text-brand-ivory/55 sm:text-[11px]">
+                <span className="text-[11px] italic leading-snug text-brand-ivory/70 sm:text-[12px]">
                   {p.commitment.caption}
                 </span>
               )}

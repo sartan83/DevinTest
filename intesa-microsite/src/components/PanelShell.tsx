@@ -97,14 +97,14 @@ export function PanelShell({
                     "uppercase",
                     isLgEyebrow
                       ? "font-display font-medium text-[15px] tracking-[0.28em] sm:text-[17px] lg:text-[19px]"
-                      : "text-[11px] tracking-[0.32em]",
+                      : "text-[12px] tracking-[0.28em]",
                     tone === "dark"
                       ? isLgEyebrow
                         ? "text-brand-ivory/90"
-                        : "text-brand-ivory/60"
+                        : "text-brand-ivory/75"
                       : isLgEyebrow
                         ? "text-brand-charcoal/90"
-                        : "text-brand-charcoal/60",
+                        : "text-brand-charcoal/75",
                   ].join(" ")}
                 >
                   {eyebrow}
@@ -174,7 +174,7 @@ export function PanelSubhead({
     <p
       className={[
         "mt-4 max-w-3xl text-pretty text-sm leading-relaxed sm:mt-5 sm:text-base lg:text-lg",
-        tone === "dark" ? "text-brand-ivory/70" : "text-brand-charcoal/70",
+        tone === "dark" ? "text-brand-ivory/80" : "text-brand-charcoal/80",
         className ?? "",
       ].join(" ")}
     >

@@ -62,7 +62,7 @@ function FlowStep({
   return (
     <div
       className={[
-        "flex h-full min-h-[44px] items-center justify-center rounded-lg border bg-brand-green-deep/65 px-2.5 py-2 text-center text-[11px] uppercase leading-snug tracking-[0.16em] sm:text-[11.5px] lg:text-[12px]",
+        "flex h-full min-h-[44px] items-center justify-center rounded-lg border bg-brand-green-deep/65 px-2.5 py-2 text-center text-[11.5px] uppercase leading-snug tracking-[0.16em] sm:text-[12px] lg:text-[12.5px]",
         borderClass,
         textClass,
       ].join(" ")}
@@ -79,7 +79,7 @@ function FlowArrow() {
   return (
     <span
       aria-hidden
-      className="flex items-center justify-center text-brand-ivory/35 lg:px-0.5"
+      className="flex items-center justify-center text-brand-ivory/50 lg:px-0.5"
     >
       <span className="lg:hidden">↓</span>
       <span className="hidden lg:inline">→</span>
@@ -125,7 +125,7 @@ export function Panel4ExecutiveDiscovery() {
               }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex h-full shrink-0 flex-col items-center justify-center overflow-hidden border-r border-brand-ivory/10 px-2"
+              className="relative flex h-full shrink-0 flex-col items-center justify-center overflow-hidden border-r border-brand-ivory/16 px-2"
               style={{
                 background:
                   "linear-gradient(180deg, rgba(247,244,239,0.05) 0%, rgba(247,244,239,0.015) 100%)",
@@ -134,7 +134,7 @@ export function Panel4ExecutiveDiscovery() {
               <span className="relative z-10 font-display font-semibold leading-none tracking-tight text-[18px] text-brand-ivory/85 sm:text-[22px] lg:text-[26px]">
                 {stages[0]?.value ?? 17}%
               </span>
-              <span className="relative z-10 mt-1 text-center font-medium uppercase leading-tight tracking-[0.16em] text-[9px] text-brand-ivory/70 sm:mt-1.5 sm:text-[10.5px] lg:text-[11.5px]">
+              <span className="relative z-10 mt-1 text-center font-medium uppercase leading-tight tracking-[0.16em] text-[10.5px] text-brand-ivory/80 sm:mt-1.5 sm:text-[11.5px] lg:text-[12px]">
                 Requirements
               </span>
             </motion.div>
@@ -170,7 +170,7 @@ export function Panel4ExecutiveDiscovery() {
               <span className="relative z-10 mt-1 text-center font-display font-semibold uppercase leading-tight tracking-[0.22em] text-[18px] text-brand-ivory sm:mt-1.5 sm:text-[22px] lg:text-[26px]">
                 Near-term ROI zone
               </span>
-              <span className="relative z-10 mt-1 hidden text-center text-[10px] uppercase leading-tight tracking-[0.18em] text-brand-ivory/80 sm:mt-1.5 sm:inline-block sm:text-[10.5px] lg:text-[11.5px]">
+              <span className="relative z-10 mt-1 hidden text-center text-[10.5px] uppercase leading-tight tracking-[0.18em] text-brand-ivory/85 sm:mt-1.5 sm:inline-block sm:text-[11px] lg:text-[12px]">
                 8% Functional · 5% Technical · 43% Coding · 27% Testing / Release
               </span>
             </motion.div>
@@ -212,7 +212,7 @@ export function Panel4ExecutiveDiscovery() {
             <span className="font-display text-[14.5px] font-medium tracking-tight text-brand-ivory sm:text-[16px] lg:text-[17px]">
               {p.withDevinFlow.label}
             </span>
-            <span className="text-[10px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[10.5px] lg:text-[11px]">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[11.5px] lg:text-[12px]">
               {p.withDevinFlow.caption}
             </span>
           </div>
@@ -289,7 +289,7 @@ export function Panel4ExecutiveDiscovery() {
                 />
                 <span>{b}</span>
                 {i < p.withDevinFlow.bullets.length - 1 && (
-                  <span aria-hidden className="hidden text-brand-ivory/25 lg:inline">·</span>
+                  <span aria-hidden className="hidden text-brand-ivory/40 lg:inline">·</span>
                 )}
               </li>
             ))}
