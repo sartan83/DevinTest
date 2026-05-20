@@ -65,19 +65,22 @@ export function Panel2ExecutionGap() {
           </motion.div>
         )}
 
-        {/* Header — hero + single subline. No standalone metric
-            anywhere above the three hero cards. */}
+        {/* Header — hero only. The supporting subline has been
+            removed per user direction; the three value clocks below
+            now carry the operational context. */}
         <div className="flex flex-col gap-3 sm:gap-4">
           <PanelHeadline text={p.headline} />
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl text-[13px] leading-relaxed text-brand-ivory/75 sm:text-[15px] lg:text-[16px]"
-          >
-            {p.support}
-          </motion.p>
+          {p.support ? (
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-3xl text-[13px] leading-relaxed text-brand-ivory/75 sm:text-[15px] lg:text-[16px]"
+            >
+              {p.support}
+            </motion.p>
+          ) : null}
         </div>
 
         {/* Three hero cards — the visual center of the page.

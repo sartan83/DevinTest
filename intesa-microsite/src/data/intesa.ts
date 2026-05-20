@@ -429,12 +429,10 @@ export const intesa = {
     // descriptive milestone.
     headline:
       "The remaining 36% is where\nexecution risk concentrates.",
-    // Supporting line — anchors the three value clocks that all
-    // converge on the same operational constraint (SDLC execution
-    // capacity). Replaces the prior two-clock framing because the
-    // page now surfaces three clocks in the card cluster below.
-    support:
-      "Three value clocks now depend on the same constraint: SDLC execution capacity.",
+    // Supporting line removed per user direction — headline now
+    // stands alone and the three value clocks below provide the
+    // operational context without an extra subline.
+    support: "",
     // Current-state → target-state anchors flanking a tension zone.
     // The component renders 64% on the left, 36% as the gap in the
     // middle, and 2029 on the right as the deadline. ~100% is NOT
