@@ -391,7 +391,7 @@ export const intesa = {
     todayGoal: {
       label: "Today's Goal",
       text:
-        "Agree on the 4 weeks pilot to use Devin in a secure and defined environment.",
+        "Agree on a 4-week pilot to validate measurable impact in a secure, scoped environment.",
     },
     // Single executive discovery question rendered under the
     // agenda timeline. Anchors the agenda as a conversation
