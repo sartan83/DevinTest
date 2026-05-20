@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display } from "next/font/google";
+import { Outfit, Lora } from "next/font/google";
 import "./globals.css";
 
-const dmSans = DM_Sans({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-outfit",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
-const playfair = Playfair_Display({
+const lora = Lora({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -29,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${playfair.variable} antialiased bg-brand-green text-brand-ivory`}
+        className={`${outfit.variable} ${lora.variable} antialiased bg-brand-green text-brand-ivory`}
       >
         {children}
       </body>
