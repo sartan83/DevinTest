@@ -52,6 +52,27 @@ export function Panel1bAgenda() {
           ))}
         </div>
 
+        {p.todayGoal ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-brand-ivory/15 bg-brand-ivory/[0.04] px-5 py-4 sm:gap-2.5 sm:px-6 sm:py-5 lg:px-7 lg:py-6"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-y-3 left-0 w-[2px] rounded-full bg-brand-ivory/45"
+            />
+            <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-ivory/65 sm:text-[11px]">
+              {p.todayGoal.label}
+            </span>
+            <p className="font-display text-[16px] font-medium leading-snug text-brand-ivory sm:text-[18px] lg:text-[20px]">
+              {p.todayGoal.text}
+            </p>
+          </motion.div>
+        ) : null}
+
         {p.discoveryQuestion ? (
           <motion.div
             initial={{ opacity: 0, y: 10 }}

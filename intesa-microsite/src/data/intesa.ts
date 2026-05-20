@@ -362,7 +362,7 @@ export const intesa = {
       },
       {
         index: 2,
-        title: "Validation",
+        title: "Why Devin Now",
         helper: "Executive assumptions",
       },
       {
@@ -381,6 +381,18 @@ export const intesa = {
         helper: "Pilot decision",
       },
     ],
+    // Today's Goal — compact executive frame added per user
+    // direction. Sits above the Opening Question and below the
+    // 5-block agenda timeline. Reads as a single sentence commit
+    // for what the meeting must produce by the end. Visually
+    // similar pattern to the Opening Question but uses a calmer
+    // ivory-tinted treatment (not orange) so the two blocks read
+    // as a pair without competing chromatically.
+    todayGoal: {
+      label: "Today's Goal",
+      text:
+        "Agree on the 4 weeks plan to use Devin in a secure and defined environment.",
+    },
     // Single executive discovery question rendered under the
     // agenda timeline. Anchors the agenda as a conversation
     // opener and invites the buyer to define what matters most
@@ -451,20 +463,25 @@ export const intesa = {
     // hero value + label + small supporting note. Together they
     // surface the three clocks: cloud deadline, SDLC efficiency
     // ambition, isytech / cloud value capture.
+    //
+    // Order per user direction: SDLC efficiency ambition (€70M)
+    // leads, then Cloud migration deadline (64% / 36% / 2029),
+    // then Infra legacy reduction (€350M). Surfaces the SDLC
+    // value clock first because that is the lever Devin acts on.
     clocks: [
-      {
-        title: "Cloud migration deadline",
-        value: "64% → 36% → 2029",
-        label: "64% cloud-based today · 36% remaining · 2029 deadline",
-        note: "Execution risk concentrates in the remaining migration wave.",
-        tone: "deadline" as const,
-      },
       {
         title: "SDLC efficiency ambition",
         value: "~€70M",
         label: "Target by 2028",
         note: "15% SDLC efficiency ambition.",
         tone: "efficiency" as const,
+      },
+      {
+        title: "Cloud migration deadline",
+        value: "64% → 36% → 2029",
+        label: "64% cloud-based today · 36% remaining · 2029 deadline",
+        note: "Execution risk concentrates in the remaining migration wave.",
+        tone: "deadline" as const,
       },
       {
         title: "Infra legacy reduction",
