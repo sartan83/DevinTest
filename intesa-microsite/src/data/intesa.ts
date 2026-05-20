@@ -401,7 +401,7 @@ export const intesa = {
     // orange-tinted frame) — not a slide title, not a bullet,
     // not a long explanatory paragraph.
     discoveryQuestion:
-      "Before we go deeper, what would make this conversation most valuable for you today?",
+      "Before we go deeper, what would make this conversation most valuable for you today to give us the greenlight?",
     closing: "",
   },
 
