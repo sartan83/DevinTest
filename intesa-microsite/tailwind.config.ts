@@ -24,11 +24,11 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-dm-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
         display: [
           "var(--font-display)",
-          "ui-serif",
           "Georgia",
+          "ui-serif",
           "serif",
         ],
         mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
