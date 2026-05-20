@@ -40,9 +40,6 @@ export function Panel1bAgenda() {
               <h3 className="mt-2.5 font-display text-[15px] font-medium leading-snug text-brand-ivory sm:text-[17px] lg:text-[19px]">
                 {b.title}
               </h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-brand-ivory/80 sm:text-[14px] lg:text-[15px]">
-                {b.helper}
-              </p>
               {i < p.blocks.length - 1 && (
                 <span aria-hidden className="absolute right-3 top-4 hidden text-brand-ivory/40 lg:block">
                   →
