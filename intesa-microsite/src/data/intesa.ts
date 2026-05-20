@@ -391,7 +391,7 @@ export const intesa = {
     todayGoal: {
       label: "Today's Goal",
       text:
-        "Agree on the 4 weeks plan to use Devin in a secure and defined environment.",
+        "Agree on the 4 weeks pilot to use Devin in a secure and defined environment.",
     },
     // Single executive discovery question rendered under the
     // agenda timeline. Anchors the agenda as a conversation
@@ -1745,8 +1745,7 @@ export const intesa = {
     // depends on capacity, not strategy.
     headline:
       "The €70M SDLC efficiency target\ndepends on execution capacity.",
-    subhead:
-      "83% of SDLC effort sits across functional, technical, coding and testing/release — where work still moves too linearly.",
+    subhead: "",
     // Hero metric retired per user direction — the 70% anchor
     // is now carried by the bracket label above the SDLC bar
     // alone, so the slide leads with the €70M target headline

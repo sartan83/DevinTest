@@ -167,7 +167,7 @@ export function Panel4ExecutiveDiscovery() {
               <span className="relative z-10 font-display font-semibold leading-none tracking-tight text-[26px] text-brand-ivory sm:text-[34px] lg:text-[42px]">
                 83%
               </span>
-              <span className="relative z-10 mt-1 text-center font-display font-medium uppercase leading-tight tracking-[0.22em] text-[10.5px] text-brand-ivory sm:mt-1.5 sm:text-[12.5px] lg:text-[14px]">
+              <span className="relative z-10 mt-1 text-center font-display font-semibold uppercase leading-tight tracking-[0.22em] text-[18px] text-brand-ivory sm:mt-1.5 sm:text-[22px] lg:text-[26px]">
                 Near-term ROI zone
               </span>
               <span className="relative z-10 mt-1 hidden text-center text-[10px] uppercase leading-tight tracking-[0.18em] text-brand-ivory/80 sm:mt-1.5 sm:inline-block sm:text-[10.5px] lg:text-[11.5px]">
