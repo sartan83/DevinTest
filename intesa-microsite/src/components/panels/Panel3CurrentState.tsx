@@ -36,9 +36,9 @@ export function Panel3CurrentState() {
         />
       }
     >
-      <div className="flex flex-col gap-3 sm:gap-4 lg:gap-4">
+      <div className="flex flex-col gap-2.5 sm:gap-3 lg:gap-3">
         {/* Header — subline + hero */}
-        <div className="flex flex-col gap-1.5 sm:gap-2">
+        <div className="flex flex-col gap-1">
           <PanelHeadline text={p.headline} compact className="max-w-3xl" />
           <span className="max-w-3xl text-[13px] leading-snug text-brand-ivory/75 sm:text-[14px]">
             {p.discoveryIntro}
@@ -46,7 +46,7 @@ export function Panel3CurrentState() {
         </div>
 
         {/* 5-card initiative map — 1 / 2 / 5 col responsive grid */}
-        <ul className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5">
+        <ul className="grid gap-2 sm:grid-cols-2 sm:gap-2.5 lg:grid-cols-5">
           {p.estateCards.map((card, i) => (
             <motion.li
               key={card.key}
@@ -58,7 +58,7 @@ export function Panel3CurrentState() {
                 delay: 0.08 + i * 0.07,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="group relative flex min-w-0 flex-col gap-2 overflow-hidden rounded-xl border border-brand-ivory/18 bg-brand-green-mid/25 px-3.5 py-3 transition hover:border-brand-orange/35 hover:bg-brand-green-mid/35 sm:px-4 sm:py-3.5 lg:px-3.5 lg:py-3"
+              className="group relative flex min-w-0 flex-col gap-1.5 overflow-hidden rounded-xl border border-brand-ivory/18 bg-brand-green-mid/25 px-3 py-2.5 transition hover:border-brand-orange/35 hover:bg-brand-green-mid/35 sm:px-3.5 sm:py-3 lg:px-3 lg:py-2.5"
             >
               <span
                 aria-hidden
@@ -73,10 +73,10 @@ export function Panel3CurrentState() {
                   0{i + 1}
                 </span>
               </div>
-              <p className="font-display text-[14.5px] font-medium leading-[1.25] text-brand-ivory break-words sm:text-[15px] lg:text-[15.5px]">
+              <p className="font-display text-[13.5px] font-medium leading-[1.2] text-brand-ivory break-words sm:text-[14px] lg:text-[14.5px]">
                 {card.title}
               </p>
-              <p className="text-[12px] leading-relaxed text-brand-ivory/75 break-words sm:text-[12.5px]">
+              <p className="text-[11px] leading-snug text-brand-ivory/75 break-words sm:text-[11.5px]">
                 {card.note}
               </p>
             </motion.li>
@@ -90,12 +90,12 @@ export function Panel3CurrentState() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.55, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-1.5 rounded-xl border border-brand-ivory/16 bg-brand-ivory/[0.035] px-4 py-3 sm:px-5 sm:py-3.5"
+          className="flex flex-col gap-1 rounded-xl border border-brand-ivory/16 bg-brand-ivory/[0.035] px-4 py-2.5 sm:px-5 sm:py-3"
         >
           <span className="text-[11px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
             Live discovery
           </span>
-          <p className="font-display text-[16px] font-medium leading-[1.3] text-brand-ivory sm:text-[18px] lg:text-[20px]">
+          <p className="font-display text-[15px] font-medium leading-[1.3] text-brand-ivory sm:text-[16px] lg:text-[18px]">
             {p.estateQuestion}
           </p>
         </motion.div>
