@@ -521,7 +521,7 @@ export const intesa = {
     discoveryIntro:
       "This is where cloud migration turns into core modernization, legacy simplification, testing intensity and execution bottlenecks.",
     headline:
-      "The remaining 36% is the\nhard modernization estate.",
+      "The remaining 36% is the hard modernization estate.",
     // Five-card initiative map of the remaining 36%. Each card
     // names a concrete modernization estate Devin would land into.
     estateCards: [
