@@ -428,7 +428,7 @@ export const intesa = {
     // as the operational hard part of the migration, not as a
     // descriptive milestone.
     headline:
-      "The remaining 36% is where\nexecution risk concentrates.",
+      "The remaining 36% is where execution risk concentrates.",
     // Supporting line removed per user direction — headline now
     // stands alone and the three value clocks below provide the
     // operational context without an extra subline.

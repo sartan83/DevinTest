@@ -36,7 +36,7 @@ export function Panel2ExecutionGap() {
         />
       }
     >
-      <div className="flex h-full flex-col justify-center gap-8 sm:gap-10 lg:gap-12">
+      <div className="flex h-full flex-col justify-center gap-4 sm:gap-5 lg:gap-6">
         {/* Corporate objective — business-level frame added near
             the top of the section per user direction. Sits above
             the headline and the three strategic priority cards.
@@ -68,7 +68,7 @@ export function Panel2ExecutionGap() {
         {/* Header — hero only. The supporting subline has been
             removed per user direction; the three value clocks below
             now carry the operational context. */}
-        <div className="flex flex-col gap-3 sm:gap-4">
+        <div className="flex flex-col gap-2 sm:gap-2.5">
           <PanelHeadline text={p.headline} />
           {p.support ? (
             <motion.p
@@ -92,7 +92,7 @@ export function Panel2ExecutionGap() {
             full hero display size. All three share the same card
             chrome so they read as a single row of equal-weight clocks. */}
         {p.clocks && p.clocks.length > 0 && (
-          <div className="grid gap-4 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+          <div className="grid gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-4">
             {p.clocks.map((c, i) => {
               const isProgression = c.tone === "deadline";
               return (
@@ -106,7 +106,7 @@ export function Panel2ExecutionGap() {
                     delay: 0.25 + i * 0.1,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="relative flex min-w-0 flex-col gap-4 overflow-hidden rounded-2xl border border-brand-ivory/18 bg-brand-ivory/[0.04] px-5 py-6 sm:gap-5 sm:px-6 sm:py-7 lg:px-7 lg:py-8"
+                  className="relative flex min-w-0 flex-col gap-2.5 overflow-hidden rounded-2xl border border-brand-ivory/18 bg-brand-ivory/[0.04] px-4 py-4 sm:gap-3 sm:px-5 sm:py-5 lg:px-5 lg:py-5"
                 >
                   {/* Quiet orange top accent line — anchors the card
                       to the section's accent without overwhelming. */}
@@ -122,8 +122,8 @@ export function Panel2ExecutionGap() {
                       className={[
                         "font-display font-light leading-[1] tracking-tight text-brand-ivory",
                         isProgression
-                          ? "text-[28px] sm:text-[36px] lg:text-[40px] xl:text-[44px]"
-                          : "text-[44px] sm:text-[60px] lg:text-[68px] xl:text-[76px]",
+                          ? "text-[24px] sm:text-[30px] lg:text-[34px] xl:text-[38px]"
+                          : "text-[36px] sm:text-[48px] lg:text-[56px] xl:text-[60px]",
                       ].join(" ")}
                     >
                       {c.value}
