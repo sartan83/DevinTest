@@ -36,9 +36,9 @@ export function Panel3CurrentState() {
         />
       }
     >
-      <div className="flex flex-col gap-5 sm:gap-6">
+      <div className="flex flex-col gap-3 sm:gap-4 lg:gap-4">
         {/* Header — subline + hero */}
-        <div className="flex flex-col gap-2 sm:gap-2.5">
+        <div className="flex flex-col gap-1.5 sm:gap-2">
           <PanelHeadline text={p.headline} compact className="max-w-3xl" />
           <span className="max-w-3xl text-[13px] leading-snug text-brand-ivory/75 sm:text-[14px]">
             {p.discoveryIntro}
@@ -46,7 +46,7 @@ export function Panel3CurrentState() {
         </div>
 
         {/* 5-card initiative map — 1 / 2 / 5 col responsive grid */}
-        <ul className="grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-5">
+        <ul className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5">
           {p.estateCards.map((card, i) => (
             <motion.li
               key={card.key}
@@ -58,7 +58,7 @@ export function Panel3CurrentState() {
                 delay: 0.08 + i * 0.07,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="group relative flex min-w-0 flex-col gap-2.5 overflow-hidden rounded-2xl border border-brand-ivory/18 bg-brand-green-mid/25 px-4 py-4 transition hover:border-brand-orange/35 hover:bg-brand-green-mid/35 sm:px-4 sm:py-4 lg:px-4 lg:py-4.5"
+              className="group relative flex min-w-0 flex-col gap-2 overflow-hidden rounded-xl border border-brand-ivory/18 bg-brand-green-mid/25 px-3.5 py-3 transition hover:border-brand-orange/35 hover:bg-brand-green-mid/35 sm:px-4 sm:py-3.5 lg:px-3.5 lg:py-3"
             >
               <span
                 aria-hidden
@@ -90,7 +90,7 @@ export function Panel3CurrentState() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.55, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-1.5 rounded-2xl border border-brand-ivory/16 bg-brand-ivory/[0.035] px-4 py-4 sm:px-5 sm:py-4.5"
+          className="flex flex-col gap-1.5 rounded-xl border border-brand-ivory/16 bg-brand-ivory/[0.035] px-4 py-3 sm:px-5 sm:py-3.5"
         >
           <span className="text-[11px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[11.5px]">
             Live discovery
