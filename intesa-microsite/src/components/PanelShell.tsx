@@ -64,7 +64,7 @@ export function PanelShell({
         className={[
           "mx-auto flex w-full max-w-[1400px] flex-col overflow-y-auto px-5 sm:px-10 md:px-16 lg:px-24 md:justify-center",
           compact
-            ? "pb-10 pt-16 sm:pb-12 sm:pt-16 lg:pb-14 lg:pt-20"
+            ? "pb-10 pt-12 sm:pb-12 sm:pt-14 lg:pb-14 lg:pt-16"
             : "pb-16 pt-24 sm:pb-20 sm:pt-24",
           className ?? "",
         ].join(" ")}
@@ -73,7 +73,7 @@ export function PanelShell({
           <div
             className={[
               "flex items-center justify-between gap-4",
-              compact ? "mb-3" : "mb-6",
+              compact ? "mb-2" : "mb-6",
             ].join(" ")}
           >
             {eyebrow ? (
