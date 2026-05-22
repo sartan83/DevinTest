@@ -34,7 +34,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-5 max-w-3xl text-[14px] leading-relaxed text-brand-ivory/96 sm:mt-6 sm:text-[16px] lg:text-[17px]"
+          className="mt-5 max-w-3xl text-[14px] leading-relaxed text-brand-ivory/80 sm:mt-6 sm:text-[16px] lg:text-[17px]"
         >
           {p.subhead}
         </motion.p>
@@ -66,14 +66,14 @@ export function Panel12FinalAsk({ onCta }: Props) {
                 className={
                   isPrimary
                     ? "flex flex-col border-t-[1.5px] border-brand-orange/55 pt-5 sm:pt-6"
-                    : "flex flex-col border-t border-brand-ivory/25 pt-5 sm:pt-6"
+                    : "flex flex-col border-t border-brand-ivory/15 pt-5 sm:pt-6"
                 }
               >
                 <span
                   className={
                     isPrimary
-                      ? "text-[10.5px] uppercase tracking-[0.32em] text-brand-orange sm:text-[11px]"
-                      : "text-[10.5px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]"
+                      ? "text-[10px] uppercase tracking-[0.32em] text-brand-orange sm:text-[11px]"
+                      : "text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]"
                   }
                 >
                   {c.label}
@@ -82,7 +82,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
                   className={
                     isPrimary
                       ? "mt-3 font-display text-lg font-medium leading-snug text-brand-ivory sm:text-xl lg:text-[22px]"
-                      : "mt-3 text-[14px] leading-relaxed text-brand-ivory/94 sm:text-[15px] lg:text-[16px]"
+                      : "mt-3 text-[14px] leading-relaxed text-brand-ivory/85 sm:text-[15px] lg:text-[16px]"
                   }
                 >
                   {c.value}
@@ -101,9 +101,9 @@ export function Panel12FinalAsk({ onCta }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 flex w-full flex-col items-start gap-3 border-t border-brand-ivory/20 pt-5 text-left sm:mt-10 sm:flex-row sm:items-center sm:gap-5"
+          className="mt-8 flex w-full flex-col items-start gap-3 border-t border-brand-ivory/16 pt-5 text-left sm:mt-10 sm:flex-row sm:items-center sm:gap-5"
         >
-          <span className="shrink-0 text-[10.5px] uppercase tracking-[0.32em] text-brand-orange-soft sm:text-[11px]">
+          <span className="shrink-0 text-[10px] uppercase tracking-[0.32em] text-brand-orange-soft sm:text-[11px]">
             {p.actionBullets.label}
           </span>
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
@@ -118,7 +118,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
                   delay: 0.5 + i * 0.06,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/25 bg-brand-ivory/[0.04] px-2.5 py-1 text-[11px] leading-tight text-brand-ivory/94 sm:text-[12px]"
+                className="inline-flex items-center gap-1.5 rounded-full border border-brand-ivory/15 bg-brand-ivory/[0.04] px-2.5 py-1 text-[11px] leading-tight text-brand-ivory/85 sm:text-[12px]"
               >
                 <span
                   aria-hidden
@@ -138,7 +138,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
           transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="mt-8 w-full max-w-3xl rounded-2xl border border-devin-mid/40 bg-devin-mid/8 px-6 py-5 text-left sm:mt-10 sm:px-7 sm:py-6"
         >
-          <div className="text-[10.5px] uppercase tracking-[0.28em] text-devin-light sm:text-[11px]">
+          <div className="text-[10px] uppercase tracking-[0.28em] text-devin-light sm:text-[11px]">
             {p.strategicObjective.label}
           </div>
           <p className="mt-2 text-[15px] leading-snug text-brand-ivory sm:text-[17px] lg:text-[18px]">
@@ -150,7 +150,7 @@ export function Panel12FinalAsk({ onCta }: Props) {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-10">
             <button
               onClick={() => onCta(1)}
-              className="group inline-flex items-center gap-2 rounded-full border border-brand-ivory/20 px-5 py-3 text-sm font-medium text-brand-ivory/96 transition-all hover:border-brand-ivory/40 hover:bg-brand-ivory/5"
+              className="group inline-flex items-center gap-2 rounded-full border border-brand-ivory/20 px-5 py-3 text-sm font-medium text-brand-ivory/90 transition-all hover:border-brand-ivory/40 hover:bg-brand-ivory/5"
             >
               <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">←</span>
               <span>Back to opening</span>

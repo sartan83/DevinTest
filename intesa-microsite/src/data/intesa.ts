@@ -377,7 +377,7 @@ export const intesa = {
       },
       {
         index: 5,
-        title: "Rollout",
+        title: "4-week pilot",
         helper: "Pilot decision",
       },
     ],
@@ -391,7 +391,7 @@ export const intesa = {
     todayGoal: {
       label: "Today's Goal",
       text:
-        "Agree on the 4 weeks pilot to use Devin in a secure and defined environment.",
+        "Agree on a 4-week pilot to validate measurable impact in a secure, scoped environment.",
     },
     // Single executive discovery question rendered under the
     // agenda timeline. Anchors the agenda as a conversation
@@ -401,7 +401,7 @@ export const intesa = {
     // orange-tinted frame) — not a slide title, not a bullet,
     // not a long explanatory paragraph.
     discoveryQuestion:
-      "Before we go deeper, what would make this conversation most valuable for you today?",
+      "Before we go deeper, what would make this conversation most valuable for you today to give us the greenlight?",
     closing: "",
   },
 
@@ -428,7 +428,7 @@ export const intesa = {
     // as the operational hard part of the migration, not as a
     // descriptive milestone.
     headline:
-      "The remaining 36% is where\nexecution risk concentrates.",
+      "The remaining 36% is where execution risk concentrates.",
     // Supporting line removed per user direction — headline now
     // stands alone and the three value clocks below provide the
     // operational context without an extra subline.
@@ -521,7 +521,7 @@ export const intesa = {
     discoveryIntro:
       "This is where cloud migration turns into core modernization, legacy simplification, testing intensity and execution bottlenecks.",
     headline:
-      "The remaining 36% is the\nhard modernization estate.",
+      "The remaining 36% is the hard modernization estate.",
     // Five-card initiative map of the remaining 36%. Each card
     // names a concrete modernization estate Devin would land into.
     estateCards: [

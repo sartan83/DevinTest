@@ -36,16 +36,16 @@ export function Panel7TasksToOutcomes() {
                 "flex flex-col gap-3 rounded-2xl border px-5 py-5 sm:px-6 sm:py-6",
                 s.key === "realistic"
                   ? "border-brand-orange/35 bg-brand-orange/5"
-                  : "border-brand-ivory/25 bg-brand-green-mid/30",
+                  : "border-brand-ivory/15 bg-brand-green-mid/30",
               ].join(" ")}
             >
-              <div className="text-[10.5px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
+              <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
                 {s.title}
               </div>
               <div className="font-display text-[2rem] font-light leading-[1.05] text-brand-ivory sm:text-[2.6rem] lg:text-[3rem]">
                 {s.devDays}
               </div>
-              <div className="font-display text-[1.1rem] font-light leading-tight text-brand-ivory/94 sm:text-[1.4rem] lg:text-[1.6rem]">
+              <div className="font-display text-[1.1rem] font-light leading-tight text-brand-ivory/85 sm:text-[1.4rem] lg:text-[1.6rem]">
                 {s.devEquivalents}
               </div>
             </motion.div>
@@ -56,10 +56,10 @@ export function Panel7TasksToOutcomes() {
           <p className="font-display text-[15px] font-light leading-snug text-brand-ivory sm:text-[16px] lg:text-[17px]">
             {p.capacityRedeploymentLine}
           </p>
-          <p className="text-[11px] leading-snug text-brand-ivory/82 sm:text-[12px]">
+          <p className="text-[12px] leading-snug text-brand-ivory/70 sm:text-[12.5px]">
             {p.capacityCalcNote}
           </p>
-          <p className="text-[10.5px] leading-snug text-brand-ivory/70 sm:text-[11px]">
+          <p className="text-[11px] leading-snug text-brand-ivory/55 sm:text-[12px]">
             {p.capacityFootnote}
           </p>
         </div>

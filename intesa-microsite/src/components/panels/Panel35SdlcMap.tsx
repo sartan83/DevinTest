@@ -74,7 +74,7 @@ export function Panel35SdlcMap() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-3xl text-[12.5px] leading-relaxed text-brand-ivory/92 sm:text-[14px] lg:text-[15px]"
+              className="max-w-3xl text-[13px] leading-relaxed text-brand-ivory/80 sm:text-[14.5px] lg:text-[15.5px]"
             >
               {p.subhead}
             </motion.p>
@@ -100,7 +100,7 @@ export function Panel35SdlcMap() {
               {p.heroMetric.value}
             </span>
             {p.heroMetric.label && (
-              <span className="max-w-md text-[12.5px] uppercase tracking-[0.22em] text-brand-ivory/96 sm:text-[14px] lg:text-[15px]">
+              <span className="max-w-md text-[12.5px] uppercase tracking-[0.22em] text-brand-ivory/80 sm:text-[14px] lg:text-[15px]">
                 {p.heroMetric.label}
               </span>
             )}
@@ -138,7 +138,7 @@ export function Panel35SdlcMap() {
                       "linear-gradient(90deg, rgba(243,111,33,0.85) 0%, rgba(243,111,33,0.35) 100%)",
                   }}
                 />
-                <span className="whitespace-nowrap text-[10.5px] uppercase tracking-[0.28em] text-brand-orange-soft sm:text-[11px]">
+                <span className="whitespace-nowrap text-[11px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[12px]">
                   {p.zoneLabel}
                 </span>
                 <span
@@ -150,7 +150,7 @@ export function Panel35SdlcMap() {
                   }}
                 />
               </div>
-              <div className="text-[10.5px] uppercase tracking-[0.2em] text-brand-ivory/88 sm:text-[11px]">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-brand-ivory/75 sm:text-[12px]">
                 {p.zoneSubLabel}
               </div>
               <span
@@ -165,7 +165,7 @@ export function Panel35SdlcMap() {
           </div>
 
           {/* The bar itself */}
-          <div className="relative flex h-14 w-full overflow-hidden rounded-xl border border-brand-ivory/20 bg-brand-green-deep/55 sm:h-16 lg:h-20">
+          <div className="relative flex h-14 w-full overflow-hidden rounded-xl border border-brand-ivory/16 bg-brand-green-deep/55 sm:h-16 lg:h-20">
             {segments.map((s, i) => {
               const isCore = s.zone === "core";
               const isAssisted = s.zone === "assisted";
@@ -193,7 +193,7 @@ export function Panel35SdlcMap() {
                   }}
                   className={[
                     "relative flex h-full items-center justify-center overflow-hidden",
-                    isOrange ? "" : "border-r border-brand-ivory/20 last:border-r-0",
+                    isOrange ? "" : "border-r border-brand-ivory/10 last:border-r-0",
                   ].join(" ")}
                   style={{ background }}
                 >
@@ -221,8 +221,8 @@ export function Panel35SdlcMap() {
                       isCore
                         ? "text-[22px] text-brand-ivory sm:text-[28px] lg:text-[34px]"
                         : isAssisted
-                        ? "text-[16px] text-brand-ivory/96 sm:text-[18px] lg:text-[22px]"
-                        : "text-[14px] text-brand-ivory/92 sm:text-[16px] lg:text-[18px]",
+                        ? "text-[16px] text-brand-ivory/90 sm:text-[18px] lg:text-[22px]"
+                        : "text-[14px] text-brand-ivory/80 sm:text-[16px] lg:text-[18px]",
                     ].join(" ")}
                   >
                     {s.value}%
@@ -249,12 +249,12 @@ export function Panel35SdlcMap() {
                 >
                   <span
                     className={[
-                      "text-[10px] uppercase leading-tight tracking-[0.18em] sm:text-[10.5px]",
+                      "text-[10.5px] uppercase leading-tight tracking-[0.18em] sm:text-[11.5px]",
                       isCore
-                        ? "text-brand-ivory/96"
+                        ? "text-brand-ivory/95"
                         : isAssisted
-                        ? "text-brand-ivory/96"
-                        : "text-brand-ivory/75",
+                        ? "text-brand-ivory/80"
+                        : "text-brand-ivory/60",
                     ].join(" ")}
                   >
                     {s.label}
@@ -262,10 +262,10 @@ export function Panel35SdlcMap() {
                   {s.subLabel && (
                     <span
                       className={[
-                        "text-[8.5px] uppercase leading-tight tracking-[0.22em] sm:text-[10.5px]",
+                        "text-[10px] uppercase leading-tight tracking-[0.22em] sm:text-[10.5px]",
                         isCore
                           ? "text-brand-orange-soft"
-                          : "text-brand-orange-soft/88",
+                          : "text-brand-orange-soft/85",
                       ].join(" ")}
                     >
                       {s.subLabel}
@@ -295,32 +295,32 @@ export function Panel35SdlcMap() {
                   delay: 0.7,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="relative flex min-w-0 flex-col gap-3 rounded-2xl border border-brand-ivory/22 bg-brand-green-deep/55 px-4 py-4 sm:gap-3.5 sm:px-5 sm:py-5"
+                className="relative flex min-w-0 flex-col gap-3 rounded-2xl border border-brand-ivory/18 bg-brand-green-deep/55 px-4 py-4 sm:gap-3.5 sm:px-5 sm:py-5"
               >
-                <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-ivory/82 sm:text-[11px]">
+                <span className="text-[11.5px] uppercase tracking-[0.26em] text-brand-ivory/70 sm:text-[12px]">
                   {p.currentPain.title}
                 </span>
                 <ul className="flex flex-col gap-1.5 sm:gap-2">
                   {p.currentPain.items.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2.5 leading-snug text-brand-ivory/96 text-[12.5px] sm:text-[13.5px] lg:text-[14px]"
+                      className="flex items-start gap-2.5 leading-snug text-brand-ivory/82 text-[12.5px] sm:text-[13.5px] lg:text-[14px]"
                     >
                       <span
                         aria-hidden
-                        className="mt-[6px] inline-block h-1 w-1 shrink-0 rounded-full bg-brand-ivory/40"
+                        className="mt-[6px] inline-block h-1 w-1 shrink-0 rounded-full bg-brand-ivory/55"
                       />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
                 {p.currentPain.label && (
-                  <div className="mt-auto flex items-start gap-2.5 rounded-md border border-brand-ivory/22 bg-brand-ivory/[0.03] px-3.5 py-2.5">
+                  <div className="mt-auto flex items-start gap-2.5 rounded-md border border-brand-ivory/12 bg-brand-ivory/[0.03] px-3.5 py-2.5">
                     <span
                       aria-hidden
                       className="mt-[7px] inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange/85"
                     />
-                    <span className="font-display text-[12.5px] italic leading-snug text-brand-ivory/96 sm:text-[13.5px] lg:text-[14px]">
+                    <span className="font-display text-[12.5px] italic leading-snug text-brand-ivory/90 sm:text-[13.5px] lg:text-[14px]">
                       {p.currentPain.label}
                     </span>
                   </div>
@@ -341,7 +341,7 @@ export function Panel35SdlcMap() {
                 className="relative flex min-w-0 flex-col justify-center gap-2.5 rounded-2xl border border-brand-orange/35 bg-brand-orange/[0.05] px-4 py-4 shadow-[0_12px_36px_-22px_rgba(243,111,33,0.55)] sm:gap-3 sm:px-5 sm:py-5"
               >
                 {p.devinBridge.question && (
-                  <span className="text-[10.5px] uppercase tracking-[0.3em] text-brand-orange sm:text-[11px]">
+                  <span className="text-[11.5px] uppercase tracking-[0.26em] text-brand-orange sm:text-[12px]">
                     {p.devinBridge.question}
                   </span>
                 )}
@@ -352,7 +352,7 @@ export function Panel35SdlcMap() {
                     // promotes to an executive tension question:
                     // display weight, slightly larger, italic.
                     p.devinBridge.question
-                      ? "text-[12.5px] leading-relaxed text-brand-ivory/94 sm:text-[13.5px] lg:text-[14px]"
+                      ? "text-[12.5px] leading-relaxed text-brand-ivory/85 sm:text-[13.5px] lg:text-[14px]"
                       : "font-display text-[15px] italic text-brand-ivory/95 sm:text-[16.5px] lg:text-[18px]",
                   ].join(" ")}
                 >
@@ -363,7 +363,7 @@ export function Panel35SdlcMap() {
                     {p.devinBridge.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center rounded-full border border-brand-orange/35 bg-brand-orange/[0.06] px-2.5 py-0.5 text-[10.5px] uppercase tracking-[0.24em] text-brand-orange-soft sm:text-[10.5px]"
+                        className="inline-flex items-center rounded-full border border-brand-orange/35 bg-brand-orange/[0.06] px-2.5 py-0.5 text-[11px] uppercase tracking-[0.22em] text-brand-orange-soft sm:text-[11.5px]"
                       >
                         {tag}
                       </span>
@@ -382,7 +382,7 @@ export function Panel35SdlcMap() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.92, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[10.5px] uppercase tracking-[0.22em] text-brand-ivory/75 sm:text-[11.5px]"
+            className="text-[11.5px] uppercase tracking-[0.22em] text-brand-ivory/60 sm:text-[12px]"
           >
             {p.deliveryMathNote}
           </motion.div>
@@ -396,14 +396,14 @@ export function Panel35SdlcMap() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-2.5 border-t border-brand-ivory/20 pt-4 sm:pt-5"
+          className="flex flex-col gap-2.5 border-t border-brand-ivory/16 pt-4 sm:pt-5"
         >
           {p.devinRelevance && (
-            <p className="max-w-3xl text-[12.5px] italic leading-relaxed text-brand-ivory/96 sm:text-[13.5px] lg:text-[15px]">
+            <p className="max-w-3xl text-[12.5px] italic leading-relaxed text-brand-ivory/75 sm:text-[13.5px] lg:text-[15px]">
               {p.devinRelevance}
             </p>
           )}
-          <span className="text-[10.5px] uppercase tracking-[0.24em] text-brand-ivory/70 sm:text-[11px]">
+          <span className="text-[11px] uppercase tracking-[0.22em] text-brand-ivory/55 sm:text-[12px]">
             {p.source}
           </span>
         </motion.div>

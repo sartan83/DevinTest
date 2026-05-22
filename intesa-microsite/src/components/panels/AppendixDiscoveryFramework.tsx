@@ -15,7 +15,7 @@ export function AppendixDiscoveryFramework() {
       <div className="flex flex-col gap-7 sm:gap-9">
         <div className="max-w-3xl">
           <PanelHeadline text={p.headline} className="text-2xl sm:text-4xl lg:text-5xl" />
-          <p className="mt-4 text-sm leading-relaxed text-brand-ivory/92 sm:text-base">
+          <p className="mt-4 text-sm leading-relaxed text-brand-ivory/70 sm:text-base">
             {p.intro}
           </p>
         </div>
@@ -38,7 +38,7 @@ export function AppendixDiscoveryFramework() {
                   "group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.22em] transition-all sm:text-xs",
                   selected
                     ? "border-brand-orange/50 bg-brand-orange/15 text-brand-ivory shadow-elev"
-                    : "border-brand-ivory/25 bg-brand-green-deep/40 text-brand-ivory/92 hover:border-brand-ivory/30 hover:text-brand-ivory",
+                    : "border-brand-ivory/15 bg-brand-green-deep/40 text-brand-ivory/70 hover:border-brand-ivory/30 hover:text-brand-ivory",
                 ].join(" ")}
               >
                 <span
@@ -62,7 +62,7 @@ export function AppendixDiscoveryFramework() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="grid gap-6 rounded-2xl border border-brand-ivory/20 bg-brand-green-mid/25 p-6 sm:p-8 lg:grid-cols-[1.4fr_1fr] lg:gap-10"
+            className="grid gap-6 rounded-2xl border border-brand-ivory/16 bg-brand-green-mid/25 p-6 sm:p-8 lg:grid-cols-[1.4fr_1fr] lg:gap-10"
           >
             <div>
               <h3 className="font-display text-xl font-light leading-snug text-brand-ivory sm:text-2xl">
@@ -72,12 +72,12 @@ export function AppendixDiscoveryFramework() {
                 {active.questions.map((q, i) => (
                   <li
                     key={q}
-                    className="flex gap-3 rounded-xl border border-brand-ivory/28 bg-brand-green-deep/40 px-4 py-3 sm:px-5 sm:py-4"
+                    className="flex gap-3 rounded-xl border border-brand-ivory/8 bg-brand-green-deep/40 px-4 py-3 sm:px-5 sm:py-4"
                   >
                     <span className="font-display text-sm font-semibold text-brand-orange-soft">
                       Q{i + 1}.
                     </span>
-                    <span className="text-sm leading-relaxed text-brand-ivory/94 sm:text-[15px]">
+                    <span className="text-sm leading-relaxed text-brand-ivory/85 sm:text-[15px]">
                       {q}
                     </span>
                   </li>
@@ -86,17 +86,17 @@ export function AppendixDiscoveryFramework() {
             </div>
 
             <aside className="flex flex-col rounded-xl border border-brand-orange/25 bg-brand-orange/5 px-4 py-4 sm:px-5 sm:py-5">
-              <div className="text-[10.5px] uppercase tracking-[0.28em] text-brand-orange-soft/97">
+              <div className="text-[10px] uppercase tracking-[0.28em] text-brand-orange-soft/90">
                 Listening for
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-brand-ivory/96">
+              <p className="mt-2 text-sm leading-relaxed text-brand-ivory/80">
                 {active.listening}
               </p>
             </aside>
           </motion.div>
         </AnimatePresence>
 
-        <p className="max-w-3xl text-sm leading-relaxed text-brand-ivory/96 sm:text-base">
+        <p className="max-w-3xl text-sm leading-relaxed text-brand-ivory/75 sm:text-base">
           {p.transition}
         </p>
       </div>

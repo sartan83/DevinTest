@@ -64,7 +64,7 @@ export function PanelShell({
         className={[
           "mx-auto flex w-full max-w-[1400px] flex-col overflow-y-auto px-5 sm:px-10 md:px-16 lg:px-24 md:justify-center",
           compact
-            ? "pb-10 pt-16 sm:pb-12 sm:pt-16 lg:pb-14 lg:pt-20"
+            ? "pb-10 pt-12 sm:pb-12 sm:pt-14 lg:pb-14 lg:pt-16"
             : "pb-16 pt-24 sm:pb-20 sm:pt-24",
           className ?? "",
         ].join(" ")}
@@ -73,7 +73,7 @@ export function PanelShell({
           <div
             className={[
               "flex items-center justify-between gap-4",
-              compact ? "mb-3" : "mb-6",
+              compact ? "mb-2" : "mb-6",
             ].join(" ")}
           >
             {eyebrow ? (
@@ -97,13 +97,13 @@ export function PanelShell({
                     "uppercase",
                     isLgEyebrow
                       ? "font-display font-medium text-[15px] tracking-[0.28em] sm:text-[17px] lg:text-[19px]"
-                      : "text-[11px] tracking-[0.32em]",
+                      : "text-[12px] tracking-[0.28em]",
                     tone === "dark"
                       ? isLgEyebrow
-                        ? "text-brand-ivory/96"
+                        ? "text-brand-ivory/90"
                         : "text-brand-ivory/75"
                       : isLgEyebrow
-                        ? "text-brand-charcoal/96"
+                        ? "text-brand-charcoal/90"
                         : "text-brand-charcoal/75",
                   ].join(" ")}
                 >
@@ -129,30 +129,20 @@ export function PanelHeadline({
   tone = "dark",
   className,
   compact = false,
-  size,
 }: {
   text: string;
   tone?: "dark" | "ivory";
   className?: string;
   /** Compact reduces font scale by ~25% for dense panels. */
   compact?: boolean;
-  /** Optional explicit size override that wins over `compact`.
-   * - "md" sits between default and compact; useful when the default
-   *   scale is slightly too dominant for a panel but compact is too
-   *   tight (e.g. the SDLC operating-model page). */
-  size?: "md";
 }) {
-  const sizeClass =
-    size === "md"
-      ? "text-[1.65rem] sm:text-[2.4rem] lg:text-[3.25rem]"
-      : compact
-        ? "text-2xl sm:text-3xl lg:text-[2.5rem]"
-        : "text-3xl sm:text-5xl lg:text-6xl";
   return (
     <h2
       className={[
         "font-display font-light leading-[1.05] tracking-displaytight text-balance",
-        sizeClass,
+        compact
+          ? "text-2xl sm:text-3xl lg:text-[2.5rem]"
+          : "text-3xl sm:text-5xl lg:text-6xl",
         tone === "dark" ? "text-brand-ivory" : "text-brand-charcoal",
         className ?? "",
       ].join(" ")}
@@ -184,7 +174,7 @@ export function PanelSubhead({
     <p
       className={[
         "mt-4 max-w-3xl text-pretty text-sm leading-relaxed sm:mt-5 sm:text-base lg:text-lg",
-        tone === "dark" ? "text-brand-ivory/82" : "text-brand-charcoal/82",
+        tone === "dark" ? "text-brand-ivory/80" : "text-brand-charcoal/80",
         className ?? "",
       ].join(" ")}
     >
@@ -204,7 +194,7 @@ export function PanelClosing({
     <div
       className={[
         "mt-10 flex items-center gap-4",
-        tone === "dark" ? "text-brand-ivory/92" : "text-brand-charcoal/92",
+        tone === "dark" ? "text-brand-ivory/80" : "text-brand-charcoal/80",
       ].join(" ")}
     >
       <span
