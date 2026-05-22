@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { intesa } from "../data/intesa";
 import { ExecutiveCounter } from "./ExecutiveCounter";
+import { LiveClock } from "./LiveClock";
 import { ProgressBar } from "./ProgressBar";
 import { Panel0Welcome } from "./panels/Panel0Welcome";
 import { Panel1Opening } from "./panels/Panel1Opening";
@@ -295,14 +296,12 @@ export function MicrositeShell() {
       {/* Top bar */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-3 px-4 pt-3 sm:gap-6 sm:px-8 sm:pt-6 md:px-12">
         <div className="pointer-events-auto flex items-center gap-2.5 sm:gap-3">
-          {/* Top-left Intesa Sanpaolo logo retired per user
-              direction. The session label now reads as the sole
-              left-aligned header caption; the brand mark lives
-              on a per-panel basis (top-right headerRight slot)
-              on the Current State / 36% panels. */}
-          <span className="text-xs font-medium text-brand-ivory sm:text-sm">
-            {intesa.brand.sessionLabel}
-          </span>
+          {/* Top-left header slot: live UK clock (HH:MM,
+              Europe/London, auto-refresh ~30s). Replaces the
+              static session label per user direction — a subtle
+              live timestamp anchors the executive context without
+              dominating the chrome. */}
+          <LiveClock />
         </div>
 
         <div className="pointer-events-auto flex items-start gap-2 sm:gap-3">
