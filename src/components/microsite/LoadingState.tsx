@@ -8,11 +8,11 @@ interface LoadingStateProps {
 }
 
 const steps = [
-  { status: "researching", label: "Researching company from public sources" },
-  { status: "mapping", label: "Mapping value opportunities" },
-  { status: "calculating", label: "Building ROI model" },
-  { status: "generating", label: "Generating personalized content" },
-  { status: "complete", label: "Microsite ready" },
+  { status: "researching", label: "Researching your company from public sources" },
+  { status: "mapping", label: "Identifying value opportunities for your team" },
+  { status: "calculating", label: "Building your personalized ROI model" },
+  { status: "generating", label: "Creating your impact report" },
+  { status: "complete", label: "Your report is ready" },
 ];
 
 export function LoadingState({ progress }: LoadingStateProps) {
@@ -25,7 +25,7 @@ export function LoadingState({ progress }: LoadingStateProps) {
           <div className="w-8 h-8 border-3 border-[#317CFF] border-t-transparent rounded-full animate-spin" />
         </div>
         <h2 className="text-xl font-semibold text-white mb-2">
-          Generating your microsite
+          Analyzing your company
         </h2>
         <p className="text-sm text-gray-400">{progress.message}</p>
       </div>
